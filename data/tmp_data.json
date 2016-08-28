@@ -1,0 +1,488 @@
+{
+ "Digital Chaos": [
+  {
+   "name": "Roman Fominok",
+   "nick": "Resolut1on",
+   "account_id": 86725175
+  },
+  {
+   "name": "Aliwi Omar",
+   "nick": "w33",
+   "account_id": 86700461
+  },
+  {
+   "name": "David Hull",
+   "nick": "Moo",
+   "account_id": 84429681
+  },
+  {
+   "name": "Martin Sazdov",
+   "nick": "Saksa",
+   "account_id": 103735745
+  },
+  {
+   "name": "Rasmus Filipsen",
+   "nick": "MiSeRy",
+   "account_id": 87382579 
+  }
+ ],
+ "OG": [
+  {
+   "name": "Johan Sundstein",
+   "nick": "N0tail",
+   "account_id": 19672354
+  },
+  {
+   "name": "Amer Barqawi",
+   "nick": "Miracle-",
+   "account_id": 105248644
+  },
+  {
+   "name": "David Tan",
+   "nick": "MoonMeander",
+   "account_id": 38628747
+  },
+  {
+   "name": "Andreas Nielsen",
+   "nick": "Cr1t-",
+   "account_id": 25907144
+  },
+  {
+   "name": "Tal Aizik",
+   "nick": "Fly",
+   "account_id": 100841499
+  }
+ ],
+ "Newbee": [
+  {
+   "name": "Chen Zhihao",
+   "nick": "Hao",
+   "account_id": 88508515
+  },
+  {
+   "name": "Zhang Pan",
+   "nick": "Mu",
+   "account_id": 89157606
+  },
+  {
+   "name": "Damien Chok",
+   "nick": "kpii",
+   "account_id": 87012746
+  },
+  {
+   "name": "Wong Hock Chuan",
+   "nick": "ChuaN",
+   "account_id": 88553213
+  },
+  {
+   "name": "Hu Liangzhi",
+   "nick": "Kaka",
+   "account_id": 139876032
+  }
+ ],
+ "Secret": [
+  {
+   "name": "Jacky Mao",
+   "nick": "EternaLEnVy",
+   "account_id": 43276219
+  },
+  {
+   "name": "Artour Babaev",
+   "nick": "Arteezy",
+   "account_id": 86745912
+  },
+  {
+   "name": "Kanishka Sosale",
+   "nick": "BuLba",
+   "account_id": 30237211
+  },
+  {
+   "name": "Clement Ivanov",
+   "nick": "Puppey",
+   "account_id": 87278757
+  },
+  {
+   "name": "Johan \u00c5str\u00f6m",
+   "nick": "pieliedie",
+   "account_id": 5390881
+  }
+ ],
+ "Wings": [
+  {
+   "name": "Chu Zeyu",
+   "nick": "Shadow",
+   "account_id": 129585121
+  },
+  {
+   "name": "Zhou Yang",
+   "nick": "bLink",
+   "account_id": 101586543
+  },
+  {
+   "name": "Zhang Ruida",
+   "nick": "Faith_bian",
+   "account_id": 118134220
+  },
+  {
+   "name": "Zhang Yiping",
+   "nick": "Innocence",
+   "account_id": 111114687
+  },
+  {
+   "name": "Li Peng",
+   "nick": "iceice",
+   "account_id": 102644565
+  }
+ ],
+ "Vici Gaming Reborn": [
+  {
+   "name": "Yang Pu",
+   "nick": "END",
+   "account_id": 139280377
+  },
+  {
+   "name": "Wang Xin",
+   "nick": "Nono",
+   "account_id": 80929738
+  },
+  {
+   "name": "Tong Junjie",
+   "nick": "Mikasa",
+   "account_id": 108484186
+  },
+  {
+   "name": "Xu Linsen",
+   "nick": "Fy",
+   "account_id": 101695162
+  },
+  {
+   "name": "Leong Fat-meng",
+   "nick": "DDC",
+   "account_id": 139937922
+  }
+ ],
+ "MVP Phoenix": [
+  {
+   "name": "Pyo No-a",
+   "nick": "MP",
+   "account_id": 101450083
+  },
+  {
+   "name": "Kim Seon-yeob",
+   "nick": "QO",
+   "account_id": 93119769
+  },
+  {
+   "name": "Lee Sang-don",
+   "nick": "Forev",
+   "account_id": 88933594
+  },
+  {
+   "name": "Kim Yong-min",
+   "nick": "Febby",
+   "account_id": 112377459
+  },
+  {
+   "name": "Kim Doo-young",
+   "nick": "DuBu",
+   "account_id": 145550466
+  }
+ ],
+ "EHOME": [
+  {
+   "name": "Daryl Koh Pei Xiang",
+   "nick": "iceiceice",
+   "account_id": 84772440
+  },
+  {
+   "name": "Wang Zhiyong",
+   "nick": "old chicken",
+   "account_id": 135878232
+  },
+  {
+   "name": "Ren Yangwei",
+   "nick": "eLeVeN",
+   "account_id": 134276083
+  },
+  {
+   "name": "Zhang Zhicheng",
+   "nick": "LaNm",
+   "account_id": 89423756
+  },
+  {
+   "name": "Lu Chao",
+   "nick": "Fenrir",
+   "account_id": 109758944
+  }
+ ],
+ "LGD": [
+  {
+   "name": "Sun Zheng",
+   "nick": "Agressif",
+   "account_id": 130416036
+  },
+  {
+   "name": "Lu Yao",
+   "nick": "Maybe",
+   "account_id": 106863163
+  },
+  {
+   "name": "Zhang Ning",
+   "nick": "xiao8",
+   "account_id": 98887913
+  },
+  {
+   "name": "Wang Jiao",
+   "nick": "Banana",
+   "account_id": 89217927
+  },
+  {
+   "name": "Lei Zengrong",
+   "nick": "MMY!",
+   "account_id": 89407113
+  }
+ ],
+ "EG": [
+  {
+   "name": "Clinton Loomis",
+   "nick": "Fear",
+   "account_id": 87177591
+  },
+  {
+   "name": "Syed Sumail Hassan",
+   "nick": "SumaiL",
+   "account_id": 111620041
+  },
+  {
+   "name": "Saahil Arora",
+   "nick": "UNiVeRsE",
+   "account_id": 87276347
+  },
+  {
+   "name": "Ludwig W\u00e5hlberg",
+   "nick": "zai",
+   "account_id": 73562326
+  },
+  {
+   "name": "Peter Dager",
+   "nick": "ppd",
+   "account_id": 86727555
+  }
+ ],
+ "TNC": [
+  {
+   "name": "Marc Polo Luis Fausto",
+   "nick": "Raven",
+   "account_id": 132309493
+  },
+  {
+   "name": "Carlo Palad",
+   "nick": "Kuku",
+   "account_id": 184950344
+  },
+  {
+   "name": "Samson Solomon Enojosa Hidalgo",
+   "nick": "Sam_H",
+   "account_id": 187619311
+  },
+  {
+   "name": "Nico Manalaysay Barcelon",
+   "nick": "eyyou",
+   "account_id": 173476224
+  },
+  {
+   "name": "Jimmy Ho",
+   "nick": "DeMoN",
+   "account_id": 85805514
+  }
+ ],
+ "compLexity": [
+  {
+   "name": "Rasmus Blomdin",
+   "nick": "Chessie",
+   "account_id": 172424257
+  },
+  {
+   "name": "Linus Blomdin",
+   "nick": "Limmp",
+   "account_id": 12231202
+  },
+  {
+   "name": "Kyle Freedman",
+   "nick": "swindlemelonzz",
+   "account_id": 49317728
+  },
+  {
+   "name": "Zakari Freedman",
+   "nick": "Zfreek",
+   "account_id": 50828662
+  },
+  {
+   "name": "Simon Haag",
+   "nick": "Handsken",
+   "account_id": 28291366
+  }
+ ],
+ "Fnatic": [
+  {
+   "name": "Chai Yee Fung",
+   "nick": "Mushi",
+   "account_id": 89871557
+  },
+  {
+   "name": "Yeik Zheng Nai",
+   "nick": "MidOne",
+   "account_id": 116585378
+  },
+  {
+   "name": "Chong Xin Khoo",
+   "nick": "Ohaiyo",
+   "account_id": 93616251
+  },
+  {
+   "name": "Djardel Jicko Mampusti",
+   "nick": "DJ",
+   "account_id": 102099826
+  },
+  {
+   "name": "Adam Erwann Shah",
+   "nick": "343",
+   "account_id": 66189266
+  }
+ ],
+ "Escape Gaming": [
+  {
+   "name": "Adrian Kryeziu",
+   "nick": "Era",
+   "account_id": 100317750
+  },
+  {
+   "name": "Max Broecker",
+   "nick": "qojqva",
+   "account_id": 86738694
+  },
+  {
+   "name": "Maurice Gutmann",
+   "nick": "KheZu~",
+   "account_id": 169025618
+  },
+  {
+   "name": "Yazied Jaradat",
+   "nick": "YapzOr",
+   "account_id": 89117038
+  },
+  {
+   "name": "Troels Nielsen",
+   "nick": "syndereN",
+   "account_id": 4281729
+  }
+ ],
+ "Execration": [
+  {
+   "name": "Fernando Mendoza",
+   "nick": "Nando",
+   "account_id": 180012313
+  },
+  {
+   "name": "Abed Yusop",
+   "nick": "Abed",
+   "account_id": 154715080
+  },
+  {
+   "name": "Ralph Penano",
+   "nick": "RR",
+   "account_id": 323792491
+  },
+  {
+   "name": "Timothy Randrup",
+   "nick": "Tims",
+   "account_id": 155494381
+  },
+  {
+   "name": "Kimuel Rodis",
+   "nick": "Kim0",
+   "account_id": 152545459
+  }
+ ],
+ "Alliance": [
+  {
+   "name": "Jonathan Berg",
+   "nick": "Loda",
+   "account_id": 101495620
+  },
+  {
+   "name": "Gustav Magnusson",
+   "nick": "s4",
+   "account_id": 41231571
+  },
+  {
+   "name": "Henrik Ahnberg",
+   "nick": "AdmiralBulldog",
+   "account_id": 76482434
+  },
+  {
+   "name": "Joakim Akterhall",
+   "nick": "Akke",
+   "account_id": 41288955
+  },
+  {
+   "name": "Jerry Lundkvist",
+   "nick": "EGM",
+   "account_id": 3916428
+  }
+ ],
+ "Team Liquid": [
+  {
+   "name": "Lasse Urpalainen",
+   "nick": "MATUMBAMAN",
+   "account_id": 72312627
+  },
+  {
+   "name": "Adrian Trinks",
+   "nick": "FATA-",
+   "account_id": 86799300
+  },
+  {
+   "name": "Ivan Borislavov",
+   "nick": "MinD_ContRoL",
+   "account_id": 34505203
+  },
+  {
+   "name": "Kuro Salehi Takhasomi",
+   "nick": "KuroKy",
+   "account_id": 82262664
+  },
+  {
+   "name": "Jesse Vainikka",
+   "nick": "JerAx",
+   "account_id": 113439358
+  }
+ ],
+ "Na`Vi": [
+  {
+   "name": "Dmitry Minenkov",
+   "nick": "Ditya Ra",
+   "account_id": 169181898
+  },
+  {
+   "name": "Danil Ishutin",
+   "nick": "Dendi",
+   "account_id": 70388657
+  },
+  {
+   "name": "Victor Nigrini",
+   "nick": "GeneraL",
+   "account_id": 89550641
+  },
+  {
+   "name": "Ivan Antonov",
+   "nick": "Artstyle",
+   "account_id": 176184718
+  },
+  {
+   "name": "Akbar Butaev",
+   "nick": "SoNNeikO",
+   "account_id": 89625472
+  }
+ ]
+}

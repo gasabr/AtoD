@@ -1,0 +1,398 @@
+{
+ "MVP Phoenix": [
+  {
+   "nick": "MP",
+   "name": "Pyo No-a"
+  },
+  {
+   "nick": "QO",
+   "name": "Kim Seon-yeob"
+  },
+  {
+   "nick": "Forev",
+   "name": "Lee Sang-don"
+  },
+  {
+   "nick": "Febby",
+   "name": "Kim Yong-min"
+  },
+  {
+   "nick": "DuBu",
+   "name": "Kim Doo-young"
+  }
+ ],
+ "EHOME": [
+  {
+   "nick": "iceiceice",
+   "name": "Daryl Koh Pei Xiang"
+  },
+  {
+   "nick": "old chicken",
+   "name": "Wang Zhiyong"
+  },
+  {
+   "nick": "eLeVeN",
+   "name": "Ren Yangwei"
+  },
+  {
+   "nick": "LaNm",
+   "name": "Zhang Zhicheng"
+  },
+  {
+   "nick": "Fenrir",
+   "name": "Lu Chao"
+  }
+ ],
+ "Na`Vi": [
+  {
+   "nick": "Ditya Ra",
+   "name": "Dmitry Minenkov"
+  },
+  {
+   "nick": "Dendi",
+   "name": "Danil Ishutin"
+  },
+  {
+   "nick": "GeneraL",
+   "name": "Victor Nigrini"
+  },
+  {
+   "nick": "Artstyle",
+   "name": "Ivan Antonov"
+  },
+  {
+   "nick": "SoNNeikO",
+   "name": "Akbar Butaev"
+  }
+ ],
+ "Newbee": [
+  {
+   "nick": "Hao",
+   "name": "Chen Zhihao"
+  },
+  {
+   "nick": "Mu",
+   "name": "Zhang Pan"
+  },
+  {
+   "nick": "kpii",
+   "name": "Damien Chok"
+  },
+  {
+   "nick": "ChuaN",
+   "name": "Wong Hock Chuan"
+  },
+  {
+   "nick": "Kaka",
+   "name": "Hu Liangzhi"
+  }
+ ],
+ "compLexity": [
+  {
+   "nick": "Chessie",
+   "name": "Rasmus Blomdin"
+  },
+  {
+   "nick": "Limmp",
+   "name": "Linus Blomdin"
+  },
+  {
+   "nick": "swindlemelonzz",
+   "name": "Kyle Freedman"
+  },
+  {
+   "nick": "Zfreek",
+   "name": "Zakari Freedman"
+  },
+  {
+   "nick": "Handsken",
+   "name": "Simon Haag"
+  }
+ ],
+ "Execration": [
+  {
+   "nick": "Nando",
+   "name": "Fernando Mendoza"
+  },
+  {
+   "nick": "Abed",
+   "name": "Abed Yusop"
+  },
+  {
+   "nick": "RR",
+   "name": "Ralph Penano"
+  },
+  {
+   "nick": "Tims",
+   "name": "Timothy Randrup"
+  },
+  {
+   "nick": "Kim0",
+   "name": "Kimuel Rodis"
+  }
+ ],
+ "TNC": [
+  {
+   "nick": "Raven",
+   "name": "Marc Polo Luis Fausto"
+  },
+  {
+   "nick": "Kuku",
+   "name": "Carlo Palad"
+  },
+  {
+   "nick": "Sam_H",
+   "name": "Samson Solomon Enojosa Hidalgo"
+  },
+  {
+   "nick": "eyyou",
+   "name": "Nico Manalaysay Barcelon"
+  },
+  {
+   "nick": "DeMoN",
+   "name": "Jimmy Ho"
+  }
+ ],
+ "Secret": [
+  {
+   "nick": "EternaLEnVy",
+   "name": "Jacky Mao"
+  },
+  {
+   "nick": "Arteezy",
+   "name": "Artour Babaev"
+  },
+  {
+   "nick": "BuLba",
+   "name": "Kanishka Sosale"
+  },
+  {
+   "nick": "Puppey",
+   "name": "Clement Ivanov"
+  },
+  {
+   "nick": "pieliedie",
+   "name": "Johan Åström"
+  }
+ ],
+ "EG": [
+  {
+   "nick": "Fear",
+   "name": "Clinton Loomis"
+  },
+  {
+   "nick": "SumaiL",
+   "name": "Syed Sumail Hassan"
+  },
+  {
+   "nick": "UNiVeRsE",
+   "name": "Saahil Arora"
+  },
+  {
+   "nick": "zai",
+   "name": "Ludwig Wåhlberg"
+  },
+  {
+   "nick": "ppd",
+   "name": "Peter Dager"
+  }
+ ],
+ "Team Liquid": [
+  {
+   "nick": "MATUMBAMAN",
+   "name": "Lasse Urpalainen"
+  },
+  {
+   "nick": "FATA-",
+   "name": "Adrian Trinks"
+  },
+  {
+   "nick": "MinD_ContRoL",
+   "name": "Ivan Borislavov"
+  },
+  {
+   "nick": "KuroKy",
+   "name": "Kuro Salehi Takhasomi"
+  },
+  {
+   "nick": "JerAx",
+   "name": "Jesse Vainikka"
+  }
+ ],
+ "Digital Chaos": [
+  {
+   "nick": "Resolut1on",
+   "name": "Roman Fominok"
+  },
+  {
+   "nick": "w33",
+   "name": "Aliwi Omar"
+  },
+  {
+   "nick": "Moo",
+   "name": "David Hull"
+  },
+  {
+   "nick": "Saksa",
+   "name": "Martin Sazdov"
+  },
+  {
+   "nick": "MiSeRy",
+   "name": "Rasmus Filipsen"
+  }
+ ],
+ "Escape Gaming": [
+  {
+   "nick": "Era",
+   "name": "Adrian Kryeziu"
+  },
+  {
+   "nick": "qojqva",
+   "name": "Max Broecker"
+  },
+  {
+   "nick": "KheZu~",
+   "name": "Maurice Gutmann"
+  },
+  {
+   "nick": "YapzOr",
+   "name": "Yazied Jaradat"
+  },
+  {
+   "nick": "syndereN",
+   "name": "Troels Nielsen"
+  }
+ ],
+ "OG": [
+  {
+   "nick": "N0tail",
+   "name": "Johan Sundstein"
+  },
+  {
+   "nick": "Miracle-",
+   "name": "Amer Barqawi"
+  },
+  {
+   "nick": "MoonMeander",
+   "name": "David Tan"
+  },
+  {
+   "nick": "Cr1t-",
+   "name": "Andreas Nielsen"
+  },
+  {
+   "nick": "Fly",
+   "name": "Tal Aizik"
+  }
+ ],
+ "Wings": [
+  {
+   "nick": "Shadow",
+   "name": "Chu Zeyu"
+  },
+  {
+   "nick": "bLink",
+   "name": "Zhou Yang"
+  },
+  {
+   "nick": "Faith_bian",
+   "name": "Zhang Ruida"
+  },
+  {
+   "nick": "Innocence",
+   "name": "Zhang Yiping"
+  },
+  {
+   "nick": "iceice",
+   "name": "Li Peng"
+  }
+ ],
+ "Fnatic": [
+  {
+   "nick": "Mushi",
+   "name": "Chai Yee Fung"
+  },
+  {
+   "nick": "MidOne",
+   "name": "Yeik Zheng Nai"
+  },
+  {
+   "nick": "Ohaiyo",
+   "name": "Chong Xin Khoo"
+  },
+  {
+   "nick": "DJ",
+   "name": "Djardel Jicko Mampusti"
+  },
+  {
+   "nick": "343",
+   "name": "Adam Erwann Shah"
+  }
+ ],
+ "Vici Gaming Reborn": [
+  {
+   "nick": "Zyf",
+   "name": "Yang Pu"
+  },
+  {
+   "nick": "Nono",
+   "name": "Wang Xin"
+  },
+  {
+   "nick": "Mikasa",
+   "name": "Tong Junjie"
+  },
+  {
+   "nick": "Fy",
+   "name": "Xu Linsen"
+  },
+  {
+   "nick": "DDC",
+   "name": "Leong Fat-meng"
+  }
+ ],
+ "LGD": [
+  {
+   "nick": "Agressif",
+   "name": "Sun Zheng"
+  },
+  {
+   "nick": "Maybe",
+   "name": "Lu Yao"
+  },
+  {
+   "nick": "xiao8",
+   "name": "Zhang Ning"
+  },
+  {
+   "nick": "Banana",
+   "name": "Wang Jiao"
+  },
+  {
+   "nick": "MMY!",
+   "name": "Lei Zengrong"
+  }
+ ],
+ "Alliance": [
+  {
+   "nick": "Loda",
+   "name": "Jonathan Berg"
+  },
+  {
+   "nick": "s4",
+   "name": "Gustav Magnusson"
+  },
+  {
+   "nick": "AdmiralBulldog",
+   "name": "Henrik Ahnberg"
+  },
+  {
+   "nick": "Akke",
+   "name": "Joakim Akterhall"
+  },
+  {
+   "nick": "EGM",
+   "name": "Jerry Lundkvist"
+  }
+ ]
+}
