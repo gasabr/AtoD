@@ -42,6 +42,7 @@ class League(object):
 			# get team from list
 			team_dict = api.get_team_info_by_team_id(team_id)['teams'][0]
 
+			print(json.dumps(team_dict, indent=1))
 			# check participation
 			for k, v in team_dict.items():
 				if v == self.league_id:
@@ -187,7 +188,7 @@ class League(object):
 		error_count = 1
 		not_completed = []
 
-		def get_rosters_ids_manual():
+	def get_rosters_ids_manual():
 		for team in ti_lan['teams']:
 			nicks = []
 			if team['name'] in ti_rosters.keys():

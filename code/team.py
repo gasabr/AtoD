@@ -9,16 +9,17 @@ class Team(object):
 		"""
 		Takes dictionary with 'name', 'team_id', 'heroes_id'
 		"""
-		# self.tag = team_dict['tag']
 		self.name = team_dict['name']
 		self.team_id = team_dict['team_id']
 		self.heroes_ids = team_dict['heroes_ids']
 		self.players = []
+		# create players
 		with open(config.features_file, 'r') as json_file:
 			features_dict = json.load(json_file)
 			for player_dict in team_dict['players']:
 				self.players.append(player.Player(player_dict, features_dict))
 
+		# sort players by the position
 		with open(config.acc_id_to_role_file, 'r') as fp:
 			acc_id_to_role = json.load(fp)
 			for pl in self.players:
