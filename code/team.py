@@ -49,3 +49,5 @@ class Team(object):
 				if self.players[i].role == current_role:
 					self.players[current_role-1], self.players[i] = self.players[i], self.players[current_role-1]
 
+	def return_info_to_db(self):
+		return(self.team_id, self.name)

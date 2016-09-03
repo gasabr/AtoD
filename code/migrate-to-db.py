@@ -5,7 +5,6 @@ import json
 
 import config
 import match
-import league
 
 first_lan_match_time = 1470156016
 
@@ -85,5 +84,31 @@ def fill_players():
     c.close()
     conn.close()
 
-ti = league.League(4664)
-ti.get_teams()
+def fill_teams():
+    # NOTE: some names changes in Teams table manually!
+    conn = MySQLdb.connect(host='localhost', db='AtoData',
+            user='gasabr', passwd='dotadata')
+    c = conn.cursor()
+
+    c.execute("SELECT id FROM Matches WHERE unix_time>=%s" % (first_lan_match_time))
+    r = c.fetchall()
+
+    teams_set = set()
+    match_n = 0
+    while len(teams_set) < 18:
+        tmp_id = r[match_n][0]
+        m = match.Match(tmp_id)
+        radiant, dire = m.get_teams()
+        teams_set.add(radiant)
+        teams_set.add(dire)
+        match_n += 1
+
+    # print(teams_set)
+    for team in teams_set:
+
+        query = "INSERT INTO Teams(id, name) VALUES(%s, '%s') " % (team[0], team[1])
+        print(query)
+        c.execute(query)
+    conn.commit()
+    c.close()
+    conn.close()

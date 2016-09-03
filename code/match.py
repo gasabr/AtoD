@@ -73,10 +73,7 @@ class Match(object):
 		print('Dire:')
 		self.dire.show_features()
 
-	def show_match_up(self):
-		"""
-		more beautiful output.
-		"""
-		pass
+	def get_teams(self):
+		return(self.radiant.return_info_to_db(), self.dire.return_info_to_db())
 
 		
