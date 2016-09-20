@@ -31,13 +31,15 @@ def fill_heroes():
     c.close()
     conn.close()
 
+fill_heroes()
+
 # ti matches to db
 def fill_matches():
     with open('../data/The International 2016.json') as fp:
         ti_lan = json.load(fp)
 
-    conn = MySQLdb.connect(host='localhost', db='AtoData',
-        user='gasabr', passwd='dotadata')
+    conn = MySQLdb.connect(host=config.db_host, db=config.db_name,
+            user=config.db_user, passwd=config.db_passwd)
     c = conn.cursor()
 
     for match_id in ti_lan['matches_ids']:
@@ -86,8 +88,8 @@ def fill_players():
 
 def fill_teams():
     # NOTE: some names changes in Teams table manually!
-    conn = MySQLdb.connect(host='localhost', db='AtoData',
-            user='gasabr', passwd='dotadata')
+    conn = MySQLdb.connect(host=config.db_host, db=config.db_name,
+            user=config.db_user, passwd=config.db_passwd)
     c = conn.cursor()
 
     c.execute("SELECT id FROM Matches WHERE unix_time>=%s" % (first_lan_match_time))
@@ -98,7 +100,7 @@ def fill_teams():
     while len(teams_set) < 18:
         tmp_id = r[match_n][0]
         m = match.Match(tmp_id)
-        radiant, dire = m.get_teams()
+        radiant, dire = m.get_teams_info()
         teams_set.add(radiant)
         teams_set.add(dire)
         match_n += 1
