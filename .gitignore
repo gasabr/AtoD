@@ -1,5 +1,6 @@
 .DS_Store
 /trash
-code/__pycache__/
+*/__pycache__/
+v2/__pycache__/*
 code/.DS_Store
 kaggle-data/

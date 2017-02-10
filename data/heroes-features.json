@@ -59,7 +59,7 @@
         "jungler": 1,
         "disabler": 2,
         "support": 3,
-        "name": "Cristal Mayden",
+        "name": "Crystal Maiden",
         "escape": 0,
         "carry": 0,
         "initiator": 0
@@ -85,7 +85,7 @@
         "jungler": 0,
         "disabler": 2,
         "support": 1,
-        "name": "Earth Sheaker",
+        "name": "Earthshaker",
         "escape": 0,
         "carry": 0,
         "initiator": 3
@@ -1125,7 +1125,7 @@
         "jungler": 0,
         "disabler": 2,
         "support": 0,
-        "name": "Nyx Assasin",
+        "name": "Nyx Assassin",
         "escape": 1,
         "carry": 0,
         "initiator": 2
@@ -1151,7 +1151,7 @@
         "jungler": 1,
         "disabler": 1,
         "support": 3,
-        "name": "KotL",
+        "name": "Keeper of the Light",
         "escape": 0,
         "carry": 0,
         "initiator": 0
@@ -1268,7 +1268,7 @@
         "jungler": 0,
         "disabler": 0,
         "support": 0,
-        "name": "Breistleback",
+        "name": "Bristleback",
         "escape": 0,
         "carry": 2,
         "initiator": 1
@@ -1377,6 +1377,19 @@
         "carry": 0,
         "initiator": 1
     },
+    "108": {
+        "nuker": 2,
+        "pusher": 1,
+        "range": 0,
+        "durable": 2,
+        "jungler": 1,
+        "disabler": 2,
+        "support": 1,
+        "name": "Underlord",
+        "escape": 1,
+        "carry": 0,
+        "initiator": 0
+    },
     "109": {
         "nuker": 1,
         "pusher": 2,
@@ -1424,7 +1437,7 @@
         "jungler": 0,
         "disabler": 2,
         "support": 3,
-        "name": "Weinter Wywern",
+        "name": "Winter Wyvern",
         "escape": 0,
         "carry": 0,
         "initiator": 0
@@ -1441,5 +1454,18 @@
         "escape": 3,
         "carry": 3,
         "initiator": 0
+    },
+    "114": {
+        "nuker": 1,
+        "pusher": 0,
+        "range": 0,
+        "durable": 0,
+        "jungler": 0,
+        "disabler": 2,
+        "support": 0,
+        "name": "Monkey King",
+        "escape": 1,
+        "carry": 1,
+        "initiator": 2
     }
 }
