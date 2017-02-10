@@ -4,13 +4,12 @@ import json
 import requests
 from bs4 import BeautifulSoup
 
-from HeroModel import HeroModel
 import config
 
-features_list = ['primary_attr', 'str', 'str_gain', 'agi', 'agi_gain',
-                 'int', 'int_gain', 'total', 'total_gain', 'total_lvl25',
+features_list = ['primary_attr', 'str_base', 'str_gain', 'agi_base', 'agi_gain',
+                 'int_base', 'int_gain', 'total', 'total_gain', 'total_lvl25',
                  'mov_speed', 'armor_base', 'dmg_base_min', 'dmg_base_max',
-                 'range', 'basic_attack_time','attack_point', 'attack_base_time',
+                 'range', 'attack_time_base','attack_point', 'attack_backswing',
                  'vision_day', 'vision_night', 'turn_rate', 'collision',
                  'hp_regen_base', 'legs']
 

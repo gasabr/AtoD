@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from sqlalchemy import Column, String, Integer, Float
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.ext.declarative import declarative_base
@@ -6,18 +7,20 @@ from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
 
 
-class HeroModel(object):
-    ''' Table to store heroes and their attributes. 
-    
+class HeroModel(Base):
+    ''' Table to store heroes and their attributes.
+
         All the information from is parsed from config.HEROES_TABLE_URL,
-        except legs and collision :)
+        except legs and collision
         *_base means at the start of the game without any items.
     '''
 
     __tablename__ = 'Heroes_701'
 
     # Columns:
-    id           = Column(Integer)
+    id           = Column(Integer, primary_key=True)
+    name         = Column(String(32))
+    legs         = Column(Integer)
     primary_attr = Column(Integer) # scheme: config.primary_attr_to_int
     str_base     = Column(Integer)
     str_gain     = Column(Float)
@@ -36,7 +39,9 @@ class HeroModel(object):
     vision_day   = Column(Integer)
     vision_night = Column(Integer)
     attack_point = Column(Integer)
-    attack_base_time  = Column(Float)
+    collision    = Column(Integer)
+    attack_time_base  = Column(Float)
+    attack_backswing  = Column(Float)
     hp_regen_base     = Column(Float)
     turn_rate         = Column(Float)
     # TODO: add mp_regen_base = Cloumns(Float)
