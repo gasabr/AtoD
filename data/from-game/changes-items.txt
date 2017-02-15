@@ -1,0 +1,3 @@
+Manual changes in items file:
+- speed on both power threads and phase boot (tab instead of  ‘ ‘ as delimiter)
+- empty strings filled with \n instead of a bunch of \t in smoke and tomb of knowledge
