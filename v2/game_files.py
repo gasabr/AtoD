@@ -1,10 +1,23 @@
 #!/usr/bin/env python3
-import config
-import sys
 import json
+import argparse
+import os
 
+import config
 
-result = {}
+# Command line arguments parser
+parser = argparse.ArgumentParser(
+    description='Parser for Dota files in unix dialect'
+)
+parser.add_argument('--input',
+                    nargs=1,
+                    help='define input file'
+                    )
+parser.add_argument('--output',
+                    nargs=1,
+                    help='define output file (json)'
+                    )
+args = parser.parse_args()
 
 
 def write_on_stack(path, key, value):
@@ -33,50 +46,74 @@ def write_on_stack(path, key, value):
         current[key] = value
 
 
-filename = config.DATA_FOLDER + '/from-game/npc_heroes.txt'
+def parse(filename):
+    ''' Parses file with given name, writes result to `result` dictionary. '''
+    with open(filename, 'r') as fp:
+        keys_stack = [] # stack of keys
 
-# def parse(filename):
-with open(filename, 'r') as fp:
-    keys_stack = [] # stack of keys
+        for row in fp:
+            # split string to skip tabs and lineterminators
+            splitted_t = row[:-1].split('\t')
 
-    for row in fp:
-        # split string to skip tabs and lineterminators
-        splitted_t = row[:-1].split('\t')
+            # delete all empty string in tabs splitted array
+            clean_t = [s for s in splitted_t if s != '']
 
-        # delete all empty string in tabs splitted array
-        clean_t = [s for s in splitted_t if s != '']
+            try:
+                # if this row is comment line
+                if clean_t[0].startswith('//'):
+                    continue
+            # TODO: check if except block is needed
+            except IndexError as e:
+                pass
 
-        try:
-            # if this row is comment line
-            if clean_t[0].startswith('//'):
-                continue
-        # TODO: check if except block is needed
-        except IndexError as e:
-            pass
+            # it's a key for dictionary or one of the '{', '}'
+            if len(clean_t) == 1:
+                # it's the key
+                if '{' not in clean_t and '}' not in clean_t:
+                    # add the key to the stack
+                    keys_stack.append(clean_t[0][1:-1])
 
-        # it's a key for dictionary or one of the '{', '}'
-        if len(clean_t) == 1:
-            # it's the key
-            if '{' not in clean_t and '}' not in clean_t:
-                # add the key to the stack
-                keys_stack.append(clean_t[0][1:-1])
+                if '}' in clean_t:
+                    # pop key from the stack, since corresponding dictionary is read
+                    keys_stack.pop()
 
-            if '}' in clean_t:
-                # pop key from the stack, since corresponding dictionary is read
-                keys_stack.pop()
+            # value is found
+            if len(clean_t) >= 2:
+                # extract strings from all-quotes style to list
+                cleaned_attribute = list(map(lambda x: x[1:-1], clean_t[:2]))
 
-        # value is found
-        if len(clean_t) >= 2:
-            # extract strings from all-quotes style to list
-            cleaned_attribute = list(map(lambda x: x[1:-1], clean_t[:2]))
-
-            # pass them as key and value to the write function
-            write_on_stack(path=keys_stack,
-                           key=cleaned_attribute[0],
-                           value=cleaned_attribute[1]
+                # pass them as key and value to the write function
+                write_on_stack(path=keys_stack,
+                               key=cleaned_attribute[0],
+                               value=cleaned_attribute[1]
                        )
 
-print(json.dumps(result['DOTAHeroes']['npc_dota_hero_base'], indent=2))
+
+def to_json(input_filename=None, output_filename=None):
+    # if input file is not provided nor as cl argument nor as func argument
+    global result
+    result = {}
+
+    if not input_filename:
+        print('Please, provide filename.')
+        return
+
+    parse(input_filename)
+
+    # if output filename is not provided
+    if not output_filename:
+        # create a path for parsed file:
+        # DATA_FOLDER/<inputfile_no_extension>.json
+        output_filename = input_filename.split('.')[0] + '.json'
+
+    with open(output_filename, 'w+') as fp:
+        json.dump(result, fp, indent=4)
+        result = {}
 
 
-# Interface: from parse_game_files import parse_and_write()
+if __name__ == '__main__':
+    v = vars(args)
+    print(v['input'][0])
+    inp = v['input'][0] if v['input'] else None
+    out = v['output'][0] if v['output'] else None
+    to_json(input_filename=inp, output_filename=out)
