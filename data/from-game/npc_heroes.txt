@@ -20996,13 +20996,13 @@
 				"MaxPolygonsLOD0"		"800"
 				"MaxPolygonsLOD1"		"400"
 			}
-		    "3"
+			"3"
 			{
 				"SlotIndex"		"3"
 				"SlotName"		"taunt"
 				"SlotText"		"#LoadoutSlot_Taunt"
 			}
-		    "4"
+			"4"
 			{
 				"SlotIndex"		"4"
 				"SlotName"		"ambient_effects"

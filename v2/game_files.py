@@ -68,13 +68,24 @@ def parse(filename):
 
             # it's a key for dictionary or one of the '{', '}'
             if len(clean_t) == 1:
+                # TODO: rewrite this part to be able to parse:
+                # \t\t\t<space><space>"key"
+                # if bad formatting
+                if any(map(lambda x: ' ' in x, clean_t)):
+                    key = clean_t[0].split(' ')[0]
+                    value = clean_t[0].split(' ')[1]
+                    # write_on_stack(path=keys_stack, key=key, value=value)
+                    continue
+
                 # it's the key
                 if '{' not in clean_t and '}' not in clean_t:
                     # add the key to the stack
                     keys_stack.append(clean_t[0][1:-1])
 
                 if '}' in clean_t:
-                    # pop key from the stack, since corresponding dictionary is read
+                    # pop key from the stack, since corresponding dictionary
+                    # ended
+                    print(keys_stack)
                     keys_stack.pop()
 
             # value is found
