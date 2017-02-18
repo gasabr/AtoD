@@ -12,25 +12,42 @@ class Hero:
     # set of available attributes for the hero
     attributes = ()
 
-    def __init__(self, id_):
+    def __init__(self, name, lvl=1):
         ''' Create hero instance by id. '''
-        self.__lvl = 1
+        # TODO: create metaclass to prevent changing this variables
+        self.__lvl = lvl
         self.__items = []
         self.__talents = []
 
-        heroes_features = {}
-        with open(settings.ID_TO_NAME) as fp:
-            heroes_features = json.load(fp)
+        # TODO: add names to database
+        # load converter since there is no names in database
+        converter = {}
+        with open(settings.CONVERTER) as fp:
+            converter = json.load(fp)
 
-        self._name = heroes_features[str(id_)]['name']
+        self.name = name
+        self._id = converter[name]
 
         mapper = inspect(HeroModel)
-        hero_data = session.query(HeroModel).filter(HeroModel.HeroID == id_)[0]
+        # TODO: change it to get_by or something like that, not filter
+        response = session.query(HeroModel).filter(HeroModel.HeroID == self._id)
+        hero_data = response[0]
 
         self._columns = [column.key for column in mapper.attrs]
 
         for column in self._columns:
-            setattr(self, column, getattr(hero_data, column))
+            setattr(self, '_' + column, getattr(hero_data, column))
+
+        # XXX: is that the right way?
+        self.str = self._AttributeBaseStrength + \
+                   (lvl-1) * self._AttributeStrengthGain
+        self.agi = self._AttributeBaseAgility + \
+                   (lvl-1) * self._AttributeAgilityGain
+        self.int = self._AttributeBaseIntelligence + \
+                   (lvl-1) * self._AttributeIntelligenceGain
 
     def __str__(self):
-        return '{id}, lvl={lvl}'.format(id=self.HeroID, lvl=self.lvl)
+        return '{name}, lvl={lvl}'.format(name=self._name, lvl=self.lvl)
+
+    def atrributes(self):
+        return ''

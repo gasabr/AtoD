@@ -14,6 +14,20 @@ features_list = ['primary_attr', 'str_base', 'str_gain', 'agi_base', 'agi_gain',
                  'hp_regen_base', 'legs']
 
 
+def create_convertor():
+    ''' Creates converter dictinary hero name <-> id. '''
+    converter = {}
+    with open(settings.ID_TO_NAME) as fp:
+        heroes = json.load(fp)
+
+        for id_, features in heroes.items():
+            converter[id_] = features['name']
+            converter[features['name']] = int(id_)
+
+    with open(settings.CONVERTER, 'w+') as fp:
+        json.dump(converter, fp, indent=2)
+
+
 def create_heroes_summary():
     ''' Creates dict where key is hero name value - summary.
 
