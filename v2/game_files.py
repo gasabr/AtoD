@@ -1,9 +1,10 @@
+
 #!/usr/bin/env python3
 import json
 import argparse
 import os
 
-import config
+import settings
 
 # Command line arguments parser
 parser = argparse.ArgumentParser(
@@ -120,6 +121,40 @@ def to_json(input_filename=None, output_filename=None):
     with open(output_filename, 'w+') as fp:
         json.dump(result, fp, indent=4)
         result = {}
+
+
+def json_to_rows(filename):
+    ''' Gets the data from json files according to given db scheme.
+
+        Idea: json file contents a lot of information that i don't need in db,
+        so this fuction parses file to get the needed attributes.
+    '''
+    rows = []
+    with open(filename, 'r') as fp:
+        heroes = json.load(fp)['DOTAHeroes']
+
+        for in_game_name, description in heroes.items():
+            tmp = {}
+            for key in settings.heroes_scheme.keys():
+                try:
+                    tmp[key] = description[key]
+                # hero_base doesn't have some fields
+                except KeyError as e:
+                    print('Hero {} with does not have {} field'.format(
+                        in_game_name, key
+                    ))
+                    tmp[key] = ''
+                # there are some non hero fields causes this
+                except TypeError as t:
+                    print('Strange key {} found'.format(in_game_name))
+
+
+            rows.append(tmp)
+
+    keys = [len(x) for x in rows]
+    print(keys)
+
+    return rows
 
 
 if __name__ == '__main__':

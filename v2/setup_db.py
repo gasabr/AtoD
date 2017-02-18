@@ -1,23 +1,21 @@
 #!/usr/bin/env python3
 ''' Setting up database. '''
+import json
 from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-import config
-from models import HeroModel, Base
+import settings
 
 
-engine = create_engine('sqlite:///' + config.DB_PATH)
+engine = create_engine('sqlite:///' + settings.DB_PATH)
 
+Base = declarative_base()
 Base.metadata.create_all(engine)
 Session = sessionmaker(bind=engine)
 
 session = Session()
 
 
-def fill_heroes(heroes_list):
-    ''' Fill heroes_attr table with heroes_list. '''
-    for hero in heroes_list:
-        hero_model = HeroModel(**hero)
-        session.add(hero_model)
-        session.commit()
+if __name__ == '__main__':
+    # fill_heroes(settings.HEROES_FILE)

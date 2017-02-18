@@ -3,12 +3,12 @@ import xlsxwriter
 from sqlalchemy.inspection import inspect
 
 from models import HeroModel
-import config
+import settings
 
 mapper = inspect(HeroModel)
 
 # Create an new Excel file and add a worksheet.
-filepath = os.path.join(config.DATA_FOLDER + 'classes.xlsx')
+filepath = os.path.join(settings.DATA_FOLDER + 'classes.xlsx')
 
 workbook = xlsxwriter.Workbook(filepath)
 worksheet = workbook.add_worksheet()

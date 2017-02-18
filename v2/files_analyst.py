@@ -2,9 +2,9 @@
 import json
 import pandas
 
-import config
+import settings
 
-filename = config.DATA_FOLDER + 'from-game/items.json'
+filename = settings.DATA_FOLDER + 'from-game/items.json'
 items = {}
 with open(filename, 'r') as fp:
     items_data = json.load(fp)

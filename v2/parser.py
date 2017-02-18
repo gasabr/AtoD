@@ -4,7 +4,7 @@ import json
 import requests
 from bs4 import BeautifulSoup
 
-import config
+import settings
 
 features_list = ['primary_attr', 'str_base', 'str_gain', 'agi_base', 'agi_gain',
                  'int_base', 'int_gain', 'total', 'total_gain', 'total_lvl25',
@@ -24,7 +24,7 @@ def create_heroes_summary():
     '''
 
     id_to_sum = {}
-    filename = os.path.join(config.DATA_FOLDER, 'heroes-features.json')
+    filename = os.path.join(settings.DATA_FOLDER, 'heroes-features.json')
     with open(filename, 'r') as fp:
         id_to_sum = json.load(fp)
 
