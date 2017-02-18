@@ -1,7 +1,9 @@
+import json
 from sqlalchemy.inspection import inspect
 
+import settings
 from setup_db import session
-from models import HeroModel
+from dynamic_models import HeroModel
 
 
 class Hero:
@@ -16,13 +18,19 @@ class Hero:
         self.__items = []
         self.__talents = []
 
+        heroes_features = {}
+        with open(settings.ID_TO_NAME) as fp:
+            heroes_features = json.load(fp)
+
+        self._name = heroes_features[str(id_)]['name']
+
         mapper = inspect(HeroModel)
-        hero_data = session.query(HeroModel).filter(HeroModel.id == id_)[0]
+        hero_data = session.query(HeroModel).filter(HeroModel.HeroID == id_)[0]
 
         self._columns = [column.key for column in mapper.attrs]
 
         for column in self._columns:
-            setattr(self, '__' + column, getattr(hero_data, column))
+            setattr(self, column, getattr(hero_data, column))
 
     def __str__(self):
-        return '{name}, lvl={lvl}'.format(name=self.name, lvl=self.lvl)
+        return '{id}, lvl={lvl}'.format(id=self.HeroID, lvl=self.lvl)

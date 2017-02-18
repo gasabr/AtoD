@@ -1,5 +1,9 @@
-
 #!/usr/bin/env python3
+''' Set of functions to work with the Dota2 internal files
+
+    - to_json() converts .txt in unix dialect to json
+    - json_to_rows() converts .json to the dicts with respect to db scheme
+'''
 import json
 import argparse
 import os
@@ -123,11 +127,18 @@ def to_json(input_filename=None, output_filename=None):
         result = {}
 
 
-def json_to_rows(filename):
+def json_to_rows(filename, scheme):
     ''' Gets the data from json files according to given db scheme.
 
         Idea: json file contents a lot of information that i don't need in db,
         so this fuction parses file to get the needed attributes.
+
+        :Args:
+            filename (str) - name of json file to parse
+            scheme (list of str) - fieds what should be extracted from file
+
+        :Returns:
+            rows (list of dicts) - dict there scheme elements are keys
     '''
     rows = []
     with open(filename, 'r') as fp:
@@ -148,11 +159,8 @@ def json_to_rows(filename):
                 except TypeError as t:
                     print('Strange key {} found'.format(in_game_name))
 
-
-            rows.append(tmp)
-
-    keys = [len(x) for x in rows]
-    print(keys)
+            if len(tmp) > 0:
+                rows.append(tmp)
 
     return rows
 

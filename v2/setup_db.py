@@ -7,7 +7,6 @@ from sqlalchemy.orm import sessionmaker
 
 import settings
 
-
 engine = create_engine('sqlite:///' + settings.DB_PATH)
 
 Base = declarative_base()
@@ -15,7 +14,3 @@ Base.metadata.create_all(engine)
 Session = sessionmaker(bind=engine)
 
 session = Session()
-
-
-if __name__ == '__main__':
-    # fill_heroes(settings.HEROES_FILE)
