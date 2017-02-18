@@ -5,19 +5,18 @@ import settings
 from setup_db import session
 from dynamic_models import HeroModel
 
+mapper = inspect(HeroModel)
 
-class Hero:
+
+class Hero(object):
     ''' Interface for HeroModel. '''
-
-    # set of available attributes for the hero
-    attributes = ()
 
     def __init__(self, name, lvl=1):
         ''' Create hero instance by id. '''
         # TODO: create metaclass to prevent changing this variables
-        self.__lvl = lvl
-        self.__items = []
-        self.__talents = []
+        self.lvl = lvl
+        self.items = []
+        self.talents = []
 
         # TODO: add names to database
         # load converter since there is no names in database
@@ -26,28 +25,35 @@ class Hero:
             converter = json.load(fp)
 
         self.name = name
-        self._id = converter[name]
+        self.id = converter[name]
 
-        mapper = inspect(HeroModel)
-        # TODO: change it to get_by or something like that, not filter
-        response = session.query(HeroModel).filter(HeroModel.HeroID == self._id)
-        hero_data = response[0]
+        hero_data = session.query(HeroModel).get(self.id)
 
-        self._columns = [column.key for column in mapper.attrs]
+        self.columns = [column.key for column in mapper.attrs]
 
-        for column in self._columns:
-            setattr(self, '_' + column, getattr(hero_data, column))
+        for column in self.columns:
+            setattr(self, column, getattr(hero_data, column))
 
-        # XXX: is that the right way?
-        self.str = self._AttributeBaseStrength + \
-                   (lvl-1) * self._AttributeStrengthGain
-        self.agi = self._AttributeBaseAgility + \
-                   (lvl-1) * self._AttributeAgilityGain
-        self.int = self._AttributeBaseIntelligence + \
-                   (lvl-1) * self._AttributeIntelligenceGain
+        # add roles dictionary
+        self.roles = {}
+        for role, lvl in zip(self.Role.split(','), self.Rolelevels.split(',')):
+            self.roles[role] = int(lvl)
+
+    # properties
+    @property
+    def str(self):
+        return self.AttributeBaseStrength + \
+                   (self._lvl - 1) * self.AttributeStrengthGain
+
+    @property
+    def int(self):
+        return self.AttributeBaseIntelligence + \
+                   (self._lvl - 1) * self.AttributeAgilityGain
+
+    @property
+    def agi(self):
+        return self.AttributeBaseAgility + \
+                   (self._lvl - 1) * self.AttributeAgilityGain
 
     def __str__(self):
-        return '{name}, lvl={lvl}'.format(name=self._name, lvl=self.lvl)
-
-    def atrributes(self):
-        return ''
+        return '<{name}, lvl={lvl}>'.format(name=self.name, lvl=self.lvl)
