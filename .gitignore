@@ -4,5 +4,5 @@
 v2/__pycache__/*
 code/.DS_Store
 kaggle-data/
-atom.egg-info/
+atod.egg-info/
 dist/
