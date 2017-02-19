@@ -32,10 +32,6 @@ for key, item in items_data['DOTAAbilities'].items():
             continue
 
 items = pandas.DataFrame([], index=items_list, columns=basic_features)
-print(items.shape)
-print(items.loc[['item_veil_of_discord']]['phase_duration'])
-items.set_value('item_veil_of_discord', 'phase_duration', 11)
-print(items.loc[['item_veil_of_discord']]['phase_duration'])
 
 # fill the pandas DataFrame about items
 def fill_table():
@@ -46,10 +42,7 @@ def fill_table():
             try:
                 item_specials = item['AbilitySpecial']
                 for key_, special in item_specials.items():
-                    # print('wwfgchvbjknmlgcvhbjnkmlcgvhbjnkm')
                     for k, v in special.items():
-                        if k == 'resist_debuff':
-                            print(key)
                         items.set_value(key, k, v)
             # there is Version key which doesn't content needed keys
             except AttributeError as e:
@@ -68,4 +61,5 @@ veil = items.loc[['item_hand_of_midas']]['resist_debuff']
 
 # items with popular features
 items = items.dropna(1, thresh=4)
-print(list(items))
+items = items.dropna(0, 'all')
+print(items.columns)

@@ -165,6 +165,59 @@ def json_to_rows(filename, scheme):
     return rows
 
 
+def get_types(abilities):
+    ''' Maps AbilitySpecial to type of this field.
+
+        :Args:
+            abilities (dict) - DOTAAbilities from items.json or npc_abilities
+
+        :Returns:
+            fields_types (dict) - mapping of field to its type
+    '''
+    fields_types = {}
+    items_list = []
+    for ability, properties in abilities.items():
+        try:
+            for key, value in properties['AbilitySpecial'].items():
+                for k, v in value.items():
+                    if key != 'var_type' and key:
+                        fields_types[k] = value['var_type']
+        # all the recipies will fall there
+        except KeyError as e:
+            pass
+        except TypeError as e:
+            pass
+
+    return fields_types
+
+
+def write_item_types():
+    ''' Combines get_types() and settings.items_scheme in one file.
+
+        :Returns:
+            all_ (dict) = get_types() + settings.items_scheme
+    '''
+    DOTAAbilities = {}
+    with open(settings.DATA_FOLDER + 'from-game/items.json') as fp:
+        DOTAAbilities = json.load(fp)['DOTAAbilities']
+    specials = get_types(DOTAAbilities)
+    basics = settings.items_scheme
+
+    all_ = {}
+    for key, value in basics.items():
+        all_[key] = value
+
+    for key, value in specials.items():
+        # TODO: move mapping to function if needed
+        all_[key] = value
+
+    filename = os.path.join(settings.DATA_FOLDER, 'items_types.json')
+    with open(filename, 'w+') as fp:
+        json.dump(all_, fp, indent=2)
+
+    return all_
+
+
 if __name__ == '__main__':
     v = vars(args)
     print(v['input'][0])

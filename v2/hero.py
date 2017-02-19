@@ -43,17 +43,17 @@ class Hero(object):
     @property
     def str(self):
         return self.AttributeBaseStrength + \
-                   (self._lvl - 1) * self.AttributeStrengthGain
+                   (self.lvl - 1) * self.AttributeStrengthGain
 
     @property
     def int(self):
         return self.AttributeBaseIntelligence + \
-                   (self._lvl - 1) * self.AttributeAgilityGain
+                   (self.lvl - 1) * self.AttributeAgilityGain
 
     @property
     def agi(self):
         return self.AttributeBaseAgility + \
-                   (self._lvl - 1) * self.AttributeAgilityGain
+                   (self.lvl - 1) * self.AttributeAgilityGain
 
     def __str__(self):
         return '<{name}, lvl={lvl}>'.format(name=self.name, lvl=self.lvl)

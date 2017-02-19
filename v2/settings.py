@@ -1,5 +1,8 @@
+import json
 from os import path
 from sqlalchemy import Float, Integer, String
+
+CURRENT_VERSION = '702'
 
 HEROES_TABLE_URL = 'http://dota2.gamepedia.com/Table_of_hero_attributes'
 
@@ -22,6 +25,12 @@ CONVERTER   = path.join(DATA_FOLDER, 'converter.json')
 #===============================================================================
 DB_NAME = 'AtoD.db'
 DB_PATH = path.join(DATA_FOLDER, DB_NAME)
+
+field_format = {
+    'FIELD_FLOAT': Float,
+    'FIELD_INTEGER': Integer,
+    'FIELD_STRING': String, # added to serialize all fields
+}
 
 # sheme for heroes_<v> table
 heroes_scheme = {
@@ -78,3 +87,11 @@ heroes_scheme = {
     "AttackAcquisitionRange": Integer,
     # "StatusHealthRegen": Float
 }
+
+items_types = {}
+with open(DATA_FOLDER + 'items_types.json', 'r') as fp:
+    items_types = json.load(fp)
+
+items_scheme = {}
+for key, value in items_types.items():
+    items_scheme[key] = field_format[value]
