@@ -3798,7 +3798,7 @@
                     "var_type": "FIELD_INTEGER"
                 },
                 "03": {
-                    "duration": "10.0 9.0 8.0 7.0 6.0 5.0",
+                    "duration": "10.0",
                     "var_type": "FIELD_FLOAT"
                 },
                 "04": {
@@ -4817,7 +4817,7 @@
                 },
                 "11": {
                     "var_type": "FIELD_FLOAT",
-                    "on_death_removal": "0.67\" //33% gon"
+                    "on_death_removal": "0.67"
                 },
                 "05": {
                     "var_type": "FIELD_INTEGER",
@@ -5529,7 +5529,7 @@
                 },
                 "11": {
                     "var_type": "FIELD_FLOAT",
-                    "toggle_cooldown": "0.036f"
+                    "toggle_cooldown": "0.036"
                 },
                 "09": {
                     "var_type": "FIELD_INTEGER",

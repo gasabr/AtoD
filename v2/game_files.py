@@ -142,27 +142,78 @@ def json_to_rows(filename, scheme):
     '''
     rows = []
     with open(filename, 'r') as fp:
-        heroes = json.load(fp)['DOTAHeroes']
+        # TODO: get the only key not DOTAHeroes
+        data = json.load(fp)
+        global_key = list(data.keys())[0]
+        data = data[global_key]
 
-        for in_game_name, description in heroes.items():
-            tmp = {}
-            for key in settings.heroes_scheme.keys():
-                try:
-                    tmp[key] = description[key]
-                # hero_base doesn't have some fields
-                except KeyError as e:
-                    print('Hero {} with does not have {} field'.format(
-                        in_game_name, key
-                    ))
-                    tmp[key] = ''
-                # there are some non hero fields causes this
-                except TypeError as t:
-                    print('Strange key {} found'.format(in_game_name))
+    for in_game_name, description in data.items():
+        tmp = {}
+        for key in scheme.keys():
+            try:
+                tmp[key] = description[key]
+                print('tmp[key] =', description[key])
+            # hero_base doesn't have some fields
+            except KeyError as e:
+                # print('Hero {} with does not have {} field'.format(
+                #     in_game_name, key
+                # ))
+                tmp[key] = None
+            # there are some non hero fields causes this
+            except TypeError as t:
+                pass
 
-            if len(tmp) > 0:
-                rows.append(tmp)
+        if len(tmp) > 0:
+            rows.append(tmp)
 
     return rows
+
+
+def items_rows(filename, scheme):
+    ''' Get rows for items table. '''
+    rows = []
+    with open(filename, 'r') as fp:
+        # TODO: get the only key not DOTAHeroes
+        data = json.load(fp)
+
+    global_key = list(data.keys())[0]
+    data = data[global_key]
+
+    for in_game_name, description in data.items():
+        tmp = {}
+        print(in_game_name)
+        for key in scheme.keys():
+            try:
+                tmp[key] = description[key]
+                # print('tmp[{}] ='.format(key), description[key])
+            # hero_base doesn't have some fields
+            except KeyError as e:
+                tmp[key] = None
+            # there are some non hero fields causes this
+            except TypeError as t:
+                pass
+
+        # extract specials
+        try:
+            specials = description['AbilitySpecial']
+            for key, value in specials.items():
+                for k, v in value.items():
+                    if k != 'var_type':
+                        tmp[k] = v
+        except TypeError as e:
+            print(description)
+        except KeyError as e:
+            pass
+
+        for kk in tmp.keys():
+            if kk not in scheme.keys():
+                print('retard alert')
+
+        if len(tmp) > 0:
+            rows.append(tmp)
+
+    return rows
+
 
 
 def get_types(abilities):

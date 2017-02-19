@@ -17,6 +17,7 @@ NPC_PATH = '/Users/gasabr/Library/Application Support/Steam/steamapps/common/dot
 # from game files with data
 # TODO: organize such path more accurate / change data/ folder structure
 HEROES_FILE = path.join(DATA_FOLDER, 'from-game/npc_heroes.json')
+ITEMS_FILE  = path.join(DATA_FOLDER, 'from-game/items.json')
 ID_TO_NAME  = path.join(DATA_FOLDER, 'heroes-features.json')
 CONVERTER   = path.join(DATA_FOLDER, 'converter.json')
 

@@ -10,7 +10,6 @@ import settings
 engine = create_engine('sqlite:///' + settings.DB_PATH)
 
 Base = declarative_base()
-Base.metadata.create_all(engine)
 Session = sessionmaker(bind=engine)
 
 session = Session()

@@ -27,7 +27,7 @@ class Hero(object):
         self.name = name
         self.id = converter[name]
 
-        hero_data = session.query(HeroModel).get(self.id)
+        hero_data = session.query(HeroModel).filter(HeroModel.HeroID == self.id)[0]
 
         self.columns = [column.key for column in mapper.attrs]
 
