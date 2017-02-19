@@ -1,0 +1,12 @@
+
+items.txt:
+- speed on both power threads and phase boot (tab instead of  ‘ ‘ as delimiter)
+- empty strings filled with \n instead of a bunch of \t in smoke and tomb of knowledge
+- moved 0.036f -> 0.036
+- blood stone on death removal changed formatting
+- changed bkb to duration to single float (model now can’t work with variable duration)
+
+npc_heroes.txt
+- arc_warden item_slots 3 and 4 moved left with tabs
+
+- items

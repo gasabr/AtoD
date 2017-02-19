@@ -1,4 +1,8 @@
 .DS_Store
-/trash
-code/__pycache__/
+/deprecated
+*/__pycache__/
+v2/__pycache__/*
 code/.DS_Store
+kaggle-data/
+atod.egg-info/
+dist/
