@@ -1,0 +1,3 @@
+recursive-include atod/data *
+recursive-include uml *
+recursive-include docs *.txt

@@ -1,9 +1,9 @@
 import json
 from sqlalchemy.inspection import inspect
 
-import settings
-from setup_db import session
-from dynamic_models import HeroModel
+from atod.setup_db import session
+import atod.settings as settings
+from atod.models import HeroModel
 
 mapper = inspect(HeroModel)
 

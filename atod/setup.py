@@ -1,5 +1,5 @@
-import parser
-import setup_db
+from atod.tools import parser
+from atod import setup_db
 
 
 heroes_list = parser.get_heroes_list()

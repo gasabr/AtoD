@@ -1,7 +1,7 @@
-import settings
-from setup_db import session
-from dynamic_models import HeroModel, ItemModel
-import game_files
+from atod import settings
+from atod.setup_db import session
+from atod.dynamic_models import HeroModel, ItemModel
+from atod.tools import game_files
 
 
 def fill_heroes():

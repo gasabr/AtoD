@@ -4,7 +4,7 @@ import json
 import requests
 from bs4 import BeautifulSoup
 
-import settings
+from atod import settings
 
 features_list = ['primary_attr', 'str_base', 'str_gain', 'agi_base', 'agi_gain',
                  'int_base', 'int_gain', 'total', 'total_gain', 'total_lvl25',

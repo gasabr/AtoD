@@ -1,6 +1,8 @@
 .DS_Store
-/trash
+/deprecated
 */__pycache__/
 v2/__pycache__/*
 code/.DS_Store
 kaggle-data/
+atom.egg-info/
+dist/

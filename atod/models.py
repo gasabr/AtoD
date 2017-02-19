@@ -2,8 +2,8 @@
 from sqlalchemy import Table, Column, String, Integer, Float, MetaData
 from sqlalchemy.orm import mapper
 
-from setup_db import engine, session, Base
-import settings
+from atod.setup_db import engine, session, Base
+from atod import settings
 
 
 heroes = (Column(n, t) for n, t in settings.heroes_scheme.items())
@@ -14,7 +14,7 @@ class HeroModel(Base):
 
     __table__ = Table('heroes_' + settings.CURRENT_VERSION, Base.metadata,
                       Column('HeroID', Integer, primary_key=True),
-    			      *(col for col in heroes),            
+    			      *(col for col in heroes),
                       )
 
     def __init__(self, attrs):

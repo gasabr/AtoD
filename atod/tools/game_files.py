@@ -8,7 +8,7 @@ import json
 import argparse
 import os
 
-import settings
+from atod import settings
 
 # Command line arguments parser
 parser = argparse.ArgumentParser(

@@ -2,8 +2,8 @@ import os
 import xlsxwriter
 from sqlalchemy.inspection import inspect
 
-from models import HeroModel
-import settings
+from atod.models import HeroModel
+from atod import settings
 
 mapper = inspect(HeroModel)
 
