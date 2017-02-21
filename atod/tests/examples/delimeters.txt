@@ -1,0 +1,45 @@
+"item_power_treads"
+    {
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"63"														// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"1350"
+		"ItemShopTags"		    "attack_speed;move_speed;int;agi;str"		// this string uses string + tabs
+		"ItemQuality"					"common"
+		"ItemAliases"			  "power treads"
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_SPECTATORS"
+
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+	        {
+				"var_type"   			"FIELD_INTEGER"			// this string uses string + tabs
+
+
+				
+				"bonus_movement_speed"  "45"
+			}
+			"02"
+	  		{
+				"var_type"				"FIELD_INTEGER"
+				"bonus_stat"			"9"
+			}
+			"03"
+			{
+				"var_type"				"FIELD_INTEGER"
+				"bonus_attack_speed"  "25"						// this string uses spaces as delimeters
+			}
+			"04"
+			{
+				"var_type"		  "FIELD_INTEGER"
+				"bonus_damage"			"0"
+			}
+		}
+	}

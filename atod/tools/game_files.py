@@ -25,7 +25,8 @@ parser.add_argument('--output',
 args = parser.parse_args()
 
 
-def write_on_stack(path, key, value):
+# TODO: check if return write_to is needed
+def write_on_stack(write_to, path, key, value):
     ''' Writes values to the `result` dict.
 
         DFS kind of stack is used to define current level of depth of reading
@@ -34,11 +35,17 @@ def write_on_stack(path, key, value):
         function will create missing dictionaries.
 
         :Args:
-            path (array of str): sequence of dict keys, defining where to write
-                                 next value
-            value (array of str): [key, value, probably comments]
+            path (array of str) : sequence of dict keys, defining where to
+                                  write next value
+            write_to (dict)     : result of parse function in which would be
+                                  written key and value
+            key (str)           : to this key would be written value
+            value (str)         : value to write
+
+        :Returns:
+            write_to (dict) : changed write_to argument
     '''
-    current = result
+    current = write_to
     for p in path:
         try:
             current = current[p]
@@ -50,71 +57,78 @@ def write_on_stack(path, key, value):
     except KeyError as e:
         current[key] = value
 
+    return write_to
+
+
+def remove_nt(input_str):
+    ''' Returns string without tabs, line terminators and spaces. '''
+    clean = input_str.replace(' ', '')
+    clean = clean.replace('\t', '')
+    clean = clean.replace('\n', '')
+
+    return clean
+
 
 def parse(filename):
-    ''' Parses file with given name, writes result to `result` dictionary. '''
+    ''' Extracts the dict from unix-dialect txt file.
+
+        First, it cleans the row - removes all the tabs and line terminators.
+        Second, it splits string by " to get all values in the list
+        Third, it cleans string from comments and empty strings created by
+        split().
+        After that, based on the length of cleaned row list, func defines is it
+        the key, bracers or key with value and performs appropriate action.
+    '''
+    result = {}
+    keys_stack = []
     with open(filename, 'r') as fp:
-        keys_stack = [] # stack of keys
-
         for row in fp:
-            # split string to skip tabs and lineterminators
-            splitted_t = row[:-1].split('\t')
+            # clean_ is a list without \t \n or spaces in it splitted by "
+            clean_ = remove_nt(row).split('"')
 
-            # delete all empty string in tabs splitted array
-            clean_t = [s for s in splitted_t if s != '']
+            # remove all the comments and empty strings
+            clean = [c for c in clean_ if '//' not in c and c != '']
 
-            try:
-                # if this row is comment line
-                if clean_t[0].startswith('//'):
-                    continue
-            # TODO: check if except block is needed
-            except IndexError as e:
-                pass
-
-            # it's a key for dictionary or one of the '{', '}'
-            if len(clean_t) == 1:
-                # TODO: rewrite this part to be able to parse:
-                # \t\t\t<space><space>"key"
-                # if bad formatting
-                if any(map(lambda x: ' ' in x, clean_t)):
-                    key = clean_t[0].split(' ')[0]
-                    value = clean_t[0].split(' ')[1]
-                    # write_on_stack(path=keys_stack, key=key, value=value)
-                    continue
-
-                # it's the key
-                if '{' not in clean_t and '}' not in clean_t:
+            # if this is one
+            if len(clean) == 1:
+                # if this isn't bracers - this is the key
+                if '{' not in clean and '}' not in clean:
                     # add the key to the stack
-                    keys_stack.append(clean_t[0][1:-1])
+                    keys_stack.append(clean[0])
 
-                if '}' in clean_t:
+                if '}' in clean:
                     # pop key from the stack, since corresponding dictionary
                     # ended
-                    print(keys_stack)
                     keys_stack.pop()
 
-            # value is found
-            if len(clean_t) >= 2:
-                # extract strings from all-quotes style to list
-                cleaned_attribute = list(map(lambda x: x[1:-1], clean_t[:2]))
 
-                # pass them as key and value to the write function
-                write_on_stack(path=keys_stack,
-                               key=cleaned_attribute[0],
-                               value=cleaned_attribute[1]
-                       )
+            if len(clean) == 2:
+                write_on_stack(write_to=result,
+                               path=keys_stack,
+                               key=clean[0],
+                               value=clean[1]
+                               )
+
+    return result
 
 
+# TODO: add check for .json in output
 def to_json(input_filename=None, output_filename=None):
-    # if input file is not provided nor as cl argument nor as func argument
-    global result
-    result = {}
+    ''' Saves parsed by parse() file in *.json.
 
+        :Args:
+            input_filename (str) : .txt file in unix-dialect from dota folder
+            output_filename(str) : .json file to dump result dict
+
+        :Returns:
+            result (dict) : dict parsed by parse()
+    '''
+    # if input file is not provided nor as cl argument nor as func argument
     if not input_filename:
         print('Please, provide filename.')
         return
 
-    parse(input_filename)
+    result = parse(input_filename)
 
     # if output filename is not provided
     if not output_filename:
@@ -124,7 +138,8 @@ def to_json(input_filename=None, output_filename=None):
 
     with open(output_filename, 'w+') as fp:
         json.dump(result, fp, indent=4)
-        result = {}
+
+    return result
 
 
 def json_to_rows(filename, scheme):

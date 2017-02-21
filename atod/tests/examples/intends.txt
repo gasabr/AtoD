@@ -1,0 +1,38 @@
+// Some strange intends everywhere	
+	"item_dragon_lance"
+					{
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+	"ID"							"236"														// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+				"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+"ItemCost"						"1900"
+	"ItemShopTags"					"damage"
+"ItemQuality"					"artifact"
+				"ItemAliases"					"dragon lance"
+	"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
+		
+		// Special	
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+					{
+	"01"
+					{
+	"var_type"								"FIELD_INTEGER"
+			"bonus_agility"			"13"
+						}
+			"02"
+{
+				"var_type"				"FIELD_INTEGER"
+				"bonus_strength"		"12"
+			}
+					"03"
+	{
+		"var_type"				"FIELD_INTEGER"
+						"base_attack_range"		"140"
+}
+}
+}

@@ -1,0 +1,36 @@
+"item_armlet"
+{
+  // General
+  //-------------------------------------------------------------------------------------------------------------
+  "ID"							"151"														// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+  "AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_TOGGLE | DOTA_ABILITY_BEHAVIOR_IGNORE_CHANNEL"
+
+  // Stats
+  //-------------------------------------------------------------------------------------------------------------
+  "AbilityCooldown"				"0.0"
+
+  // Item Info
+  //-------------------------------------------------------------------------------------------------------------
+  "ItemCost"						"2370"
+  "ItemShopTags"					"damage;attack_speed;armor;regen_health;hard_to_tag"
+  "ItemQuality"					"epic"
+  "ItemAliases"					"armlet of mordiggian"
+  "ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+
+  // Special
+  //-------------------------------------------------------------------------------------------------------------
+  "AbilitySpecial"
+  {
+    "01"
+    {
+      "var_type"				"FIELD_INTEGER"
+      "bonus_damage"			"9"
+    }
+    // ...
+    "11"
+    {
+      "var_type"				"FIELD_FLOAT"
+      "toggle_cooldown"		"0.036f"
+    }
+  }
+}

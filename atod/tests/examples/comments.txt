@@ -1,0 +1,45 @@
+// Top level comment
+"item_power_treads"
+	{		// Let's comment this
+		// General
+		//-------------------------------------------------------------------------------------------------------------
+		"ID"							"63"														// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+
+		// Item Info
+		//-------------------------------------------------------------------------------------------------------------
+		"ItemCost"						"1350"
+		"ItemShopTags"					"attack_speed;move_speed;int;agi;str"
+		"ItemQuality"					"common"
+		"ItemAliases"					"power treads"			// Comment for the item info
+		"ItemDeclarations"				"DECLARE_PURCHASES_TO_SPECTATORS"     		// spaces + tabs case
+
+		// Special
+		//-------------------------------------------------------------------------------------------------------------
+		"AbilitySpecial"
+		{
+			"01"
+			{
+				"var_type"				"FIELD_INTEGER"	// Something could be there
+				"bonus_movement_speed"  "45"		  // Spaces + tabs one more time
+			}
+			"02"
+			{
+				"var_type"				"FIELD_INTEGER"				// Comment can be here
+				"bonus_stat"			"9"
+			}
+			// Probably here too
+			"03"
+			{
+				// Let's comment this property
+				"var_type"				"FIELD_INTEGER"
+				"bonus_attack_speed"			"25"
+			}
+			"04"
+			{
+				//If one forgot space after comment
+				"var_type"				"FIELD_INTEGER"
+				"bonus_damage"			"0"
+			}
+		}
+	}
