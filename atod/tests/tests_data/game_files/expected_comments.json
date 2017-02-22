@@ -20,7 +20,7 @@
             }
         },
         "ItemShopTags": "attack_speed;move_speed;int;agi;str",
-        "ItemAliases": "powertreads",
+        "ItemAliases": "power treads",
         "ItemQuality": "common",
         "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_IMMEDIATE|DOTA_ABILITY_BEHAVIOR_NO_TARGET",
         "ID": "63",

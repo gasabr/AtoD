@@ -4,9 +4,10 @@
     - to_json() converts .txt in unix dialect to json
     - json_to_rows() converts .json to the dicts with respect to db scheme
 '''
+import re
+import os
 import json
 import argparse
-import os
 
 from atod import settings
 
@@ -64,8 +65,8 @@ def write_on_stack(write_to, path, key, value):
 
 def remove_nt(input_str):
     ''' Returns string without tabs, line terminators and spaces. '''
-    clean = input_str.replace(' ', '')
-    clean = clean.replace('\t', '')
+    # clean = input_str.replace(' ', '')
+    clean = input_str.replace('\t', '')
     clean = clean.replace('\n', '')
 
     return clean
@@ -86,17 +87,18 @@ def parse(filename):
     with open(filename, 'r') as fp:
         for row in fp:
             # clean_ is a list without \t \n or spaces in it splitted by "
-            clean_ = remove_nt(row).split('"')
+            clean_ = remove_nt(row)
 
             # remove all the comments and empty strings
-            clean = [c for c in clean_ if '//' not in c and c != '']
+            # clean = [c for c in clean_ if '//' not in c and c != '']
+            clean = re.findall(r'"[\w| |;|_]+"|[{]|[}]', clean_)
 
             # if this is one
             if len(clean) == 1:
                 # if this isn't bracers - this is the key
                 if '{' not in clean and '}' not in clean:
                     # add the key to the stack
-                    keys_stack.append(clean[0])
+                    keys_stack.append(clean[0][1:-1])
 
                 if '}' in clean:
                     # pop key from the stack, since corresponding dictionary
@@ -107,8 +109,8 @@ def parse(filename):
             if len(clean) == 2:
                 write_on_stack(write_to=result,
                                path=keys_stack,
-                               key=clean[0],
-                               value=clean[1]
+                               key=clean[0][1:-1],
+                               value=clean[1][1:-1]
                                )
 
     return result
@@ -285,7 +287,5 @@ def write_item_types():
 
 
 if __name__ == '__main__':
-    v = vars(args)
-    inp = v['input'][0] if v['input'] else None
-    out = v['output'][0] if v['output'] else None
-    to_json(input_filename=inp, output_filename=out)
+    inp = settings.DATA_FOLDER + 'from-game/npc_abilities.txt'
+    to_json(input_filename=inp)
