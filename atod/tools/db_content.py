@@ -1,6 +1,6 @@
 from atod import settings
 from atod.setup_db import session
-from atod.dynamic_models import HeroModel, ItemModel
+from atod.models import HeroModel, ItemModel
 from atod.tools import game_files
 
 
@@ -11,7 +11,7 @@ def fill_heroes():
     for row in rows:
         hero = HeroModel(row)
         session.add(hero)
-        session.commit()
+        # session.commit()
 
 
 def fill_items():
@@ -29,5 +29,5 @@ def fill_items():
 
 
 if __name__ == '__main__':
-    # fill_heroes()
-    fill_items()
+    fill_heroes()
+    # fill_items()

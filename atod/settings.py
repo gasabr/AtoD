@@ -11,6 +11,7 @@ HEROES_TABLE_URL = 'http://dota2.gamepedia.com/Table_of_hero_attributes'
 #===============================================================================
 BASE_FOLDER = path.dirname(path.abspath(__file__))
 DATA_FOLDER = path.join(BASE_FOLDER, 'data/')
+TESTS_DATA_FOLDER = path.join(BASE_FOLDER, 'tests/tests_data/')
 
 NPC_PATH = '/Users/gasabr/Library/Application Support/Steam/steamapps/common/dota 2 beta/game/dota/scripts'
 
@@ -18,6 +19,7 @@ NPC_PATH = '/Users/gasabr/Library/Application Support/Steam/steamapps/common/dot
 # TODO: organize such path more accurate / change data/ folder structure
 HEROES_FILE = path.join(DATA_FOLDER, 'from-game/npc_heroes.json')
 ITEMS_FILE  = path.join(DATA_FOLDER, 'from-game/items.json')
+ABILITIES_FILE = path.join(DATA_FOLDER, 'from-game/npc_abilities.json')
 ID_TO_NAME  = path.join(DATA_FOLDER, 'heroes-features.json')
 CONVERTER   = path.join(DATA_FOLDER, 'converter.json')
 
@@ -79,7 +81,7 @@ heroes_scheme = {
     "AttributeBaseStrength": Integer,
     "AttackRate": Float,
     "Role": String, # TODO: parse
-    # "HeroID": Integer,
+    "HeroID": Integer,
     # "Ability10": "special_bonus_strength_6",
     # "Ability11": "special_bonus_mp_regen_3",
     "MovementTurnRate": Float,

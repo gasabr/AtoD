@@ -7,6 +7,12 @@ from atod.models import HeroModel
 
 mapper = inspect(HeroModel)
 
+PRIMARIES = {
+    'DOTA_ATTRIBUTE_AGILITY': 'agility',
+    'DOTA_ATTRIBUTE_STRENGTH': 'strength',
+    'DOTA_ATTRIBUTE_INTELLECT': 'intellect',
+}
+
 
 class Hero(object):
     ''' Interface for HeroModel. '''
@@ -38,6 +44,8 @@ class Hero(object):
         self.roles = {}
         for role, lvl in zip(self.Role.split(','), self.Rolelevels.split(',')):
             self.roles[role] = int(lvl)
+
+        self.primary = PRIMARIES[self.AttributePrimary]
 
     # properties
     @property

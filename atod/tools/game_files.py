@@ -157,7 +157,6 @@ def json_to_rows(filename, scheme):
     '''
     rows = []
     with open(filename, 'r') as fp:
-        # TODO: get the only key not DOTAHeroes
         data = json.load(fp)
         global_key = list(data.keys())[0]
         data = data[global_key]
@@ -167,18 +166,15 @@ def json_to_rows(filename, scheme):
         for key in scheme.keys():
             try:
                 tmp[key] = description[key]
-                print('tmp[key] =', description[key])
             # hero_base doesn't have some fields
             except KeyError as e:
-                # print('Hero {} with does not have {} field'.format(
-                #     in_game_name, key
-                # ))
                 tmp[key] = None
             # there are some non hero fields causes this
             except TypeError as t:
                 pass
 
         if len(tmp) > 0:
+            print(tmp)
             rows.append(tmp)
 
     return rows
@@ -286,7 +282,6 @@ def write_item_types():
 
 if __name__ == '__main__':
     v = vars(args)
-    print(v['input'][0])
     inp = v['input'][0] if v['input'] else None
     out = v['output'][0] if v['output'] else None
     to_json(input_filename=inp, output_filename=out)

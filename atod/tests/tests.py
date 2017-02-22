@@ -5,14 +5,18 @@ import json
 from atod.hero import Hero
 from atod.tools.game_files import to_json
 
-EXAMPLES_FOLDER = '/Users/gasabr/AtoD/atod/tests/examples/'
+EXAMPLES_FOLDER = '/Users/gasabr/AtoD/atod/tests/tests_data/game_files'
 
 class TestHero(unittest.TestCase):
     def test_creation_by_name(self):
-        self.es_1 = Hero('Earthshaker')
+        self.es_1 = Hero('Axe')
+        self.assertEqual(self.es_1.id, 2)
+        print(self.es_1.primary)
 
     def test_creation_with_lvl(self):
-        self.es_10 = Hero('Earthshaker', 10)
+        self.es_10 = Hero('Axe', 10)
+        self.assertEqual(self.es_10.id, 2)
+        print(self.es_10.primary)
 
 
 class TestParser(unittest.TestCase):
@@ -57,6 +61,11 @@ class TestParser(unittest.TestCase):
         # BUG: there was only one value 0.036f in items, there is a need to
         #      handle it.
         self.assertEqual(1, 0)
+
+
+class TestSettings(unittest.TestCase):
+    ''' Tests existence of all files, converter. '''
+    pass
 
 
 if __name__ == '__main__':
