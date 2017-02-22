@@ -21,7 +21,9 @@ def get_keys(dict_):
     for key in dict_:
         if isinstance(dict_[key], dict):
             all_keys = all_keys.union(get_keys(dict_[key]))
-        else:
+            
+        # I don't need var_type key for now
+        elif key != 'var_type':
             all_keys.add(key)
 
     return all_keys
@@ -35,6 +37,9 @@ def make_flat_dict_(dict_):
     result = []
     for k, v in dict_.items():
         if isinstance(v, str):
+            # I don't need this key for now
+            if k == 'var_type':
+                continue
             result.append({k: v})
         else:
             result.extend(make_flat_dict_(v))

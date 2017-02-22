@@ -72,6 +72,7 @@ def parse_table(heroes_summary):
     # since I was blocke on gamepedia, I downloaded html page containing
     # heroes attributes table
     # FIXME: abspath here
+    # this file is deleted, it was heroes table on dota2wiki by gamepedia
     ap = '/Users/gasabr/AtoD/v2'
     filename = os.path.join(ap, 'heroes_table.html')
 

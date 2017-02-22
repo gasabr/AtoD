@@ -11,9 +11,6 @@ EXAMPLES_FOLDER = path.join(settings.TESTS_DATA_FOLDER, 'json2vectors/')
 
 
 class TestJson2Vectors(unittest.TestCase):
-    def test_opening(self):
-        filename = settings.ABILITIES_FILE
-        # json2vectors.to_vectors(filename)
 
     def test_get_keys(self):
         filename = path.join(EXAMPLES_FOLDER, 'get_keys.json')
@@ -23,6 +20,15 @@ class TestJson2Vectors(unittest.TestCase):
         result = json2vectors.get_keys(data['input'])
 
         self.assertEqual(sorted(result), sorted(data['output']))
+
+    def test_make_flat_dict(self):
+        filename = path.join(EXAMPLES_FOLDER, 'make_flat_dict.json')
+        with open(filename, 'r') as fp:
+            data = json.load(fp)
+
+        result = json2vectors.make_flat_dict(data['input'])
+
+        self.assertEqual(result, data['output'])
 
 
 if __name__ == '__main__':
