@@ -6,14 +6,17 @@ from atod.setup_db import engine, session, Base
 from atod import settings
 
 
-heroes = (Column(n, t) for n, t in settings.heroes_scheme.items())
+heroes = (Column(n, t) for n, t
+          in settings.heroes_scheme.items() if n != 'HeroID')
+
 items = (Column(name, type_) for name, type_ in
                         settings.items_scheme.items() if name != 'ID')
 
 class HeroModel(Base):
 
     __table__ = Table('heroes_' + settings.CURRENT_VERSION, Base.metadata,
-                      Column('HeroID', Integer, primary_key=True),
+                      Column('HeroID', Integer, primary_key=True,
+                             autoincrement=False),
     			      *(col for col in heroes),
                       )
 

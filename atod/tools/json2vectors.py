@@ -6,14 +6,6 @@ import pandas
 
 from atod import settings
 
-filename = settings.DATA_FOLDER + 'from-game/items.json'
-items = {}
-with open(filename, 'r') as fp:
-    items_data = json.load(fp)
-
-basic_features = set()
-items_list = set()
-
 
 def get_keys(dict_):
     ''' Finds list of all the keys in given dict recursively. '''
@@ -21,9 +13,9 @@ def get_keys(dict_):
     for key in dict_:
         if isinstance(dict_[key], dict):
             all_keys = all_keys.union(get_keys(dict_[key]))
-            
-        # I don't need var_type key for now
-        elif key != 'var_type':
+
+        # I don't need this keys for now
+        elif key != 'var_type' and key != 'Version':
             all_keys.add(key)
 
     return all_keys
@@ -35,10 +27,14 @@ def make_flat_dict_(dict_):
         Example {'a': 1, 'b':{'c':3, 'd':4}} -> {'a':1, 'c':3, 'b':4}
     '''
     result = []
+    # the reason for this is described in TestJson2Vectors fixme
+    if isinstance(dict_, str):
+        return []
+
     for k, v in dict_.items():
         if isinstance(v, str):
             # I don't need this key for now
-            if k == 'var_type':
+            if k == 'var_type' or k == 'Version':
                 continue
             result.append({k: v})
         else:
@@ -65,6 +61,7 @@ def make_flat_dict(dict_):
 
     return result
 
+
 def to_vectors(filename):
     ''' Function to call from outside of the module.
 
@@ -74,6 +71,10 @@ def to_vectors(filename):
         :Returns:
             table (pandas.DataFrame) : DataFrame of extracted vectors
     '''
+    # load converter to filter keys
+    with open(settings.IN_GAME_CONVERTER, 'r') as fp:
+        converter = json.load(fp)
+
     # TODO: try-catch here
     with open(filename, 'r') as fp:
         data = json.load(fp)
@@ -83,13 +84,19 @@ def to_vectors(filename):
         global_key = list(data.keys())[0]
         data = data[global_key]
 
-    keys = get_keys(data)
+    print(len(data))
 
-    example = data[list(data.keys())[0]]
-    print(json.dumps(example, indent=2))
-    example_flat = make_flat_dict(example)
-    print()
-    print(json.dumps(example_flat, indent=2))
+    columns = get_keys(data)
+
+    S = {}
+    for key, value in data.items():
+        if any(map(lambda hero: hero in key, converter.keys())):
+            flat = make_flat_dict(value)
+            S[key] = pandas.Series([flat.get(k, None) for k in columns], columns)
+
+    result_frame = pandas.DataFrame(S)
+
+    return result_frame
 
 
 if __name__ == '__main__':

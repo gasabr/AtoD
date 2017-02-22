@@ -9,9 +9,10 @@ def fill_heroes():
     rows = game_files.json_to_rows(settings.HEROES_FILE, settings.heroes_scheme)
 
     for row in rows:
-        hero = HeroModel(row)
-        session.add(hero)
-        # session.commit()
+        if row['HeroID']:
+            hero = HeroModel(row)
+            session.add(hero)
+            session.commit()
 
 
 def fill_items():

@@ -46,12 +46,14 @@ def write_on_stack(write_to, path, key, value):
             write_to (dict) : changed write_to argument
     '''
     current = write_to
+    # find or create the end destination for writing value
     for p in path:
         try:
             current = current[p]
         except KeyError as e:
             current[p] = {}
             current = current[p]
+    # trying to write value in the end of stack
     try:
         current[p][key] = value
     except KeyError as e:
@@ -174,8 +176,10 @@ def json_to_rows(filename, scheme):
                 pass
 
         if len(tmp) > 0:
-            print(tmp)
             rows.append(tmp)
+
+            if 'HeroID' not in tmp:
+                print(tmp)
 
     return rows
 
