@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 ''' Set of functions to transform dict (json) to pandas.DataFrame. '''
 
+import re
 import json
 import pandas
 
@@ -75,6 +76,8 @@ def to_vectors(filename):
     with open(settings.IN_GAME_CONVERTER, 'r') as fp:
         converter = json.load(fp)
 
+    heroes_names = [c for c in converter.keys() if re.findall(r'[a-zA-Z|\_]+', c)]
+
     # TODO: try-catch here
     with open(filename, 'r') as fp:
         data = json.load(fp)
@@ -84,13 +87,14 @@ def to_vectors(filename):
         global_key = list(data.keys())[0]
         data = data[global_key]
 
-    print(len(data))
+    print('Amount of abilities:', len(data))
 
     columns = get_keys(data)
+    print('Amount of features:', len(columns))
 
     S = {}
     for key, value in data.items():
-        if any(map(lambda hero: hero in key, converter.keys())):
+        if any(map(lambda hero: hero in key, heroes_names)):
             flat = make_flat_dict(value)
             S[key] = pandas.Series([flat.get(k, None) for k in columns], columns)
 
