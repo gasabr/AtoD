@@ -10,7 +10,7 @@ EXAMPLES_FOLDER = '/Users/gasabr/AtoD/atod/tests/tests_data/game_files/'
 class TestParser(unittest.TestCase):
     ''' Test case for game files parser.
 
-        In examples are small files with all hard cases I've ran into,
+        In examples/ there are small files with all hard cases I've ran into,
         expected_*.json represents result what is expected from parser.
     '''
     def test_comments(self):
@@ -54,9 +54,39 @@ class TestParser(unittest.TestCase):
         with open(EXAMPLES_FOLDER + 'expected_float_fields.json', 'r') as fp:
             expected = json.load(fp)
 
+        self.assertEqual(parsed, expected)
+
+    def test_empty_value(self):
+        ''' Example with empty value in the input file. '''
+        input_file = EXAMPLES_FOLDER + 'empty_values.txt'
+        parsed = to_json(input_file)
+
+        with open(EXAMPLES_FOLDER + 'expected_empty_values.json', 'r') as fp:
+            expected = json.load(fp)
+
+        self.assertEqual(parsed, expected)
+
+    def test_empty_dict(self):
+        ''' Example with empty dictionary in the input file. '''
+        input_file = EXAMPLES_FOLDER + 'empty_dict.txt'
+        parsed = to_json(input_file)
+
+        with open(EXAMPLES_FOLDER + 'expected_empty_dict.json', 'r') as fp:
+            expected = json.load(fp)
+
+        # sorted removes empty dictionaries
         self.assertEqual(sorted(parsed), sorted(expected))
 
-    #
+    def test_symbols_in_values(self):
+        ''' Test different unusual symbols in values. '''
+        input_file = EXAMPLES_FOLDER + 'symbols_in_values.txt'
+        parsed = to_json(input_file)
+
+        with open(EXAMPLES_FOLDER + 'expected_symbols_in_values.json', 'r') as fp:
+            expected = json.load(fp)
+
+        self.assertEqual(parsed, expected)
+
     # def test_clearly_defined_float(self):
     #     # BUG: there was only one value 0.036f in items, there is a need to
     #     #      handle it.

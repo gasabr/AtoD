@@ -94,7 +94,7 @@ def parse(filename):
 
             # remove all the comments and empty strings
             # clean = [c for c in clean_ if '//' not in c and c != '']
-            clean = re.findall(r'"[\w| |;|_|.]+"|[{]|[}]', clean_)
+            clean = re.findall(r'''"[\w| |;|_|.|/|\-|'|&]+"|""|[{]|[}]''', clean_)
 
             # if this is one
             if len(clean) == 1:
