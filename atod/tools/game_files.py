@@ -89,9 +89,12 @@ def parse(filename):
             # clean_ is a list without \t \n or spaces in it splitted by "
             clean_ = remove_nt(row)
 
+            if clean_.startswith('//'):
+                continue
+
             # remove all the comments and empty strings
             # clean = [c for c in clean_ if '//' not in c and c != '']
-            clean = re.findall(r'"[\w| |;|_]+"|[{]|[}]', clean_)
+            clean = re.findall(r'"[\w| |;|_|.]+"|[{]|[}]', clean_)
 
             # if this is one
             if len(clean) == 1:

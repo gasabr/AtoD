@@ -1,0 +1,33 @@
+{
+    "DOTAAbilities": {
+        "item_blink": {
+            "ItemAliases": "blink dagger",
+            "ItemDeclarations": "DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS",
+            "AbilityCooldown": "12.0",
+            "ItemCost": "2250",
+            "AbilityCastRange": "0",
+            "AbilityCastPoint": "0.0",
+            "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_DIRECTIONAL | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES",
+            "AbilitySpecial": {
+                "01": {
+                    "blink_range": "1200",
+                    "var_type": "FIELD_INTEGER"
+                },
+                "03": {
+                    "blink_range_clamp": "960",
+                    "var_type": "FIELD_INTEGER"
+                },
+                "02": {
+                    "blink_damage_cooldown": "3.0",
+                    "var_type": "FIELD_FLOAT"
+                }
+            },
+            "SideShop": "1",
+            "ID": "1",
+            "ItemQuality": "component",
+            "ItemShopTags": "teleport",
+            "AbilityManaCost": "0"
+        },
+        "Version": "1"
+    }
+}

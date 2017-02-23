@@ -45,6 +45,17 @@ class TestParser(unittest.TestCase):
             expected = json.load(fp)
 
         self.assertEqual(sorted(expected), sorted(parsed))
+
+    def test_float_fields(self):
+        ''' Example with float fields. '''
+        input_file = EXAMPLES_FOLDER + 'float_fields.txt'
+        parsed = to_json(input_file)
+
+        with open(EXAMPLES_FOLDER + 'expected_float_fields.json', 'r') as fp:
+            expected = json.load(fp)
+
+        self.assertEqual(sorted(parsed), sorted(expected))
+
     #
     # def test_clearly_defined_float(self):
     #     # BUG: there was only one value 0.036f in items, there is a need to
