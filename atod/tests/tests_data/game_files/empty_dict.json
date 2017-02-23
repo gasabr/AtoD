@@ -1,10 +1,10 @@
 {
     "default_attack": {
-        "ID": "5001",
         "OneMoreDict": {
             "nestedDict": {
                 "key": "value"
             }
-        }
+        },
+        "ID": "5001"
     }
 }

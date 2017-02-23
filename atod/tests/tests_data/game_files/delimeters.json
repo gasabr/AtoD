@@ -5,25 +5,25 @@
                 "var_type": "FIELD_INTEGER",
                 "bonus_damage": "0"
             },
-            "02": {
-                "var_type": "FIELD_INTEGER",
-                "bonus_stat": "9"
-            },
             "01": {
                 "var_type": "FIELD_INTEGER",
                 "bonus_movement_speed": "45"
+            },
+            "02": {
+                "var_type": "FIELD_INTEGER",
+                "bonus_stat": "9"
             },
             "03": {
                 "var_type": "FIELD_INTEGER",
                 "bonus_attack_speed": "25"
             }
         },
+        "ID": "63",
         "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET",
         "ItemDeclarations": "DECLARE_PURCHASES_TO_SPECTATORS",
-        "ID": "63",
-        "ItemQuality": "common",
-        "ItemShopTags": "attack_speed;move_speed;int;agi;str",
         "ItemCost": "1350",
-        "ItemAliases": "power treads"
+        "ItemQuality": "common",
+        "ItemAliases": "power treads",
+        "ItemShopTags": "attack_speed;move_speed;int;agi;str"
     }
 }

@@ -22,6 +22,7 @@ ITEMS_FILE        = path.join(DATA_FOLDER, 'from-game/items.json')
 ABILITIES_FILE    = path.join(DATA_FOLDER, 'from-game/npc_abilities.json')
 
 # TODO: make one beutiful converter from it (or maybe 2)
+# TODO: rename this with FILE
 ID_TO_NAME  = path.join(DATA_FOLDER, 'heroes-features.json')
 CONVERTER   = path.join(DATA_FOLDER, 'converter.json')
 IN_GAME_CONVERTER = path.join(DATA_FOLDER, 'in_game_converter.json')
