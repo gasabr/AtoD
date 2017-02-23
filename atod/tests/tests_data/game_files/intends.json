@@ -1,25 +1,25 @@
 {
     "item_dragon_lance": {
-        "ItemQuality": "artifact",
-        "ItemCost": "1900",
         "AbilitySpecial": {
-            "03": {
-                "base_attack_range": "140",
-                "var_type": "FIELD_INTEGER"
+            "02": {
+                "var_type": "FIELD_INTEGER",
+                "bonus_strength": "12"
             },
             "01": {
-                "bonus_agility": "13",
-                "var_type": "FIELD_INTEGER"
+                "var_type": "FIELD_INTEGER",
+                "bonus_agility": "13"
             },
-            "02": {
-                "bonus_strength": "12",
-                "var_type": "FIELD_INTEGER"
+            "03": {
+                "var_type": "FIELD_INTEGER",
+                "base_attack_range": "140"
             }
         },
-        "ItemShopTags": "damage",
-        "ItemDisassembleRule": "DOTA_ITEM_DISASSEMBLE_ALWAYS",
         "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_PASSIVE",
-        "ItemAliases": "dragonlance",
-        "ID": "236"
+        "ID": "236",
+        "ItemQuality": "artifact",
+        "ItemShopTags": "damage",
+        "ItemCost": "1900",
+        "ItemAliases": "dragon lance",
+        "ItemDisassembleRule": "DOTA_ITEM_DISASSEMBLE_ALWAYS"
     }
 }

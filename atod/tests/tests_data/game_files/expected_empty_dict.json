@@ -1,0 +1,20 @@
+{
+	"default_attack":
+	{
+		"ID": "5001",
+
+		"AbilitySpecial":
+		{
+		},
+		"OneMoreDict":
+		{
+			"nestedDict":
+			{
+				"key": "value"
+			},
+			"nestedDict2":
+			{
+			}
+		}
+	}
+}

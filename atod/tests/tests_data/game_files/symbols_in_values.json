@@ -1,0 +1,34 @@
+{
+    "item_sange_and_yasha": {
+        "AbilitySpecial": {
+            "05": {
+                "var_type": "FIELD_INTEGER",
+                "movement_speed_percent_bonus": "16"
+            },
+            "06": {
+                "var_type": "FIELD_INTEGER",
+                "maim_chance": "35"
+            },
+            "07": {
+                "var_type": "FIELD_INTEGER",
+                "maim_slow_movement": "-26"
+            },
+            "11": {
+                "var_type": "FIELD_FLOAT",
+                "maim_duration": "5.0"
+            },
+            "08": {
+                "var_type": "FIELD_INTEGER",
+                "maim_slow_attack_range": "-13"
+            }
+        },
+        "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_PASSIVE",
+        "ItemDeclarations": "DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS",
+        "ID": "154",
+        "ItemQuality": "artifact",
+        "ItemShopTags": "damage;str;agi;attack_speed;unique",
+        "ItemCost": "4100",
+        "ItemAliases": "sny;s&y;sy;sange and yasha",
+        "ItemDisassembleRule": "DOTA_ITEM_DISASSEMBLE_ALWAYS"
+    }
+}

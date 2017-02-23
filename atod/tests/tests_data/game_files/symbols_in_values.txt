@@ -1,0 +1,47 @@
+"item_sange_and_yasha"
+{
+	// General
+	//-------------------------------------------------------------------------------------------------------------
+	"ID"							"154"														// unique ID number for this item.  Do not change this once established or it will invalidate collected stats.
+	"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+	// Item Info
+	//-------------------------------------------------------------------------------------------------------------
+	"ItemCost"						"4100"
+	"ItemShopTags"					"damage;str;agi;attack_speed;unique"
+	"ItemQuality"					"artifact"
+	"ItemAliases"					"sny;s&y;sy;sange and yasha"
+	"ItemDisassembleRule"			"DOTA_ITEM_DISASSEMBLE_ALWAYS"
+	"ItemDeclarations"				"DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS"
+	
+	// Special	
+	//-------------------------------------------------------------------------------------------------------------
+	"AbilitySpecial"
+	{
+		"05"
+		{
+			"var_type"						"FIELD_INTEGER"
+			"movement_speed_percent_bonus"	"16"
+		}			
+		"06"
+		{
+			"var_type"				"FIELD_INTEGER"
+			"maim_chance"			"35"
+		}
+		"07"
+		{
+			"var_type"				"FIELD_INTEGER"
+			"maim_slow_movement"	"-26"
+		}
+		"08"
+		{
+			"var_type"				"FIELD_INTEGER"
+			"maim_slow_attack_range"		"-13"
+		}
+		"11"
+		{
+			"var_type"				"FIELD_FLOAT"
+			"maim_duration"			"5.0"
+		}
+	}
+}
