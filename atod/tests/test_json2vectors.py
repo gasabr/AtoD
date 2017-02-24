@@ -40,14 +40,12 @@ class TestJson2Vectors(unittest.TestCase):
         self.assertEqual(result, data['output'])
 
     def test_to_vectors(self):
-        frame = json2vectors.to_vectors(settings.ABILITIES_FILE)
+        frame = json2vectors.to_vectors(settings.ABILITIES_FILE, True)
 
         print(frame.shape)
 
-        frame = frame.dropna(0, thresh=3)
-        frame = frame.dropna(1, 'all')
-
-        print(frame.shape)
+        print(frame.to_excel(settings.DATA_FOLDER + 'heroes-abilities.xlsx'))
+        # print(frame.T.loc[["phantom_lancer_juxtapose"]])
 
 
 if __name__ == '__main__':
