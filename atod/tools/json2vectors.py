@@ -82,7 +82,8 @@ def to_vectors(filename, write_to_file=False):
     with open(settings.IN_GAME_CONVERTER, 'r') as fp:
         converter = json.load(fp)
 
-    heroes_names = [c for c in converter.keys() if re.findall(r'[a-zA-Z|\_]+', c)]
+    heroes_names = [c for c in converter.keys()
+                            if re.findall(r'[a-zA-Z|\_]+', c)]
 
     # TODO: try-catch here
     with open(filename, 'r') as fp:
@@ -99,7 +100,8 @@ def to_vectors(filename, write_to_file=False):
     for key, value in data.items():
         if any(map(lambda hero: hero in key, heroes_names)):
             flat = make_flat_dict(value)
-            S[key] = pandas.Series([flat.get(k, None) for k in columns], columns)
+            vector = [flat[e] if flat.get(e, None) else 0 for e in effects]
+            S[key] = pandas.Series(vector, columns)
 
     result_frame = pandas.DataFrame(S)
 
@@ -123,7 +125,8 @@ def to_bin_vectors(filename):
     with open(settings.IN_GAME_CONVERTER, 'r') as fp:
         converter = json.load(fp)
 
-    heroes_names = [c for c in converter.keys() if re.findall(r'[a-zA-Z|\_]+', c)]
+    heroes_names = [c for c in converter.keys()
+                            if re.findall(r'[a-zA-Z|\_]+', c)]
 
     # TODO: try-catch here
     with open(filename, 'r') as fp:
@@ -138,6 +141,7 @@ def to_bin_vectors(filename):
 
     S = {}
     for key, value in data.items():
+        # get only playable heroes skills
         if any(map(lambda hero: hero in key, heroes_names)):
             flat = make_flat_dict(value)
             vector = [1 if flat.get(e, None) else 0 for e in effects]
@@ -222,18 +226,26 @@ def get_all_values(input_dict):
 
 
 def create_encoding(values):
-    # to make values JSON serializeble
-    for k, v in values.items():
-        values[k] = list(v)
+    ''' Maps categorical values to numbers with LabelEncoder.
+
+        :Args:
+            values (dict) : {"variable_name": "possible_value"}
+
+        :Returns:
+            encoding (dict) : {"variable_name": {"possible_value": encoding,},}
+    '''
 
     values_list = []
     encoding = {}
     number = LabelEncoder()
+
     for var_name, values in values.items():
         encoded = number.fit_transform(values).astype('str')
+
         for value, e in zip(values, encoded):
             if not encoding.get(var_name, None):
                 encoding[var_name] = {}
+
             encoding[var_name][value] = e
 
     return encoding
@@ -244,4 +256,6 @@ if __name__ == '__main__':
         abilities = json.load(fp)
     values = get_all_values(abilities)
 
-    print(json.dumps(create_encoding(values), indent=2))
+    encoding = create_encoding(values)
+    vectors = to_vectors(settings.ABILITIES_FILE)
+    print(vectors)

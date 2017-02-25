@@ -1,7 +1,7 @@
 {
 	"default_attack":
 	{
-		"ID": "5001",
+		"ID": 5001,
 
 		"AbilitySpecial":
 		{

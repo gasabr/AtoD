@@ -2,7 +2,7 @@
 import unittest
 import json
 
-from atod.tools.game_files import to_json
+from atod.tools.to_json import to_json, clean_value
 
 EXAMPLES_FOLDER = '/Users/gasabr/AtoD/atod/tests/tests_data/game_files/'
 
@@ -15,8 +15,6 @@ class TestParser(unittest.TestCase):
     '''
     def test_comments(self):
         ''' Tests every case of placing comments in file. '''
-        # BUG: handle space in ItemAliases.
-        #      now if there's space in alias it will be removed
         input_file = EXAMPLES_FOLDER + 'comments.txt'
         parsed = to_json(input_filename=input_file)
 
@@ -54,7 +52,7 @@ class TestParser(unittest.TestCase):
         with open(EXAMPLES_FOLDER + 'expected_float_fields.json', 'r') as fp:
             expected = json.load(fp)
 
-        self.assertEqual(parsed, expected)
+        self.assertEqual(sorted(parsed), sorted(expected))
 
     def test_empty_value(self):
         ''' Example with empty value in the input file. '''
@@ -64,7 +62,7 @@ class TestParser(unittest.TestCase):
         with open(EXAMPLES_FOLDER + 'expected_empty_values.json', 'r') as fp:
             expected = json.load(fp)
 
-        self.assertEqual(parsed, expected)
+        self.assertEqual(sorted(parsed), sorted(expected))
 
     def test_empty_dict(self):
         ''' Example with empty dictionary in the input file. '''
@@ -85,12 +83,17 @@ class TestParser(unittest.TestCase):
         with open(EXAMPLES_FOLDER + 'expected_symbols_in_values.json', 'r') as fp:
             expected = json.load(fp)
 
-        self.assertEqual(parsed, expected)
+        self.assertEqual(sorted(parsed), sorted(expected))
 
-    # def test_clearly_defined_float(self):
-    #     # BUG: there was only one value 0.036f in items, there is a need to
-    #     #      handle it.
-    #     self.assertEqual(1, 0)
+    def test_numbers_parsing(self):
+        ''' Tests how numbers inside of "" can be converted to their values. '''
+        input_file = EXAMPLES_FOLDER + 'numbers.json'
+
+        with open(input_file, 'r') as fp:
+            data = json.load(fp)
+
+        for example in data:
+            self.assertEqual(clean_value(example['input']), example['output'])
 
 
 if __name__ == '__main__':
