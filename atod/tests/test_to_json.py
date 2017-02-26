@@ -95,6 +95,10 @@ class TestParser(unittest.TestCase):
         for example in data:
             self.assertEqual(clean_value(example['input']), example['output'])
 
+    def test_list_of_strings(self):
+        ''' Tests how parser handles a list of strings with | delimeter. '''
+        self.assertEqual(1, 0)
+
 
 if __name__ == '__main__':
     unittest.main()

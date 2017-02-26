@@ -10,7 +10,18 @@ from sklearn.preprocessing import LabelEncoder, OneHotEncoder
 from atod import settings
 
 
-def get_keys(dict_):
+def lists_to_mean(dict_):
+    ''' Changes all the lists to their mean. '''
+    for key in dict_.keys():
+        if isinstance(dict_[key], list):
+            dict_[key] = sum(dict_[key])/len(dict_[key])
+        if isinstance(dict_[key], dict):
+            lists_to_mean(dict_[key])
+
+    return
+
+
+def get_keys(dict_, except_=[]):
     ''' Finds list of all the keys in given dict recursively.
 
         Except for fixme keys.
@@ -22,45 +33,46 @@ def get_keys(dict_):
 
         # FIXME: move this from function
         # I don't need this keys for now
-        elif key != 'var_type' and key != 'Version':
+        elif key not in except_:
             all_keys.add(key)
 
     return all_keys
 
 
-def make_flat_dict_(dict_):
-    ''' Moves all the properties of inserted dicts to the top level.
+def collect_kv(dict_, except_=[]):
+    ''' Finds all pairs key-value in all dictionaries incside given.
 
-        Example {'a': 1, 'b':{'c':3, 'd':4}} -> {'a':1, 'c':3, 'b':4}
+        Example {'a': 1, 'b':{'c':3, 'd':4}} -> [{'a':1}, {'c':3}, {'b':4}]
+        On the next step make_flat_dict will transform result of this
+        function to the flat dict.
     '''
-    result = []
+    kv_pairs = []
     # the reason for this is described in TestJson2Vectors fixme
-    if isinstance(dict_, str):
+    if not isinstance(dict_, dict):
         return []
 
     for k, v in dict_.items():
         if isinstance(v, str):
-            # I don't need this key for now
-            if k == 'var_type' or k == 'Version':
+            if k in except_:
                 continue
-            result.append({k: v})
+            kv_pairs.append({k: v})
         else:
-            result.extend(make_flat_dict_(v))
+            kv_pairs.extend(collect_kv(v))
 
-    return result
+    return kv_pairs
 
 
 def make_flat_dict(dict_):
-    ''' Wrapper for recursive make_flat_dict_().
+    ''' Wrapper for recursive collect_kv().
 
         :Args:
             dict_ (dict) : to make flat
 
         :Returns:
-            flat (dict) : described in make_flat_dict_()
+            flat (dict) : described in collect_kv()
     '''
     # get array of one-element dicts
-    dicts = make_flat_dict_(dict_)
+    dicts = collect_kv(dict_, except_=['Version', 'var_type'])
     result = {}
     for d in dicts:
         key = list(d.keys())[0]
@@ -70,10 +82,11 @@ def make_flat_dict(dict_):
 
 
 def to_vectors(filename, write_to_file=False):
-    ''' Function to call from outside of the module.
+    ''' Transform dictionaries data to vectors of features.
 
         :Args:
             filename (str) : file from which func will extract vectors
+            write_to_file (bool) : output_filename=abilities_vectors.json
 
         :Returns:
             table (pandas.DataFrame) : DataFrame of extracted vectors
@@ -94,13 +107,13 @@ def to_vectors(filename, write_to_file=False):
         global_key = list(data.keys())[0]
         data = data[global_key]
 
-    columns = get_keys(data)
+    columns = get_keys(data, except_=['Version', 'var_type'])
 
     S = {}
     for key, value in data.items():
         if any(map(lambda hero: hero in key, heroes_names)):
             flat = make_flat_dict(value)
-            vector = [flat[e] if flat.get(e, None) else 0 for e in effects]
+            vector = [flat[e] if flat.get(e, None) else 0 for e in columns]
             S[key] = pandas.Series(vector, columns)
 
     result_frame = pandas.DataFrame(S)
@@ -121,33 +134,83 @@ def to_bin_vectors(filename):
         :Returns:
             table (pandas.DataFrame) : DataFrame of extracted vectors
     '''
-    # load converter to filter keys
+    # load converter to get heroes names
     with open(settings.IN_GAME_CONVERTER, 'r') as fp:
         converter = json.load(fp)
 
     heroes_names = [c for c in converter.keys()
                             if re.findall(r'[a-zA-Z|\_]+', c)]
 
-    # TODO: try-catch here
+    # load parsed npc_abilities.txt file
     with open(filename, 'r') as fp:
-        data = json.load(fp)
+        abilities = json.load(fp)['DOTAAbilities']
 
-    # if there is global key, get rid of it
-    if len(data) == 1:
-        global_key = list(data.keys())[0]
-        data = data[global_key]
+    # all the keys in the dictionary
+    keys = get_keys(abilities, except_=['Version', 'var_type'])
 
-    effects = get_keys(data)
+    # cat stands for categorical
+    all_values = get_all_values(abilities)
+    encoding = create_encoding(all_values)
+    cat_columns = ['{}={}'.format(k, vv) for k, v in encoding.items()
+                           for vv in v if k != 'var_type' and
+                                          k != 'LinkedSpecialBonus' and
+                                          k != 'HotKeyOverride'
+                  ]
+    # FIXME: remove this keys: 'var_type', 'LinkedSpecialBonusOperation', 'levelkey',
+    #    'AbilitySharedCooldown', 'AbilityUnitTargetFlag',
+    #    'AbilityUnitTargetType', 'AbilityUnitDamageType',
+    #    'SpellDispellableType', 'AbilityUnitTargetTeam', 'SpellImmunityType'
 
-    S = {}
-    for key, value in data.items():
-        # get only playable heroes skills
-        if any(map(lambda hero: hero in key, heroes_names)):
-            flat = make_flat_dict(value)
-            vector = [1 if flat.get(e, None) else 0 for e in effects]
-            S[key] = pandas.Series(vector, effects)
+    # all the possible 'elementary' effects in abilities
+    effects = set()
+    for k in keys:
+        if len(k.split('_')) > 1:
+            effects = effects.union(k.split('_'))
+        else:
+            effects.add(k)
 
-    return pandas.DataFrame(S)
+    # find all the heroes skills, but not talents
+    heroes_abilities = set()
+    for key, value in abilities.items():
+        if any(map(lambda name: name in key, heroes_names)) and \
+                    'special_bonus' not in key and \
+                    key not in encoding.keys():
+            heroes_abilities.add(key)
+
+    # DataFrame(abilities X effects)
+    frame = pandas.DataFrame([], index=heroes_abilities, columns=effects)
+    print(frame.shape)
+
+    for key, values in frame.iterrows():
+        for e in list(values.index):
+            # if this effect is inside any key of the ability
+            values[e] = 1 if any(map(lambda k:
+                                     e in k, abilities[key].keys())) else 0
+
+    cat_part = pandas.DataFrame([], index=heroes_abilities, columns=cat_columns)
+
+    # fill categorical_part
+    # for all rows in the DataFrame
+    for skill, values in cat_part.iterrows():
+        # for all the categorical variables
+        for cat_var in encoding.keys():
+            try:
+                # check if this ability has such categorical variable
+                abilities[skill][cat_var]
+            except KeyError as e:
+                cat_part.loc[cat_var] = -1
+                continue
+
+            cat_values = abilities[skill][cat_var].split(' | ')
+
+            if len(cat_values) == 1:
+                cat_part.loc[skill]['{}={}'.format(cat_var, cat_values[0])] = 1
+            else:
+                for c in cat_values:
+                    cat_part.loc[skill]['{}={}'.format(cat_var, c)] = 1
+
+    cat_part = cat_part.fillna(0)
+    print(cat_part.index)
 
 
 def get_similar_effects():
@@ -166,33 +229,39 @@ def get_similar_effects():
 
     heal_words = ['heal', 'restore', 'hp', 'regen']
 
-    damage_effects  = [e for e in effects_list if 'damage' in e]
+    damage_effects  = [e for e in effects_list if 'damage' in e and
+                       'illusion' not in e and 'replica' not in e]
     move_effects    = [e for e in effects_list if 'move' in e]
     healing_effects = [e for e in effects_list if
                                any(map(lambda x: x in e, heal_words))]
     durations       = [e for e in effects_list if 'duration' in e]
+    stuns           = [e for e in effects_list if 'stun' in e]
     # TODO: same for illusions, replicas
     # TODO: same for reductions, probably
 
     print(len(damage_effects))
+    # print(damage_effects)
     print(len(move_effects))
     print(len(healing_effects))
     print(len(durations))
+    print(len(stuns))
 
     D = abilities[damage_effects]
-    D = D.dropna(0, thresh=1)
-    D = D.dropna(1, thresh=1)
+    D = D.dropna(1)
+    D = D.dropna(0)
 
-    D.T.to_excel(settings.DATA_FOLDER + 'damage_effects.xlsx')
+    print(D.shape)
 
-    print(D)
+    # D.T.to_excel(settings.DATA_FOLDER + 'damage_effects.xlsx')
+
+    # print(D)
 
 
 def get_all_values(input_dict):
     ''' Finds all possible values of categorical variables.
 
         :Args:
-            keys (list of strings) : variables to find values
+            input_dict (dict) : dict to search
 
         :Returns:
             values (dict) : {key: [value1, value2,...], }
@@ -251,11 +320,36 @@ def create_encoding(values):
     return encoding
 
 
-if __name__ == '__main__':
-    with open(settings.ABILITIES_FILE, 'r') as fp:
-        abilities = json.load(fp)
-    values = get_all_values(abilities)
+def to_frame(filename):
+    ''' Turns file into the pandas.DataFrame.
 
+        All the lists are replaced with their means.
+        All the categorical variables replaced with OneHotEncoding.
+    '''
+    with open(filename, 'r') as fp:
+        data = json.load(fp)
+
+    flat_data = make_flat_dict(data)
+    # lists changes given data
+    lists_to_mean(data)
+    values = get_all_values(data)
     encoding = create_encoding(values)
-    vectors = to_vectors(settings.ABILITIES_FILE)
-    print(vectors)
+
+    print(json.dumps(encoding, indent=2))
+
+    keys = get_keys(data, except_=['Version', 'var_type'])
+
+    effects = set()
+    for k in keys:
+        if len(k.split('_')) > 1:
+            effects = effects.union(k.split('_'))
+        else:
+            effects.add(k)
+
+    print(sorted(effects))
+
+
+if __name__ == '__main__':
+    to_bin_vectors(settings.ABILITIES_FILE)
+    # get_similar_effects()
+    # to_frame(settings.ABILITIES_FILE)
