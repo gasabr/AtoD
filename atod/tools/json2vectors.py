@@ -154,7 +154,8 @@ def to_bin_vectors(filename):
     cat_columns = ['{}={}'.format(k, vv) for k, v in encoding.items()
                            for vv in v if k != 'var_type' and
                                           k != 'LinkedSpecialBonus' and
-                                          k != 'HotKeyOverride'
+                                          k != 'HotKeyOverride' and
+                                          k != 'levelkey'
                   ]
     # FIXME: remove this keys: 'var_type', 'LinkedSpecialBonusOperation', 'levelkey',
     #    'AbilitySharedCooldown', 'AbilityUnitTargetFlag',
@@ -166,7 +167,7 @@ def to_bin_vectors(filename):
     for k in keys:
         if len(k.split('_')) > 1:
             effects = effects.union(k.split('_'))
-        else:
+        elif k != 'ID':
             effects.add(k)
 
     # find all the heroes skills, but not talents
@@ -192,13 +193,13 @@ def to_bin_vectors(filename):
     # fill categorical_part
     # for all rows in the DataFrame
     for skill, values in cat_part.iterrows():
+        cat_part.loc[skill] = cat_part.loc[skill].fillna(value=0)
         # for all the categorical variables
         for cat_var in encoding.keys():
             try:
                 # check if this ability has such categorical variable
-                abilities[skill][cat_var]
-            except KeyError as e:
-                cat_part.loc[cat_var] = -1
+                getattr(abilities[skill], cat_var)
+            except AttributeError as e:
                 continue
 
             cat_values = abilities[skill][cat_var].split(' | ')
@@ -209,8 +210,9 @@ def to_bin_vectors(filename):
                 for c in cat_values:
                     cat_part.loc[skill]['{}={}'.format(cat_var, c)] = 1
 
-    cat_part = cat_part.fillna(0)
-    print(cat_part.index)
+    result_frame = pandas.concat([frame, cat_part], axis=1)
+
+    return result_frame
 
 
 def get_similar_effects():
@@ -350,6 +352,7 @@ def to_frame(filename):
 
 
 if __name__ == '__main__':
-    to_bin_vectors(settings.ABILITIES_FILE)
+    frame = to_bin_vectors(settings.ABILITIES_FILE)
+    print(frame.shape)
     # get_similar_effects()
     # to_frame(settings.ABILITIES_FILE)
