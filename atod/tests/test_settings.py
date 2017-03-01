@@ -20,16 +20,13 @@ class TestSettings(unittest.TestCase):
 
         files = [d for d in settings_dir if
                             any(map(lambda x: x in d, paths_names))]
-        # print(l)
+
         paths = [getattr(settings, file_) for file_ in files]
 
         paths_tested = 0
         for path in paths:
             self.assertEqual(os.path.exists(path), True)
             paths_tested += 1
-
-        # TODO: use logger for this
-        print('Paths tested:', paths_tested)
 
 
 if __name__ == '__main__':

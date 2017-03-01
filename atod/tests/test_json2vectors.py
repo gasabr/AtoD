@@ -26,7 +26,9 @@ class TestJson2Vectors(unittest.TestCase):
         with open(filename, 'r') as fp:
             data = json.load(fp)
 
-        result = json2vectors.get_keys(data['input'])
+        result = json2vectors.get_keys(data['input'],
+                                       except_=['Version', 'var_type']
+                                       )
 
         self.assertEqual(sorted(result), sorted(data['output']))
 
@@ -38,14 +40,6 @@ class TestJson2Vectors(unittest.TestCase):
         result = json2vectors.make_flat_dict(data['input'])
 
         self.assertEqual(result, data['output'])
-
-    def test_to_vectors(self):
-        frame = json2vectors.to_vectors(settings.ABILITIES_FILE, True)
-
-        print(frame.shape)
-
-        print(frame.to_excel(settings.DATA_FOLDER + 'heroes-abilities.xlsx'))
-        # print(frame.T.loc[["phantom_lancer_juxtapose"]])
 
 
 if __name__ == '__main__':

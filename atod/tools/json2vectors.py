@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
+# noinspection PySingleQuotedDocstring
 ''' Set of functions to transform dict (json) to pandas.DataFrame. '''
 
 import os
 import re
 import json
 import pandas
-from sklearn.preprocessing import LabelEncoder, OneHotEncoder
+from sklearn.preprocessing import LabelEncoder
 
 from atod import settings
 
@@ -22,17 +23,12 @@ def lists_to_mean(dict_):
 
 
 def get_keys(dict_, except_=[]):
-    ''' Finds list of all the keys in given dict recursively.
-
-        Except for fixme keys.
-    '''
+    ''' Finds list of all the keys in given dict recursively. '''
     all_keys = set()
     for key in dict_:
         if isinstance(dict_[key], dict):
-            all_keys = all_keys.union(get_keys(dict_[key]))
+            all_keys = all_keys.union(get_keys(dict_[key], except_=except_))
 
-        # FIXME: move this from function
-        # I don't need this keys for now
         elif key not in except_:
             all_keys.add(key)
 
@@ -40,7 +36,7 @@ def get_keys(dict_, except_=[]):
 
 
 def collect_kv(dict_, except_=[]):
-    ''' Finds all pairs key-value in all dictionaries incside given.
+    ''' Finds all pairs key-value in all dictionaries inside given.
 
         Example {'a': 1, 'b':{'c':3, 'd':4}} -> [{'a':1}, {'c':3}, {'b':4}]
         On the next step make_flat_dict will transform result of this
@@ -57,7 +53,7 @@ def collect_kv(dict_, except_=[]):
                 continue
             kv_pairs.append({k: v})
         else:
-            kv_pairs.extend(collect_kv(v))
+            kv_pairs.extend(collect_kv(v, except_=except_))
 
     return kv_pairs
 
@@ -81,50 +77,6 @@ def make_flat_dict(dict_):
     return result
 
 
-def to_vectors(filename, write_to_file=False):
-    ''' Transform dictionaries data to vectors of features.
-
-        :Args:
-            filename (str) : file from which func will extract vectors
-            write_to_file (bool) : output_filename=abilities_vectors.json
-
-        :Returns:
-            table (pandas.DataFrame) : DataFrame of extracted vectors
-    '''
-    # load converter to filter keys
-    with open(settings.IN_GAME_CONVERTER, 'r') as fp:
-        converter = json.load(fp)
-
-    heroes_names = [c for c in converter.keys()
-                            if re.findall(r'[a-zA-Z|\_]+', c)]
-
-    # TODO: try-catch here
-    with open(filename, 'r') as fp:
-        data = json.load(fp)
-
-    # if there is global key, get rid of it
-    if len(data) == 1:
-        global_key = list(data.keys())[0]
-        data = data[global_key]
-
-    columns = get_keys(data, except_=['Version', 'var_type'])
-
-    S = {}
-    for key, value in data.items():
-        if any(map(lambda hero: hero in key, heroes_names)):
-            flat = make_flat_dict(value)
-            vector = [flat[e] if flat.get(e, None) else 0 for e in columns]
-            S[key] = pandas.Series(vector, columns)
-
-    result_frame = pandas.DataFrame(S)
-
-    if write_to_file:
-        filename = os.path.join(settings.DATA_FOLDER, 'abilities_vectors.json')
-        result_frame.to_json(filename, orient='index')
-
-    return result_frame
-
-
 def to_bin_vectors(filename):
     ''' Function to call from outside of the module.
 
@@ -139,7 +91,7 @@ def to_bin_vectors(filename):
         converter = json.load(fp)
 
     heroes_names = [c for c in converter.keys()
-                            if re.findall(r'[a-zA-Z|\_]+', c)]
+                    if re.findall(r'[a-zA-Z|\_]+', c)]
 
     # load parsed npc_abilities.txt file
     with open(filename, 'r') as fp:
@@ -149,6 +101,8 @@ def to_bin_vectors(filename):
     keys = get_keys(abilities, except_=['Version', 'var_type'])
 
     # cat stands for categorical
+    # TODO: getting all_values is extra step - write new function
+    #       to get cat_columns
     all_values = get_all_values(abilities)
     encoding = create_encoding(all_values)
     cat_columns = ['{}={}'.format(k, vv) for k, v in encoding.items()
@@ -167,31 +121,35 @@ def to_bin_vectors(filename):
     for k in keys:
         if len(k.split('_')) > 1:
             effects = effects.union(k.split('_'))
+        # FIXME: check categorical keys here if needed
         elif k != 'ID':
             effects.add(k)
 
     # find all the heroes skills, but not talents
     heroes_abilities = set()
     for key, value in abilities.items():
+        # if ability contains hero name, doesn't contain special_bonus
         if any(map(lambda name: name in key, heroes_names)) and \
                     'special_bonus' not in key and \
                     key not in encoding.keys():
             heroes_abilities.add(key)
 
     # DataFrame(abilities X effects)
+    # FIXME: conflict with frame from outer scope
     frame = pandas.DataFrame([], index=heroes_abilities, columns=effects)
-    print(frame.shape)
+    # TODO: logger.info('DataFrame with abilities created, shape={}'.format(frame.shape))
 
+    # fill frame
     for key, values in frame.iterrows():
         for e in list(values.index):
             # if this effect is inside any key of the ability
             values[e] = 1 if any(map(lambda k:
                                      e in k, abilities[key].keys())) else 0
 
+    # categoriacal features in ability descrition
     cat_part = pandas.DataFrame([], index=heroes_abilities, columns=cat_columns)
 
     # fill categorical_part
-    # for all rows in the DataFrame
     for skill, values in cat_part.iterrows():
         cat_part.loc[skill] = cat_part.loc[skill].fillna(value=0)
         # for all the categorical variables
@@ -215,59 +173,16 @@ def to_bin_vectors(filename):
     return result_frame
 
 
-def get_similar_effects():
-    ''' Finds similar features.
-
-        There are a lot of skills with similar effects: stuns, heals...
-        but their effects stored in different variables inside attributes file.
-        This function is aimed to collect effects by similarity in the name.
-    '''
-    abilities = to_vectors(settings.ABILITIES_FILE).T
-
-    print(abilities.index)
-
-    # drop all the scepter effects
-    effects_list = [e for e in list(abilities.columns) if 'scepter' not in e]
-
-    heal_words = ['heal', 'restore', 'hp', 'regen']
-
-    damage_effects  = [e for e in effects_list if 'damage' in e and
-                       'illusion' not in e and 'replica' not in e]
-    move_effects    = [e for e in effects_list if 'move' in e]
-    healing_effects = [e for e in effects_list if
-                               any(map(lambda x: x in e, heal_words))]
-    durations       = [e for e in effects_list if 'duration' in e]
-    stuns           = [e for e in effects_list if 'stun' in e]
-    # TODO: same for illusions, replicas
-    # TODO: same for reductions, probably
-
-    print(len(damage_effects))
-    # print(damage_effects)
-    print(len(move_effects))
-    print(len(healing_effects))
-    print(len(durations))
-    print(len(stuns))
-
-    D = abilities[damage_effects]
-    D = D.dropna(1)
-    D = D.dropna(0)
-
-    print(D.shape)
-
-    # D.T.to_excel(settings.DATA_FOLDER + 'damage_effects.xlsx')
-
-    # print(D)
-
-
 def get_all_values(input_dict):
     ''' Finds all possible values of categorical variables.
 
-        :Args:
-            input_dict (dict) : dict to search
+            :Args:
+                input_dict (dict) : dict to search
 
-        :Returns:
-            values (dict) : {key: [value1, value2,...], }
-    '''
+            :Returns:
+                values (dict) : {key: [value1, value2,...], }
+        '''
+
     values = {}
     for key, value in input_dict.items():
         # if value is string add it to possible values
@@ -276,12 +191,12 @@ def get_all_values(input_dict):
 
         if isinstance(value, str) and len(re.findall(r'[a-zA-Z]+', value)) > 0:
             # values can be separated by ' | ' to handle this:
-            splitted_value = value.split('|')
+            split_value = value.split('|')
             # to handle one syntax error in file
-            splitted_value = [s.replace(' ', '') for s in splitted_value if
+            split_value = [s.replace(' ', '') for s in split_value if
                               s != ' ']
 
-            values[key].extend(splitted_value)
+            values[key].extend(split_value)
 
         # if value is a dict add it to DFS stack
         if isinstance(value, dict):
@@ -306,7 +221,6 @@ def create_encoding(values):
             encoding (dict) : {"variable_name": {"possible_value": encoding,},}
     '''
 
-    values_list = []
     encoding = {}
     number = LabelEncoder()
 
@@ -320,35 +234,6 @@ def create_encoding(values):
             encoding[var_name][value] = e
 
     return encoding
-
-
-def to_frame(filename):
-    ''' Turns file into the pandas.DataFrame.
-
-        All the lists are replaced with their means.
-        All the categorical variables replaced with OneHotEncoding.
-    '''
-    with open(filename, 'r') as fp:
-        data = json.load(fp)
-
-    flat_data = make_flat_dict(data)
-    # lists changes given data
-    lists_to_mean(data)
-    values = get_all_values(data)
-    encoding = create_encoding(values)
-
-    print(json.dumps(encoding, indent=2))
-
-    keys = get_keys(data, except_=['Version', 'var_type'])
-
-    effects = set()
-    for k in keys:
-        if len(k.split('_')) > 1:
-            effects = effects.union(k.split('_'))
-        else:
-            effects.add(k)
-
-    print(sorted(effects))
 
 
 if __name__ == '__main__':
