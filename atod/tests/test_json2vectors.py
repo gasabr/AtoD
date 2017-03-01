@@ -27,7 +27,7 @@ class TestJson2Vectors(unittest.TestCase):
             data = json.load(fp)
 
         result = json2vectors.get_keys(data['input'],
-                                       except_=['Version', 'var_type']
+                                       exclude=['Version', 'var_type']
                                        )
 
         self.assertEqual(sorted(result), sorted(data['output']))

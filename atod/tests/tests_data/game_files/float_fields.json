@@ -1,33 +1,33 @@
 {
     "DOTAAbilities": {
+        "Version": 1,
         "item_blink": {
-            "ItemDeclarations": "DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS",
-            "SideShop": 1,
-            "ItemShopTags": "teleport",
-            "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_DIRECTIONAL | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES",
-            "AbilityCastPoint": 0.0,
-            "AbilityCastRange": 0,
             "ItemQuality": "component",
-            "AbilityManaCost": 0,
-            "ID": 1,
+            "ItemShopTags": "teleport",
             "ItemCost": 2250,
             "AbilitySpecial": {
                 "03": {
                     "var_type": "FIELD_INTEGER",
                     "blink_range_clamp": 960
                 },
-                "01": {
-                    "var_type": "FIELD_INTEGER",
-                    "blink_range": 1200
-                },
                 "02": {
                     "var_type": "FIELD_FLOAT",
                     "blink_damage_cooldown": 3.0
+                },
+                "01": {
+                    "var_type": "FIELD_INTEGER",
+                    "blink_range": 1200
                 }
             },
+            "ID": 1,
+            "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_DIRECTIONAL | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES",
+            "ItemDeclarations": "DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS",
+            "SideShop": 1,
+            "AbilityCastRange": 0,
+            "AbilityManaCost": 0,
+            "AbilityCastPoint": 0.0,
             "ItemAliases": "blink dagger",
             "AbilityCooldown": 12.0
-        },
-        "Version": 1
+        }
     }
 }

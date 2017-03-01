@@ -31,7 +31,7 @@ write_to = settings.DATA_FOLDER + 'abilities_clusterisation.xlsx'
 
 def to_excel(clusters, filename):
     ''' Writes clusterization to excel file column = cluster'''
-    write result to excel for further manual sort
+    # write result to excel for further manual sort
     filepath = os.path.join()
     workbook = xlsxwriter.Workbook(filepath)
     worksheet = workbook.add_worksheet()
