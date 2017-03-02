@@ -14,7 +14,7 @@ from atod import settings
 #===============================================================================
 
 # IDEA: modify function to work with talents too
-def find_heroes_abilities(abilities, exclude):
+def find_heroes_abilities(abilities, exclude=[]):
     ''' Talents are not included. '''
     # load converter to get heroes names
     with open(settings.IN_GAME_CONVERTER, 'r') as fp:
@@ -29,6 +29,8 @@ def find_heroes_abilities(abilities, exclude):
         # if ability contains hero name, doesn't contain special_bonus
         if any(map(lambda name: name in key, heroes_names)) and \
                     'special_bonus' not in key and \
+                    'empty' not in key and \
+                    'scepter' not in key and \
                     key not in exclude:
             heroes_abilities.add(key)
 

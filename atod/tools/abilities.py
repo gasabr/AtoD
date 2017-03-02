@@ -5,17 +5,42 @@ import json
 
 from atod import settings
 # IDEA: move all from this import to this file
-from atod.tools.json2vectors import get_keys, make_flat_dict
+from atod.tools.json2vectors import (get_keys, make_flat_dict,
+                                     find_heroes_abilities
+                                     )
 
 
 def count_keywords():
     with open(settings.ABILITIES_FILE, 'r') as fp:
         data = json.load(fp)['DOTAAbilities']
 
-    keys = get_keys(data)
-    which_ability = create_which_ability(data)
+    heroes_abilities_list = find_heroes_abilities(data)
 
-    print(len(which_ability))
+    heroes_abilities = {}
+    for ability in heroes_abilities_list:
+        heroes_abilities[ability] = data[ability]
+
+    which_ability = create_which_ability(heroes_abilities)
+
+    # print(json.dumps(heroes_abilities['life_stealer_feast'], indent=2))
+    # print(sorted(which_ability['stun_duration']))
+
+    label(heroes_abilities)
+
+
+def label(abilities):
+    print('LABEL')
+    labels = {}
+    for ability, parameters in abilities.items():
+        labels[ability] = []
+        parameters = make_flat_dict(parameters)
+        for p in parameters.keys():
+            if 'lifesteal' in p or 'vampiric' in p or 'leech' in p:
+                labels[ability].append('stun')
+
+    for ability, categories in labels.items():
+        if len(categories) >= 1:
+            print(ability)
 
 
 def create_which_ability(abilities):
