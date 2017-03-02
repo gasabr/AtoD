@@ -1,21 +1,21 @@
 {
     "item_blades_of_attack": {
-        "ItemQuality": "component",
         "ItemShopTags": "damage;tutorial",
         "ItemCost": 420,
+        "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_PASSIVE",
+        "IamEmpty": "",
+        "ItemAliases": "blades of attack",
+        "SideShop": 1,
         "AbilitySpecial": {
-            "02": {
-                "empty": ""
-            },
             "01": {
                 "bonus_damage": 9,
                 "var_type": "FIELD_INTEGER"
+            },
+            "02": {
+                "empty": ""
             }
         },
-        "ItemAliases": "blades of attack",
-        "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_PASSIVE",
-        "SideShop": 1,
-        "IamEmpty": "",
+        "ItemQuality": "component",
         "ID": 2
     }
 }

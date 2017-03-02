@@ -41,6 +41,11 @@ class TestJson2Vectors(unittest.TestCase):
 
         self.assertEqual(result, data['output'])
 
+# TODO: make this test
+    # def test_create_numeric():
+    #     filename = path.join(EXAMPLES_FOLDER, 'create_numeric.json')
+    #     with open(filename, 'r') as fp:
+    #         data = json.load(fp)
 
 if __name__ == '__main__':
     unittest.main()

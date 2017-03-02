@@ -5,7 +5,7 @@ import xlsxwriter
 from sklearn.cluster import KMeans
 
 from atod import settings
-from json2vectors import to_bin_vectors
+from json2vectors import to_bin_vectors, to_vectors
 
 categorical_features = [
     "AbilityUnitDamageType",
@@ -16,21 +16,23 @@ categorical_features = [
     "FightRecapLevel",
 ]
 
-data = to_bin_vectors(settings.ABILITIES_FILE)
 
-km = KMeans(n_clusters=28, random_state=42, max_iter=500).fit(data.values)
+def cluster_binary():
+    data = to_bin_vectors(settings.ABILITIES_FILE)
 
-result = {}
-for skill, cluster in zip(list(data.index), km.labels_):
-    if not str(cluster) in result.keys():
-        result[str(cluster)] = []
-    result[str(cluster)].append(skill)
+    km = KMeans(n_clusters=35, random_state=100, max_iter=500).fit(data.values)
 
-print(json.dumps(result, indent=2))
-write_to = settings.DATA_FOLDER + 'abilities_clusterisation.xlsx'
+    result = {}
+    for skill, cluster in zip(list(data.index), km.labels_):
+        if not str(cluster) in result.keys():
+            result[str(cluster)] = []
+        result[str(cluster)].append(skill)
+
+    print(json.dumps(result, indent=2))
+
 
 def to_excel(clusters, filename):
-    ''' Writes clusterization to excel file column = cluster'''
+    ''' Writes clusterization to excel file, column = cluster'''
     # write result to excel for further manual sort
     filepath = os.path.join()
     workbook = xlsxwriter.Workbook(filepath)
@@ -42,3 +44,7 @@ def to_excel(clusters, filename):
             worksheet.write(j+1, i, value)
 
     workbook.close()
+
+
+if __name__ == '__main__':
+    cluster_binary()

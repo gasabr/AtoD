@@ -132,10 +132,12 @@ def collect_kv(dict_, exclude=[]):
         return []
 
     for k, v in dict_.items():
-        if isinstance(v, str):
+        if isinstance(v, str) or isinstance(v, int) or isinstance(v, float):
             if k in exclude:
                 continue
             kv_pairs.append({k: v})
+        elif isinstance(v, list):
+            kv_pairs.append({k: sum(v)/len(v)})
         else:
             kv_pairs.extend(collect_kv(v, exclude=exclude))
 
@@ -159,43 +161,6 @@ def make_flat_dict(dict_):
         result[key] = d[key]
 
     return result
-
-
-def to_bin_vectors(filename):
-    ''' Function to call from outside of the module.
-
-        :Args:
-            filename (str) : file from which func will extract vectors
-
-        :Returns:
-            table (pandas.DataFrame) : DataFrame of extracted vectors
-    '''
-
-    # load parsed npc_abilities.txt file
-    with open(filename, 'r') as fp:
-        abilities = json.load(fp)['DOTAAbilities']
-
-    all_values = get_all_values(abilities)
-    encoding = create_encoding(all_values)
-    # cat stands for categorical
-    cat_columns = ['{}={}'.format(k, vv) for k, v in encoding.items()
-                           for vv in v if k != 'var_type' and
-                                          k != 'LinkedSpecialBonus' and
-                                          k != 'HotKeyOverride' and
-                                          k != 'levelkey'
-                                          ]
-
-    heroes_abilities = find_heroes_abilities(abilities, exclude=encoding.keys())
-    effects = find_words_in_keys(abilities)
-
-    numeric_part = create_numeric(abilities, heroes_abilities, effects)
-    categoriacal_part = create_categorical(abilities,
-                                           heroes_abilities,
-                                           encoding.keys()
-                                           )
-    result_frame = pandas.concat([numeric_part, categoriacal_part], axis=1)
-
-    return result_frame
 
 
 def get_all_values(input_dict):
@@ -259,3 +224,66 @@ def create_encoding(values):
             encoding[var_name][value] = e
 
     return encoding
+
+
+def to_bin_vectors(filename):
+    ''' Function to call from outside of the module.
+
+        :Args:
+            filename (str) : file from which func will extract vectors
+
+        :Returns:
+            table (pandas.DataFrame) : DataFrame of extracted vectors
+    '''
+
+    # load parsed npc_abilities.txt file
+    with open(filename, 'r') as fp:
+        abilities = json.load(fp)['DOTAAbilities']
+
+    for ability, features in abilities.items():
+        if isinstance(features, dict):
+            features = make_flat_dict(features)
+
+    all_values = get_all_values(abilities)
+    encoding = create_encoding(all_values)
+    # cat stands for categorical
+    cat_columns = ['{}={}'.format(k, vv) for k, v in encoding.items()
+                           for vv in v if k != 'var_type' and
+                                          k != 'LinkedSpecialBonus' and
+                                          k != 'HotKeyOverride' and
+                                          k != 'levelkey'
+                                          ]
+
+    heroes_abilities = find_heroes_abilities(abilities, exclude=encoding.keys())
+    effects = find_words_in_keys(abilities)
+
+    numeric_part = create_numeric(abilities, heroes_abilities, effects)
+    categoriacal_part = create_categorical(abilities,
+                                           heroes_abilities,
+                                           encoding.keys()
+                                           )
+    result_frame = pandas.concat([numeric_part, categoriacal_part], axis=1)
+
+    return result_frame
+
+
+def to_vectors(filename):
+    ''' Creates '''
+    # load parsed npc_abilities.txt file
+    with open(filename, 'r') as fp:
+        abilities = json.load(fp)['DOTAAbilities']
+
+    all_values = get_all_values(abilities)
+    encoding = create_encoding(all_values)
+    # cat stands for categorical
+    cat_columns = ['{}={}'.format(k, vv) for k, v in encoding.items()
+                           for vv in v if k != 'var_type' and
+                                          k != 'LinkedSpecialBonus' and
+                                          k != 'HotKeyOverride' and
+                                          k != 'levelkey'
+                                          ]
+
+    heroes_abilities = find_heroes_abilities(abilities, exclude=encoding.keys())
+    exclude = list(encoding.keys()) + ['Version', 'var_type']
+    set_of_features = get_keys(abilities, exclude)
+    print(sorted(set_of_features))
