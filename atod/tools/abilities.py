@@ -6,7 +6,8 @@ import json
 from atod import settings
 # IDEA: move all from this import to this file
 from atod.tools.json2vectors import (get_keys, make_flat_dict,
-                                     find_heroes_abilities
+                                     find_heroes_abilities, get_all_values,
+                                     create_encoding
                                      )
 
 
@@ -21,9 +22,6 @@ def count_keywords():
         heroes_abilities[ability] = data[ability]
 
     which_ability = create_which_ability(heroes_abilities)
-
-    # print(json.dumps(heroes_abilities['life_stealer_feast'], indent=2))
-    # print(sorted(which_ability['stun_duration']))
 
     label(heroes_abilities)
 
@@ -60,6 +58,16 @@ def create_which_ability(abilities):
 
     return which_ability
 
+
+def get_encoding():
+    '''Returns encoding of categorical features in abilities file. '''
+    with open(settings.ABILITIES_FILE, 'r') as fp:
+        abilities = json.load(fp)['DOTAAbilities']
+
+    values = get_all_values(abilities)
+    encoding = create_encoding(values)
+
+    return encoding
 
 if __name__ == '__main__':
     count_keywords()

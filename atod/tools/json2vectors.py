@@ -146,7 +146,7 @@ def collect_kv(dict_, exclude=[]):
     return kv_pairs
 
 
-def make_flat_dict(dict_):
+def make_flat_dict(dict_, exclude=[]):
     ''' Wrapper for recursive collect_kv().
 
         :Args:
@@ -156,7 +156,8 @@ def make_flat_dict(dict_):
             flat (dict) : described in collect_kv()
     '''
     # get array of one-element dicts
-    dicts = collect_kv(dict_, exclude=['Version', 'var_type'])
+    exclude.extend(['Version', 'var_type'])
+    dicts = collect_kv(dict_, exclude=exclude)
     result = {}
     for d in dicts:
         key = list(d.keys())[0]
@@ -186,7 +187,7 @@ def get_all_values(input_dict):
             split_value = value.split('|')
             # to handle one syntax error in file
             split_value = [s.replace(' ', '') for s in split_value if
-                              s != ' ']
+                           s != ' ']
 
             values[key].extend(split_value)
 

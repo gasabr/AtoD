@@ -21,11 +21,14 @@ HEROES_FILE       = path.join(DATA_FOLDER, 'from-game/npc_heroes.json')
 ITEMS_FILE        = path.join(DATA_FOLDER, 'from-game/items.json')
 ABILITIES_FILE    = path.join(DATA_FOLDER, 'from-game/npc_abilities.json')
 
-# TODO: make one beutiful converter from it (or maybe 2)
+# TODO: make one beautiful converter from it (or maybe 2)
 # TODO: rename this with FILE
 ID_TO_NAME  = path.join(DATA_FOLDER, 'heroes-features.json')
 CONVERTER   = path.join(DATA_FOLDER, 'converter.json')
 IN_GAME_CONVERTER = path.join(DATA_FOLDER, 'in_game_converter.json')
+
+ABILITIES_DICT_FILE = path.join(DATA_FOLDER, 'abilities.dict')
+ABILITIES_CORPUS_FILE = path.join(DATA_FOLDER, 'abilities.mm')
 
 #===============================================================================
 # DataBase settings
@@ -36,7 +39,7 @@ DB_PATH = path.join(DATA_FOLDER, DB_NAME)
 field_format = {
     'FIELD_FLOAT': Float,
     'FIELD_INTEGER': Integer,
-    'FIELD_STRING': String, # added to serialize all fields
+    'FIELD_STRING': String, 
 }
 
 # sheme for heroes_<v> table
