@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 from sqlalchemy import Table, Column, String, Integer, Float, MetaData
-from sqlalchemy.orm import mapper
 
-from atod.setup_db import engine, session, Base
+from atod.setup_db import engine, Base
 from atod import settings
 
 
@@ -17,7 +16,7 @@ class HeroModel(Base):
     __table__ = Table('heroes_' + settings.CURRENT_VERSION, Base.metadata,
                       Column('HeroID', Integer, primary_key=True,
                              autoincrement=False),
-    			      *(col for col in heroes),
+                             *(col for col in heroes),
                       )
 
     def __init__(self, attrs):

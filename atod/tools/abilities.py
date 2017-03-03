@@ -1,13 +1,11 @@
 #!/usr/bin/env python3
 ''' Set of functions to work with npc_abilities.json'''
-import os
 import json
 
 from atod import settings
 # IDEA: move all from this import to this file
-from atod.tools.json2vectors import (get_keys, make_flat_dict,
+from atod.tools.json2vectors import (make_flat_dict, create_encoding,
                                      find_heroes_abilities, get_all_values,
-                                     create_encoding
                                      )
 
 

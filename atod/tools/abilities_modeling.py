@@ -4,7 +4,6 @@ from gensim import corpora, models
 
 from atod import settings
 from atod.tools.json2vectors import find_heroes_abilities, make_flat_dict
-from atod.tools.abilities import get_encoding
 
 
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
@@ -38,12 +37,11 @@ def save_descriptions(dictionary, corpus):
 
 
 def create_descriptions():
-    ''' Creates corpora.Dictionary and corpora.Mmcorpus'''
+    ''' Creates corpora.Dictionary and corpora.Mmcorpus. '''
     with open(settings.ABILITIES_FILE, 'r') as fp:
         data = json.load(fp)['DOTAAbilities']
 
     heroes_abilities_list = find_heroes_abilities(data)
-    encoding = get_encoding()
 
     heroes_abilities = {}
     for ability in heroes_abilities_list:
@@ -58,14 +56,14 @@ def create_descriptions():
     dictionary = corpora.Dictionary(descriptions)
     corpus = [dictionary.doc2bow(d) for d in descriptions]
 
-    return (dictionary, corpus)
+    return dictionary, corpus
 
 
 def load_descriptions():
     dictionary = corpora.Dictionary.load(settings.ABILITIES_DICT_FILE)
     corpus = corpora.MmCorpus(settings.ABILITIES_CORPUS_FILE)
 
-    return (dictionary, corpus)
+    return dictionary, corpus
 
 
 def label():
@@ -80,7 +78,6 @@ def label():
                   'stun', 'tick', 'pct', 'radius', 'speed', 'bonus']
 
     heroes_abilities_list = find_heroes_abilities(data)
-    encoding = get_encoding()
 
     heroes_abilities = {}
     for ability in heroes_abilities_list:
@@ -94,8 +91,6 @@ def label():
 
         weights = tfidf[dictionary.doc2bow(description)]
         weights.sort(key=lambda tup: tup[1], reverse=True)
-
-        weights_labels = [dictionary[w[0]] for w in weights]
 
         for w in weights:
             if w[0] in categories:

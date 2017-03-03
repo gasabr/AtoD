@@ -26,7 +26,6 @@ class Hero(object):
 
         # TODO: add names to database
         # load converter since there is no names in database
-        converter = {}
         with open(settings.CONVERTER) as fp:
             converter = json.load(fp)
 
