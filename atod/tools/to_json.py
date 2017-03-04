@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-''' Set of functions to work with the Dota2 internal files
+''' Set of functions to work with the Dota2 internal files.
 
     - to_json() converts .txt in unix dialect to json
     - parse() performs actual parsing
@@ -16,16 +16,13 @@ from atod import settings
 
 # Command line arguments parser
 parser = argparse.ArgumentParser(
-    description='Parser for Dota files in unix dialect'
-)
+    description='Parser for Dota files in unix dialect')
 parser.add_argument('--input',
                     nargs=1,
-                    help='define input file'
-                    )
+                    help='define input file')
 parser.add_argument('--output',
                     nargs=1,
-                    help='define output file (json)'
-                    )
+                    help='define output file (json)')
 args = parser.parse_args()
 
 
@@ -36,10 +33,10 @@ def clean_value(string):
         use them they should be transformed to numbers. FOR NOW, if there are
         list of numbers function will return MEAN of it.
 
-        :Args:
+        Args:
             string (str) : value in parsed dictionary
 
-        :Returns:
+        Returns:
             value (str/float/integer) : cleaned value
     '''
     # remove quotes
@@ -71,7 +68,7 @@ def write_on_stack(write_to, path, key, value):
         If the path is not completed yet, instead of throwing KeyError
         function will create missing dictionaries.
 
-        :Args:
+        Args:
             path (array of str) : sequence of dict keys, defining where to
                                   write next value
             write_to (dict)     : result of parse function in which would be
@@ -79,7 +76,7 @@ def write_on_stack(write_to, path, key, value):
             key (str)           : to this key would be written value
             value (str)         : value to write
 
-        :Returns:
+        Returns:
             write_to (dict) : changed write_to argument
     '''
     current = write_to
@@ -118,10 +115,10 @@ def parse(filename):
         After that, based on the length of cleaned row list, func defines is it
         the key, bracers or key with value and performs appropriate action.
 
-        :Args:
+        Args:
             filename (str) : file to parse
 
-        :Returns:
+        Returns:
             result (dict) : JSON serializeble dictionary created from given file
     '''
     result = {}
@@ -153,8 +150,7 @@ def parse(filename):
                 write_on_stack(write_to=result,
                                path=keys_stack,
                                key=clean[0][1:-1],
-                               value=clean_value(clean[1][1:-1])
-                               )
+                               value=clean_value(clean[1][1:-1]))
 
     return result
 
@@ -163,11 +159,11 @@ def parse(filename):
 def to_json(input_filename=None, output_filename=None):
     ''' Saves parsed by parse() file in *.json.
 
-        :Args:
+        Args:
             input_filename (str) : .txt file in unix-dialect from dota folder
             output_filename(str) : .json file to dump result dict
 
-        :Returns:
+        Returns:
             result (dict) : dict parsed by parse()
     '''
     # if input file is not provided nor as cl argument nor as func argument

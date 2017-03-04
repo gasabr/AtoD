@@ -5,7 +5,7 @@ from atod.tools import game_files
 
 
 def fill_heroes():
-    ''' Fills heroes table with the data from npc_heroes.json. '''
+    '''Fills heroes table with the data from npc_heroes.json.'''
     rows = game_files.json_to_rows(settings.HEROES_FILE, settings.heroes_scheme)
 
     for row in rows:
@@ -16,7 +16,7 @@ def fill_heroes():
 
 
 def fill_items():
-    ''' Fills items table with the data from items.json. '''
+    '''Fills items table with the data from items.json.'''
     rows = game_files.items_rows(settings.ITEMS_FILE, settings.items_scheme)
     unique_ids = set()
 

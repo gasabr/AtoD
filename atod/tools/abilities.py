@@ -7,22 +7,7 @@ from atod import settings
 from atod.tools.json2vectors import (make_flat_dict, create_encoding,
                                      find_heroes_abilities, find_all_values)
 
-
-def count_keywords():
-    with open(settings.ABILITIES_FILE, 'r') as fp:
-        data = json.load(fp)['DOTAAbilities']
-
-    heroes_abilities_list = find_heroes_abilities(data)
-
-    heroes_abilities = {}
-    for ability in heroes_abilities_list:
-        heroes_abilities[ability] = data[ability]
-
-    which_ability = create_which_ability(heroes_abilities)
-
-    label(heroes_abilities)
-
-
+    
 def label(abilities):
     print('LABEL')
     labels = {}

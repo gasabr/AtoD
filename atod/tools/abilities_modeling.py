@@ -11,12 +11,12 @@ logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s',
 
 
 def extract_description(ability):
-    ''' Converts ability to its string representation.
+    ''' Converts ability dictionary to list of words in it.
 
-        :Args:
-            ability (dict) : contains ability description
+        Args:
+            ability (dict) : **flat dict** contains ability description
 
-        :Returns:
+        Returns:
             description (str) : created descrition
     '''
     description = []
@@ -33,12 +33,13 @@ def extract_description(ability):
 
 # IDEA: evarything should be class
 def save_descriptions(dictionary, corpus):
+    '''Saves corpora.Dictionary and corpora.Mmcorpus.'''
     dictionary.save(settings.ABILITIES_DICT_FILE)
     corpora.MmCorpus.serialize(settings.ABILITIES_CORPUS_FILE, corpus)
 
 
 def create_descriptions():
-    ''' Creates corpora.Dictionary and corpora.Mmcorpus. '''
+    '''Creates corpora.Dictionary and corpora.Mmcorpus.'''
     with open(settings.ABILITIES_FILE, 'r') as fp:
         data = json.load(fp)['DOTAAbilities']
 
@@ -61,6 +62,7 @@ def create_descriptions():
 
 
 def load_descriptions():
+    '''Loads corpora.Dictionary and corpora.Mmcorpus.'''
     dictionary = corpora.Dictionary.load(settings.ABILITIES_DICT_FILE)
     corpus = corpora.MmCorpus(settings.ABILITIES_CORPUS_FILE)
 
