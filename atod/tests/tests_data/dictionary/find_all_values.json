@@ -1,0 +1,23 @@
+{
+  "input": {
+    "ability1": {
+      "key1": "value11 | value12",
+      "key2": "value21"
+    },
+    "ability2": {
+      "key2": "value22",
+      "key1": "value11",
+      "key3": "value31"
+    },
+    "ability3": {
+      "key3": "value32",
+      "key1": "value13",
+      "key2": "value22 | value23"
+    }
+  },
+  "output": {
+    "key1": ["value11", "value12", "value13"],
+    "key2": ["value21", "value22", "value23"],
+    "key3": ["value31", "value32"]
+  }
+}

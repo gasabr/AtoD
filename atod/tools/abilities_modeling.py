@@ -6,7 +6,8 @@ from atod import settings
 from atod.tools.json2vectors import find_heroes_abilities, make_flat_dict
 
 
-logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
+logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s',
+                    level=logging.INFO)
 
 
 def extract_description(ability):

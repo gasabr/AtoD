@@ -1,0 +1,86 @@
+ {
+    "input": {
+        "AbilityCooldown": "16.0",
+        "AbilityUnitTargetType": "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC",
+        "AbilityCastRange": "350",
+        "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET",
+        "AbilitySpecial": {
+            "02": {
+                "customval_leech_damage": "12 15 18",
+                "var_type": "FIELD_INTEGER"
+            },
+            "04": {
+                "var_type": "FIELD_INTEGER",
+                "radius": "500"
+            },
+            "05": {
+                "var_type": "FIELD_FLOAT",
+                "duration": "3.0"
+            },
+            "06": {
+                "projectile_speed": "400",
+                "var_type": "FIELD_INTEGER"
+            },
+            "03": {
+                "var_type": "FIELD_INTEGER",
+                "movement_slow": "-24"
+            },
+            "01": {
+                "var_type": "FIELD_FLOAT",
+                "damage_interval": "0.75"
+        }
+        },
+        "AbilityManaCost": "0",
+        "AbilityUnitTargetTeam": "DOTA_UNIT_TARGET_TEAM_ENEMY",
+        "AbilityCastPoint": "0.3",
+        "ID": "5557",
+        "AbilityUnitDamageType": "DAMAGE_TYPE_MAGICAL"
+    },
+    "output": [
+      {
+        "AbilityCooldown": "16.0"
+      },
+      {
+        "AbilityUnitTargetType": "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+      },
+      {
+        "AbilityCastRange": "350"
+      },
+      {
+        "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+      },
+      {
+        "customval_leech_damage": "12 15 18"
+      },
+      {
+        "radius": "500"
+      },
+      {
+        "duration": "3.0"
+      },
+      {
+        "projectile_speed": "400"
+      },
+      {
+        "movement_slow": "-24"
+      },
+      {
+        "damage_interval": "0.75"
+      },
+      {
+        "AbilityManaCost": "0"
+      },
+      {
+        "AbilityUnitTargetTeam": "DOTA_UNIT_TARGET_TEAM_ENEMY"
+      },
+      {
+        "AbilityCastPoint": "0.3"
+      },
+      {
+        "ID": "5557"
+      },
+      {
+        "AbilityUnitDamageType": "DAMAGE_TYPE_MAGICAL"
+      }
+  ]
+}

@@ -1,34 +1,34 @@
 {
     "item_sange_and_yasha": {
         "ItemDeclarations": "DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS",
-        "ItemAliases": "sny;s&y;sy;sange and yasha",
-        "ItemCost": 4100,
-        "ItemDisassembleRule": "DOTA_ITEM_DISASSEMBLE_ALWAYS",
-        "ItemShopTags": "damage;str;agi;attack_speed;unique",
-        "ID": 154,
         "AbilitySpecial": {
-            "07": {
-                "maim_slow_movement": -26,
-                "var_type": "FIELD_INTEGER"
+            "06": {
+                "var_type": "FIELD_INTEGER",
+                "maim_chance": 35
             },
             "08": {
-                "maim_slow_attack_range": -13,
-                "var_type": "FIELD_INTEGER"
+                "var_type": "FIELD_INTEGER",
+                "maim_slow_attack_range": -13
+            },
+            "07": {
+                "var_type": "FIELD_INTEGER",
+                "maim_slow_movement": -26
             },
             "05": {
-                "movement_speed_percent_bonus": 16,
-                "var_type": "FIELD_INTEGER"
+                "var_type": "FIELD_INTEGER",
+                "movement_speed_percent_bonus": 16
             },
             "11": {
-                "maim_duration": 5.0,
-                "var_type": "FIELD_FLOAT"
-            },
-            "06": {
-                "maim_chance": 35,
-                "var_type": "FIELD_INTEGER"
+                "var_type": "FIELD_FLOAT",
+                "maim_duration": 5.0
             }
         },
+        "ItemAliases": "sny;s&y;sy;sange and yasha",
+        "ID": 154,
+        "ItemShopTags": "damage;str;agi;attack_speed;unique",
+        "ItemDisassembleRule": "DOTA_ITEM_DISASSEMBLE_ALWAYS",
         "ItemQuality": "artifact",
+        "ItemCost": 4100,
         "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_PASSIVE"
     }
 }

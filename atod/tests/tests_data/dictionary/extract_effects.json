@@ -1,0 +1,36 @@
+{
+   "input": [
+     "AbilityCooldown",
+     "AbilityUnitTargetType",
+     "AbilityCastRange",
+     "AbilityBehavior",
+     "customval_leech_damage",
+     "radius",
+     "duration",
+     "projectile_speed",
+     "movement_slow",
+     "damage_interval",
+     "AbilityManaCost",
+     "AbilityUnitTargetTeam",
+     "AbilityCastPoint",
+     "ID",
+     "AbilityUnitDamageType"
+  ],
+   "output": [
+       "AbilityCooldown",
+       "AbilityUnitTargetType",
+       "AbilityCastRange",
+       "AbilityBehavior",
+       "customval", "leech", "damage",
+       "radius",
+       "duration",
+       "projectile", "speed",
+       "movement", "slow",
+       "damage", "interval",
+       "AbilityManaCost",
+       "AbilityUnitTargetTeam",
+       "AbilityCastPoint",
+       "ID",
+       "AbilityUnitDamageType"
+   ]
+}

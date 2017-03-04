@@ -6,3 +6,4 @@ code/.DS_Store
 kaggle-data/
 atod.egg-info/
 dist/
+.idea/*

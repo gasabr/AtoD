@@ -5,8 +5,7 @@ import json
 from atod import settings
 # IDEA: move all from this import to this file
 from atod.tools.json2vectors import (make_flat_dict, create_encoding,
-                                     find_heroes_abilities, get_all_values,
-                                     )
+                                     find_heroes_abilities, find_all_values)
 
 
 def count_keywords():
@@ -62,10 +61,11 @@ def get_encoding():
     with open(settings.ABILITIES_FILE, 'r') as fp:
         abilities = json.load(fp)['DOTAAbilities']
 
-    values = get_all_values(abilities)
+    values = find_all_values(abilities)
     encoding = create_encoding(values)
 
     return encoding
+
 
 if __name__ == '__main__':
     count_keywords()

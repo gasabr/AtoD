@@ -8,6 +8,8 @@ import pandas
 from sklearn.preprocessing import LabelEncoder
 
 from atod import settings
+from atod.tools.dictionary import (make_flat_dict, extract_effects, all_keys,
+                                   find_all_values)
 
 #===============================================================================
 # List of functions on npc_abilities.json
@@ -35,23 +37,6 @@ def find_heroes_abilities(abilities, exclude=[]):
             heroes_abilities.add(key)
 
     return heroes_abilities
-
-
-def find_words_in_keys(abilities):
-    ''' Finds all the words in keys of given dictionary. '''
-    # all the keys in the dictionary
-    keys = get_keys(abilities, exclude=['Version', 'var_type'])
-
-    # all the possible 'elementary' effects in abilities
-    words = set()
-    for k in keys:
-        if len(k.split('_')) > 1:
-            words = words.union(k.split('_'))
-        # FIXME: check categorical keys here if needed
-        elif k != 'ID':
-            words.add(k)
-
-    return words
 
 
 def create_numeric(data, rows, columns):
@@ -108,102 +93,6 @@ def lists_to_mean(dict_):
     return
 
 
-def get_keys(dict_, exclude=[]):
-    ''' Finds list of all the keys in given dict recursively. '''
-    all_keys = set()
-    for key in dict_:
-        if isinstance(dict_[key], dict):
-            all_keys = all_keys.union(get_keys(dict_[key], exclude=exclude))
-
-        elif key not in exclude:
-            all_keys.add(key)
-
-    return all_keys
-
-
-def collect_kv(dict_, exclude=[]):
-    ''' Finds all pairs key-value in all dictionaries inside given.
-
-        Example {'a': 1, 'b':{'c':3, 'd':4}} -> [{'a':1}, {'c':3}, {'b':4}]
-        On the next step make_flat_dict will transform result of this
-        function to the flat dict.
-    '''
-    kv_pairs = []
-    # the reason for this is described in TestJson2Vectors fixme
-    if not isinstance(dict_, dict):
-        return []
-
-    for k, v in dict_.items():
-        if isinstance(v, str) or isinstance(v, int) or isinstance(v, float):
-            if k in exclude:
-                continue
-            kv_pairs.append({k: v})
-        elif isinstance(v, list):
-            kv_pairs.append({k: sum(v)/len(v)})
-        else:
-            kv_pairs.extend(collect_kv(v, exclude=exclude))
-
-    return kv_pairs
-
-
-def make_flat_dict(dict_, exclude=[]):
-    ''' Wrapper for recursive collect_kv().
-
-        :Args:
-            dict_ (dict) : to make flat
-
-        :Returns:
-            flat (dict) : described in collect_kv()
-    '''
-    # get array of one-element dicts
-    exclude.extend(['Version', 'var_type'])
-    dicts = collect_kv(dict_, exclude=exclude)
-    result = {}
-    for d in dicts:
-        key = list(d.keys())[0]
-        result[key] = d[key]
-
-    return result
-
-
-def get_all_values(input_dict):
-    ''' Finds all possible values of categorical variables.
-
-            :Args:
-                input_dict (dict) : dict to search
-
-            :Returns:
-                values (dict) : {key: [value1, value2,...], }
-        '''
-
-    values = {}
-    for key, value in input_dict.items():
-        # if value is string add it to possible values
-        if key not in values.keys():
-            values[key] = []
-
-        if isinstance(value, str) and len(re.findall(r'[a-zA-Z]+', value)) > 0:
-            # values can be separated by ' | ' to handle this:
-            split_value = value.split('|')
-            # to handle one syntax error in file
-            split_value = [s.replace(' ', '') for s in split_value if
-                           s != ' ']
-
-            values[key].extend(split_value)
-
-        # if value is a dict add it to DFS stack
-        if isinstance(value, dict):
-            # r<name> stands for recursively gotten
-            rvalues = get_all_values(value)
-            for rkey, rvalue in rvalues.items():
-                if rkey in values.keys():
-                    values[rkey].extend(rvalue)
-                else:
-                    values[rkey] = rvalue
-
-    return values
-
-
 def create_encoding(values):
     ''' Maps categorical values to numbers with LabelEncoder.
 
@@ -247,7 +136,7 @@ def to_bin_vectors(filename):
         if isinstance(features, dict):
             features = make_flat_dict(features)
 
-    all_values = get_all_values(abilities)
+    all_values = find_all_values(abilities)
     encoding = create_encoding(all_values)
     # cat stands for categorical
     cat_columns = ['{}={}'.format(k, vv) for k, v in encoding.items()
@@ -258,7 +147,7 @@ def to_bin_vectors(filename):
                                           ]
 
     heroes_abilities = find_heroes_abilities(abilities, exclude=encoding.keys())
-    effects = find_words_in_keys(abilities)
+    effects = extract_effects(heroes_abilities)
 
     numeric_part = create_numeric(abilities, heroes_abilities, effects)
     categoriacal_part = create_categorical(abilities,
@@ -276,7 +165,7 @@ def to_vectors(filename):
     with open(filename, 'r') as fp:
         abilities = json.load(fp)['DOTAAbilities']
 
-    all_values = get_all_values(abilities)
+    all_values = find_all_values(abilities)
     encoding = create_encoding(all_values)
     # cat stands for categorical
     cat_columns = ['{}={}'.format(k, vv) for k, v in encoding.items()
@@ -288,5 +177,5 @@ def to_vectors(filename):
 
     heroes_abilities = find_heroes_abilities(abilities, exclude=encoding.keys())
     exclude = list(encoding.keys()) + ['Version', 'var_type']
-    set_of_features = get_keys(abilities, exclude)
+    set_of_features = list(all_keys(abilities, exclude))
     print(sorted(set_of_features))
