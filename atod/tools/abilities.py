@@ -3,9 +3,8 @@
 import json
 
 from atod import settings
-# IDEA: move all from this import to this file
 from atod.tools.json2vectors import (make_flat_dict, create_encoding,
-                                     find_heroes_abilities, find_all_values)
+                                     find_all_values)
 
     
 def label(abilities):
@@ -51,6 +50,3 @@ def get_encoding():
 
     return encoding
 
-
-if __name__ == '__main__':
-    count_keywords()

@@ -8,7 +8,6 @@
     - clean_nt() cleans tabs and line terminators from string
 '''
 import re
-import os
 import json
 import argparse
 

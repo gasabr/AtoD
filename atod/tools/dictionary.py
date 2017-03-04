@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 '''Set of functions on dict needed for different parts of the program.'''
 import re
+from sklearn.preprocessing import LabelEncoder
+
 
 def all_keys(dict_, exclude=[], include_dict_keys=True):
     '''Finds list of all the keys in given dict recursively.'''
@@ -119,3 +121,28 @@ def find_all_values(input_dict):
                     values[rkey] = rvalue
 
     return {k: list(set(v)) for k, v in values.items() if len(v) > 0}
+
+
+def create_encoding(values):
+    ''' Maps categorical values to numbers with LabelEncoder.
+
+        Args:
+            values (dict) : result of find_all_values()
+
+        Returns:
+            encoding (dict) : {"var_name": ["value1", "value2"]}
+    '''
+
+    encoding = {}
+    number = LabelEncoder()
+
+    for var_name, values in values.items():
+        encoded = number.fit_transform(values).astype('str')
+
+        for value, e in zip(values, encoded):
+            if not encoding.get(var_name, None):
+                encoding[var_name] = {}
+
+            encoding[var_name][value] = e
+
+    return encoding
