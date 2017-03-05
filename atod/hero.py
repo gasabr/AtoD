@@ -4,6 +4,7 @@ from sqlalchemy.inspection import inspect
 from atod.setup_db import session
 import atod.settings as settings
 from atod.models import HeroModel
+from atod.abilities import abilities as Abilities
 
 mapper = inspect(HeroModel)
 
@@ -20,6 +21,7 @@ class Hero(object):
     def __init__(self, name, lvl=1):
         ''' Create hero instance by id. '''
         # TODO: create metaclass to prevent changing this variables
+        #       or just create properties
         self.lvl = lvl
         self.items = []
         self.talents = []
@@ -29,8 +31,12 @@ class Hero(object):
         with open(settings.CONVERTER) as fp:
             converter = json.load(fp)
 
+        with open(settings.IN_GAME_CONVERTER) as fp:
+            in_game_converter = json.load(fp)
+
         self.name = name
         self.id = converter[name]
+        self.in_game_name = in_game_converter[str(self.id)]
 
         hero_data = session.query(HeroModel).filter(HeroModel.HeroID == self.id)[0]
 
@@ -45,6 +51,8 @@ class Hero(object):
             self.roles[role] = int(lvl)
 
         self.primary = PRIMARIES[self.AttributePrimary]
+
+        self.abilities = Abilities.filter(hero=self.in_game_name)
 
     # properties
     @property
@@ -61,6 +69,22 @@ class Hero(object):
     def agi(self):
         return self.AttributeBaseAgility + \
                    (self.lvl - 1) * self.AttributeAgilityGain
+
+    # TODO: this should be property with setter
+    def abilities_labels(self):
+        '''Returns dictionary ability->labels.'''
+        labels = {}
+        for a in self.abilities:
+            labels[a.raw_name] = a.labels
+
+        return labels
+
+    def has(self, effect):
+        for ability, labels in self.abilities_labels().items():
+            if effect in labels:
+                return True
+
+        return False
 
     def __str__(self):
         return '<{name}, lvl={lvl}>'.format(name=self.name, lvl=self.lvl)

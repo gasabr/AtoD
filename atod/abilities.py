@@ -9,6 +9,7 @@ from atod import settings
 from atod.tools.json2vectors import create_categorical, create_numeric
 from atod.tools.dictionary import (find_all_values, create_encoding,
                                    make_flat_dict)
+from atod.ability import Ability
 
 class Singleton(type):
     _instances = {}
@@ -194,5 +195,23 @@ class Abilities(metaclass=Singleton):
 
         return clusters
 
+    def filter(self, hero=''):
+        '''Returns all the hero abilities.
+
+            Args:
+                hero (str): in game hero name
+                    (optional, default='')
+
+            Returns:
+                abilities_ (list): list of Ability
+        '''
+
+        abilities_ = []
+        if hero != '':
+            for ability, description in self.skills_flat.items():
+                if hero in ability:
+                    abilities_.append(Ability(ability, description))
+
+        return abilities_
 
 abilities = Abilities()
