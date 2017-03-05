@@ -29,6 +29,7 @@ IN_GAME_CONVERTER = path.join(DATA_FOLDER, 'in_game_converter.json')
 
 ABILITIES_DICT_FILE = path.join(DATA_FOLDER, 'abilities.dict')
 ABILITIES_CORPUS_FILE = path.join(DATA_FOLDER, 'abilities.mm')
+ABILITIES_LABELING_FILE = path.join(DATA_FOLDER, 'abilities_labeling.json')
 
 # ===============================================================================
 # DataBase settings

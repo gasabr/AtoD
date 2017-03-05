@@ -1,7 +1,9 @@
 import re
 import json
 import pandas
+import seaborn as sns
 import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans
 
 from atod import settings
 from atod.tools.json2vectors import create_categorical, create_numeric
@@ -114,7 +116,6 @@ class Abilities(metaclass=Singleton):
 
         return result_frame
 
-
     def with_property(self, property_):
         ''' Finds properties which contain one of `keywords`.
 
@@ -140,13 +141,58 @@ class Abilities(metaclass=Singleton):
 
         return properties
 
-
     def plot_property(self, property_):
+        '''Plots all values of given property with matplotlib.
+
+            Args:
+                property_ (str): property to plot
+
+        '''
         abilities_to_plot = self.with_property(property_)
         properties = pandas.Series([a[1] for a in abilities_to_plot],
                                    index=[a[0] for a in abilities_to_plot])
 
-        plt.hist(properties, 20, alpha=0.75, edgecolor='black')
+        # TODO: add borders to histogram
+        # plotting
+        # set styles
+        sns.set(style="white", palette="muted", color_codes=True)
+        sns.distplot(properties, color='b')
         plt.show()
+
+    def clustering_by(self, property_):
+        ''' Clusters abilities by given `property_`.
+
+            Args:
+                property_ (str): property to cluster by
+
+            Returns:
+                clusters (dict): maps skill to its cluster
+        '''
+
+        skills = self.with_property(property_)
+        properties = [[a[1]] for a in skills]
+
+        km = KMeans(n_clusters=3).fit(properties)
+
+        # to get meaningful cluster name, map cluster center to word
+        id2center = list()
+        for cluster_i, cluster_center in enumerate(km.cluster_centers_):
+            id2center.append((cluster_i, cluster_center[0]))
+
+        id2center.sort(key=lambda c: c[1])
+
+        # map id of cluster to the word describing its value
+        id2label = dict()
+        for label, value in zip([x[0] for x in id2center],
+                                ['Small', 'Medium', 'Big']):
+            id2label[label] = value
+
+        # spread results to clusters
+        clusters = {}
+        for skill, cluster in zip([a[0] for a in skills], km.labels_):
+            clusters[skill] = id2label[cluster] + property_
+
+        return clusters
+
 
 abilities = Abilities()

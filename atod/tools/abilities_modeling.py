@@ -1,3 +1,4 @@
+import json
 import logging
 from gensim import corpora, models
 
@@ -8,23 +9,36 @@ from atod.abilities import abilities as Abilities
 
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s',
                     level=logging.INFO)
+logger = logging.getLogger()
 
+abilities_by_manacost = Abilities.clustering_by('AbilityManaCost')
+abilities_by_cooldown = Abilities.clustering_by('AbilityCooldown')
 
-def extract_description(ability):
+def extract_description(ability, properties):
     ''' Converts ability dictionary to list of words in it.
 
         Args:
-            ability (dict) : **flat dict** contains ability description
+            ability (str) : ability name to search in clustering
+            properties (dict): flat dict of properties
 
         Returns:
             description (str) : created description
     '''
     description = []
 
-    for key, value in ability.items():
+    for key, value in properties.items():
+        if key == 'AbilityCooldown':
+            description.append(abilities_by_cooldown[ability])
+            continue
+
+        if key == 'AbilityManaCost':
+            description.append(abilities_by_manacost[ability])
+            continue
+
         if isinstance(value, str):
             if 'special' not in value:
                 description.extend([x.lower() for x in value.split(' ')])
+
         elif isinstance(value, float) or isinstance(value, list):
             description.extend([x.lower() for x in key.split('_')])
 
@@ -40,12 +54,12 @@ def save_descriptions(dictionary, corpus):
 
 def create_descriptions():
     '''Creates corpora.Dictionary and corpora.Mmcorpus.'''
-    heroes_abilities = abilities.skills
+    heroes_abilities = Abilities.skills
 
     descriptions = []
     for ability, parameters in heroes_abilities.items():
         flat = make_flat_dict(parameters)
-        description = extract_description(flat)
+        description = extract_description(ability, flat)
         descriptions.append(description)
 
     dictionary = corpora.Dictionary(descriptions)
@@ -62,26 +76,27 @@ def load_descriptions():
     return dictionary, corpus
 
 
-def label():
+def label(write_to_file=False):
     '''Labels abilities and returns result.'''
     dictionary, corpus = load_descriptions()
     tfidf = models.TfidfModel(corpus)
 
     categories = ['armor', 'damage', 'illusion', 'transformation', 'move',
-                  'stun', 'tick', 'pct', 'radius', 'speed', 'bonus']
+                  'stun', 'tick', 'pct', 'radius', 'speed', 'bonus',
+                  'reduction', 'silence']
 
     heroes_abilities = Abilities.skills_flat
 
     descriptions = {}
     for ability in heroes_abilities:
         descriptions[ability] = []
-        description = extract_description(heroes_abilities[ability])
+        description = extract_description(ability, heroes_abilities[ability])
 
         weights = tfidf[dictionary.doc2bow(description)]
         weights.sort(key=lambda tup: tup[1], reverse=True)
 
         for w in weights:
-            if w[0] in categories:
+            if dictionary[w[0]] in categories:
                 descriptions[ability].append(dictionary[w[0]])
         if len(descriptions[ability]) < 3:
             for w in weights:
@@ -89,5 +104,9 @@ def label():
                     descriptions[ability].append(dictionary[w[0]])
                 else:
                     break
+
+    if write_to_file:
+        with open(settings.ABILITIES_LABELING_FILE, 'w+') as fp:
+            json.dump(descriptions, fp, indent=2)
 
     return descriptions
