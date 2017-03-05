@@ -1,34 +1,34 @@
 {
     "item_sange_and_yasha": {
-        "ItemDeclarations": "DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS",
-        "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_PASSIVE",
+        "ID": 154,
         "ItemCost": 4100,
-        "AbilitySpecial": {
-            "05": {
-                "var_type": "FIELD_INTEGER",
-                "movement_speed_percent_bonus": 16
-            },
-            "06": {
-                "var_type": "FIELD_INTEGER",
-                "maim_chance": 35
-            },
-            "11": {
-                "var_type": "FIELD_FLOAT",
-                "maim_duration": 5.0
-            },
-            "07": {
-                "var_type": "FIELD_INTEGER",
-                "maim_slow_movement": -26
-            },
-            "08": {
-                "var_type": "FIELD_INTEGER",
-                "maim_slow_attack_range": -13
-            }
-        },
+        "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_PASSIVE",
+        "ItemShopTags": "damage;str;agi;attack_speed;unique",
+        "ItemDeclarations": "DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS",
+        "ItemQuality": "artifact",
         "ItemAliases": "sny;s&y;sy;sange and yasha",
         "ItemDisassembleRule": "DOTA_ITEM_DISASSEMBLE_ALWAYS",
-        "ID": 154,
-        "ItemShopTags": "damage;str;agi;attack_speed;unique",
-        "ItemQuality": "artifact"
+        "AbilitySpecial": {
+            "07": {
+                "maim_slow_movement": -26,
+                "var_type": "FIELD_INTEGER"
+            },
+            "05": {
+                "movement_speed_percent_bonus": 16,
+                "var_type": "FIELD_INTEGER"
+            },
+            "11": {
+                "maim_duration": 5.0,
+                "var_type": "FIELD_FLOAT"
+            },
+            "06": {
+                "maim_chance": 35,
+                "var_type": "FIELD_INTEGER"
+            },
+            "08": {
+                "maim_slow_attack_range": -13,
+                "var_type": "FIELD_INTEGER"
+            }
+        }
     }
 }

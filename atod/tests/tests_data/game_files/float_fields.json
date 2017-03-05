@@ -1,32 +1,32 @@
 {
     "DOTAAbilities": {
         "item_blink": {
-            "AbilityCooldown": 12.0,
+            "ItemCost": 2250,
             "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_DIRECTIONAL | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES",
-            "ItemQuality": "component",
-            "ItemDeclarations": "DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS",
-            "ItemAliases": "blink dagger",
-            "AbilityCastRange": 0,
-            "ID": 1,
-            "ItemShopTags": "teleport",
             "AbilityCastPoint": 0.0,
-            "SideShop": 1,
-            "AbilityManaCost": 0,
+            "AbilityCooldown": 12.0,
+            "ItemQuality": "component",
+            "ItemShopTags": "teleport",
             "AbilitySpecial": {
+                "01": {
+                    "blink_range": 1200,
+                    "var_type": "FIELD_INTEGER"
+                },
                 "02": {
                     "var_type": "FIELD_FLOAT",
                     "blink_damage_cooldown": 3.0
                 },
                 "03": {
-                    "var_type": "FIELD_INTEGER",
-                    "blink_range_clamp": 960
-                },
-                "01": {
-                    "var_type": "FIELD_INTEGER",
-                    "blink_range": 1200
+                    "blink_range_clamp": 960,
+                    "var_type": "FIELD_INTEGER"
                 }
             },
-            "ItemCost": 2250
+            "ID": 1,
+            "ItemDeclarations": "DECLARE_PURCHASES_TO_TEAMMATES | DECLARE_PURCHASES_IN_SPEECH | DECLARE_PURCHASES_TO_SPECTATORS",
+            "SideShop": 1,
+            "AbilityManaCost": 0,
+            "ItemAliases": "blink dagger",
+            "AbilityCastRange": 0
         },
         "Version": 1
     }

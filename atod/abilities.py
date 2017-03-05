@@ -1,6 +1,7 @@
 import re
 import json
 import pandas
+import matplotlib.pyplot as plt
 
 from atod import settings
 from atod.tools.json2vectors import create_categorical, create_numeric
@@ -20,6 +21,10 @@ class Abilities(metaclass=Singleton):
     ''' Singleton wrapper for npc_abilities.json.
 
         This class provides interface to work with abilities file.
+        I'm using following definitions in the program:
+            property    -- something that describes ability (e.g. cooldown)
+            description -- all the properties of the ability
+            skill       -- playable hero ability
 
         Attributes:
             _filename (str): absolute path to npc_abilities.json
@@ -72,7 +77,7 @@ class Abilities(metaclass=Singleton):
 
     @property
     def effects(self):
-        # FIXME: write better effects extraction here
+        # FIXME: write better effects extraction
         return set(e for effect in self.skills_flat for e in effect.split('_'))
 
     @property
@@ -109,5 +114,39 @@ class Abilities(metaclass=Singleton):
 
         return result_frame
 
+
+    def with_property(self, property_):
+        ''' Finds properties which contain one of `keywords`.
+
+            Args:
+                property_ (list): property to look in ability description keys
+
+            Returns:
+                properties (dict): maps ability to its property value
+
+        '''
+
+        properties = []
+        skills = self.skills_flat
+
+        for ability, description in skills.items():
+            # if ability has property - remember its value
+            try:
+                properties.append((ability, description[property_]))
+
+            # otherwise - continue searching
+            except KeyError:
+                continue
+
+        return properties
+
+
+    def plot_property(self, property_):
+        abilities_to_plot = self.with_property(property_)
+        properties = pandas.Series([a[1] for a in abilities_to_plot],
+                                   index=[a[0] for a in abilities_to_plot])
+
+        plt.hist(properties, 20, alpha=0.75, edgecolor='black')
+        plt.show()
 
 abilities = Abilities()
