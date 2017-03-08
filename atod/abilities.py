@@ -78,10 +78,16 @@ class Abilities(metaclass=Singleton):
 
         return skills_flat
 
+    # FIXME: write better effects extraction
     @property
     def effects(self):
-        # FIXME: write better effects extraction
-        return set(e for effect in self.skills_flat for e in effect.split('_'))
+        effects = self.raw_effects
+        return set(e for effect in effects for e in effect.split('_'))
+
+    @property
+    def raw_effects(self):
+        skills = self.skills_flat
+        return set(e for skill in skills for e in skills[skill])
 
     @property
     def encoding(self):
@@ -112,10 +118,11 @@ class Abilities(metaclass=Singleton):
         categorical_part = create_categorical(skills,
                                               heroes_abilities,
                                               cat_columns)
+        print(categorical_part.ix[1].value_counts())
 
         result_frame = pandas.concat([numeric_part, categorical_part], axis=1)
 
-        return result_frame
+        return categorical_part
 
     # TODO: merge this with filter() function
     def with_property(self, property_):

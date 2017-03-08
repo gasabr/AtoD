@@ -3,7 +3,7 @@
 import json
 
 from atod import settings
-from atod.tools.json2vectors import (make_flat_dict, create_encoding,
+from atod.tools.dictionary import (make_flat_dict, create_encoding,
                                      find_all_values)
 
     

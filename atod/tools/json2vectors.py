@@ -44,6 +44,8 @@ def create_categorical(data, rows, columns):
                 for c in cat_values:
                     categorical.loc[skill]['{}={}'.format(cat_var, c)] = 1
 
+    return categorical
+
 
 def lists_to_mean(dict_):
     ''' Changes all the lists to their mean. '''
