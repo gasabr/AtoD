@@ -117,6 +117,7 @@ class Abilities(metaclass=Singleton):
 
         return result_frame
 
+    # TODO: merge this with filter() function
     def with_property(self, property_):
         ''' Finds properties which contain one of `keywords`.
 
@@ -196,7 +197,10 @@ class Abilities(metaclass=Singleton):
         return clusters
 
     def filter(self, hero=''):
-        '''Returns all the hero abilities.
+        ''' Returns all the hero abilities.
+
+            Plan is to add more filtering options, for example cooldown,
+            effects(armor, slow, damage...).
 
             Args:
                 hero (str): in game hero name

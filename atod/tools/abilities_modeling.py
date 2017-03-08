@@ -14,6 +14,9 @@ logger = logging.getLogger()
 abilities_by_manacost = Abilities.clustering_by('AbilityManaCost')
 abilities_by_cooldown = Abilities.clustering_by('AbilityCooldown')
 
+special_words = ['bonus', 'reduction', 'per', 'sec', 'regen', 'chance',
+                 'tooltip']
+
 def extract_description(ability, properties):
     ''' Converts ability dictionary to list of words in it.
 
@@ -35,10 +38,17 @@ def extract_description(ability, properties):
             description.append(abilities_by_manacost[ability])
             continue
 
+        # if any of special words in key - add it to the description as it is
+        if any(map(lambda w: w in key, special_words)):
+            description.append(key)
+            continue
+
+        # add string description of some property as it is
         if isinstance(value, str):
             if 'special' not in value:
                 description.extend([x.lower() for x in value.split(' ')])
 
+        # if the value isn't string - add words in key to the description
         elif isinstance(value, float) or isinstance(value, list):
             description.extend([x.lower() for x in key.split('_')])
 
@@ -78,7 +88,7 @@ def load_descriptions():
 
 def label(write_to_file=False):
     '''Labels abilities and returns result.'''
-    dictionary, corpus = load_descriptions()
+    dictionary, corpus = create_descriptions()
     tfidf = models.TfidfModel(corpus)
 
     categories = ['armor', 'damage', 'illusion', 'transformation', 'move',
@@ -110,3 +120,5 @@ def label(write_to_file=False):
             json.dump(descriptions, fp, indent=2)
 
     return descriptions
+
+label()
