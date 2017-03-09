@@ -161,6 +161,10 @@ def to_json(input_filename=None, output_filename=None):
         Args:
             input_filename (str) : .txt file in unix-dialect from dota folder
             output_filename(str) : .json file to dump result dict
+                if output_filename == '' will write to the same folder and with
+                with the same name as input file.
+                if None - won't write result to file
+                (optional, default None)
 
         Returns:
             result (dict) : dict parsed by parse()
@@ -173,13 +177,14 @@ def to_json(input_filename=None, output_filename=None):
     result = parse(input_filename)
 
     # if output filename is not provided
-    if not output_filename:
+    if output_filename == '':
         # create a path for parsed file:
         # DATA_FOLDER/<inputfile_no_extension>.json
         output_filename = input_filename.split('.')[0] + '.json'
 
-    with open(output_filename, 'w+') as fp:
-        json.dump(result, fp, indent=4)
+    if output_filename:
+        with open(output_filename, 'w+') as fp:
+            json.dump(result, fp, indent=4)
 
     return result
 

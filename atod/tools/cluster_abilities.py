@@ -17,13 +17,11 @@ categorical_features = [
 def cluster_binary():
     data = Abilities.frame
 
-    # print(list(data.columns))
-
-    dbscan = DBSCAN(eps=1, min_samples=2).fit(data.values)
-    # km = KMeans(n_clusters=35, max_iter=500).fit(data.values)
+    # clustering = DBSCAN(eps=0.5, min_samples=2).fit(data.values)
+    clustering = KMeans(n_clusters=40, max_iter=500).fit(data.values)
 
     result = {}
-    for skill, cluster in zip(list(data.index), dbscan.labels_):
+    for skill, cluster in zip(list(data.index), clustering.labels_):
         if not str(cluster) in result.keys():
             result[str(cluster)] = []
         result[str(cluster)].append(skill)

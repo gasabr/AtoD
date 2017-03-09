@@ -1,0 +1,35 @@
+{
+  "lone_druid_savage_roar_bear": {
+    "AbilitySpecial": {
+      "03": {
+        "duration": [
+          1.2,
+          1.6,
+          2.0,
+          2.4
+        ],
+        "var_type": "FIELD_FLOAT"
+      },
+      "02": {
+        "var_type": "FIELD_INTEGER",
+        "bonus_speed": 20
+      },
+      "01": {
+        "var_type": "FIELD_INTEGER",
+        "radius": 325
+      }
+    },
+    "AbilityManaCost": 50,
+    "ID": 5687,
+    "SpellImmunityType": "SPELL_IMMUNITY_ENEMIES_NO",
+    "AbilityCooldown": [
+      38.0,
+      32.0,
+      26.0,
+      20.0
+    ],
+    "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_HIDDEN",
+    "AbilityCastPoint": 0.1,
+    "SpellDispellableType": "SPELL_DISPELLABLE_YES"
+  }
+}

@@ -1,12 +1,42 @@
 #!/usr/bin/env python3
 ''' Set of functions to work with npc_abilities.json'''
-import json
+import pandas
 
-from atod import settings
-from atod.tools.dictionary import (make_flat_dict, create_encoding,
-                                     find_all_values)
+from atod.tools.dictionary import make_flat_dict
 
-    
+
+def create_numeric(data, rows, columns):
+    ''' Creates part from numeric variables in binary vectors DataFrame. '''
+    # DataFrame(abilities X effects)
+    numeric = pandas.DataFrame([], index=rows, columns=columns)
+    # TODO: logger.info('DataFrame with abilities created',
+    #       'shape={}'.format(frame.shape))
+
+    # fill DataFrame
+    for key, values in numeric.iterrows():
+        for e in list(values.index):
+            # if this effect is inside any key of the ability
+            values[e] = 1 if any(map(lambda k: e in k, data[key].keys())) else 0
+
+    return numeric
+
+
+def create_categorical(data, rows, columns):
+    ''' Creates part from categorical variables in binary vectors DataFrame. '''
+    # categorical features in ability description
+    categorical = pandas.DataFrame([], index=rows, columns=columns)
+
+    # fill categorical_part
+    for skill, values in categorical.iterrows():
+        categorical.loc[skill] = categorical.loc[skill].fillna(value=0)
+        for column in columns:
+            var, value = column.split('=')[0], column.split('=')[1]
+            if var in data[skill].keys() and value in data[skill][var]:
+                categorical.loc[skill][column] = 1
+
+    return categorical
+
+
 def label(abilities):
     print('LABEL')
     labels = {}
@@ -38,15 +68,4 @@ def create_which_ability(abilities):
                 which_ability[p] = [ability]
 
     return which_ability
-
-
-def get_encoding():
-    '''Returns encoding of categorical features in abilities file. '''
-    with open(settings.ABILITIES_FILE, 'r') as fp:
-        abilities = json.load(fp)['DOTAAbilities']
-
-    values = find_all_values(abilities)
-    encoding = create_encoding(values)
-
-    return encoding
 
