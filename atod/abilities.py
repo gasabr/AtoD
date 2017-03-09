@@ -31,18 +31,22 @@ class Abilities(metaclass=Singleton):
 
         Attributes:
             _filename (str): absolute path to npc_abilities.json
-            raw (dict)     : parsed npc_abilities.txt without any changes
+            skills (dict)  : flatted skills from npc_abilities.json
     '''
 
     _filename = settings.ABILITIES_FILE
 
     def __init__(self):
-        with open(self._filename, 'r') as fp:
-            self.raw = json.load(fp)
+        skills_raw = self.find_skills()
 
-    @property
-    def skills(self):
-        ''' Talents are not included. '''
+        self.skills = {}
+        for ability, description in skills_raw.items():
+            self.skills[ability] = make_flat_dict(description)
+
+    def find_skills(self):
+        with open(self._filename, 'r') as fp:
+            raw = json.load(fp)
+
         # load converter to get heroes names
         with open(settings.IN_GAME_CONVERTER, 'r') as fp:
             converter = json.load(fp)
@@ -52,7 +56,7 @@ class Abilities(metaclass=Singleton):
 
         # find all the heroes skills, but not talents
         skills_list = []
-        for key, value in self.raw['DOTAAbilities'].items():
+        for key, value in raw['DOTAAbilities'].items():
             # if ability contains hero name, doesn't contain special_bonus
             if any(map(lambda name: name in key, heroes_names)) and \
                             'special_bonus' not in key and \
@@ -62,26 +66,29 @@ class Abilities(metaclass=Singleton):
 
         skills = {}
         for ability in skills_list:
-            skills[ability] = self.raw['DOTAAbilities'][ability]
+            skills[ability] = raw['DOTAAbilities'][ability]
 
         return skills
+
+    @property
+    def raw(self):
+        '''Returns npc_abilities.txt as a dict.'''
+        with open(self._filename, 'r') as fp:
+            return json.load(fp)
 
     @property
     def skills_list(self):
         return list(self.skills.keys())
 
     @property
-    def skills_flat(self):
-        skills_flat = {}
-        for ability, description in self.skills.items():
-            skills_flat[ability] = make_flat_dict(description)
-
-        return skills_flat
-
-    @property
     def effects(self):
+        ''' Returns:
+                (set): all words that occurs in abilities descriptions (keys)
+        '''
         # FIXME: write better effects extraction
-        return set(e for effect in self.skills_flat for e in effect.split('_'))
+        return set(e for key, effects in self.skills.items()
+                     for effect in effects
+                     for e in effect.split('_'))
 
     @property
     def encoding(self):
@@ -92,6 +99,14 @@ class Abilities(metaclass=Singleton):
         return encoding
 
     @property
+    def cat_columns(self):
+        return ['{}={}'.format(k, vv) for k, v in self.encoding.items()
+                       for vv in v if k != 'var_type' and
+                       k != 'LinkedSpecialBonus' and
+                       k != 'HotKeyOverride' and
+                       k != 'levelkey']
+
+    @property
     def frame(self):
         ''' Function to call from outside of the module.
 
@@ -99,19 +114,14 @@ class Abilities(metaclass=Singleton):
                 result_frame (pandas.DataFrame) : DataFrame of extracted vectors
         '''
         # cat stands for categorical
-        cat_columns = ['{}={}'.format(k, vv) for k, v in self.encoding.items()
-                       for vv in v if k != 'var_type' and
-                       k != 'LinkedSpecialBonus' and
-                       k != 'HotKeyOverride' and
-                       k != 'levelkey']
 
         heroes_abilities = list(self.skills)
-        skills = self.skills_flat
+        skills = self.skills
 
         numeric_part = create_numeric(skills, heroes_abilities, self.effects)
         categorical_part = create_categorical(skills,
                                               heroes_abilities,
-                                              cat_columns)
+                                              self.cat_columns)
 
         result_frame = pandas.concat([numeric_part, categorical_part], axis=1)
 
@@ -130,9 +140,8 @@ class Abilities(metaclass=Singleton):
         '''
 
         properties = []
-        skills = self.skills_flat
 
-        for ability, description in skills.items():
+        for ability, description in self.skills.items():
             # if ability has property - remember its value
             try:
                 properties.append((ability, description[property_]))
@@ -212,7 +221,7 @@ class Abilities(metaclass=Singleton):
 
         abilities_ = []
         if hero != '':
-            for ability, description in self.skills_flat.items():
+            for ability, description in self.skills.items():
                 if hero in ability:
                     abilities_.append(Ability(ability, description))
 

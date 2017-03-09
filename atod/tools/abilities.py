@@ -3,7 +3,7 @@
 import json
 
 from atod import settings
-from atod.tools.json2vectors import (make_flat_dict, create_encoding,
+from atod.tools.dictionary import (make_flat_dict, create_encoding,
                                      find_all_values)
 
     
@@ -40,6 +40,7 @@ def create_which_ability(abilities):
     return which_ability
 
 
+# FIXME: remove this function
 def get_encoding():
     '''Returns encoding of categorical features in abilities file. '''
     with open(settings.ABILITIES_FILE, 'r') as fp:

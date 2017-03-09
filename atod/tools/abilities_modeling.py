@@ -95,7 +95,7 @@ def label(write_to_file=False):
                   'stun', 'tick', 'pct', 'radius', 'speed', 'bonus',
                   'reduction', 'silence']
 
-    heroes_abilities = Abilities.skills_flat
+    heroes_abilities = Abilities.skills
 
     descriptions = {}
     for ability in heroes_abilities:
