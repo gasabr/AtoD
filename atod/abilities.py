@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 
 from atod import settings
-from atod.tools.json2vectors import create_categorical, create_numeric
+from atod.tools.abilities import create_categorical, create_numeric
 from atod.tools.dictionary import (find_all_values, create_encoding,
                                    make_flat_dict)
 from atod.ability import Ability
