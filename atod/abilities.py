@@ -36,12 +36,21 @@ class Abilities(metaclass=Singleton):
 
     _filename = settings.ABILITIES_FILE
 
+    unused_properties = ['HasScepterUpgrade', 'LinkedSpecialBonus',
+                          'HotKeyOverride', 'levelkey']
+
     def __init__(self):
         skills_raw = self.find_skills()
 
         self.skills = {}
         for ability, description in skills_raw.items():
             self.skills[ability] = make_flat_dict(description)
+
+        self.cat_variables = self.get_cat_variables()
+
+        self.cat_columns = ['{}={}'.format(k, vv)
+                            for k, v in self.encoding.items()
+                            for vv in v if k in self.cat_variables]
 
     def find_skills(self):
         with open(self._filename, 'r') as fp:
@@ -69,6 +78,33 @@ class Abilities(metaclass=Singleton):
             skills[ability] = raw['DOTAAbilities'][ability]
 
         return skills
+
+
+    @property
+    def specials(self):
+        '''Returns mapping ability -> AbilitySpecials without excluded.'''
+        excluded = ['CalculateSpellDamageTooltip',
+                    'LinkedSpecialBonusOperation', 'LinkedSpecialBonus']
+
+        specials = dict()
+        raw = self.raw['DOTAAbilities']
+        # TODO: extend function to more common case (with property())
+        key = 'AbilitySpecial'
+        for ability, description in raw.items():
+            if ability not in self.skills.keys():
+                continue
+
+            try:
+                specials[ability] = make_flat_dict(description[key],
+                                                   exclude=excluded)
+            except KeyError:
+                pass
+            # to handle Version
+            except TypeError:
+                pass
+
+
+        return specials
 
     @property
     def raw(self):
@@ -99,14 +135,6 @@ class Abilities(metaclass=Singleton):
         return encoding
 
     @property
-    def cat_columns(self):
-        return ['{}={}'.format(k, vv) for k, v in self.encoding.items()
-                       for vv in v if k != 'var_type' and
-                       k != 'LinkedSpecialBonus' and
-                       k != 'HotKeyOverride' and
-                       k != 'levelkey']
-
-    @property
     def frame(self):
         ''' Function to call from outside of the module.
 
@@ -126,6 +154,26 @@ class Abilities(metaclass=Singleton):
         result_frame = pandas.concat([numeric_part, categorical_part], axis=1)
 
         return result_frame
+
+    @property
+    def effects_descriptions(self):
+        ''' Generator of not categorical properties strings.
+
+            Yields:
+                property_ (str): property where '_' replaced with ' '
+        '''
+        print(self.cat_variables)
+        for skill, description in self.skills.items():
+            for property_ in description:
+                if property_ not in self.cat_variables:
+                    yield property_.replace('_', ' ')
+
+    def get_cat_variables(self):
+        return set([k for k, v in self.encoding.items()
+                      for vv in v if k != 'var_type' and
+                                     k != 'LinkedSpecialBonus' and
+                                     k != 'HotKeyOverride' and
+                                     k != 'levelkey'])
 
     # TODO: merge this with filter() function
     def with_property(self, property_):

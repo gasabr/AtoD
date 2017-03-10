@@ -38,7 +38,7 @@ def collect_kv(dict_, exclude=[]):
         Examples:
             >>> di = {'a': 1, 'b':{'c':3, 'd':4}}
             >>> collect_kv(di)
-            [{'a':1}, {'c':3}, {'b':4}]
+            [{'a':1}, {'c':3}, {'d':4}]
     '''
     kv_pairs = []
     # the reason for this is described in TestJson2Vectors fixme
@@ -110,7 +110,7 @@ def find_all_values(input_dict):
 
             values[key].extend(split_value)
 
-        # if value is a dict add it to DFS stack
+        # if value is a dict call function recursively
         if isinstance(value, dict):
             # r<name> stands for recursively gotten
             rvalues = find_all_values(value)

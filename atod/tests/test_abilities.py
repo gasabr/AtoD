@@ -11,7 +11,6 @@ from atod.tools.abilities import create_numeric, create_categorical
 class TestAbilities(unittest.TestCase):
 
     def setUp(self):
-        self.frame   = Abilities.frame
         self.effects = Abilities.effects
 
     def test_effects_extraction(self):
@@ -27,10 +26,12 @@ class TestAbilities(unittest.TestCase):
                     self.assertEqual(True, effect in self.effects)
 
     def test_frame_shape(self):
+        ''' Very long test, since whole DataFrame is created.'''
+        frame = Abilities.frame
         expected_shape = (len(Abilities.skills),
                           len(Abilities.cat_columns) + len(self.effects))
 
-        self.assertEqual(expected_shape, self.frame.shape)
+        self.assertEqual(expected_shape, frame.shape)
 
 
 class TestToolsAbilities(unittest.TestCase):
