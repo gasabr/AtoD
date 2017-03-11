@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 ''' Set of functions to transform dict (json) to pandas.DataFrame. '''
 
-    return categorical
-
 
 def lists_to_mean(dict_):
     ''' Changes all the lists to their mean. '''
