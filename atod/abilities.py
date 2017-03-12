@@ -79,7 +79,6 @@ class Abilities(metaclass=Singleton):
 
         return skills
 
-
     @property
     def specials(self):
         '''Returns mapping ability -> AbilitySpecials without excluded.'''
@@ -141,10 +140,10 @@ class Abilities(metaclass=Singleton):
             Returns:
                 result_frame (pandas.DataFrame) : DataFrame of extracted vectors
         '''
-        # cat stands for categorical
 
-        heroes_abilities = list(self.skills)
-        skills = self.skills
+        clean = self.clean_properties()
+        heroes_abilities = list(clean)
+        skills = clean
 
         numeric_part = create_numeric(skills, heroes_abilities, self.effects)
         categorical_part = create_categorical(skills,
@@ -180,7 +179,7 @@ class Abilities(metaclass=Singleton):
         ''' Finds properties which contain one of `keywords`.
 
             Args:
-                property_ (list): property to look in ability description keys
+                property_ (str): property to look in ability description keys
 
             Returns:
                 properties (dict): maps ability to its property value
@@ -274,5 +273,37 @@ class Abilities(metaclass=Singleton):
                     abilities_.append(Ability(ability, description))
 
         return abilities_
+
+    def clean_properties(self):
+        ''' Removes parts of ability name from all the properties.
+
+            There are a lot of skills which properties looks like this:
+            <skillname>_<property>, they could be simplified to <property>.
+            This function does exactly that.
+
+            Returns:
+                clean (dict): cleaned skills dictionary, where every changed
+                    ability has special keyword `changed`.
+        '''
+        clean = self.skills.copy()
+        for skill, description in clean.items():
+            skill_changed = False
+            for property_ in list(description):
+                property_split = property_.split('_')
+                new_name_list = [p for p in property_split if p not in skill]
+
+                if new_name_list != property_split and len(new_name_list) != 0:
+                    new_name = ''.join([n + '_' for n in new_name_list]).strip('_')
+                    clean[skill][new_name] = description[property_]
+                    del clean[skill][property_]
+                    skill_changed = True
+
+                else:
+                    continue
+
+            if skill_changed:
+                clean[skill]['changed'] = True
+
+        return clean
 
 abilities = Abilities()

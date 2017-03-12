@@ -17,8 +17,9 @@ categorical_features = [
 def cluster_binary():
     data = Abilities.frame
 
-    # clustering = DBSCAN(eps=0.5, min_samples=2).fit(data.values)
-    clustering = KMeans(n_clusters=40, max_iter=500).fit(data.values)
+    # can be used to find trash or VERY-VERY similar abilities
+    # clustering = DBSCAN(eps=1, min_samples=3).fit(data.values)
+    clustering = KMeans(n_clusters=45, max_iter=500).fit(data.values)
 
     result = {}
     for skill, cluster in zip(list(data.index), clustering.labels_):
