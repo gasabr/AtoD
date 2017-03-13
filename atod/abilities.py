@@ -6,7 +6,9 @@ import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 
 from atod import settings
-from atod.tools.abilities import create_categorical, create_numeric
+from atod.tools.preprocessing import load_labeling
+from atod.tools.abilities import (create_categorical, encode_effects,
+                                  fill_numeric)
 from atod.tools.dictionary import (find_all_values, create_encoding,
                                    make_flat_dict)
 from atod.ability import Ability
@@ -125,6 +127,11 @@ class Abilities(metaclass=Singleton):
                      for effect in effects
                      for e in effect.split('_'))
 
+    def get_properties(self):
+        return set(effect for key, effects in self.skills.items()
+                          for effect in effects
+                          if effect not in self.unused_properties)
+
     @property
     def encoding(self):
         '''Returns encoding of categorical features.'''
@@ -145,10 +152,38 @@ class Abilities(metaclass=Singleton):
         heroes_abilities = list(clean)
         skills = clean
 
-        numeric_part = create_numeric(skills, heroes_abilities, self.effects)
+        numeric_part = encode_effects(skills, heroes_abilities, self.effects)
         categorical_part = create_categorical(skills,
                                               heroes_abilities,
                                               self.cat_columns)
+
+        result_frame = pandas.concat([numeric_part, categorical_part], axis=1)
+
+        return result_frame
+
+    @property
+    def clean_frame(self):
+        ''' Function to call from outside of the module.
+
+            Returns:
+                result_frame (pandas.DataFrame) : DataFrame of extracted vectors
+        '''
+
+        clean = self.clean_properties()
+        heroes_abilities = list(clean)
+        skills = clean
+
+        for skill, description in skills.items():
+            for cat in self.cat_variables:
+                if cat in description:
+                    del description[cat]
+
+        numeric_part = fill_numeric(skills, heroes_abilities, self.get_properties())
+        categorical_part = create_categorical(skills,
+                                              heroes_abilities,
+                                              self.cat_columns)
+        numeric_part = numeric_part.fillna(value=-1)
+        categorical_part = categorical_part.fillna(value=-1)
 
         result_frame = pandas.concat([numeric_part, categorical_part], axis=1)
 
@@ -306,4 +341,35 @@ class Abilities(metaclass=Singleton):
 
         return clean
 
+    def load_train_test(self):
+        ''' Loads training and test data for classification.
+
+            Returns:
+                ((X_train, y_train), X_test) (tuple of pd.DataFrame)
+        '''
+        frame = self.clean_frame
+        print(frame.shape)
+        # select skills from labeling (talents are not included)
+        labeling = {k: v for k, v in load_labeling().items()
+                          if k in self.skills}
+
+        # get labeled skill from frame
+        train = frame.loc[list(labeling)]
+
+        # drop labeled skill from frame
+        for ability in labeling:
+            if ability in frame.index:
+                frame = frame.drop(ability)
+
+        labels = pandas.DataFrame([], index=list(labeling),
+                                   columns=settings.LABELS)
+        # Fill labels
+        # TODO: find initializer for that
+        for ability in labels.index:
+            for label, value in zip(settings.LABELS, labeling[ability]):
+                labels.loc[ability][label] = value
+
+        return train, labels, frame
+
 abilities = Abilities()
+abilities.load_train_test()

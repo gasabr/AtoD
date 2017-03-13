@@ -30,6 +30,7 @@ IN_GAME_CONVERTER = path.join(DATA_FOLDER, 'in_game_converter.json')
 ABILITIES_DICT_FILE = path.join(DATA_FOLDER, 'abilities.dict')
 ABILITIES_CORPUS_FILE = path.join(DATA_FOLDER, 'abilities.mm')
 ABILITIES_LABELING_FILE = path.join(DATA_FOLDER, 'abilities_labeling.json')
+ABILITIES_TRAIN_FILE = path.join(DATA_FOLDER, 'abilities_labeled.json')
 
 # ===============================================================================
 # DataBase settings
@@ -105,3 +106,10 @@ with open(DATA_FOLDER + 'items_types.json', 'r') as fp:
 items_scheme = {}
 for key, value in items_types.items():
     items_scheme[key] = field_format[value]
+
+LABELS = ['talent', 'stun', 'transformation', 'slow', 'durability', 'nuke',
+          'escape', 'non-hero', 'attack_bonus', 'heal', 'creep skill',
+          'based on attr', 'aoe', 'period damage', 'attack debuff',
+          'invis', 'vision', 'silence', 'lifesteal', 'armor buff',
+          'armor debuff', 'save', 'move speed buff', 'illusions', 'chance',
+          'multiply heroes', 'global', 'shield']

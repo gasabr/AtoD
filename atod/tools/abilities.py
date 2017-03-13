@@ -5,18 +5,29 @@ import pandas
 from atod.tools.dictionary import make_flat_dict
 
 
-def create_numeric(data, rows, columns):
+def encode_effects(data, rows, columns):
     ''' Creates part from numeric variables in binary vectors DataFrame. '''
     # DataFrame(abilities X effects)
-    numeric = pandas.DataFrame([], index=rows, columns=columns)
+    effects = pandas.DataFrame([], index=rows, columns=columns)
     # TODO: logger.info('DataFrame with abilities created',
     #       'shape={}'.format(frame.shape))
 
     # fill DataFrame
-    for key, values in numeric.iterrows():
+    for key, values in effects.iterrows():
         for e in list(values.index):
             # if this effect is inside any key of the ability
             values[e] = 1 if any(map(lambda k: e in k, data[key].keys())) else 0
+
+    return effects
+
+
+def fill_numeric(data, rows, columns):
+    numeric = pandas.DataFrame([], index=rows, columns=columns)
+
+    for key, values in numeric.iterrows():
+        for e in list(values.index):
+            if e in data[key]:
+                values[e] = data[key][e]
 
     return numeric
 

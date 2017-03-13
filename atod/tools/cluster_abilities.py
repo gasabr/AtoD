@@ -1,7 +1,11 @@
 #!/usr/bin/env python
 import json
+import numpy as np
 from sklearn.cluster import DBSCAN, KMeans
+from sklearn.multiclass import OneVsRestClassifier
+from sklearn.svm import SVC
 
+from atod import settings
 from atod.abilities import abilities as Abilities
 
 categorical_features = [
@@ -15,6 +19,7 @@ categorical_features = [
 
 
 def cluster_binary():
+    # load labeled abilities
     data = Abilities.frame
 
     # can be used to find trash or VERY-VERY similar abilities
@@ -30,5 +35,19 @@ def cluster_binary():
     print(json.dumps(result, indent=2))
 
 
+def cluster():
+    # load labeled abilities
+    train_x, train_y, test_x = Abilities.load_train_test()
+
+    ovr = OneVsRestClassifier(SVC(kernel='poly'))
+
+    Y = np.asarray(train_y, dtype='float64')
+    X_train = train_x.values
+    ovr.fit(X_train, Y)
+    prediction = ovr.predict(test_x.values)
+    for row, pre in zip(test_x.iterrows(), prediction):
+        print(row[0], [l for p, l in zip(pre, settings.LABELS) if p == 1])
+
+
 if __name__ == '__main__':
-    cluster_binary()
+    cluster()

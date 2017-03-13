@@ -64,7 +64,7 @@ def save_descriptions(dictionary, corpus):
 
 def create_descriptions():
     '''Creates corpora.Dictionary and corpora.Mmcorpus.'''
-    heroes_abilities = Abilities.skills
+    heroes_abilities = Abilities.clean_properties()
 
     descriptions = []
     for ability, parameters in heroes_abilities.items():
@@ -121,4 +121,4 @@ def label(write_to_file=False):
 
     return descriptions
 
-label()
+print(json.dumps(label(), indent=2))

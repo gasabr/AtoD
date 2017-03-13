@@ -5,7 +5,7 @@ import unittest
 from atod import settings
 from atod.abilities import abilities as Abilities
 from atod.tools.dictionary import make_flat_dict
-from atod.tools.abilities import create_numeric, create_categorical
+from atod.tools.abilities import encode_effects, create_categorical
 
 
 class TestAbilities(unittest.TestCase):
@@ -28,7 +28,7 @@ class TestAbilities(unittest.TestCase):
     def test_frame_shape(self):
         ''' Very long test, since whole DataFrame is created.'''
         frame = Abilities.frame
-        expected_shape = (len(Abilities.skills),
+        expected_shape = (len(Abilities.clean_properties()),
                           len(Abilities.cat_columns) + len(self.effects))
 
         self.assertEqual(expected_shape, frame.shape)
@@ -47,7 +47,7 @@ class TestToolsAbilities(unittest.TestCase):
         # dataset from one ability
         for key, value in data.items():
             data[key] = make_flat_dict(value)
-            result = create_numeric(data,
+            result = encode_effects(data,
                                     [list(data)],
                                     [e for key in data[key]
                                        for e in key.split('_')])
@@ -57,7 +57,7 @@ class TestToolsAbilities(unittest.TestCase):
         # one ability, but custom columns
         for key, value in data.items():
             data[key] = make_flat_dict(value)
-            result = create_numeric(data,
+            result = encode_effects(data,
                                     [list(data)],
                                     ['duration', 'bonus', 'speed', 'slow',
                                      'stun', 'silence'])
