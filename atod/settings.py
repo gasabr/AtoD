@@ -112,4 +112,5 @@ LABELS = ['talent', 'stun', 'transformation', 'slow', 'durability', 'nuke',
           'based on attr', 'aoe', 'period damage', 'attack debuff',
           'invis', 'vision', 'silence', 'lifesteal', 'armor buff',
           'armor debuff', 'save', 'move speed buff', 'illusions', 'chance',
-          'multiply heroes', 'global', 'shield']
+          'multiply heroes', 'global', 'shield', 'attribute gain',
+          'amplify magic dmg', 'summon unit', 'regen']

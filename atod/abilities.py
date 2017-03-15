@@ -347,11 +347,12 @@ class Abilities(metaclass=Singleton):
             Returns:
                 ((X_train, y_train), X_test) (tuple of pd.DataFrame)
         '''
-        frame = self.clean_frame
-        print(frame.shape)
+        frame = self.frame
+        # print(frame.shape)
         # select skills from labeling (talents are not included)
-        labeling = {k: v for k, v in load_labeling().items()
-                          if k in self.skills}
+        # labeling = {k: v for k, v in load_labeling().items()
+        #                   if 'labels' in v}
+        labeling = load_labeling()
 
         # get labeled skill from frame
         train = frame.loc[list(labeling)]
@@ -369,7 +370,10 @@ class Abilities(metaclass=Singleton):
             for label, value in zip(settings.LABELS, labeling[ability]):
                 labels.loc[ability][label] = value
 
+        # print(train.shape, labels.shape, frame.shape)
+
+        print(list(train.columns))
+
         return train, labels, frame
 
 abilities = Abilities()
-abilities.load_train_test()
