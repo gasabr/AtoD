@@ -8,13 +8,13 @@ def json_to_rows(filename, scheme):
     ''' Gets the data from json files according to given db scheme.
 
         Idea: json file contents a lot of information that i don't need in db,
-        so this fuction parses file to get the needed attributes.
+        so this function parses file to get the needed attributes.
 
-        :Args:
+        Args:
             filename (str) - name of json file to parse
             scheme (list of str) - fieds what should be extracted from file
 
-        :Returns:
+        Returns:
             rows (list of dicts) - dict there scheme elements are keys
     '''
     rows = []
@@ -93,14 +93,14 @@ def items_rows(filename, scheme):
 def get_types(abilities):
     ''' Maps AbilitySpecial to type of this field.
 
-        :Args:
+        Args:
             abilities (dict) - DOTAAbilities from items.json or npc_abilities
 
-        :Returns:
+        Returns:
             fields_types (dict) - mapping of field to its type
     '''
+
     fields_types = {}
-    items_list = []
     for ability, properties in abilities.items():
         try:
             for key, value in properties['AbilitySpecial'].items():
@@ -119,10 +119,10 @@ def get_types(abilities):
 def write_item_types():
     ''' Combines get_types() and settings.items_scheme in one file.
 
-        :Returns:
+        Returns:
             all_ (dict) = get_types() + settings.items_scheme
     '''
-    DOTAAbilities = {}
+
     with open(settings.DATA_FOLDER + 'from-game/items.json') as fp:
         DOTAAbilities = json.load(fp)['DOTAAbilities']
     specials = get_types(DOTAAbilities)

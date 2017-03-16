@@ -1,10 +1,7 @@
-import json
-from os import path
 import unittest
+from os import path
 
 from atod import settings
-from atod.tools import json2vectors
-
 
 EXAMPLES_FOLDER = path.join(settings.TESTS_DATA_FOLDER, 'json2vectors/')
 

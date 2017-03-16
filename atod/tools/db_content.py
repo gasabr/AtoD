@@ -1,12 +1,12 @@
 from atod import settings
-from atod.setup_db import session
 from atod.models import HeroModel, ItemModel
-from atod.tools import game_files
+from atod.setup_db import session
+from atod.tools.modeling import to_rows
 
 
 def fill_heroes():
     '''Fills heroes table with the data from npc_heroes.json.'''
-    rows = game_files.json_to_rows(settings.HEROES_FILE, settings.heroes_scheme)
+    rows = to_rows.json_to_rows(settings.HEROES_FILE, settings.heroes_scheme)
 
     for row in rows:
         if row['HeroID']:
@@ -17,7 +17,7 @@ def fill_heroes():
 
 def fill_items():
     '''Fills items table with the data from items.json.'''
-    rows = game_files.items_rows(settings.ITEMS_FILE, settings.items_scheme)
+    rows = to_rows.items_rows(settings.ITEMS_FILE, settings.items_scheme)
     unique_ids = set()
 
     for row in rows:
@@ -31,4 +31,4 @@ def fill_items():
 
 if __name__ == '__main__':
     fill_heroes()
-    # fill_items()
+    fill_items()

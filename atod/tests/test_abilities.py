@@ -1,11 +1,11 @@
-import os
 import json
+import os
 import unittest
 
 from atod import settings
 from atod.abilities import abilities as Abilities
 from atod.tools.dictionary import make_flat_dict
-from atod.tools.abilities import encode_effects, create_categorical
+from atod.tools.modeling.abilities import encode_effects, create_categorical
 
 
 class TestAbilities(unittest.TestCase):

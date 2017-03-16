@@ -1,17 +1,19 @@
-import re
 import json
+import re
+
+import matplotlib.pyplot as plt
 import pandas
 import seaborn as sns
-import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
 
 from atod import settings
-from atod.tools.preprocessing import load_labeling
-from atod.tools.abilities import (create_categorical, encode_effects,
-                                  fill_numeric)
+from atod.ability import Ability
+from atod.tools.cleaning.preprocessing import load_labeling
 from atod.tools.dictionary import (find_all_values, create_encoding,
                                    make_flat_dict)
-from atod.ability import Ability
+from atod.tools.modeling.abilities import (create_categorical, encode_effects,
+                                           fill_numeric)
+
 
 class Singleton(type):
     _instances = {}

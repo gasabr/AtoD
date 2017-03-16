@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-import unittest
 import json
+import unittest
 
-from atod.tools.to_json import to_json, clean_value
+from atod.tools.parsing.to_json import to_json, clean_value
 
 EXAMPLES_FOLDER = '/Users/gasabr/AtoD/atod/tests/tests_data/game_files/'
 
