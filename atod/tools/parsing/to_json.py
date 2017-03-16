@@ -190,5 +190,5 @@ def to_json(input_filename=None, output_filename=None):
 
 
 if __name__ == '__main__':
-    inp = settings.DATA_FOLDER + 'from-game/items.txt'
+    inp = settings.DATA_FOLDER + 'raw/items.txt'
     to_json(input_filename=inp)

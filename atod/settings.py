@@ -17,9 +17,9 @@ NPC_PATH = '/Users/gasabr/Library/Application Support/Steam/steamapps/common/dot
 
 # from game files with data
 # TODO: organize such path more accurate / change data/ folder structure
-HEROES_FILE = path.join(DATA_FOLDER, 'from-game/npc_heroes.json')
-ITEMS_FILE = path.join(DATA_FOLDER, 'from-game/items.json')
-ABILITIES_FILE = path.join(DATA_FOLDER, 'from-game/npc_abilities.json')
+HEROES_FILE = path.join(DATA_FOLDER, 'parsed/npc_heroes.json')
+ITEMS_FILE = path.join(DATA_FOLDER, 'parsed/items.json')
+ABILITIES_FILE = path.join(DATA_FOLDER, 'parsed/npc_abilities.json')
 
 # TODO: make one beautiful converter from it (or maybe 2)
 # TODO: rename this with FILE
@@ -27,8 +27,9 @@ ID_TO_NAME = path.join(DATA_FOLDER, 'heroes-features.json')
 CONVERTER = path.join(DATA_FOLDER, 'converter.json')
 IN_GAME_CONVERTER = path.join(DATA_FOLDER, 'in_game_converter.json')
 
-ABILITIES_DICT_FILE = path.join(DATA_FOLDER, 'abilities.dict')
-ABILITIES_CORPUS_FILE = path.join(DATA_FOLDER, 'abilities.mm')
+DICTIONARY_FOLDER = path.join(DATA_FOLDER, 'dictionary/')
+ABILITIES_DICT_FILE = path.join(DICTIONARY_FOLDER, 'abilities.dict')
+ABILITIES_CORPUS_FILE = path.join(DICTIONARY_FOLDER, 'abilities.mm')
 ABILITIES_LABELING_FILE = path.join(DATA_FOLDER, 'abilities_labeling.json')
 ABILITIES_TRAIN_FILE = path.join(DATA_FOLDER, 'abilities_labeled.json')
 

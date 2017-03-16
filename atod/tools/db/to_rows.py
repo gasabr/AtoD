@@ -123,7 +123,7 @@ def write_item_types():
             all_ (dict) = get_types() + settings.items_scheme
     '''
 
-    with open(settings.DATA_FOLDER + 'from-game/items.json') as fp:
+    with open(settings.DATA_FOLDER + 'parsed/items.json') as fp:
         DOTAAbilities = json.load(fp)['DOTAAbilities']
     specials = get_types(DOTAAbilities)
     basics = settings.items_scheme
