@@ -163,4 +163,4 @@ def label(write_to_file=False):
 
     return descriptions
 
-print(json.dumps(label(), indent=2))
+label(write_to_file=True)
