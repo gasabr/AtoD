@@ -69,8 +69,8 @@ def find_properties_any(dict_, keywords=[]):
     return properties
 
 if __name__ == '__main__':
-    data = abilities.main()['chaos_knight_chaos_bolt']
-    print(json.dumps(data, indent=2))
-    # p = find_properties(data, keys=['min', 'max'])
-    p = abilities.min_max2avg(data)
+    data = abilities.main()
+    # print(json.dumps(data, indent=2))
+    p = find_properties(data, keys=['min', 'max'])
+    # p = abilities.min_max2avg(data)
     print(json.dumps(p, indent=2))

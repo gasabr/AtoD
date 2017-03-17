@@ -15,13 +15,6 @@ from atod.tools.dictionary import all_keys, make_flat_dict
 logging.basicConfig(level=logging.DEBUG)
 
 
-def clean_properties():
-    remove_skills_names()
-    merge_similar()
-    min_max2avg()
-    merge_rare()
-
-
 def find_skills(raw_abilities):
     ''' Finds skills in dictionary.
 
@@ -96,12 +89,58 @@ def remove_skills_names(skills):
     return skills
 
 
-def merge_similar():
-    pass
+def change_properties(skills):
+    ''' Applies abilities_changes.json to skills.
+
+        abilities_changes.json - dict where key is name if old
+        property and corresponding value is the new property.
+        If value == '' property will be removed.
+
+        Args:
+            skills (dict): flat dictionary of skills
+
+        Returns:
+            skills_ (dict): with changed properties
+    '''
+
+    skills_ = skills.copy()
+    with open('abilities_changes.json', 'r') as fp:
+        changes = json.load(fp)
+
+    for skill in skills:
+        for prop in list(skills_[skill]):
+            if prop not in changes.keys():
+                continue
+            elif changes[prop] == '':
+                del skills_[skill][prop]
+                continue
+            else:
+                skills_[skill][changes[prop]] = skills_[skill][prop]
+                del skills_[skill][prop]
+
+    return skills_
+
+
+def average_properties(skills):
+    ''' Averages properties values where it's possible.
+
+        Args:
+            skills (dict): flat dict of skills
+
+        Returns:
+            skills_ (dict): the same dict, where abilities changed
+                according to rule in `min_max2avg` docstring.
+    '''
+
+    for ability, description in skills.items():
+        if any(map(lambda x: 'max' in x, description)):
+            skills[ability] = min_max2avg(description)
+
+    return skills
 
 
 def min_max2avg(description):
-    ''' Converts min and max properties to one containing avg.
+    ''' Converts min and max properties to one containing their avg.
 
         Args:
             description (dict): ability properties
@@ -121,7 +160,7 @@ def min_max2avg(description):
             partition = property_.partition('max')
             min_prop = partition[0] + 'min' + partition[2]
             if min_prop in desc.keys():
-                new_prop = (partition[0] + partition[2]).strip('_')
+                new_prop = (partition[0].rstrip('_') + partition[2]).strip('_')
                 desc[new_prop] = (value + description[min_prop]) / 2
                 desc['changed'] = True
                 del desc[min_prop]
@@ -160,20 +199,25 @@ def main():
 
     # find heroes abilities
     skills_nested = find_skills(raw)
-
     show_progress('SKILLS', skills_nested)
 
     # make skills flat
     skills = {}
     for ability, description in skills_nested.items():
         skills[ability] = make_flat_dict(description)
-
     show_progress('FLAT', skills)
 
     # remove ability name from its properties
     skills = remove_skills_names(skills)
-
     show_progress('CLEANING 1', skills)
+
+    # convert min and max properties to their avg
+    skills = average_properties(skills)
+    show_progress('MIN MAX -> AVG', skills)
+
+    # map properties
+    skills = change_properties(skills)
+    show_progress('CLEANING 2', skills)
 
     return skills
 

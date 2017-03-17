@@ -1,0 +1,10 @@
+{
+  "ministun": "stun_duration",
+  "min_range": "",
+  "projectile_max_time": "",
+  "max_stunrange": "",
+  "max_land_distance": "",
+  "max_souls": "max",
+  "max_traps": "max",
+  "max_layers": "max_stacks"
+}
