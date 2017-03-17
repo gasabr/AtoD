@@ -71,6 +71,6 @@ def find_properties_any(dict_, keywords=[]):
 if __name__ == '__main__':
     data = abilities.main()
     # print(json.dumps(data, indent=2))
-    p = find_properties(data, keys=['min', 'max'])
+    p = find_properties(data, keys=['dist', 'range'])
     # p = abilities.min_max2avg(data)
     print(json.dumps(p, indent=2))

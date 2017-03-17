@@ -169,8 +169,18 @@ def min_max2avg(description):
     return desc
 
 
-def merge_rare():
-    pass
+def clean_properties(dict_, word, remove_prop=False):
+    ''' Remove word from property or whole property. '''
+    for key, value in dict_.items():
+        for k in list(value):
+            if word in k:
+                if not remove_prop:
+                    partition = k.partition(word)
+                    new_k = partition[0].strip('_') + partition[2].rstrip('_')
+                    value[new_k] = value[k]
+                del value[k]
+
+    return dict_
 
 
 def show_progress(stage_name, abilities):
@@ -201,7 +211,7 @@ def main():
     skills_nested = find_skills(raw)
     show_progress('SKILLS', skills_nested)
 
-    # make skills flat
+    # make skills flat9
     skills = {}
     for ability, description in skills_nested.items():
         skills[ability] = make_flat_dict(description)
@@ -218,6 +228,14 @@ def main():
     # map properties
     skills = change_properties(skills)
     show_progress('CLEANING 2', skills)
+
+    # remove tooltip properties from skills
+    skills = clean_properties(skills, word='tooltip')
+    skills = clean_properties(skills, word='scepter', remove_prop=True)
+    show_progress('CLEANING 2', skills)
+
+    with open('abilities.json', 'w+') as fp:
+        json.dump(skills, fp, indent=2)
 
     return skills
 
