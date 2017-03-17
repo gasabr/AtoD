@@ -1,0 +1,81 @@
+{
+  "input":[
+    {
+      "min_damage": 0,
+      "brew_explosion": 5.5,
+      "radius": 175,
+      "AbilityCastRange": 775,
+      "min_stun": 0.25,
+      "ID": 5366,
+      "SpellImmunityType": "SPELL_IMMUNITY_ENEMIES_NO",
+      "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE",
+      "max_damage": 255.0,
+      "AbilityCooldown": 16.0,
+      "FightRecapLevel": 1,
+      "brew_time": 5.0,
+      "max_stun": 2.875,
+      "AbilityCastPoint": 0.0,
+      "AbilityManaCost": 120,
+      "SpellDispellableType": "SPELL_DISPELLABLE_YES_STRONG",
+      "AbilityUnitDamageType": "DAMAGE_TYPE_PHYSICAL"
+    },
+    {
+      "ID": 5426,
+      "AbilityCastPoint": 0.4,
+      "changed": true,
+      "AbilityUnitTargetType": "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC",
+      "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET",
+      "SpellDispellableType": "SPELL_DISPELLABLE_YES_STRONG",
+      "SpellImmunityType": "SPELL_IMMUNITY_ENEMIES_NO",
+      "stun_min": 1.25,
+      "AbilityUnitDamageType": "DAMAGE_TYPE_MAGICAL",
+      "stun_max": 3.25,
+      "FightRecapLevel": 1,
+      "AbilityUnitTargetTeam": "DOTA_UNIT_TARGET_TEAM_ENEMY",
+      "damage_min": 112.5,
+      "AbilityManaCost": 140.0,
+      "AbilityCastRange": 500,
+      "speed": 1000,
+      "damage_max": 237.5,
+      "AbilityCooldown": 10.0
+    }
+  ],
+  "output": [
+    {
+      "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE",
+      "brew_explosion": 5.5,
+      "radius": 175,
+      "AbilityCastRange": 775,
+      "ID": 5366,
+      "AbilityCooldown": 16.0,
+      "brew_time": 5.0,
+      "SpellDispellableType": "SPELL_DISPELLABLE_YES_STRONG",
+      "stun": 1.5625,
+      "AbilityManaCost": 120,
+      "SpellImmunityType": "SPELL_IMMUNITY_ENEMIES_NO",
+      "FightRecapLevel": 1,
+      "AbilityCastPoint": 0.0,
+      "damage": 127.5,
+      "changed": true,
+      "AbilityUnitDamageType": "DAMAGE_TYPE_PHYSICAL"
+    },
+    {
+      "ID": 5426,
+      "AbilityCastPoint": 0.4,
+      "changed": true,
+      "SpellDispellableType": "SPELL_DISPELLABLE_YES_STRONG",
+      "AbilityCastRange": 500,
+      "SpellImmunityType": "SPELL_IMMUNITY_ENEMIES_NO",
+      "AbilityUnitDamageType": "DAMAGE_TYPE_MAGICAL",
+      "speed": 1000,
+      "AbilityUnitTargetType": "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC",
+      "AbilityManaCost": 140.0,
+      "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET",
+      "FightRecapLevel": 1,
+      "AbilityUnitTargetTeam": "DOTA_UNIT_TARGET_TEAM_ENEMY",
+      "damage": 175.0,
+      "stun": 2.25,
+      "AbilityCooldown": 10.0
+    }
+  ]
+}

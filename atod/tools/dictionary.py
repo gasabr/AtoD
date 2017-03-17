@@ -17,6 +17,30 @@ def all_keys(dict_, exclude=[], include_dict_keys=True):
                 yield key
 
 
+def count_keys(dictionary):
+    ''' Counts times when keys occur in a dictionary.
+
+        Args:
+            dictionary (dict): dictionary to count
+
+        Returns:
+            key2occur (dict): key mapped to occurrences
+    '''
+
+    key2occur = dict()
+    for key, value in dictionary.items():
+        key2occur.setdefault(key, 0)
+        key2occur[key] += 1
+
+        if isinstance(value, dict):
+            rec = count_keys(value)
+            for k, v in rec.items():
+                key2occur.setdefault(k, v)
+                key2occur[k] += v
+
+    return key2occur
+
+
 def extract_effects(effects):
     '''Finds all the words in keys of given dictionary.'''
     return (e for effect in effects for e in effect.split('_'))
