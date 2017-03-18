@@ -6,5 +6,6 @@
   "max_land_distance": "",
   "max_souls": "max",
   "max_traps": "max",
-  "max_layers": "max_stacks"
+  "max_layers": "max_stacks",
+  "moveslow": "movement_slow"
 }

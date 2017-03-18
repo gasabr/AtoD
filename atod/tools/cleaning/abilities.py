@@ -9,7 +9,7 @@ import json
 import logging
 
 from atod import settings
-from atod.tools.dictionary import all_keys, make_flat_dict
+from atod.tools.dictionary import all_keys, make_flat_dict, find_keys
 
 
 logging.basicConfig(level=logging.DEBUG)
@@ -183,6 +183,24 @@ def clean_properties(dict_, word, remove_prop=False):
     return dict_
 
 
+def clean_move_properties(dict_):
+    remove_words = ('movement', 'movespeed', 'speed', 'move')
+    for ability, description in dict_.items():
+        for key in list(description):
+            new_key = key
+            if 'move' in key:
+                for word in remove_words:
+                    partition = new_key.partition(word)
+                    new_key = partition[0].strip('_') \
+                            + partition[2].rstrip('_')
+                new_key = ('movespeed_' + new_key.lstrip('_')).rstrip('_')
+
+                dict_[ability][new_key] = dict_[ability][key]
+                del dict_[ability][key]
+
+    return dict_
+
+
 def show_progress(stage_name, abilities):
     ''' Function logs (prints) info about current stage of cleaning.
 
@@ -232,10 +250,14 @@ def main():
     # remove tooltip properties from skills
     skills = clean_properties(skills, word='tooltip')
     skills = clean_properties(skills, word='scepter', remove_prop=True)
-    show_progress('CLEANING 2', skills)
+    show_progress('CLEANING PROPERTIES', skills)
 
-    with open('abilities.json', 'w+') as fp:
-        json.dump(skills, fp, indent=2)
+    # clean movespeed properties
+    skills = clean_move_properties(skills)
+    show_progress('CLEANING MOVE PROPERTIES', skills)
+
+    # with open('abilities.json', 'w+') as fp:
+    #     json.dump(skills, fp, indent=2)
 
     return skills
 
