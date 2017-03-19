@@ -33,17 +33,16 @@ def find_skills(raw_abilities):
 
     heroes_names = [c for c in converter.keys()
                     if re.findall(r'[a-zA-Z|\_]+', c)]
+    stop_words = ['special_bonus', 'hidden', 'empty', 'scepter', 'voodoo',
+                  'stop', 'self']
 
     # find all the heroes skills, but not talents
     skills_list = []
     for key, value in raw_abilities['DOTAAbilities'].items():
-        # if ability contains hero name, doesn't contain special_bonus
+        # if ability contains hero name, doesn't contain stop words
         if any(map(lambda name: name in key, heroes_names)) and \
-                        'special_bonus' not in key and \
-                        'hidden' not in key and \
-                        'empty' not in key and \
-                        'scepter' not in key and \
-                        key != 'Version':
+                not any(map(lambda word: word in key, stop_words)) and \
+                key != 'Version':
             skills_list.append(key)
 
     skills = {}
@@ -104,7 +103,7 @@ def change_properties(skills):
     '''
 
     skills_ = skills.copy()
-    with open('abilities_changes.json', 'r') as fp:
+    with open(settings.ABILITIES_CHANGES_FILE, 'r') as fp:
         changes = json.load(fp)
 
     for skill in skills:
@@ -243,10 +242,6 @@ def main():
     skills = average_properties(skills)
     show_progress('MIN MAX -> AVG', skills)
 
-    # map properties
-    skills = change_properties(skills)
-    show_progress('CLEANING 2', skills)
-
     # remove tooltip properties from skills
     skills = clean_properties(skills, word='tooltip')
     skills = clean_properties(skills, word='scepter', remove_prop=True)
@@ -256,8 +251,12 @@ def main():
     skills = clean_move_properties(skills)
     show_progress('CLEANING MOVE PROPERTIES', skills)
 
-    # with open('abilities.json', 'w+') as fp:
-    #     json.dump(skills, fp, indent=2)
+    # map properties
+    skills = change_properties(skills)
+    show_progress('CLEANING 2', skills)
+
+    with open(settings.CLEAN_ABILITIES_FILE, 'w+') as fp:
+        json.dump(skills, fp, indent=2)
 
     return skills
 

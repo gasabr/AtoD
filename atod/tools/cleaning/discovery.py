@@ -7,6 +7,7 @@ import logging
 
 from atod.tools import dictionary
 from atod.tools.cleaning import abilities
+from atod.tools.dictionary import all_keys
 
 def print_keys_occurrences():
     data = abilities.main()
@@ -25,9 +26,10 @@ def print_keys_occurrences():
 if __name__ == '__main__':
     data = abilities.main()
 
-    p = dictionary.find_keys(data, keys=['move'])
+    p = dictionary.find_keys(data, keywords=['armor'])
     c = dictionary.count_keys(p)
 
     count = {k: v for k, v in c.items() if k not in data.keys()}
 
-    print(json.dumps(count, indent=2))
+    print(sorted(set(all_keys(data, include_dict_keys=False))))
+    # print(json.dumps(sorted(count), indent=2))

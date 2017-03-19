@@ -32,6 +32,8 @@ ABILITIES_DICT_FILE = path.join(DICTIONARY_FOLDER, 'abilities.dict')
 ABILITIES_CORPUS_FILE = path.join(DICTIONARY_FOLDER, 'abilities.mm')
 ABILITIES_LABELING_FILE = path.join(DATA_FOLDER, 'abilities_labeling.json')
 ABILITIES_TRAIN_FILE = path.join(DATA_FOLDER, 'abilities_labeled.json')
+ABILITIES_CHANGES_FILE = path.join(DATA_FOLDER, 'abilities_changes.json')
+CLEAN_ABILITIES_FILE = path.join(DATA_FOLDER, 'abilities_clean.json')
 
 # ===============================================================================
 # DataBase settings

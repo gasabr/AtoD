@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 '''Set of functions on dict needed for different parts of the program.'''
 import re
+import logging
 from sklearn.preprocessing import LabelEncoder
 
 
