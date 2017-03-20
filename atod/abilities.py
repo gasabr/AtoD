@@ -1,14 +1,17 @@
 import json
 import re
 
-import matplotlib.pyplot as plt
 import pandas
+import numpy as np
 import seaborn as sns
+import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
+from sklearn.preprocessing import MultiLabelBinarizer, MinMaxScaler
+
 
 from atod import settings
 from atod.ability import Ability
-from atod.tools.cleaning.preprocessing import load_labeling
+from atod.tools.cleaning.preprocessing import load_labels
 from atod.tools.dictionary import (find_all_values, create_encoding,
                                    make_flat_dict)
 from atod.tools.modeling.abilities import (create_categorical, encode_effects,
@@ -361,21 +364,29 @@ class Abilities(metaclass=Singleton):
                 X_train, y_train, X_test  of pd.DataFrame)
         '''
         frame = self.clean_frame
-        labeling = load_labeling()
+        labeling = load_labels()
+        labeled_abilities = list(labeling)
+        labels_unique = [labeling[a] for a in labeled_abilities]
+
+        # binarize data
+        mlb = MultiLabelBinarizer()
+        mlb.fit(labels_unique)
+        labels_bin = mlb.transform(labels_unique)
+
+        labels = pandas.DataFrame(labels_bin, index=labeled_abilities,
+                                  columns=settings.LABELS)
+
+        mm_scaler = MinMaxScaler()
+        mm_scaler.fit(frame)
 
         # get labeled skill from frame
         train = frame.loc[list(labeling)]
+        train = train.fillna(value=0)
+        train = mm_scaler.transform(train)
 
         # drop labeled skill from frame
         frame = frame.drop([a for a in labeling if a in frame.index], axis=0)
-
-        labels = pandas.DataFrame([], index=list(labeling),
-                                      columns=settings.LABELS)
-        # Fill labels
-        # TODO: find initializer for that
-        for ability in labels.index:
-            for label, value in zip(settings.LABELS, labeling[ability]):
-                labels.loc[ability][label] = value
+        frame = mm_scaler.transform(frame)
 
         return train, labels, frame
 

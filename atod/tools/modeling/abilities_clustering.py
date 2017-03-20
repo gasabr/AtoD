@@ -46,12 +46,9 @@ def cluster():
 
     ovr = OneVsRestClassifier(SVC(random_state=0))
 
-    print(train_y.to_string())
-
-    # Y = np.asarray(train_y, dtype='float64')
-    X_train = train_x.values
-    ovr.fit(train_x.values, train_y.values)
-    prediction = ovr.predict(test_x.values)
+    ovr.fit(train_x, train_y)
+    prediction = ovr.predict(test_x)
+    print(train_x[0])
     for row, pre in zip(test_x.iterrows(), prediction):
         print(row[0], [l for p, l in zip(pre, settings.LABELS) if p == 1])
 
