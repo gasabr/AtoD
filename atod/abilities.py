@@ -13,6 +13,7 @@ from atod.tools.dictionary import (find_all_values, create_encoding,
                                    make_flat_dict)
 from atod.tools.modeling.abilities import (create_categorical, encode_effects,
                                            fill_numeric)
+from atod.tools.cleaning.abilities import clean as cleaning_function
 
 
 class Singleton(type):
@@ -171,22 +172,33 @@ class Abilities(metaclass=Singleton):
                 result_frame (pandas.DataFrame) : DataFrame of extracted vectors
         '''
 
-        clean = self.clean_properties()
+        # clean = self.clean_properties()
+        clean = cleaning_function()
         heroes_abilities = list(clean)
-        skills = clean
 
-        for skill, description in skills.items():
+        effects = set(effect for key, effects in clean.items()
+                             for effect in effects
+                             if effect not in self.unused_properties)
+
+        # fill categorical variables
+        categorical_part = create_categorical(clean,
+                                              heroes_abilities,
+                                              self.cat_columns)
+
+        # remove categorical variables from description
+        for skill, description in clean.items():
             for cat in self.cat_variables:
                 if cat in description:
                     del description[cat]
 
-        numeric_part = fill_numeric(skills, heroes_abilities, self.get_properties())
-        categorical_part = create_categorical(skills,
-                                              heroes_abilities,
-                                              self.cat_columns)
+        # fill numeric part of dataframe
+        numeric_part = encode_effects(clean, heroes_abilities, effects)
+
+        # fill missing values
         numeric_part = numeric_part.fillna(value=-1)
         categorical_part = categorical_part.fillna(value=-1)
 
+        # concatenate 2 parts
         result_frame = pandas.concat([numeric_part, categorical_part], axis=1)
 
         return result_frame

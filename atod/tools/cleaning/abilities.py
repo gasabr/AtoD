@@ -34,7 +34,7 @@ def find_skills(raw_abilities):
     heroes_names = [c for c in converter.keys()
                     if re.findall(r'[a-zA-Z|\_]+', c)]
     stop_words = ['special_bonus', 'hidden', 'empty', 'scepter', 'voodoo',
-                  'stop', 'self']
+                  'stop', 'self', 'cancel', 'throw', 'return', 'release']
 
     # find all the heroes skills, but not talents
     skills_list = []
@@ -169,13 +169,15 @@ def min_max2avg(description):
 
 
 def clean_properties(dict_, word, remove_prop=False):
-    ''' Remove word from property or whole property. '''
+    ''' Remove word from property or the whole property. '''
     for key, value in dict_.items():
         for k in list(value):
             if word in k:
                 if not remove_prop:
                     partition = k.partition(word)
-                    new_k = partition[0].strip('_') + partition[2].rstrip('_')
+                    new_k = partition[0].strip('_') + '_' \
+                            + partition[2].strip('_')
+                    new_k = new_k.strip('_')
                     value[new_k] = value[k]
                 del value[k]
 
@@ -219,7 +221,7 @@ def show_progress(stage_name, abilities):
     logging.info('================================================\n')
 
 
-def main():
+def clean():
     with open(settings.ABILITIES_FILE, 'r') as fp:
         raw = json.load(fp)
     show_progress('RAW', raw)
@@ -228,7 +230,7 @@ def main():
     skills_nested = find_skills(raw)
     show_progress('SKILLS', skills_nested)
 
-    # make skills flat9
+    # make skills flat
     skills = {}
     for ability, description in skills_nested.items():
         skills[ability] = make_flat_dict(description)
@@ -255,11 +257,11 @@ def main():
     skills = change_properties(skills)
     show_progress('CLEANING 2', skills)
 
-    with open(settings.CLEAN_ABILITIES_FILE, 'w+') as fp:
-        json.dump(skills, fp, indent=2)
+    # with open(settings.CLEAN_ABILITIES_FILE, 'w+') as fp:
+    #     json.dump(skills, fp, indent=2)
 
     return skills
 
 
 if __name__ == '__main__':
-    main()
+    clean()

@@ -36,7 +36,7 @@ def count_keys(dictionary):
         if isinstance(value, dict):
             rec = count_keys(value)
             for k, v in rec.items():
-                key2occur.setdefault(k, v)
+                key2occur.setdefault(k, 0)
                 key2occur[k] += v
 
     return key2occur

@@ -2,6 +2,7 @@
 import json
 import numpy as np
 from sklearn.cluster import DBSCAN, KMeans
+from sklearn.preprocessing import StandardScaler
 from sklearn.multiclass import OneVsRestClassifier
 from sklearn.svm import SVC
 
@@ -20,10 +21,13 @@ categorical_features = [
 
 def cluster_binary():
     # load labeled abilities
-    data = Abilities.frame
+    data = Abilities.clean_frame
+
+    # mm_scaler = StandardScaler()
+    # data_norm = mm_scaler.fit_transform(data.values)
 
     # can be used to find trash or VERY-VERY similar abilities
-    # clustering = DBSCAN(eps=1, min_samples=3).fit(data.values)
+    # clustering = DBSCAN(eps=10, min_samples=3).fit(data.values)
     clustering = KMeans(n_clusters=45, max_iter=500).fit(data.values)
 
     result = {}
@@ -33,6 +37,7 @@ def cluster_binary():
         result[str(cluster)].append(skill)
 
     print(json.dumps(result, indent=2))
+    # print(data.loc['earthshaker_fissure'].to_string())
 
 
 def cluster():
@@ -50,4 +55,4 @@ def cluster():
 
 
 if __name__ == '__main__':
-    cluster()
+    cluster_binary()

@@ -24,12 +24,15 @@ def print_keys_occurrences():
 
 
 if __name__ == '__main__':
-    data = abilities.main()
+    data = abilities.clean()
 
     p = dictionary.find_keys(data, keywords=['armor'])
-    c = dictionary.count_keys(p)
+    c = dictionary.count_keys(data)
+    print(c)
 
-    count = {k: v for k, v in c.items() if k not in data.keys()}
+    count = {k: v for k, v in c.items() if k not in data.keys() and v == 1}
+    print(type(count))
 
-    print(sorted(set(all_keys(data, include_dict_keys=False))))
-    # print(json.dumps(sorted(count), indent=2))
+    # print(sorted(set(all_keys(data, include_dict_keys=False))))
+    print(json.dumps(count, indent=2))
+    print(len(count))
