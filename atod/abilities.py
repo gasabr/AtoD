@@ -192,14 +192,13 @@ class Abilities(metaclass=Singleton):
                     del description[cat]
 
         # fill numeric part of dataframe
-        numeric_part = encode_effects(clean, heroes_abilities, effects)
-
-        # fill missing values
-        numeric_part = numeric_part.fillna(value=-1)
-        categorical_part = categorical_part.fillna(value=-1)
+        numeric_part = fill_numeric(clean, heroes_abilities, effects)
 
         # concatenate 2 parts
         result_frame = pandas.concat([numeric_part, categorical_part], axis=1)
+        result_frame = result_frame.drop(['changed', 'ID'], axis=1)
+        result_frame = result_frame.dropna(axis=1, thresh=1)
+        result_frame = result_frame.fillna(value=0)
 
         return result_frame
 
@@ -359,34 +358,24 @@ class Abilities(metaclass=Singleton):
         ''' Loads training and test data for classification.
 
             Returns:
-                ((X_train, y_train), X_test) (tuple of pd.DataFrame)
+                X_train, y_train, X_test  of pd.DataFrame)
         '''
-        frame = self.frame
-        # print(frame.shape)
-        # select skills from labeling (talents are not included)
-        # labeling = {k: v for k, v in load_labeling().items()
-        #                   if 'labels' in v}
+        frame = self.clean_frame
         labeling = load_labeling()
 
         # get labeled skill from frame
         train = frame.loc[list(labeling)]
 
         # drop labeled skill from frame
-        for ability in labeling:
-            if ability in frame.index:
-                frame = frame.drop(ability)
+        frame = frame.drop([a for a in labeling if a in frame.index], axis=0)
 
         labels = pandas.DataFrame([], index=list(labeling),
-                                   columns=settings.LABELS)
+                                      columns=settings.LABELS)
         # Fill labels
         # TODO: find initializer for that
         for ability in labels.index:
             for label, value in zip(settings.LABELS, labeling[ability]):
                 labels.loc[ability][label] = value
-
-        # print(train.shape, labels.shape, frame.shape)
-
-        print(list(train.columns))
 
         return train, labels, frame
 

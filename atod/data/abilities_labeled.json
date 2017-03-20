@@ -1,7 +1,9 @@
 {
     "DOTAAbilities": {
         "mirana_arrow": {
-            "labels": [1],
+            "labels": [
+                1
+            ],
             "FightRecapLevel": 1,
             "AbilitySpecial": {
                 "07": {
@@ -70,7 +72,9 @@
             "AbilityUnitDamageType": "DAMAGE_TYPE_MAGICAL"
         },
         "undying_flesh_golem": {
-            "labels": [2],
+            "labels": [
+                2
+            ],
             "FightRecapLevel": 2,
             "AbilitySpecial": {
                 "07": {
@@ -131,7 +135,10 @@
             "SpellDispellableType": "SPELL_DISPELLABLE_NO"
         },
         "viper_corrosive_skin": {
-            "labels": [3,14],
+            "labels": [
+                3,
+                14
+            ],
             "AbilitySpecial": {
                 "06": {
                     "var_type": "FIELD_INTEGER",
@@ -186,7 +193,10 @@
             "SpellDispellableType": "SPELL_DISPELLABLE_YES"
         },
         "rubick_fade_bolt": {
-            "labels": [5,25],
+            "labels": [
+                5,
+                25
+            ],
             "FightRecapLevel": 1,
             "AbilitySpecial": {
                 "07": {
@@ -280,7 +290,9 @@
             "ID": 5450
         },
         "lone_druid_savage_roar_bear": {
-            "labels": [6],
+            "labels": [
+                6
+            ],
             "AbilitySpecial": {
                 "03": {
                     "duration": [
@@ -314,7 +326,9 @@
             "SpellDispellableType": "SPELL_DISPELLABLE_YES"
         },
         "undying_tombstone_zombie_deathstrike": {
-            "labels": [7],
+            "labels": [
+                7
+            ],
             "AbilitySpecial": {
                 "06": {
                     "var_type": "FIELD_INTEGER",
@@ -358,7 +372,9 @@
             "SpellDispellableType": "SPELL_DISPELLABLE_YES"
         },
         "special_bonus_intelligence_30": {
-            "labels": [0],
+            "labels": [
+                0
+            ],
             "AbilitySpecial": {
                 "01": {
                     "var_type": "FIELD_INTEGER",
@@ -370,7 +386,9 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "special_bonus_unique_winter_wyvern_2": {
-            "labels": [0],
+            "labels": [
+                0
+            ],
             "AbilitySpecial": {
                 "01": {
                     "var_type": "FIELD_INTEGER",
@@ -382,7 +400,9 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "tinker_laser": {
-            "labels": [5],
+            "labels": [
+                5
+            ],
             "FightRecapLevel": 1,
             "AbilitySpecial": {
                 "06": {
@@ -456,7 +476,10 @@
             "ID": 5150
         },
         "legion_commander_press_the_attack": {
-            "labels": [8,9],
+            "labels": [
+                8,
+                9
+            ],
             "AbilitySpecial": {
                 "03": {
                     "hp_regen": [
@@ -500,7 +523,9 @@
             ]
         },
         "batrider_flaming_lasso": {
-            "labels": [1],
+            "labels": [
+                1
+            ],
             "FightRecapLevel": 2,
             "AbilitySpecial": {
                 "06": {
@@ -560,7 +585,9 @@
             "HasScepterUpgrade": 1
         },
         "black_dragon_fireball": {
-            "labels": [10],
+            "labels": [
+                10
+            ],
             "FightRecapLevel": 1,
             "AbilitySpecial": {
                 "03": {
@@ -621,7 +648,9 @@
             "AbilityManaCost": 60
         },
         "granite_golem_bash": {
-            "labels": [10],
+            "labels": [
+                10
+            ],
             "AbilitySpecial": {
                 "03": {
                     "var_type": "FIELD_FLOAT",
@@ -642,7 +671,9 @@
             "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_PASSIVE"
         },
         "special_bonus_cooldown_reduction_8": {
-            "labels": [0],
+            "labels": [
+                0
+            ],
             "AbilitySpecial": {
                 "01": {
                     "var_type": "FIELD_INTEGER",
@@ -654,7 +685,10 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "obsidian_destroyer_sanity_eclipse": {
-            "labels": [11,12],
+            "labels": [
+                11,
+                12
+            ],
             "FightRecapLevel": 2,
             "AbilitySpecial": {
                 "03": {
@@ -710,7 +744,9 @@
             "AbilityUnitDamageType": "DAMAGE_TYPE_MAGICAL"
         },
         "special_bonus_magic_resistance_15": {
-            "labels": [0],
+            "labels": [
+                0
+            ],
             "AbilitySpecial": {
                 "01": {
                     "var_type": "FIELD_INTEGER",
@@ -722,7 +758,9 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "special_bonus_cooldown_reduction_20": {
-            "labels": [0],
+            "labels": [
+                0
+            ],
             "AbilitySpecial": {
                 "01": {
                     "var_type": "FIELD_INTEGER",
@@ -734,7 +772,9 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "special_bonus_respawn_reduction_60": {
-            "labels": [0],
+            "labels": [
+                0
+            ],
             "AbilitySpecial": {
                 "01": {
                     "var_type": "FIELD_INTEGER",
@@ -746,7 +786,10 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "lycan_summon_wolves_invisibility": {
-            "labels": [7,15],
+            "labels": [
+                7,
+                15
+            ],
             "AbilitySpecial": {
                 "02": {
                     "fade_delay": 1.7,
@@ -766,7 +809,10 @@
             "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_PASSIVE"
         },
         "abyssal_underlord_pit_of_malice": {
-            "labels": [1, 12],
+            "labels": [
+                1,
+                12
+            ],
             "FightRecapLevel": 1,
             "AbilityCastRange": 750,
             "AbilityManaCost": [
@@ -817,7 +863,11 @@
             "SpellDispellableType": "SPELL_DISPELLABLE_YES"
         },
         "kunkka_torrent": {
-            "labels": [1,3,12],
+            "labels": [
+                1,
+                3,
+                12
+            ],
             "FightRecapLevel": 1,
             "AbilitySpecial": {
                 "03": {
@@ -880,7 +930,11 @@
             "AbilityUnitDamageType": "DAMAGE_TYPE_MAGICAL"
         },
         "phoenix_fire_spirits": {
-            "labels": [13,12,14],
+            "labels": [
+                13,
+                12,
+                14
+            ],
             "FightRecapLevel": 1,
             "AbilityCastRange": 1400,
             "AbilityManaCost": [
@@ -999,7 +1053,10 @@
             "ID": 5577
         },
         "luna_lunar_blessing": {
-            "labels": [16,8],
+            "labels": [
+                16,
+                8
+            ],
             "AbilitySpecial": {
                 "03": {
                     "bonus_night_vision": [
@@ -1033,7 +1090,10 @@
             "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_PASSIVE"
         },
         "invoker_chaos_meteor": {
-            "labels": [5,12],
+            "labels": [
+                5,
+                12
+            ],
             "FightRecapLevel": 1,
             "AbilitySpecial": {
                 "07": {
@@ -1200,7 +1260,10 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "templar_assassin_refraction": {
-            "labels": [27,8],
+            "labels": [
+                27,
+                8
+            ],
             "AbilitySpecial": {
                 "03": {
                     "var_type": "FIELD_INTEGER",
@@ -1260,7 +1323,9 @@
             "SpellDispellableType": "SPELL_DISPELLABLE_NO"
         },
         "windrunner_shackleshot": {
-            "labels": [1],
+            "labels": [
+                1
+            ],
             "FightRecapLevel": 1,
             "AbilitySpecial": {
                 "06": {
@@ -1326,7 +1391,11 @@
             ]
         },
         "witch_doctor_paralyzing_cask": {
-            "labels": [25,1,5],
+            "labels": [
+                25,
+                1,
+                5
+            ],
             "FightRecapLevel": 1,
             "AbilitySpecial": {
                 "07": {
@@ -1438,7 +1507,10 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "nevermore_dark_lord": {
-            "labels": [12,20],
+            "labels": [
+                12,
+                20
+            ],
             "AbilityCastRange": 900,
             "AbilityUnitTargetTeam": "DOTA_UNIT_TARGET_TEAM_ENEMY",
             "OnCastbar": 0,
@@ -1495,7 +1567,9 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "enchantress_natures_attendants": {
-            "labels": [9],
+            "labels": [
+                9
+            ],
             "AbilitySpecial": {
                 "03": {
                     "var_type": "FIELD_INTEGER",
@@ -1554,7 +1628,10 @@
             "SpellDispellableType": "SPELL_DISPELLABLE_NO"
         },
         "razor_plasma_field": {
-            "labels": [5,12],
+            "labels": [
+                5,
+                12
+            ],
             "FightRecapLevel": 1,
             "AbilityCastRange": 0,
             "AbilityManaCost": [
@@ -1604,7 +1681,9 @@
             "ID": 5082
         },
         "special_bonus_movement_speed_50": {
-            "labels": [0],
+            "labels": [
+                0
+            ],
             "AbilitySpecial": {
                 "01": {
                     "var_type": "FIELD_INTEGER",
@@ -1616,7 +1695,9 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "special_bonus_attack_speed_20": {
-            "labels": [0],
+            "labels": [
+                0
+            ],
             "AbilitySpecial": {
                 "01": {
                     "var_type": "FIELD_INTEGER",
@@ -1680,7 +1761,10 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "nevermore_shadowraze3": {
-            "labels": [5,12],
+            "labels": [
+                5,
+                12
+            ],
             "FightRecapLevel": 1,
             "AbilitySpecial": {
                 "03": {
@@ -1723,7 +1807,10 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "furion_wrath_of_nature": {
-            "labels": [26,5],
+            "labels": [
+                26,
+                5
+            ],
             "FightRecapLevel": 2,
             "AbilitySpecial": {
                 "07": {
@@ -1794,7 +1881,11 @@
             "AbilityUnitDamageType": "DAMAGE_TYPE_MAGICAL"
         },
         "jakiro_liquid_fire": {
-            "labels": [13,12,14],
+            "labels": [
+                13,
+                12,
+                14
+            ],
             "AbilitySpecial": {
                 "03": {
                     "var_type": "FIELD_INTEGER",
@@ -1885,7 +1976,10 @@
             "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_PASSIVE"
         },
         "visage_gravekeepers_cloak": {
-            "labels": [14,5],
+            "labels": [
+                14,
+                5
+            ],
             "AbilitySpecial": {
                 "03": {
                     "var_type": "FIELD_FLOAT",
@@ -1922,7 +2016,9 @@
             "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_PASSIVE"
         },
         "tornado_tempest": {
-            "labels": [7],
+            "labels": [
+                7
+            ],
             "AbilitySpecial": {
                 "07": {
                     "var_type": "FIELD_FLOAT",
@@ -1959,7 +2055,9 @@
             "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_PASSIVE"
         },
         "broodmother_poison_sting": {
-            "labels": [7],
+            "labels": [
+                7
+            ],
             "AbilitySpecial": {
                 "03": {
                     "var_type": "FIELD_FLOAT",
@@ -1986,7 +2084,9 @@
             "SpellDispellableType": "SPELL_DISPELLABLE_YES"
         },
         "special_bonus_strength_15": {
-            "labels": [0],
+            "labels": [
+                0
+            ],
             "AbilitySpecial": {
                 "01": {
                     "var_type": "FIELD_INTEGER",
@@ -1998,7 +2098,10 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "ancient_apparition_chilling_touch": {
-            "labels": [8,25],
+            "labels": [
+                8,
+                25
+            ],
             "AbilityCastRange": [
                 800.0,
                 800.0,
@@ -2060,7 +2163,10 @@
             "SpellDispellableType": "SPELL_DISPELLABLE_YES"
         },
         "warlock_upheaval": {
-            "labels": [3,12],
+            "labels": [
+                3,
+                12
+            ],
             "AbilityCastRange": 1200,
             "AbilityChannelTime": 16.0,
             "ID": 5164,
@@ -2121,7 +2227,10 @@
             "SpellDispellableType": "SPELL_DISPELLABLE_YES"
         },
         "lone_druid_spirit_bear_entangle": {
-            "labels": [1,24],
+            "labels": [
+                1,
+                24
+            ],
             "AbilitySpecial": {
                 "03": {
                     "var_type": "FIELD_FLOAT",
@@ -2145,7 +2254,9 @@
             "SpellDispellableType": "SPELL_DISPELLABLE_YES"
         },
         "special_bonus_hp_400": {
-            "labels": [0],
+            "labels": [
+                0
+            ],
             "AbilitySpecial": {
                 "01": {
                     "var_type": "FIELD_INTEGER",
@@ -2256,7 +2367,9 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "monkey_king_wukongs_command": {
-            "labels": [23],
+            "labels": [
+                23
+            ],
             "FightRecapLevel": 2,
             "AbilityCastRange": 0,
             "AbilityManaCost": 100,
@@ -2331,7 +2444,10 @@
             "ID": 5725
         },
         "tinker_heat_seeking_missile": {
-            "labels": [5,12],
+            "labels": [
+                5,
+                12
+            ],
             "FightRecapLevel": 1,
             "AbilitySpecial": {
                 "03": {
@@ -2402,7 +2518,9 @@
             "ID": 5151
         },
         "special_bonus_unique_beastmaster": {
-            "labels": [0],
+            "labels": [
+                0
+            ],
             "AbilitySpecial": {
                 "01": {
                     "var_type": "FIELD_INTEGER",
@@ -2414,7 +2532,11 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "lone_druid_true_form_battle_cry": {
-            "labels": [2,19,8],
+            "labels": [
+                2,
+                19,
+                8
+            ],
             "AbilitySpecial": {
                 "03": {
                     "var_type": "FIELD_FLOAT",
@@ -2458,7 +2580,9 @@
             "SpellDispellableType": "SPELL_DISPELLABLE_YES"
         },
         "special_bonus_unique_shadow_demon_1": {
-            "labels": [0],
+            "labels": [
+                0
+            ],
             "AbilitySpecial": {
                 "01": {
                     "var_type": "FIELD_INTEGER",
@@ -2470,7 +2594,9 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "special_bonus_evasion_12": {
-            "labels": [0],
+            "labels": [
+                0
+            ],
             "AbilitySpecial": {
                 "01": {
                     "var_type": "FIELD_INTEGER",
@@ -2482,7 +2608,9 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "tusk_ice_shards": {
-            "labels": [5],
+            "labels": [
+                5
+            ],
             "FightRecapLevel": 1,
             "AbilitySpecial": {
                 "07": {
@@ -2550,7 +2678,10 @@
             "ID": 5565
         },
         "pugna_nether_blast": {
-            "labels": [12,5],
+            "labels": [
+                12,
+                5
+            ],
             "FightRecapLevel": 1,
             "AbilityCastRange": 400,
             "AbilityManaCost": [
@@ -2606,7 +2737,10 @@
             "ID": 5186
         },
         "troll_warlord_battle_trance": {
-            "labels": [2,8],
+            "labels": [
+                2,
+                8
+            ],
             "FightRecapLevel": 2,
             "AbilitySpecial": {
                 "02": {
@@ -2640,7 +2774,10 @@
             "SpellDispellableType": "SPELL_DISPELLABLE_NO"
         },
         "greevil_fatal_bonds": {
-            "labels": [8,25],
+            "labels": [
+                8,
+                25
+            ],
             "AbilityCastRange": 800,
             "AbilityUnitTargetTeam": "DOTA_UNIT_TARGET_TEAM_ENEMY",
             "ID": 5552,
@@ -2678,7 +2815,10 @@
             "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
         },
         "witch_doctor_death_ward": {
-            "labels": [12,13],
+            "labels": [
+                12,
+                13
+            ],
             "FightRecapLevel": 2,
             "AbilitySpecial": {
                 "03": {
@@ -2741,7 +2881,10 @@
             "ID": 5141
         },
         "dark_seer_vacuum": {
-            "labels": [1,12],
+            "labels": [
+                1,
+                12
+            ],
             "FightRecapLevel": 1,
             "AbilityCastRange": 500,
             "AbilityManaCost": [
@@ -2792,7 +2935,9 @@
             "SpellDispellableType": "SPELL_DISPELLABLE_YES_STRONG"
         },
         "special_bonus_strength_6": {
-            "labels": [0],
+            "labels": [
+                0
+            ],
             "AbilitySpecial": {
                 "01": {
                     "var_type": "FIELD_INTEGER",
@@ -2804,7 +2949,10 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "chaos_knight_chaos_strike": {
-            "labels": [8,18],
+            "labels": [
+                8,
+                18
+            ],
             "AbilitySpecial": {
                 "03": {
                     "var_type": "FIELD_INTEGER",
@@ -2829,7 +2977,9 @@
             "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_PASSIVE"
         },
         "special_bonus_unique_skywrath": {
-            "labels": [0],
+            "labels": [
+                0
+            ],
             "AbilitySpecial": {
                 "01": {
                     "var_type": "FIELD_INTEGER",
@@ -2841,7 +2991,10 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "mirana_invis": {
-            "labels": [12,15],
+            "labels": [
+                12,
+                15
+            ],
             "FightRecapLevel": 2,
             "AbilityCastRange": 0,
             "AbilityManaCost": 75,
@@ -2911,7 +3064,11 @@
             ]
         },
         "bloodseeker_thirst": {
-            "labels": [8,22,16],
+            "labels": [
+                8,
+                22,
+                16
+            ],
             "AbilitySpecial": {
                 "06": {
                     "invis_threshold_pct": 25,
@@ -2988,7 +3145,11 @@
             "AbilityUnitDamageType": "DAMAGE_TYPE_MAGICAL"
         },
         "axe_berserkers_call": {
-            "labels": [1,12,19],
+            "labels": [
+                1,
+                12,
+                19
+            ],
             "FightRecapLevel": 1,
             "AbilitySpecial": {
                 "03": {
@@ -3034,7 +3195,9 @@
             "SpellDispellableType": "SPELL_DISPELLABLE_NO"
         },
         "skeleton_king_vampiric_aura": {
-            "labels": [18],
+            "labels": [
+                18
+            ],
             "AbilitySpecial": {
                 "02": {
                     "var_type": "FIELD_INTEGER",
@@ -3056,7 +3219,11 @@
             "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_IMMEDIATE | DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_TOGGLE | DOTA_ABILITY_BEHAVIOR_AURA"
         },
         "riki_smoke_screen": {
-            "labels": [17,12,14],
+            "labels": [
+                17,
+                12,
+                14
+            ],
             "AbilityCastRange": 550,
             "AbilityManaCost": 90,
             "ID": 5142,
@@ -3110,7 +3277,9 @@
             "SpellDispellableType": "SPELL_DISPELLABLE_NO"
         },
         "terrorblade_conjure_image": {
-            "labels": [23],
+            "labels": [
+                23
+            ],
             "AbilitySpecial": {
                 "03": {
                     "var_type": "FIELD_FLOAT",
@@ -3150,7 +3319,9 @@
             "ID": 5620
         },
         "shadow_demon_disruption": {
-            "labels": [23],
+            "labels": [
+                23
+            ],
             "FightRecapLevel": 1,
             "AbilitySpecial": {
                 "06": {
@@ -3232,7 +3403,9 @@
             ]
         },
         "dazzle_shallow_grave": {
-            "labels": [21],
+            "labels": [
+                21
+            ],
             "FightRecapLevel": 1,
             "AbilitySpecial": {
                 "02": {
@@ -3282,7 +3455,9 @@
             ]
         },
         "centaur_return": {
-            "labels": [4],
+            "labels": [
+                4
+            ],
             "AbilitySpecial": {
                 "03": {
                     "var_type": "FIELD_INTEGER",
@@ -3312,9 +3487,8 @@
             "AbilityUnitDamageType": "DAMAGE_TYPE_PHYSICAL",
             "ID": 5516,
             "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_PASSIVE"
-        }
-    },
-     "phantom_lancer_doppelwalk": {
+        },
+        "phantom_lancer_doppelwalk": {
             "FightRecapLevel": 1,
             "AbilityCastRange": 600,
             "ID": 5066,
@@ -3870,7 +4044,7 @@
             "MaxLevel": 0,
             "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
         },
-            "leshrac_lightning_storm": {
+        "leshrac_lightning_storm": {
             "FightRecapLevel": 1,
             "AbilitySpecial": {
                 "03": {
@@ -6993,7 +7167,7 @@
             "HasScepterUpgrade": 1,
             "ID": 5018
         },
-                "rubick_telekinesis": {
+        "rubick_telekinesis": {
             "AbilityCastRange": [
                 550.0,
                 575.0,
@@ -9610,7 +9784,9 @@
             "AbilityManaCost": 50
         },
         "drow_ranger_trueshot": {
-        	"labels": [8],
+            "labels": [
+                8
+            ],
             "AbilityCastRange": 0,
             "AbilityUnitTargetTeam": "DOTA_UNIT_TARGET_TEAM_FRIENDLY",
             "ID": 5021,
@@ -9637,7 +9813,9 @@
             "AbilityDuration": 30.0
         },
         "morphling_replicate": {
-        	"labels": [23],
+            "labels": [
+                23
+            ],
             "SpellImmunityType": "SPELL_IMMUNITY_ENEMIES_YES",
             "AbilityCastRange": [
                 700.0,
@@ -9709,7 +9887,10 @@
             ]
         },
         "dazzle_poison_touch": {
-        	"labels": [3,1],
+            "labels": [
+                3,
+                1
+            ],
             "FightRecapLevel": 1,
             "AbilitySpecial": {
                 "07": {
@@ -9819,7 +10000,9 @@
             "SpellDispellableType": "SPELL_DISPELLABLE_NO"
         },
         "special_bonus_strength_14": {
-        	"labels": [28],
+            "labels": [
+                28
+            ],
             "AbilitySpecial": {
                 "01": {
                     "var_type": "FIELD_INTEGER",
@@ -9831,7 +10014,10 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "medusa_mana_shield": {
-        	"labels": [27,11],
+            "labels": [
+                27,
+                11
+            ],
             "AbilitySpecial": {
                 "02": {
                     "var_type": "FIELD_FLOAT",
@@ -9891,7 +10077,10 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "meepo_poof": {
-        	"labels": [5,12],
+            "labels": [
+                5,
+                12
+            ],
             "FightRecapLevel": 1,
             "AbilitySpecial": {
                 "01": {
@@ -9922,7 +10111,10 @@
             "ID": 5431
         },
         "wisp_overcharge": {
-        	"labels": [31,8],
+            "labels": [
+                31,
+                8
+            ],
             "AbilitySpecial": {
                 "03": {
                     "drain_interval": [
@@ -9982,7 +10174,11 @@
             "SpellDispellableType": "SPELL_DISPELLABLE_NO"
         },
         "jakiro_dual_breath": {
-        	"labels": [3,14,12],
+            "labels": [
+                3,
+                14,
+                12
+            ],
             "FightRecapLevel": 1,
             "AbilitySpecial": {
                 "07": {
@@ -10092,7 +10288,10 @@
             "ID": 5297
         },
         "polar_furbolg_ursa_warrior_thunder_clap": {
-        	"labels": [3,14],
+            "labels": [
+                3,
+                14
+            ],
             "AbilitySpecial": {
                 "03": {
                     "var_type": "FIELD_INTEGER",
@@ -10122,7 +10321,10 @@
             "SpellDispellableType": "SPELL_DISPELLABLE_YES"
         },
         "earth_spirit_magnetize": {
-        	"labels": [13,12],
+            "labels": [
+                13,
+                12
+            ],
             "FightRecapLevel": 2,
             "AbilitySpecial": {
                 "07": {
@@ -10243,7 +10445,9 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "special_bonus_agility_15": {
-        	"labels": [28],
+            "labels": [
+                28
+            ],
             "AbilitySpecial": {
                 "01": {
                     "var_type": "FIELD_INTEGER",
@@ -10255,7 +10459,10 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "earthshaker_fissure": {
-        	"labels": [1,12],
+            "labels": [
+                1,
+                12
+            ],
             "FightRecapLevel": 1,
             "AbilitySpecial": {
                 "03": {
@@ -10320,7 +10527,10 @@
             "ID": 5023
         },
         "lich_frost_armor": {
-        	"labels": [19,3],
+            "labels": [
+                19,
+                3
+            ],
             "AbilitySpecial": {
                 "03": {
                     "var_type": "FIELD_FLOAT",
@@ -10399,7 +10609,9 @@
             ]
         },
         "invoker_forge_spirit": {
-        	"labels": [28],
+            "labels": [
+                28
+            ],
             "AbilitySpecial": {
                 "06": {
                     "var_type": "FIELD_FLOAT",
@@ -10539,7 +10751,12 @@
             ]
         },
         "centaur_stampede": {
-        	"labels": [6,22,14,3],
+            "labels": [
+                6,
+                22,
+                14,
+                3
+            ],
             "FightRecapLevel": 2,
             "AbilitySpecial": {
                 "07": {
@@ -10614,7 +10831,10 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "tusk_snowball": {
-        	"labels": [1,21],
+            "labels": [
+                1,
+                21
+            ],
             "FightRecapLevel": 1,
             "AbilitySpecial": {
                 "07": {
@@ -10733,7 +10953,9 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "phantom_assassin_blur": {
-        	"labels": [4],
+            "labels": [
+                4
+            ],
             "AbilitySpecial": {
                 "03": {
                     "var_type": "FIELD_INTEGER",
@@ -10762,7 +10984,10 @@
             "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_PASSIVE"
         },
         "faceless_void_time_lock": {
-        	"labels": [8,24],
+            "labels": [
+                8,
+                24
+            ],
             "AbilitySpecial": {
                 "03": {
                     "chance_pct": [
@@ -10799,7 +11024,9 @@
             "SpellDispellableType": "SPELL_DISPELLABLE_YES_STRONG"
         },
         "special_bonus_intelligence_10": {
-        	"labels": [28],
+            "labels": [
+                28
+            ],
             "AbilitySpecial": {
                 "01": {
                     "var_type": "FIELD_INTEGER",
@@ -10822,7 +11049,9 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "visage_summon_familiars": {
-        	"labels": [30],
+            "labels": [
+                30
+            ],
             "AbilitySpecial": {
                 "07": {
                     "max_damage_charges": 7,
@@ -10955,7 +11184,9 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "slardar_sprint": {
-        	"labels": [22],
+            "labels": [
+                22
+            ],
             "AbilityCastRange": 0,
             "ID": 5114,
             "AbilitySpecial": {
@@ -10999,7 +11230,10 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "lycan_feral_impulse": {
-        	"labels": [31,8],
+            "labels": [
+                31,
+                8
+            ],
             "AbilitySpecial": {
                 "03": {
                     "var_type": "FIELD_INTEGER",
@@ -11120,7 +11354,10 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "medusa_stone_gaze": {
-        	"labels": [3,12],
+            "labels": [
+                3,
+                12
+            ],
             "FightRecapLevel": 2,
             "AbilitySpecial": {
                 "07": {
@@ -11189,7 +11426,10 @@
             "ID": 5507
         },
         "phantom_assassin_phantom_strike": {
-        	"labels": [6,8],
+            "labels": [
+                6,
+                8
+            ],
             "AbilitySpecial": {
                 "03": {
                     "var_type": "FIELD_INTEGER",
@@ -11336,7 +11576,10 @@
             "AbilityManaCost": 110
         },
         "crystal_maiden_frostbite": {
-        	"labels": [1,13],
+            "labels": [
+                1,
+                13
+            ],
             "FightRecapLevel": 1,
             "AbilitySpecial": {
                 "06": {
@@ -11421,7 +11664,9 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "naga_siren_mirror_image": {
-        	"labels": [23],
+            "labels": [
+                23
+            ],
             "AbilitySpecial": {
                 "07": {
                     "invuln_duration": 0.3,
@@ -11517,7 +11762,9 @@
             "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_NO_TARGET"
         },
         "kunkka_x_marks_the_spot": {
-        	"labels": [6],
+            "labels": [
+                6
+            ],
             "FightRecapLevel": 1,
             "AbilitySpecial": {
                 "03": {
@@ -11584,7 +11831,11 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "treant_natures_guise": {
-        	"labels": [15,22,8],
+            "labels": [
+                15,
+                22,
+                8
+            ],
             "AbilitySpecial": {
                 "03": {
                     "var_type": "FIELD_INTEGER",
@@ -11627,7 +11878,10 @@
             "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_PASSIVE"
         },
         "chaos_knight_reality_rift": {
-        	"labels": [6,20],
+            "labels": [
+                6,
+                20
+            ],
             "FightRecapLevel": 1,
             "AbilitySpecial": {
                 "03": {
@@ -11714,7 +11968,11 @@
             "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_PASSIVE"
         },
         "alchemist_unstable_concoction_throw": {
-        	"labels": [1,12,24],
+            "labels": [
+                1,
+                12,
+                24
+            ],
             "SpellImmunityType": "SPELL_IMMUNITY_ENEMIES_NO",
             "AbilityCastRange": 775,
             "AbilityUnitTargetTeam": "DOTA_UNIT_TARGET_TEAM_ENEMY",
@@ -11813,7 +12071,9 @@
             "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_PASSIVE"
         },
         "windrunner_focusfire": {
-        	"labels": [8],
+            "labels": [
+                8
+            ],
             "AbilitySpecial": {
                 "03": {
                     "focusfire_duration_tooltip": 20,
@@ -11876,7 +12136,11 @@
             ]
         },
         "naga_siren_rip_tide": {
-        	"labels": [5,12,20],
+            "labels": [
+                5,
+                12,
+                20
+            ],
             "FightRecapLevel": 1,
             "AbilitySpecial": {
                 "03": {
@@ -11971,7 +12235,10 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "brewmaster_drunken_haze": {
-        	"labels": [14,3],
+            "labels": [
+                14,
+                3
+            ],
             "FightRecapLevel": 1,
             "AbilitySpecial": {
                 "03": {
@@ -12019,7 +12286,9 @@
             "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
         },
         "lina_fiery_soul": {
-        	"labels": [8],
+            "labels": [
+                8
+            ],
             "AbilitySpecial": {
                 "03": {
                     "var_type": "FIELD_INTEGER",
@@ -12090,7 +12359,10 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "elder_titan_echo_stomp_spirit": {
-        	"labels": [1,12],
+            "labels": [
+                1,
+                12
+            ],
             "FightRecapLevel": 1,
             "AbilitySpecial": {
                 "03": {
@@ -12158,7 +12430,10 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "dark_seer_ion_shell": {
-        	"labels": [27,13],
+            "labels": [
+                27,
+                13
+            ],
             "FightRecapLevel": 1,
             "AbilitySpecial": {
                 "03": {
@@ -12205,7 +12480,9 @@
             "ID": 5256
         },
         "special_bonus_strength_4": {
-        	"labels": [28],
+            "labels": [
+                28
+            ],
             "AbilitySpecial": {
                 "01": {
                     "var_type": "FIELD_INTEGER",
@@ -12228,7 +12505,10 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "zuus_arc_lightning": {
-        	"labels": [5,25],
+            "labels": [
+                5,
+                25
+            ],
             "AbilitySpecial": {
                 "03": {
                     "var_type": "FIELD_FLOAT",
@@ -12292,7 +12572,9 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "special_bonus_intelligence_7": {
-        	"labels": [28],
+            "labels": [
+                28
+            ],
             "AbilitySpecial": {
                 "01": {
                     "var_type": "FIELD_INTEGER",
@@ -12326,7 +12608,10 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "nyx_assassin_impale": {
-        	"labels": [1,12],
+            "labels": [
+                1,
+                12
+            ],
             "FightRecapLevel": 1,
             "AbilitySpecial": {
                 "03": {
@@ -12389,7 +12674,10 @@
             "ID": 5462
         },
         "chaos_knight_chaos_bolt": {
-        	"labels": [1,24],
+            "labels": [
+                1,
+                24
+            ],
             "FightRecapLevel": 1,
             "AbilitySpecial": {
                 "03": {
@@ -12472,7 +12760,10 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "treant_leech_seed": {
-        	"labels": [1,13],
+            "labels": [
+                1,
+                13
+            ],
             "FightRecapLevel": 1,
             "AbilitySpecial": {
                 "06": {
@@ -12549,7 +12840,9 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "venomancer_plague_ward": {
-        	"labels": [30],
+            "labels": [
+                30
+            ],
             "AbilityCastRange": 850,
             "AbilityManaCost": [
                 20.0,
@@ -12633,7 +12926,9 @@
             "SpellDispellableType": "SPELL_DISPELLABLE_YES"
         },
         "brewmaster_earth_hurl_boulder": {
-        	"labels": [1],
+            "labels": [
+                1
+            ],
             "AbilitySpecial": {
                 "03": {
                     "var_type": "FIELD_INTEGER",
@@ -12680,7 +12975,10 @@
             "ID": 5404
         },
         "slardar_amplify_damage": {
-        	"labels": [20,16],
+            "labels": [
+                20,
+                16
+            ],
             "FightRecapLevel": 1,
             "AbilitySpecial": {
                 "02": {
@@ -12719,7 +13017,9 @@
             "AbilityCooldown": 5
         },
         "elder_titan_natural_order_spirit": {
-        	"labels": [29],
+            "labels": [
+                29
+            ],
             "AbilitySpecial": {
                 "03": {
                     "var_type": "FIELD_INTEGER",
@@ -12751,7 +13051,10 @@
             "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_AURA"
         },
         "magnataur_empower": {
-        	"labels": [25,8],
+            "labels": [
+                25,
+                8
+            ],
             "AbilitySpecial": {
                 "07": {
                     "splash_damage_pct": [
@@ -12834,7 +13137,9 @@
             "HasScepterUpgrade": 1
         },
         "necronomicon_warrior_sight": {
-        	"labels": [16],
+            "labels": [
+                16
+            ],
             "AbilitySpecial": {
                 "01": {
                     "var_type": "FIELD_INTEGER",
@@ -12846,7 +13151,9 @@
             "AbilityType": "DOTA_ABILITY_TYPE_BASIC"
         },
         "tiny_craggy_exterior": {
-        	"labels": [4],
+            "labels": [
+                4
+            ],
             "AbilityModifierSupportBonus": 35,
             "AbilitySpecial": {
                 "03": {
@@ -12897,7 +13204,10 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "drow_ranger_wave_of_silence": {
-        	"labels": [3,12],
+            "labels": [
+                3,
+                12
+            ],
             "FightRecapLevel": 1,
             "AbilityCastRange": 900,
             "AbilityManaCost": 90,
@@ -12956,7 +13266,9 @@
             "SpellDispellableType": "SPELL_DISPELLABLE_YES"
         },
         "special_bonus_intelligence_20": {
-        	"labels": [28],
+            "labels": [
+                28
+            ],
             "AbilitySpecial": {
                 "01": {
                     "var_type": "FIELD_INTEGER",
@@ -12968,7 +13280,9 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "shadow_demon_shadow_poison": {
-        	"labels": [5],
+            "labels": [
+                5
+            ],
             "AbilitySpecial": {
                 "06": {
                     "var_type": "FIELD_FLOAT",
@@ -13039,7 +13353,10 @@
             "AbilityUnitDamageType": "DAMAGE_TYPE_MAGICAL"
         },
         "lina_light_strike_array": {
-        	"labels": [1,12],
+            "labels": [
+                1,
+                12
+            ],
             "FightRecapLevel": 1,
             "AbilitySpecial": {
                 "03": {
@@ -13109,7 +13426,10 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "magnataur_shockwave": {
-        	"labels": [3,5],
+            "labels": [
+                3,
+                5
+            ],
             "FightRecapLevel": 1,
             "AbilitySpecial": {
                 "03": {
@@ -13188,7 +13508,10 @@
             "AbilityManaCost": 0
         },
         "morphling_morph_replicate": {
-        	"labels": [23,6],
+            "labels": [
+                23,
+                6
+            ],
             "AbilityManaCost": [
                 150.0,
                 150.0,
@@ -13200,7 +13523,11 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ULTIMATE"
         },
         "bounty_hunter_jinada": {
-        	"labels": [8,14,3],
+            "labels": [
+                8,
+                14,
+                3
+            ],
             "AbilityCooldown": [
                 12.0,
                 10.0,
@@ -13375,7 +13702,9 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "spectre_desolate": {
-        	"labels": [8],
+            "labels": [
+                8
+            ],
             "AbilitySpecial": {
                 "02": {
                     "var_type": "FIELD_INTEGER",
@@ -13397,7 +13726,9 @@
             "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_PASSIVE"
         },
         "magnataur_skewer": {
-        	"labels": [6],
+            "labels": [
+                6
+            ],
             "FightRecapLevel": 1,
             "AbilitySpecial": {
                 "07": {
@@ -13480,7 +13811,10 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "troll_warlord_whirling_axes_melee": {
-        	"labels": [2,8],
+            "labels": [
+                2,
+                8
+            ],
             "FightRecapLevel": 1,
             "AbilitySpecial": {
                 "07": {
@@ -13542,7 +13876,9 @@
             "SpellDispellableType": "SPELL_DISPELLABLE_YES"
         },
         "luna_moon_glaive": {
-        	"labels": [25],
+            "labels": [
+                25
+            ],
             "AbilitySpecial": {
                 "03": {
                     "var_type": "FIELD_INTEGER",
@@ -13578,7 +13914,10 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "invoker_sun_strike": {
-        	"labels": [5,26],
+            "labels": [
+                5,
+                26
+            ],
             "FightRecapLevel": 1,
             "AbilitySpecial": {
                 "03": {
@@ -13624,7 +13963,10 @@
             "ID": 5386
         },
         "chen_penitence": {
-        	"labels": [3,14],
+            "labels": [
+                3,
+                14
+            ],
             "AbilityCastRange": 800,
             "AbilityUnitTargetTeam": "DOTA_UNIT_TARGET_TEAM_ENEMY",
             "AbilityManaCost": 70,
@@ -13680,7 +14022,9 @@
             "SpellDispellableType": "SPELL_DISPELLABLE_YES"
         },
         "skywrath_mage_arcane_bolt": {
-        	"labels": [3],
+            "labels": [
+                3
+            ],
             "FightRecapLevel": 1,
             "AbilitySpecial": {
                 "06": {
@@ -13741,7 +14085,9 @@
             "ID": 5581
         },
         "morphling_morph_agi": {
-        	"labels": [28],
+            "labels": [
+                28
+            ],
             "AbilityCooldown": 0.0,
             "AbilitySpecial": {
                 "03": {
@@ -13780,7 +14126,10 @@
             "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_TOGGLE | DOTA_ABILITY_BEHAVIOR_IGNORE_PSEUDO_QUEUE"
         },
         "skeleton_king_hellfire_blast": {
-        	"labels": [1,13],
+            "labels": [
+                1,
+                13
+            ],
             "FightRecapLevel": 1,
             "AbilitySpecial": {
                 "06": {
@@ -13865,7 +14214,10 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "night_stalker_crippling_fear": {
-        	"labels": [14,17],
+            "labels": [
+                14,
+                17
+            ],
             "FightRecapLevel": 1,
             "AbilitySpecial": {
                 "03": {
@@ -13933,7 +14285,10 @@
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         },
         "doom_bringer_doom": {
-        	"labels": [17,13],
+            "labels": [
+                17,
+                13
+            ],
             "FightRecapLevel": 2,
             "AbilitySpecial": {
                 "03": {
@@ -13993,7 +14348,11 @@
             "ID": 5342
         },
         "skeleton_king_reincarnation": {
-        	"labels": [4,3,12],
+            "labels": [
+                4,
+                3,
+                12
+            ],
             "FightRecapLevel": 2,
             "AbilitySpecial": {
                 "07": {
@@ -14061,7 +14420,9 @@
             "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_PASSIVE"
         },
         "techies_minefield_sign": {
-        	"labels": [15],
+            "labels": [
+                15
+            ],
             "AbilityCastRange": 10,
             "AbilityManaCost": 0,
             "AbilityUnitDamageType": "DAMAGE_TYPE_NONE",
@@ -14109,4 +14470,5 @@
             "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_PASSIVE",
             "AbilityType": "DOTA_ABILITY_TYPE_ATTRIBUTES"
         }
+    }
 }
