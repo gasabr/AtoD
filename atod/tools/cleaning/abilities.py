@@ -34,7 +34,8 @@ def find_skills(raw_abilities):
     heroes_names = [c for c in converter.keys()
                     if re.findall(r'[a-zA-Z|\_]+', c)]
     stop_words = ['special_bonus', 'hidden', 'empty', 'scepter', 'voodoo',
-                  'stop', 'self', 'cancel', 'throw', 'return', 'release']
+                  'stop', 'self', 'cancel', 'throw', 'return', 'release',
+                  'brake', 'end']
 
     # find all the heroes skills, but not talents
     skills_list = []
