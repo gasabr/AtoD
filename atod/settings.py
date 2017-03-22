@@ -120,4 +120,4 @@ LABELS = ['talent', 'stun', 'transformation', 'slow', 'durability', 'nuke',
           'armor debuff', 'save', 'move speed buff', 'illusions', 'chance',
           'multiply heroes', 'global', 'shield', 'attribute gain',
           'amplify magic dmg', 'summon unit', 'regen', 'daytime dependent',
-          'stacks', 'purge']
+          'stacks', 'purge', 'in percents']
