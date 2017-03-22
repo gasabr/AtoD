@@ -3354,7 +3354,7 @@
     "AbilityUnitTargetFlags": "DOTA_UNIT_TARGET_FLAG_NOT_ANCIENTS"
   },
   "axe_culling_blade": {
-    "labels": [5,22],
+    "labels": [5,22,11],
     "AbilityManaCost": 120.0,
     "HasScepterUpgrade": 1,
     "AbilityUnitTargetTeam": "DOTA_UNIT_TARGET_TEAM_ENEMY",
@@ -4595,6 +4595,7 @@
     "AbilityDamage": 212.5
   },
   "necrolyte_reapers_scythe": {
+    "labels": [5,1,11],
     "AbilityManaCost": 338.3333333333333,
     "HasScepterUpgrade": 1,
     "respawn_constant": 20.0,
@@ -5177,6 +5178,7 @@
     "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_PASSIVE"
   },
   "warlock_golem_permanent_immolation": {
+    "labels": [7,12,5],
     "aura_radius": 300,
     "AbilityType": "DOTA_ABILITY_TYPE_BASIC",
     "MaxLevel": 3,
@@ -5187,6 +5189,7 @@
     "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_PASSIVE"
   },
   "dark_troll_warlord_ensnare": {
+    "labels": [-1],
     "AbilityManaCost": 150,
     "MaxLevel": 1,
     "AbilityUnitTargetTeam": "DOTA_UNIT_TARGET_TEAM_ENEMY",
@@ -5246,6 +5249,7 @@
     "creep_attack_damage_reduction": 13.75
   },
   "lion_mana_drain": {
+    "labels": [9,11],
     "AbilityChannelTime": 5.1,
     "per_second": 60.0,
     "AbilityUnitTargetTeam": "DOTA_UNIT_TARGET_TEAM_ENEMY",
@@ -5266,6 +5270,7 @@
     "tick_interval": 0.1
   },
   "ember_spirit_activate_fire_remnant": {
+    "labels": [6,26],
     "AbilityManaCost": 150,
     "charge_restore_time": 35.0,
     "MaxLevel": 3,
@@ -5285,6 +5290,7 @@
     "speed": 1300
   },
   "broodmother_spin_web": {
+    "labels": [15, 22, 31, 33, 12],
     "AbilityManaCost": 50,
     "charge_restore_time": 40.0,
     "fade_delay": 2.0,
@@ -5314,6 +5320,7 @@
     "bonus_damage": 42.5
   },
   "clinkz_wind_walk": {
+    "labels": [15,22],
     "AbilityManaCost": 75.0,
     "SpellDispellableType": "SPELL_DISPELLABLE_NO",
     "ID": 5261,
@@ -5325,6 +5332,7 @@
     "fade_time": 0.6
   },
   "storm_spirit_static_remnant": {
+    "labels": [12,3,5],
     "AbilityManaCost": 100,
     "AbilityCastPoint": 0.0,
     "delay": 1.0,
@@ -5348,6 +5356,7 @@
     "SpellDispellableType": "SPELL_DISPELLABLE_NO"
   },
   "huskar_life_break": {
+    "labels": [11,5],
     "health_damage": 0.35,
     "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET",
     "AbilityType": "DOTA_ABILITY_TYPE_ULTIMATE",
@@ -5396,6 +5405,7 @@
     "speed": 500
   },
   "venomancer_poison_nova": {
+    "labels": [5,12,13],
     "AbilityManaCost": 300.0,
     "HasScepterUpgrade": 1,
     "AbilityCastPoint": 0.0,
@@ -5415,6 +5425,7 @@
     "speed": 500
   },
   "gyrocopter_rocket_barrage": {
+    "labels": [5,13],
     "AbilityManaCost": 90.0,
     "AbilityCastPoint": 0,
     "FightRecapLevel": 1,
@@ -5431,6 +5442,7 @@
     "SpellDispellableType": "SPELL_DISPELLABLE_YES"
   },
   "beastmaster_primal_roar": {
+    "labels": [14,1,3],
     "slow_attack_speed_pct": -50.0,
     "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET",
     "slow_duration": 3.0,
@@ -5479,6 +5491,7 @@
     ]
   },
   "rubick_telekinesis": {
+    "labels": [1, 12],
     "AbilityManaCost": 120.0,
     "AbilityCastPoint": 0.1,
     "AbilityUnitTargetTeam": "DOTA_UNIT_TARGET_TEAM_ENEMY",
@@ -5574,6 +5587,7 @@
     "AbilityUnitTargetFlags": "DOTA_UNIT_TARGET_FLAG_INVULNERABLE"
   },
   "earth_spirit_geomagnetic_grip": {
+    "labels": [14,5],
     "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_IGNORE_BACKSWING",
     "miss_rate": 75,
     "rock_damage": 125.0,
@@ -5598,6 +5612,7 @@
     "AbilityUnitTargetType": "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_CREEP"
   },
   "beastmaster_wild_axes": {
+    "labels": [5,12],
     "AbilityManaCost": 120,
     "range": 1300.0,
     "AbilityUnitTargetTeam": "DOTA_UNIT_TARGET_TEAM_ENEMY",
@@ -5617,6 +5632,7 @@
     "spread": 353.0
   },
   "antimage_mana_void": {
+    "labels": [1,11,5],
     "aoe_radius": 500,
     "AbilityManaCost": 200.0,
     "AbilityUnitTargetTeam": "DOTA_UNIT_TARGET_TEAM_ENEMY",
@@ -5651,6 +5667,7 @@
     "duration": 5.0
   },
   "bristleback_warpath": {
+    "labels": [33,8,22],
     "max_stacks": 7.0,
     "AbilityType": "DOTA_ABILITY_TYPE_ULTIMATE",
     "movespeed_bonus_per_stack": 4.0,
@@ -5664,6 +5681,7 @@
     "base_damage": 25.0
   },
   "techies_land_mines": {
+    "labels": [5,26],
     "AbilityManaCost": 140.0,
     "AbilityCastPoint": 0.0,
     "building_damage_pct": 25,
@@ -5680,6 +5698,7 @@
     "AbilityCooldown": 12
   },
   "leshrac_lightning_storm": {
+    "labels": [25,3,5],
     "LinkedSpecialBonus": "special_bonus_unique_leshrac_2",
     "AbilityManaCost": 105.0,
     "jump_count": 7.0,
@@ -5701,6 +5720,7 @@
     "SpellDispellableType": "SPELL_DISPELLABLE_YES"
   },
   "crystal_maiden_crystal_nova": {
+    "labels": [14,12,16],
     "AbilityManaCost": 130.0,
     "AbilityCastPoint": 0.3,
     "vision_duration": 6.0,
@@ -5721,11 +5741,13 @@
     "SpellDispellableType": "SPELL_DISPELLABLE_YES"
   },
   "faceless_void_backtrack": {
+    "labels": [-1],
     "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_PASSIVE",
     "ID": 5183,
     "dodge_chance_pct": 17.5
   },
   "lich_frost_nova": {
+    "labels": [3,14,12],
     "AbilityManaCost": 158.75,
     "AbilityCastPoint": 0.4,
     "AbilityUnitTargetTeam": "DOTA_UNIT_TARGET_TEAM_ENEMY",
@@ -5818,6 +5840,7 @@
     "AbilityUnitTargetFlags": "DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
   },
   "abaddon_death_coil": {
+    "labels": [5,8],
     "AbilityManaCost": 65.0,
     "AbilityUnitTargetTeam": "DOTA_UNIT_TARGET_TEAM_BOTH",
     "FightRecapLevel": 1,
@@ -5835,6 +5858,7 @@
     "heal_amount": 175.0
   },
   "storm_spirit_electric_vortex": {
+    "labels": [1],
     "AbilityManaCost": 85,
     "HasScepterUpgrade": 1,
     "AbilityUnitTargetTeam": "DOTA_UNIT_TARGET_TEAM_ENEMY",
@@ -5872,6 +5896,7 @@
     "duration": 8.0
   },
   "silencer_global_silence": {
+    "labels": [26,17],
     "AbilityManaCost": 375.0,
     "HasScepterUpgrade": 1,
     "AbilityCastPoint": 0.3,
@@ -5887,6 +5912,7 @@
     "SpellDispellableType": "SPELL_DISPELLABLE_YES"
   },
   "obsidian_destroyer_arcane_orb": {
+    "labels": [11,28,5],
     "AbilityManaCost": 130.0,
     "illusion_damage": 250.0,
     "AbilityUnitTargetTeam": "DOTA_UNIT_TARGET_TEAM_ENEMY",
@@ -5905,6 +5931,7 @@
     "AbilityUnitTargetFlags": "DOTA_UNIT_TARGET_FLAG_NOT_ANCIENTS"
   },
   "lone_druid_true_form_druid": {
+    "labels": [2],
     "AbilityManaCost": 25.0,
     "AbilityType": "DOTA_ABILITY_TYPE_ULTIMATE",
     "ID": 5416,
@@ -5933,6 +5960,7 @@
     "trigger_distance": 170
   },
   "shadow_shaman_mass_serpent_ward": {
+    "labels": [30],
     "AbilityManaCost": 383.3333333333333,
     "HasScepterUpgrade": 1,
     "AbilityCastPoint": 0.3,
@@ -5972,6 +6000,7 @@
     "AbilityUnitTargetFlags": "DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
   },
   "lina_laguna_blade": {
+    "labels": [5],
     "AbilityManaCost": 460.0,
     "HasScepterUpgrade": 1,
     "AbilityUnitTargetTeam": "DOTA_UNIT_TARGET_TEAM_ENEMY",
@@ -5991,6 +6020,7 @@
     "AbilityUnitTargetFlags": "DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
   },
   "warlock_shadow_word": {
+    "labels": [8,13],
     "AbilityManaCost": 120.0,
     "AbilityUnitTargetTeam": "DOTA_UNIT_TARGET_TEAM_BOTH",
     "FightRecapLevel": 1,
@@ -6009,6 +6039,7 @@
     "tick_interval": 1.0
   },
   "disruptor_glimpse": {
+    "labels": [6],
     "AbilityManaCost": 100,
     "AbilityUnitTargetTeam": "DOTA_UNIT_TARGET_TEAM_ENEMY",
     "FightRecapLevel": 1,
@@ -6074,6 +6105,7 @@
     ]
   },
   "ancient_apparition_ice_vortex": {
+    "labels": [3,16,29],
     "AbilityManaCost": 95.0,
     "AbilityCastPoint": 0.01,
     "ID": 5346,
@@ -6128,6 +6160,7 @@
     "AbilityTextureName": "monkey_king_primal_spring"
   },
   "brewmaster_storm_dispel_magic": {
+    "labels": [7],
     "AbilityManaCost": 75.0,
     "radius": 600,
     "ID": 5408,
@@ -6146,6 +6179,7 @@
     "AbilityTextureName": "tusk_snowball"
   },
   "life_stealer_rage": {
+    "labels": [2,8],
     "AbilityManaCost": 75.0,
     "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE",
     "ID": 5249,
@@ -6179,6 +6213,7 @@
     "AbilityUnitTargetFlags": "DOTA_UNIT_TARGET_FLAG_NOT_CREEP_HERO"
   },
   "enigma_demonic_conversion": {
+    "labels": [30],
     "AbilityManaCost": 170.0,
     "life_extension": 2.0,
     "AbilityUnitTargetTeam": "DOTA_UNIT_TARGET_TEAM_CUSTOM",
@@ -6198,6 +6233,7 @@
     "AbilityUnitTargetFlags": "DOTA_UNIT_TARGET_FLAG_NOT_CREEP_HERO"
   },
   "zuus_thundergods_wrath": {
+    "labels": [26,5,16],
     "sight_radius_day": 500,
     "AbilityManaCost": 333.3333333333333,
     "AbilityCastPoint": 0.4,
@@ -6236,6 +6272,7 @@
     "cast_range": 337.5
   },
   "chaos_knight_phantasm": {
+    "labels": [23,24],
     "AbilityManaCost": 200.0,
     "HasScepterUpgrade": 1,
     "AbilityUnitTargetTeam": "DOTA_UNIT_TARGET_TEAM_FRIENDLY",
@@ -6258,6 +6295,7 @@
     "images_count": 2.0
   },
   "furion_teleportation": {
+    "labels": [26,6],
     "AbilityManaCost": 50.0,
     "ID": 5246,
     "AbilityCastRange": 0,
@@ -6275,6 +6313,7 @@
     "SpellDispellableType": "SPELL_DISPELLABLE_NO"
   },
   "puck_phase_shift": {
+    "labels": [17,12],
     "AbilityManaCost": 0.0,
     "AbilityChannelTime": 1.9375,
     "ID": 5072,
@@ -6313,6 +6352,7 @@
     "slow_3": -74.75
   },
   "tidehunter_gush": {
+    "labels": [3,20],
     "AbilityManaCost": 120.0,
     "HasScepterUpgrade": 1,
     "AbilityUnitTargetTeam": "DOTA_UNIT_TARGET_TEAM_ENEMY",
@@ -6348,6 +6388,7 @@
     "AbilityUnitDamageType": "DAMAGE_TYPE_MAGICAL"
   },
   "medusa_mystic_snake": {
+    "labels": [25,5,9],
     "AbilityManaCost": 155.0,
     "AbilityCastPoint": 0.4,
     "mana_steal": 15.5,
@@ -6370,6 +6411,7 @@
     "damage": 140.0
   },
   "necrolyte_sadist": {
+    "labels": [13,14],
     "AbilityManaCost": 50,
     "slow_aoe": 600,
     "heal_bonus": 50,
@@ -6382,6 +6424,7 @@
     "bonus_damage": -20
   },
   "centaur_double_edge": {
+    "labels": [5],
     "AbilityManaCost": 0.0,
     "AbilityCastPoint": 0.5,
     "AbilityUnitTargetTeam": "DOTA_UNIT_TARGET_TEAM_ENEMY",
@@ -6398,6 +6441,7 @@
     "AbilityUnitTargetType": "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
   },
   "templar_assassin_psi_blades": {
+    "labels": [8,25],
     "SpellImmunityType": "SPELL_IMMUNITY_ENEMIES_YES",
     "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_PASSIVE",
     "ID": 5196,
@@ -6495,6 +6539,7 @@
     "bonus_max_attack_count": 4
   },
   "antimage_spell_shield": {
+    "labels": [27,4],
     "HasScepterUpgrade": 1,
     "ID": 5005,
     "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_PASSIVE",
@@ -6502,6 +6547,7 @@
     "resistance": 38.0
   },
   "omniknight_purification": {
+    "labels": [8,5,34],
     "AbilityManaCost": 107.5,
     "AbilityCastPoint": 0.2,
     "AbilityUnitTargetTeam": "DOTA_UNIT_TARGET_TEAM_FRIENDLY",
@@ -6519,6 +6565,7 @@
     "AbilityUnitTargetFlags": "DOTA_UNIT_TARGET_FLAG_NOT_MAGIC_IMMUNE_ALLIES"
   },
   "sniper_assassinate": {
+    "labels": [5,16],
     "AbilityManaCost": 275.0,
     "HasScepterUpgrade": 1,
     "total_cast_time": 2,
@@ -6542,6 +6589,7 @@
     "AbilityCastPoint": 2.0
   },
   "treant_living_armor": {
+    "labels": [27,4,8,26],
     "AbilityManaCost": 50,
     "AbilityCastPoint": 0.5,
     "AbilityUnitTargetTeam": "DOTA_UNIT_TARGET_TEAM_FRIENDLY",
@@ -6565,12 +6613,14 @@
     "bonus_building_damage": 300
   },
   "life_stealer_feast": {
+    "labels": [18],
     "SpellImmunityType": "SPELL_IMMUNITY_ENEMIES_YES",
     "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_PASSIVE",
     "ID": 5250,
     "hp_leech_percent": 6.0
   },
   "legion_commander_duel": {
+    "labels": [1,28],
     "AbilityManaCost": 75.0,
     "AbilityCastPoint": 0.3,
     "AbilityUnitTargetTeam": "DOTA_UNIT_TARGET_TEAM_ENEMY",
@@ -6591,6 +6641,7 @@
     "reward_damage": 14.0
   },
   "night_stalker_darkness": {
+    "labels": [2,32,16],
     "AbilityManaCost": 0.0,
     "AbilityType": "DOTA_ABILITY_TYPE_ULTIMATE",
     "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_NO_TARGET",
@@ -6604,6 +6655,7 @@
     "SpellDispellableType": "SPELL_DISPELLABLE_NO"
   },
   "ogre_magi_unrefined_fireblast": {
+    "labels": [5],
     "AbilityManaCost": 400,
     "HasScepterUpgrade": 1,
     "MaxLevel": 1,
@@ -6624,6 +6676,7 @@
     "SpellDispellableType": "SPELL_DISPELLABLE_YES_STRONG"
   },
   "winter_wyvern_splinter_blast": {
+    "labels": [3,25],
     "AbilityManaCost": 135.0,
     "AbilityUnitTargetTeam": "DOTA_UNIT_TARGET_TEAM_ENEMY",
     "FightRecapLevel": 1,
@@ -6643,6 +6696,7 @@
     "secondary_projectile_speed": 650
   },
   "pudge_meat_hook": {
+    "labels": [6,1],
     "AbilityManaCost": 125.0,
     "HasScepterUpgrade": 1,
     "vision_duration": 4.0,
@@ -6662,6 +6716,7 @@
     "width": 100
   },
   "shredder_reactive_armor": {
+    "labels": [33,19,31],
     "stack_duration": 14.5,
     "ID": 5526,
     "stack_limit": 12.5,
@@ -6672,6 +6727,7 @@
     "bonus": 1.3
   },
   "brewmaster_drunken_brawler": {
+    "labels": [24,8,14],
     "crit_multiplier": 200,
     "crit_chance": 17.5,
     "ID": 5402,
@@ -6680,6 +6736,7 @@
     "last_proc": 13.0
   },
   "razor_unstable_current": {
+    "labels": [3,24],
     "SpellImmunityType": "SPELL_IMMUNITY_ENEMIES_NO",
     "purge_frequency": 1.0,
     "ID": 5084,
@@ -6719,6 +6776,7 @@
     "cast_range": 550
   },
   "slark_essence_shift": {
+    "labels": [28],
     "stat_loss": 1,
     "ID": 5496,
     "agi_gain": 3,
@@ -6728,6 +6786,7 @@
     "SpellDispellableType": "SPELL_DISPELLABLE_NO"
   },
   "riki_blink_strike": {
+    "labels": [6,8],
     "AbilityManaCost": 50,
     "AbilityUnitTargetTeam": "DOTA_UNIT_TARGET_TEAM_CUSTOM",
     "AbilityCooldown": 10.0,
@@ -6754,6 +6813,7 @@
     "changed": true
   },
   "bristleback_viscous_nasal_goo": {
+    "labels": [33,20,3],
     "AbilityManaCost": 25,
     "HasScepterUpgrade": 1,
     "AbilityUnitTargetTeam": "DOTA_UNIT_TARGET_TEAM_ENEMY",
@@ -6776,6 +6836,7 @@
     "speed": 1000
   },
   "lycan_howl": {
+    "labels": [8,28,7],
     "AbilityManaCost": 40,
     "hero_bonus_damage": 17.5,
     "AbilityModifierSupportBonus": 5,
@@ -6851,6 +6912,7 @@
     "radius_start": 175
   },
   "earthshaker_aftershock": {
+    "labels": [1,12],
     "AbilityModifierSupportBonus": 100,
     "AbilityDuration": 1.05,
     "AbilityUnitDamageType": "DAMAGE_TYPE_MAGICAL",
@@ -6864,6 +6926,7 @@
     "AbilityDamage": 87.5
   },
   "enchantress_impetus": {
+    "labels": [8],
     "AbilityManaCost": 60.0,
     "AbilityCastPoint": 0.0,
     "distance_damage_pct": 18.0,
@@ -6904,6 +6967,7 @@
     "base_damage": 65
   },
   "beastmaster_greater_boar_poison": {
+    "labels": [7,3,14],
     "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_PASSIVE",
     "ID": 5352,
     "AbilityUnitDamageType": "DAMAGE_TYPE_MAGICAL",
@@ -6922,6 +6986,7 @@
     "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_MOVEMENT | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE | DOTA_ABILITY_BEHAVIOR_HIDDEN"
   },
   "bounty_hunter_shuriken_toss": {
+    "labels": [25,1,5],
     "AbilityManaCost": 135.0,
     "HasScepterUpgrade": 1,
     "AbilityUnitTargetTeam": "DOTA_UNIT_TARGET_TEAM_ENEMY",
@@ -6947,6 +7012,7 @@
     "ID": 5449
   },
   "dragon_knight_dragon_blood": {
+    "labels": [31,20],
     "bonus_health_regen": 7.5,
     "LinkedSpecialBonus": "special_bonus_unique_dragon_knight",
     "LinkedSpecialBonusOperation": "SPECIAL_BONUS_MULTIPLY",
@@ -6955,6 +7021,7 @@
     "bonus_armor": 7.5
   },
   "nyx_assassin_spiked_carapace": {
+    "labels": [4,27],
     "AbilityManaCost": 40.0,
     "damage_reflect_pct": 100,
     "FightRecapLevel": 1,
@@ -6974,6 +7041,7 @@
     "bonus_intellect": 0
   },
   "vengefulspirit_wave_of_terror": {
+    "labels": [16,20,12],
     "AbilityManaCost": 40.0,
     "vision_duration": 3.0,
     "vision_aoe": 500.0,
@@ -6994,6 +7062,7 @@
     "speed": 2000.0
   },
   "broodmother_insatiable_hunger": {
+    "labels": [2,8,18],
     "AbilityManaCost": 100.0,
     "AbilityType": "DOTA_ABILITY_TYPE_ULTIMATE",
     "lifesteal_pct": 90.0,
@@ -7007,6 +7076,7 @@
     "bonus_damage": 90.0
   },
   "crystal_maiden_freezing_field": {
+    "labels": [3,14,12,5],
     "AbilityChannelTime": 10,
     "slow_duration": 1.0,
     "changed": true,
@@ -7031,6 +7101,7 @@
     "ID": 5129
   },
   "dragon_knight_dragon_tail": {
+    "labels": [1],
     "AbilityManaCost": 100.0,
     "AbilityUnitTargetTeam": "DOTA_UNIT_TARGET_TEAM_ENEMY",
     "FightRecapLevel": 1,
@@ -7050,6 +7121,7 @@
     "cast_range": 400
   },
   "enchantress_untouchable": {
+    "labels": [27,14],
     "SpellImmunityType": "SPELL_IMMUNITY_ENEMIES_NO",
     "ID": 5267,
     "slow_duration": 4,
@@ -7058,6 +7130,7 @@
     "SpellDispellableType": "SPELL_DISPELLABLE_YES"
   },
   "bristleback_quill_spray": {
+    "labels": [33,12,5],
     "AbilityManaCost": 35.0,
     "AbilityCastPoint": 0.0,
     "FightRecapLevel": 1,
@@ -7078,6 +7151,7 @@
     "base_damage": 50.0
   },
   "antimage_blink": {
+    "labels": [6],
     "AbilityManaCost": 60.0,
     "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_ROOT_DISABLES",
     "ID": 5004,
@@ -7087,6 +7161,7 @@
     "changed": true
   },
   "ancient_apparition_cold_feet": {
+    "labels": [1,24,12],
     "AbilityManaCost": 150.0,
     "charge_restore_time": 10.0,
     "AbilityUnitTargetTeam": "DOTA_UNIT_TARGET_TEAM_ENEMY",
@@ -7161,6 +7236,7 @@
     "damage_interval": 0.5
   },
   "axe_counter_helix": {
+    "labels": [5],
     "radius": 275,
     "ID": 5009,
     "AbilityUnitDamageType": "DAMAGE_TYPE_PURE",
@@ -7197,6 +7273,7 @@
     ]
   },
   "keeper_of_the_light_blinding_light": {
+    "labels": [14,3],
     "AbilityManaCost": 50.0,
     "AbilityCastPoint": 0.3,
     "MaxLevel": 3,
@@ -7260,6 +7337,7 @@
     ]
   },
   "spirit_breaker_greater_bash": {
+    "labels": [8,1],
     "knockback_height": 50.0,
     "chance_pct": 17.0,
     "duration": 1.3,
@@ -7297,7 +7375,7 @@
     "cast_range": 750.0
   },
   "invoker_quas": {
-    "labels": [28],
+    "labels": [28,31],
     "AbilityManaCost": 0,
     "health_regen_per_instance": 7.0,
     "MaxLevel": 7,
@@ -7326,6 +7404,7 @@
     "ID": 5493
   },
   "juggernaut_omni_slash": {
+    "labels": [5,25],
     "AbilityManaCost": 275.0,
     "HasScepterUpgrade": 1,
     "AbilityUnitTargetTeam": "DOTA_UNIT_TARGET_TEAM_ENEMY",
@@ -7348,6 +7427,7 @@
     "damage": 212.5
   },
   "dragon_knight_breathe_fire": {
+    "labels": [5,12,14],
     "end_radius": 250.0,
     "AbilityManaCost": 115.0,
     "AbilityUnitTargetTeam": "DOTA_UNIT_TARGET_TEAM_ENEMY",
@@ -7370,6 +7450,7 @@
     "speed": 1050
   },
   "jakiro_macropyre": {
+    "labels": [5,12,13],
     "AbilityManaCost": 330.0,
     "HasScepterUpgrade": 1,
     "AbilityUnitTargetTeam": "DOTA_UNIT_TARGET_TEAM_ENEMY",
@@ -7408,6 +7489,7 @@
     ]
   },
   "venomancer_venomous_gale": {
+    "labels": [3,7,13],
     "AbilityManaCost": 125,
     "AbilityCastPoint": 0.0,
     "tick_damage": 55.0,
@@ -7427,6 +7509,7 @@
     "speed": 1200.0
   },
   "ember_spirit_sleight_of_fist": {
+    "labels": [1,5],
     "AbilityManaCost": 50,
     "AbilityCastPoint": 0,
     "bonus_hero_damage": 50.0,
@@ -7501,7 +7584,8 @@
     "AbilityModifierSupportValue": 0.3,
     "SpellDispellableType": "SPELL_DISPELLABLE_YES",
     "labels": [
-      5
+      5,
+      14
     ],
     "AbilityManaCost": 132.5,
     "HasScepterUpgrade": 1,
@@ -7547,7 +7631,7 @@
     "MaxLevel": 1
   },
   "invoker_tornado": {
-    "labels": [1],
+    "labels": [1,12],
     "AbilityManaCost": 150,
     "quas_damage": 0.0,
     "MaxLevel": 1,
@@ -7571,6 +7655,7 @@
     "base_damage": 70
   },
   "phantom_lancer_phantom_edge": {
+    "labels": [22,28],
     "agility_duration": 2,
     "bonus_speed": 800,
     "LinkedSpecialBonus": "special_bonus_unique_phantom_lancer",
@@ -7582,6 +7667,7 @@
     "bonus_agility": 15.0
   },
   "weaver_shukuchi": {
+    "labels": [15,5],
     "AbilityManaCost": 60.0,
     "AbilityCastPoint": 0.0,
     "AbilityCooldown": 9.0,
@@ -7596,6 +7682,7 @@
     "duration": 4.0
   },
   "gyrocopter_homing_missile": {
+    "labels": [1,16],
     "pre_flight_time": 3,
     "charge_restore_time": 15.5,
     "attack_speed_bonus_pct": 400.0,
@@ -7624,6 +7711,7 @@
     "tower_hits_to_kill": 7.5
   },
   "venomancer_plague_ward": {
+    "labels": [7],
     "AbilityManaCost": 20.0,
     "duration": 40.0,
     "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_POINT",
@@ -7641,6 +7729,7 @@
     ]
   },
   "spirit_breaker_charge_of_darkness": {
+    "labels": [6,26,1,12],
     "AbilityManaCost": 100.0,
     "vision_duration": 0.94,
     "vision_radius": 400.0,
@@ -7726,6 +7815,7 @@
     "IsGrantedByScepter": 1
   },
   "clinkz_searing_arrows": {
+    "labels": [8],
     "AbilityManaCost": 10,
     "AbilityUnitTargetTeam": "DOTA_UNIT_TARGET_TEAM_ENEMY",
     "AbilityCooldown": 0.0,
@@ -7741,6 +7831,7 @@
     "AbilityUnitTargetFlags": "DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
   },
   "pudge_rot": {
+    "labels": [5],
     "AbilityCastPoint": 0.0,
     "tick": 0.2,
     "FightRecapLevel": 1,
@@ -7755,6 +7846,7 @@
     "LinkedSpecialBonus": "special_bonus_unique_pudge_2"
   },
   "omniknight_degen_aura": {
+    "labels": [3,12],
     "radius": 350,
     "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_AURA",
     "AbilityUnitTargetTeam": "DOTA_UNIT_TARGET_TEAM_ENEMY",
@@ -7766,6 +7858,7 @@
     "speed_bonus": -22.0
   },
   "viper_viper_strike": {
+    "labels": [13, 3],
     "charge_restore_time": 30.0,
     "max_charges": 2,
     "duration": 5.1,
@@ -7791,6 +7884,7 @@
     "projectile_speed": 1200
   },
   "beastmaster_call_of_the_wild_boar": {
+    "labels": [30],
     "poison_duration": 3,
     "AbilityManaCost": 25,
     "hawk_duration": 60.0,
@@ -7806,6 +7900,7 @@
     "attackslow": 25.0
   },
   "rattletrap_battery_assault": {
+    "labels": [1],
     "AbilityManaCost": 75.0,
     "AbilityCastPoint": 0.3,
     "interval": 0.7,
@@ -7823,6 +7918,7 @@
     "SpellDispellableType": "SPELL_DISPELLABLE_NO"
   },
   "naga_siren_song_of_the_siren": {
+    "labels": [12,1],
     "regen_rate": 10.0,
     "HasScepterUpgrade": 1,
     "animation_rate": 0.55,
@@ -7863,6 +7959,7 @@
     "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE | DOTA_ABILITY_BEHAVIOR_POINT"
   },
   "alchemist_unstable_concoction": {
+    "labels": [1],
     "AbilityManaCost": 120,
     "AbilityCastPoint": 0.0,
     "FightRecapLevel": 1,
@@ -7881,6 +7978,7 @@
     "AbilityUnitDamageType": "DAMAGE_TYPE_PHYSICAL"
   },
   "death_prophet_exorcism": {
+    "labels": [13,12],
     "average_damage": 55.0,
     "ghost_spawn_rate": 0.3,
     "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_NO_TARGET",
@@ -7959,6 +8057,7 @@
     "AbilityCooldown": 50.0
   },
   "phoenix_supernova": {
+    "labels": [4,13,1,12],
     "aura_radius": 1000.0,
     "AbilityCastPoint": 0.01,
     "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK",
@@ -8035,6 +8134,7 @@
     "AbilityDamage": 125.0
   },
   "shadow_shaman_shackles": {
+    "labels": [1,13],
     "AbilityChannelTime": 3.875,
     "AbilityManaCost": 155.0,
     "AbilityUnitTargetTeam": "DOTA_UNIT_TARGET_TEAM_ENEMY",
@@ -8098,6 +8198,7 @@
     "SpellDispellableType": "SPELL_DISPELLABLE_YES"
   },
   "juggernaut_healing_ward": {
+    "labels": [8,12],
     "aura_radius": 500,
     "AbilityManaCost": 140,
     "changed": true,
@@ -8111,6 +8212,7 @@
     "AbilityCooldown": 60.0
   },
   "ogre_magi_frost_armor": {
+    "labels": [-1],
     "AbilityManaCost": 40,
     "MaxLevel": 1,
     "AbilityUnitTargetTeam": "DOTA_UNIT_TARGET_TEAM_FRIENDLY",
