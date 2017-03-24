@@ -47,10 +47,10 @@ def cluster():
     ovr = OneVsRestClassifier(SVC(random_state=0))
 
     ovr.fit(train_x, train_y)
-    prediction = ovr.predict(test_x)
-    print(train_x[0])
+    prediction = ovr.predict(test_x.values)
+    # print(prediction)
     for row, pre in zip(test_x.iterrows(), prediction):
-        print(row[0], [l for p, l in zip(pre, settings.LABELS) if p == 1])
+        print(row[0], pre)
 
 
 if __name__ == '__main__':

@@ -9,7 +9,7 @@ import json
 import logging
 
 from atod import settings
-from atod.tools.dictionary import all_keys, make_flat_dict, find_keys
+from atod.tools.dictionary import all_keys, make_flat_dict
 
 
 logging.basicConfig(level=logging.DEBUG)
@@ -175,14 +175,20 @@ def clean_properties(dict_, word, remove_prop=False):
         for k in list(value):
             if word in k:
                 if not remove_prop:
-                    partition = k.partition(word)
-                    new_k = partition[0].strip('_') + '_' \
-                            + partition[2].strip('_')
-                    new_k = new_k.strip('_')
+                    new_k = remove_word(k, word)
                     value[new_k] = value[k]
                 del value[k]
 
     return dict_
+
+
+def remove_word(phrase, word):
+    partition = phrase.partition(word)
+    new_phrase = partition[0].strip('_') + '_' \
+            + partition[2].strip('_')
+    new_phrase = new_phrase.strip('_')
+
+    return new_phrase
 
 
 def clean_move_properties(dict_):
@@ -258,11 +264,10 @@ def clean():
     skills = change_properties(skills)
     show_progress('CLEANING 2', skills)
 
-    # with open(settings.CLEAN_ABILITIES_FILE, 'w+') as fp:
-    #     json.dump(skills, fp, indent=2)
-
     return skills
 
 
 if __name__ == '__main__':
-    clean()
+    clean_abilities = clean()
+    # with open(settings.CLEAN_ABILITIES_FILE, 'w+') as fp:
+    #     json.dump(clean_abilities, fp, indent=2)

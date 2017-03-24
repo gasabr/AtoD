@@ -1,0 +1,12 @@
+{
+  "input": [
+    "tooltip_something",
+    "abc_tooltip_qwe",
+    "duration_tooltip"
+  ],
+  "output": [
+    "something",
+    "abc_qwe",
+    "duration"
+  ]
+}

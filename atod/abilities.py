@@ -179,9 +179,11 @@ class Abilities(metaclass=Singleton):
         clean = cleaning_function()
         heroes_abilities = list(clean)
 
-        effects = set(effect for key, effects in clean.items()
-                             for effect in effects
-                             if effect not in self.unused_properties)
+        effects = [effect for key, effects in clean.items()
+                          for effect in effects
+                          if effect not in self.unused_properties]
+
+        effects = set(effects)
 
         # fill categorical variables
         categorical_part = create_categorical(clean,
@@ -200,7 +202,7 @@ class Abilities(metaclass=Singleton):
         # concatenate 2 parts
         result_frame = pandas.concat([numeric_part, categorical_part], axis=1)
         result_frame = result_frame.drop(['changed', 'ID'], axis=1)
-        result_frame = result_frame.dropna(axis=1, thresh=1)
+        result_frame = result_frame.dropna(axis=1, thresh=2)
         result_frame = result_frame.fillna(value=0)
 
         return result_frame
@@ -251,12 +253,13 @@ class Abilities(metaclass=Singleton):
         return properties
 
     def plot_property(self, property_):
-        '''Plots all values of given property with matplotlib.
+        ''' Plots all values of given property with matplotlib.
 
             Args:
                 property_ (str): property to plot
 
         '''
+
         abilities_to_plot = self.with_property(property_)
         properties = pandas.Series([a[1] for a in abilities_to_plot],
                                    index=[a[0] for a in abilities_to_plot])
@@ -363,15 +366,16 @@ class Abilities(metaclass=Singleton):
             Returns:
                 X_train, y_train, X_test  of pd.DataFrame)
         '''
+
         frame = self.clean_frame
         labeling = load_labels()
         labeled_abilities = list(labeling)
+        # list of labels as integers
         labels_unique = [labeling[a] for a in labeled_abilities]
 
         # binarize data
         mlb = MultiLabelBinarizer()
-        mlb.fit(labels_unique)
-        labels_bin = mlb.transform(labels_unique)
+        labels_bin = mlb.fit_transform(labels_unique)
 
         labels = pandas.DataFrame(labels_bin, index=labeled_abilities,
                                   columns=settings.LABELS)
@@ -386,7 +390,7 @@ class Abilities(metaclass=Singleton):
 
         # drop labeled skill from frame
         frame = frame.drop([a for a in labeling if a in frame.index], axis=0)
-        frame = mm_scaler.transform(frame)
+        # frame = mm_scaler.transform(frame)
 
         return train, labels, frame
 

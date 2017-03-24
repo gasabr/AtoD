@@ -113,8 +113,8 @@ items_scheme = {}
 for key, value in items_types.items():
     items_scheme[key] = field_format[value]
 
-LABELS = ['talent', 'stun', 'transformation', 'slow', 'durability', 'nuke',
-          'escape', 'non-hero', 'attack_bonus', 'heal', 'creep skill',
+LABELS = ['stun', 'transformation', 'slow', 'durability', 'nuke',
+          'escape', 'non-hero', 'attack_bonus', 'heal',
           'based on attr', 'aoe', 'period damage', 'attack debuff',
           'invis', 'vision', 'silence', 'lifesteal', 'armor buff',
           'armor debuff', 'save', 'move speed buff', 'illusions', 'chance',

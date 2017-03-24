@@ -1,7 +1,7 @@
 import json
 from sklearn.preprocessing import MultiLabelBinarizer
 
-from atod.settings import ABILITIES_TRAIN_FILE
+from atod.settings import TMP_ABILITIES
 ''' Module load training data from labeled_abilities.json.'''
 
 def load_binary_labels():
@@ -11,8 +11,8 @@ def load_binary_labels():
         Returns:
             ability2labels (dict): described above mapping.
     '''
-    with open(ABILITIES_TRAIN_FILE, 'r') as fp:
-        abilities = json.load(fp)['DOTAAbilities']
+    with open(TMP_ABILITIES, 'r') as fp:
+        abilities = json.load(fp)
 
     labels = [d['labels'] for _, d in abilities.items() if 'labels' in d]
     binarizer = MultiLabelBinarizer().fit(labels)
@@ -28,8 +28,12 @@ def load_binary_labels():
 
 def load_labels():
     ''' Loads labeling from abilities_labeled.json. '''
-    with open(ABILITIES_TRAIN_FILE, 'r') as fp:
-        abilities = json.load(fp)['DOTAAbilities']
+    with open(TMP_ABILITIES, 'r') as fp:
+        abilities = json.load(fp)
 
     return {k: v['labels'] for k, v in abilities.items()
-                           if 'labels' in v}
+                           if 'labels' in v
+                           and v['labels'] != [-1]}
+
+
+load_binary_labels()

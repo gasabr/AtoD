@@ -3,14 +3,13 @@
 '''
 
 import json
-import logging
 
 from atod.tools import dictionary
 from atod.tools.cleaning import abilities
-from atod.tools.dictionary import all_keys
+from atod.abilities import abilities as Abilities
 
 def print_keys_occurrences():
-    data = abilities.main()
+    data = abilities.clean()
     key2occur = dictionary.count_keys(data)
 
     # remove abilities names from key2occur
@@ -23,16 +22,10 @@ def print_keys_occurrences():
         print(key, '->', key2occur[key])
 
 
+def remove_single_vars():
+    frame = Abilities.clean_frame
+    print(list(frame.shape))
+    # print(list(frame.ix[:,'arrow_count']))
+
 if __name__ == '__main__':
-    data = abilities.clean()
-
-    p = dictionary.find_keys(data, keywords=['armor'])
-    c = dictionary.count_keys(data)
-    print(c)
-
-    count = {k: v for k, v in c.items() if k not in data.keys() and v == 1}
-    print(type(count))
-
-    # print(sorted(set(all_keys(data, include_dict_keys=False))))
-    print(json.dumps(count, indent=2))
-    print(len(count))
+    remove_single_vars()
