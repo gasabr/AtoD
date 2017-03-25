@@ -1,0 +1,59 @@
+[
+  {
+    "input": {
+      "range": 1,
+      "id": 0
+    },
+    "output": {
+      "AbilityCastRange": 1,
+      "id": 0
+    }
+  },
+  {
+    "input": {
+      "range": 100,
+      "AbilityCastRange": 100,
+      "id": 5
+    },
+    "output": {
+      "AbilityCastRange": 100,
+      "id": 5
+    }
+  },
+  {
+    "input": {
+      "range": 222,
+      "AbilityCastRange": 100,
+      "id": 5
+    },
+    "output": {
+      "range": 222,
+      "AbilityCastRange": 100,
+      "id": 5
+    }
+  },
+  {
+    "input": {
+      "damage": 222,
+      "hero_damage": 55,
+      "AbilityDamage": 100,
+      "id": 5
+    },
+    "output": {
+      "damage": 222,
+      "hero_damage": 55,
+      "AbilityDamage": 100,
+      "id": 5
+    }
+  },
+  {
+    "input": {
+      "damage": 222,
+      "id": 5
+    },
+    "output": {
+      "AbilityDamage": 222,
+      "id": 5
+    }
+  }
+]

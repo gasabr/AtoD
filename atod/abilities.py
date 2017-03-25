@@ -201,9 +201,9 @@ class Abilities(metaclass=Singleton):
 
         # concatenate 2 parts
         result_frame = pandas.concat([numeric_part, categorical_part], axis=1)
-        result_frame = result_frame.drop(['changed', 'ID'], axis=1)
-        result_frame = result_frame.dropna(axis=1, thresh=2)
-        result_frame = result_frame.fillna(value=0)
+        # result_frame = result_frame.drop(['changed', 'ID'], axis=1)
+        # result_frame = result_frame.dropna(axis=1, thresh=2)
+        # result_frame = result_frame.fillna(value=0)
 
         return result_frame
 

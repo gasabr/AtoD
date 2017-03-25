@@ -37,7 +37,6 @@ def cluster_binary():
         result[str(cluster)].append(skill)
 
     print(json.dumps(result, indent=2))
-    print(data.loc['earthshaker_fissure'].to_string())
 
 
 def cluster():
@@ -54,4 +53,4 @@ def cluster():
 
 
 if __name__ == '__main__':
-    cluster()
+    cluster_binary()

@@ -11,10 +11,10 @@ from atod.tools.modeling.abilities import encode_effects, create_categorical
 class TestAbilities(unittest.TestCase):
 
     def setUp(self):
-        self.effects = Abilities.effects
+        self.effects = Abilities.get_properties()
 
     def test_effects_extraction(self):
-        '''Tests effect property.'''
+        '''Tests effects property.'''
         # check if every key split to words
         for e in self.effects:
             self.assertEqual(False, '_' in e)
@@ -27,7 +27,7 @@ class TestAbilities(unittest.TestCase):
 
     def test_frame_shape(self):
         ''' Very long test, since whole DataFrame is created.'''
-        frame = Abilities.frame
+        frame = Abilities.clean_frame
         expected_shape = (len(Abilities.clean_properties()),
                           len(Abilities.cat_columns) + len(self.effects))
 

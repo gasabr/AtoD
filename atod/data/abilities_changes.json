@@ -65,5 +65,22 @@
   "enemy_slow": "movement_slow",
   "beam_interval": "tick_interval",
   "speedbonus": "movespeed_bonus",
-  "spread_aoe": "range"
+  "spread_aoe": "range",
+  "arrow_speed": "projectile_speed",
+  "arrow_range": "range",
+  "beam_range": "range",
+  "bonus_range": "bonus_attack_range",
+  "reduction_ms": "movespeed_slow",
+  "rock_speed": "projectile_speed",
+  "path_radius": "radius",
+  "burn_interval": "tick_interval",
+  "slow_pct": "movespeed_slow_pct",
+  "blind_percentage": "vision_reduction_pct",
+  "damage_percent": "damage_pct",
+  "hp_leech_percent": "hp_leech_pct",
+  "splash_damage_percent": "splash_damage_pct",
+  "cast_range": "AbilityCastRange",
+  "range": "AbilityCastRange",
+  "cooldown": "AbilityCooldown",
+  "damage": "AbilityDamage"
 }

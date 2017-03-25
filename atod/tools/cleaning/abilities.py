@@ -1,6 +1,6 @@
 ''' This script cleans npc_abilities.json file by:
     - removing skill name from description
-    - replacing lists with their avg value
+    - replacing lists and with their avg value
     - merging rare properties to popular
 '''
 
@@ -92,9 +92,12 @@ def remove_skills_names(skills):
 def change_properties(skills):
     ''' Applies abilities_changes.json to skills.
 
-        abilities_changes.json - dict where key is name if old
-        property and corresponding value is the new property.
+        abilities_changes.json - dict where key is name of old
+        property and corresponding value is the new property name.
         If value == '' property will be removed.
+        If value is one of the description keys and
+            ability[value] != ability[key] -- no changes
+            ability[value] == ability[key] -- properties will be merged
 
         Args:
             skills (dict): flat dictionary of skills
@@ -107,19 +110,41 @@ def change_properties(skills):
     with open(settings.ABILITIES_CHANGES_FILE, 'r') as fp:
         changes = json.load(fp)
 
-    for skill in skills:
-        for prop in list(skills_[skill]):
-            if prop not in changes.keys():
-                continue
-            elif changes[prop] == '':
-                del skills_[skill][prop]
-                continue
-            else:
-                skills_[skill][changes[prop]] = skills_[skill][prop]
-                del skills_[skill][prop]
+    for skill in list(skills):
+        if any(map(lambda change: change in skills[skill], changes.keys())):
+            skills_[skill] = merge_similar_(skills[skill], changes)
 
     return skills_
 
+
+def merge_similar_(skill, changes):
+    ''' Merges similar properties.
+    
+        The rule described in parent function -- `change_properties()`.
+        
+        Args:
+            skill (dict): single ability
+            changes (dict): abilities_changes.json as dictionary
+            
+        Returns:
+            skill (dict): cleaned dict
+    '''
+
+    for prop in list(skill.keys()):
+        if prop not in changes.keys():
+            continue
+        # remove property if value == ''
+        elif changes[prop] == '':
+            del skill[prop]
+            continue
+        # if property should be changed
+        if changes[prop] not in skill \
+                        or skill[prop] == skill[changes[prop]] \
+                        or skill[changes[prop]] == 0:
+            skill[changes[prop]] = skill[prop]
+            del skill[prop]
+
+    return skill
 
 def average_properties(skills):
     ''' Averages properties values where it's possible.
@@ -245,7 +270,7 @@ def clean():
 
     # remove ability name from its properties
     skills = remove_skills_names(skills)
-    show_progress('CLEANING 1', skills)
+    show_progress('REMOVE ABILITY NAME', skills)
 
     # convert min and max properties to their avg
     skills = average_properties(skills)
@@ -269,5 +294,6 @@ def clean():
 
 if __name__ == '__main__':
     clean_abilities = clean()
-    # with open(settings.CLEAN_ABILITIES_FILE, 'w+') as fp:
-    #     json.dump(clean_abilities, fp, indent=2)
+
+    with open(settings.CLEAN_ABILITIES_FILE, 'w+') as fp:
+        json.dump(clean_abilities, fp, indent=2)
