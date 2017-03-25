@@ -45,7 +45,8 @@ class Abilities(metaclass=Singleton):
     _filename = settings.ABILITIES_FILE
 
     unused_properties = ['HasScepterUpgrade', 'LinkedSpecialBonus',
-                          'HotKeyOverride', 'levelkey']
+                         'HotKeyOverride', 'levelkey', 'FightRecapLevel',
+                         'CalculateSpellDamageTooltip']
 
     def __init__(self):
         skills_raw = self.find_skills()

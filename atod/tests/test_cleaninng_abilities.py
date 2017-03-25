@@ -17,16 +17,17 @@ class TestCleaningAbilities(unittest.TestCase):
         with open(file, 'r') as fp:
             test_data = json.load(fp)
 
-        for inp, out in zip(test_data['input'], test_data['output']):
-            self.assertEqual(min_max2avg(inp), out)
+        for case in test_data:
+            self.assertEqual(min_max2avg(case['input']), case['output'])
 
     def test_tooltip_removing(self):
         file = os.path.join(self.data_folder, 'tooltip.json')
         with open(file, 'r') as fp:
             test_data = json.load(fp)
 
-        for inp, out in zip(test_data['input'], test_data['output']):
-            self.assertEqual(remove_word(inp, word='tooltip'), out)
+        for case in test_data:
+            self.assertEqual(remove_word(case['input'], word='tooltip'),
+                             case['output'])
 
     def test_similar_merging(self):
         file = os.path.join(self.data_folder, 'merge_similar.json')

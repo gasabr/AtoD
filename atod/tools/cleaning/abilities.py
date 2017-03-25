@@ -146,6 +146,7 @@ def merge_similar_(skill, changes):
 
     return skill
 
+
 def average_properties(skills):
     ''' Averages properties values where it's possible.
 

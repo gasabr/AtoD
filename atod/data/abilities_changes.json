@@ -79,6 +79,7 @@
   "damage_percent": "damage_pct",
   "hp_leech_percent": "hp_leech_pct",
   "splash_damage_percent": "splash_damage_pct",
+  "area_of_effect": "radius",
   "cast_range": "AbilityCastRange",
   "range": "AbilityCastRange",
   "cooldown": "AbilityCooldown",

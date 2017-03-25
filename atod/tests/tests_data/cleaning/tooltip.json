@@ -1,12 +1,14 @@
-{
-  "input": [
-    "tooltip_something",
-    "abc_tooltip_qwe",
-    "duration_tooltip"
-  ],
-  "output": [
-    "something",
-    "abc_qwe",
-    "duration"
-  ]
-}
+[
+  {
+    "input": "tooltip_something",
+    "output": "something"
+  },
+  {
+    "input": "duration_tooltip",
+    "output": "duration"
+  },
+  {
+    "input": "abc_tooltip_qwe",
+    "output": "abc_qwe"
+  }
+]

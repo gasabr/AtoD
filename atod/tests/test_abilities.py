@@ -5,31 +5,32 @@ import unittest
 from atod import settings
 from atod.abilities import abilities as Abilities
 from atod.tools.dictionary import make_flat_dict
+from atod.tools.cleaning.abilities import clean as get_clean_abilities
 from atod.tools.modeling.abilities import encode_effects, create_categorical
 
 
 class TestAbilities(unittest.TestCase):
 
-    def setUp(self):
-        self.effects = Abilities.get_properties()
-
     def test_effects_extraction(self):
         '''Tests effects property.'''
         # check if every key split to words
-        for e in self.effects:
+        effects = Abilities.effects
+        for e in effects:
             self.assertEqual(False, '_' in e)
 
         # check if every word in skills occurs in effects
         for skill, description in Abilities.skills.items():
             for key in description:
                 for effect in key.split('_'):
-                    self.assertEqual(True, effect in self.effects)
+                    self.assertEqual(True, effect in effects)
 
     def test_frame_shape(self):
         ''' Very long test, since whole DataFrame is created.'''
+        clean_abilities = get_clean_abilities()
+        properties = Abilities.get_properties()
         frame = Abilities.clean_frame
-        expected_shape = (len(Abilities.clean_properties()),
-                          len(Abilities.cat_columns) + len(self.effects))
+        expected_shape = (len(clean_abilities),
+                          len(Abilities.cat_columns) + len(properties))
 
         self.assertEqual(expected_shape, frame.shape)
 
