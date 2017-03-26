@@ -1,6 +1,6 @@
 ''' This script cleans npc_abilities.json file by:
     - removing skill name from description
-    - replacing lists with their avg value
+    - replacing lists and with their avg value
     - merging rare properties to popular
 '''
 
@@ -15,18 +15,11 @@ from atod.tools.dictionary import all_keys, make_flat_dict
 logging.basicConfig(level=logging.DEBUG)
 
 
-def clean_properties():
-    remove_skills_names()
-    merge_similar()
-    min_max2avg()
-    merge_rare()
-
-
 def find_skills(raw_abilities):
     ''' Finds skills in dictionary.
 
-        'Skills' does **not** include scepter upgrades, empty or hidden
-        abilities.
+        'Skills' does **not** include scepter upgrades, empty, hidden...
+        abilities full list in stop_words and deprecated.
 
         Args:
             raw_abilities (dict): content of npc_abilities.json
@@ -40,17 +33,30 @@ def find_skills(raw_abilities):
 
     heroes_names = [c for c in converter.keys()
                     if re.findall(r'[a-zA-Z|\_]+', c)]
+    stop_words = ['special_bonus', 'hidden', 'empty', 'scepter', 'voodoo',
+                  'stop', 'self', 'cancel', 'throw', 'return', 'release',
+                  'brake', 'end']
+    # removed from the game or useless skills
+    deprecated = ['drow_ranger_wave_of_silence', 'centaur_khan_war_stomp',
+                  'ember_spirit_fire_remnant', 'faceless_void_backtrack',
+                  'death_prophet_witchcraft']
+    creeps_abilities = ['ogre_magi_frost_armor',
+                        'polar_furbolg_ursa_warrior_thunder_clap']
+    # abilities which are available only with aghanim scepter
+    scepter_abilities = ['nyx_assassin_burrow', 'nyx_assassin_unburrow',
+                         'morphling_hybrid', 'zeus_cloud',
+                         'treant_eyes_in_the_forest']
 
     # find all the heroes skills, but not talents
     skills_list = []
     for key, value in raw_abilities['DOTAAbilities'].items():
-        # if ability contains hero name, doesn't contain special_bonus
-        if any(map(lambda name: name in key, heroes_names)) and \
-                        'special_bonus' not in key and \
-                        'hidden' not in key and \
-                        'empty' not in key and \
-                        'scepter' not in key and \
-                        key != 'Version':
+        # if ability contains hero name, doesn't contain stop words
+        if any(map(lambda name: name in key, heroes_names)) \
+                and not any(map(lambda word: word in key, stop_words)) \
+                and key not in deprecated \
+                and key not in creeps_abilities \
+                and key not in scepter_abilities \
+                and key != 'Version':
             skills_list.append(key)
 
     skills = {}
@@ -96,12 +102,84 @@ def remove_skills_names(skills):
     return skills
 
 
-def merge_similar():
-    pass
+def change_properties(skills):
+    ''' Applies abilities_changes.json to skills.
+
+        abilities_changes.json - dict where key is name of old
+        property and corresponding value is the new property name.
+        If value == '' property will be removed.
+        If value is one of the description keys and
+            ability[value] != ability[key] -- no changes
+            ability[value] == ability[key] -- properties will be merged
+
+        Args:
+            skills (dict): flat dictionary of skills
+
+        Returns:
+            skills_ (dict): with changed properties
+    '''
+
+    skills_ = skills.copy()
+    with open(settings.ABILITIES_CHANGES_FILE, 'r') as fp:
+        changes = json.load(fp)
+
+    for skill in list(skills):
+        if any(map(lambda change: change in skills[skill], changes.keys())):
+            skills_[skill] = merge_similar_(skills[skill], changes)
+
+    return skills_
+
+
+def merge_similar_(skill, changes):
+    ''' Merges similar properties.
+    
+        The rule described in parent function -- `change_properties()`.
+        
+        Args:
+            skill (dict): single ability
+            changes (dict): abilities_changes.json as dictionary
+            
+        Returns:
+            skill (dict): cleaned dict
+    '''
+
+    for prop in list(skill.keys()):
+        if prop not in changes.keys():
+            continue
+        # remove property if value == ''
+        elif changes[prop] == '':
+            del skill[prop]
+            continue
+        # if property should be changed
+        if changes[prop] not in skill \
+                        or skill[prop] == skill[changes[prop]] \
+                        or skill[changes[prop]] == 0:
+            skill[changes[prop]] = skill[prop]
+            del skill[prop]
+
+    return skill
+
+
+def average_properties(skills):
+    ''' Averages properties values where it's possible.
+
+        Args:
+            skills (dict): flat dict of skills
+
+        Returns:
+            skills_ (dict): the same dict, where abilities changed
+                according to rule in `min_max2avg` docstring.
+    '''
+
+    for ability, description in skills.items():
+        if any(map(lambda x: 'max' in x, description)):
+            skills[ability] = min_max2avg(description)
+
+    return skills
 
 
 def min_max2avg(description):
-    ''' Converts min and max properties to one containing avg.
+    ''' Converts min and max properties to one containing their avg.
 
         Args:
             description (dict): ability properties
@@ -121,7 +199,7 @@ def min_max2avg(description):
             partition = property_.partition('max')
             min_prop = partition[0] + 'min' + partition[2]
             if min_prop in desc.keys():
-                new_prop = (partition[0] + partition[2]).strip('_')
+                new_prop = (partition[0].rstrip('_') + partition[2]).strip('_')
                 desc[new_prop] = (value + description[min_prop]) / 2
                 desc['changed'] = True
                 del desc[min_prop]
@@ -130,8 +208,44 @@ def min_max2avg(description):
     return desc
 
 
-def merge_rare():
-    pass
+def clean_properties(dict_, word, remove_prop=False):
+    ''' Remove word from property or the whole property. '''
+    for key, value in dict_.items():
+        for k in list(value):
+            if word in k:
+                if not remove_prop:
+                    new_k = remove_word(k, word)
+                    value[new_k] = value[k]
+                del value[k]
+
+    return dict_
+
+
+def remove_word(phrase, word):
+    partition = phrase.partition(word)
+    new_phrase = partition[0].strip('_') + '_' \
+            + partition[2].strip('_')
+    new_phrase = new_phrase.strip('_')
+
+    return new_phrase
+
+
+def clean_move_properties(dict_):
+    remove_words = ('movement', 'movespeed', 'speed', 'move')
+    for ability, description in dict_.items():
+        for key in list(description):
+            new_key = key
+            if 'move' in key:
+                for word in remove_words:
+                    partition = new_key.partition(word)
+                    new_key = partition[0].strip('_') \
+                            + partition[2].rstrip('_')
+                new_key = ('movespeed_' + new_key.lstrip('_')).rstrip('_')
+
+                dict_[ability][new_key] = dict_[ability][key]
+                del dict_[ability][key]
+
+    return dict_
 
 
 def show_progress(stage_name, abilities):
@@ -153,30 +267,47 @@ def show_progress(stage_name, abilities):
     logging.info('================================================\n')
 
 
-def main():
+def clean():
     with open(settings.ABILITIES_FILE, 'r') as fp:
         raw = json.load(fp)
     show_progress('RAW', raw)
 
     # find heroes abilities
     skills_nested = find_skills(raw)
-
     show_progress('SKILLS', skills_nested)
 
     # make skills flat
     skills = {}
     for ability, description in skills_nested.items():
         skills[ability] = make_flat_dict(description)
-
     show_progress('FLAT', skills)
 
     # remove ability name from its properties
     skills = remove_skills_names(skills)
+    show_progress('REMOVE ABILITY NAME', skills)
 
-    show_progress('CLEANING 1', skills)
+    # convert min and max properties to their avg
+    skills = average_properties(skills)
+    show_progress('MIN MAX -> AVG', skills)
+
+    # remove tooltip properties from skills
+    skills = clean_properties(skills, word='tooltip')
+    skills = clean_properties(skills, word='scepter', remove_prop=True)
+    show_progress('CLEANING PROPERTIES', skills)
+
+    # clean movespeed properties
+    skills = clean_move_properties(skills)
+    show_progress('CLEANING MOVE PROPERTIES', skills)
+
+    # map properties
+    skills = change_properties(skills)
+    show_progress('CLEANING 2', skills)
 
     return skills
 
 
 if __name__ == '__main__':
-    main()
+    clean_abilities = clean()
+
+    with open(settings.CLEAN_ABILITIES_FILE, 'w+') as fp:
+        json.dump(clean_abilities, fp, indent=2)

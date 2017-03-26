@@ -23,5 +23,8 @@ class Ability:
     def __str__(self):
         return '<Ability name={}, lvl={}>'.format(self.raw_name, self.lvl)
 
+    def __repr__(self):
+        return '<Ability name={}, lvl={}>'.format(self.raw_name, self.lvl)
+
     def __getattr__(self, item):
         return getattr(self, item)

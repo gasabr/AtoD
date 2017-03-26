@@ -44,11 +44,10 @@ class Abilities(metaclass=Singleton):
                           'HotKeyOverride', 'levelkey']
 
     def __init__(self):
-        skills_raw = self.find_skills()
-
-        self.skills = {}
-        for ability, description in skills_raw.items():
-            self.skills[ability] = make_flat_dict(description)
+        self.clean = cleaning_function()
+        self.skills = dict()
+        for ability, description in self.clean.items():
+            self.skills[ability] = description
 
         self.cat_variables = self.get_cat_variables()
 
