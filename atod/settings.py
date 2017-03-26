@@ -30,8 +30,13 @@ IN_GAME_CONVERTER = path.join(DATA_FOLDER, 'in_game_converter.json')
 DICTIONARY_FOLDER = path.join(DATA_FOLDER, 'dictionary/')
 ABILITIES_DICT_FILE = path.join(DICTIONARY_FOLDER, 'abilities.dict')
 ABILITIES_CORPUS_FILE = path.join(DICTIONARY_FOLDER, 'abilities.mm')
+
 ABILITIES_LABELING_FILE = path.join(DATA_FOLDER, 'abilities_labeling.json')
-ABILITIES_TRAIN_FILE = path.join(DATA_FOLDER, 'abilities_labeled.json')
+ABILITIES_LABELED_FILE  = path.join(DATA_FOLDER, 'abilities_labeled.json')
+ABILITIES_TRAIN_FILE    = path.join(DATA_FOLDER, 'abilities_labeled.json')
+ABILITIES_CHANGES_FILE  = path.join(DATA_FOLDER, 'abilities_changes.json')
+CLEAN_ABILITIES_FILE    = path.join(DATA_FOLDER, 'abilities_clean.json')
+TMP_ABILITIES = path.join(DATA_FOLDER, 'tmp_abilities.json')
 
 # ===============================================================================
 # DataBase settings
@@ -108,10 +113,11 @@ items_scheme = {}
 for key, value in items_types.items():
     items_scheme[key] = field_format[value]
 
-LABELS = ['talent', 'stun', 'transformation', 'slow', 'durability', 'nuke',
-          'escape', 'non-hero', 'attack_bonus', 'heal', 'creep skill',
+LABELS = ['stun', 'transformation', 'slow', 'durability', 'nuke',
+          'escape', 'non-hero', 'attack_bonus', 'heal',
           'based on attr', 'aoe', 'period damage', 'attack debuff',
           'invis', 'vision', 'silence', 'lifesteal', 'armor buff',
           'armor debuff', 'save', 'move speed buff', 'illusions', 'chance',
           'multiply heroes', 'global', 'shield', 'attribute gain',
-          'amplify magic dmg', 'summon unit', 'regen']
+          'amplify magic dmg', 'summon unit', 'regen', 'daytime dependent',
+          'stacks', 'purge', 'in percents']

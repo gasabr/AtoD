@@ -3,7 +3,8 @@ import json
 import unittest
 
 from atod import settings
-from atod.tools.cleaning.abilities import min_max2avg
+from atod.tools.cleaning.abilities import (min_max2avg, remove_word,
+                                           merge_similar_)
 
 class TestCleaningAbilities(unittest.TestCase):
 
@@ -16,8 +17,29 @@ class TestCleaningAbilities(unittest.TestCase):
         with open(file, 'r') as fp:
             test_data = json.load(fp)
 
-        for inp, out in zip(test_data['input'], test_data['output']):
-            self.assertEqual(min_max2avg(inp), out)
+        for case in test_data:
+            self.assertEqual(min_max2avg(case['input']), case['output'])
+
+    def test_tooltip_removing(self):
+        file = os.path.join(self.data_folder, 'tooltip.json')
+        with open(file, 'r') as fp:
+            test_data = json.load(fp)
+
+        for case in test_data:
+            self.assertEqual(remove_word(case['input'], word='tooltip'),
+                             case['output'])
+
+    def test_similar_merging(self):
+        file = os.path.join(self.data_folder, 'merge_similar.json')
+        with open(file, 'r') as fp:
+            test_data = json.load(fp)
+
+        with open(settings.ABILITIES_CHANGES_FILE, 'r') as fp:
+            changes = json.load(fp)
+
+        for case in test_data:
+            self.assertEqual(merge_similar_(case['input'], changes),
+                             case['output'])
 
 
 if __name__ == '__main__':

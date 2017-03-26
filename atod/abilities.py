@@ -1,18 +1,22 @@
 import json
 import re
 
-import matplotlib.pyplot as plt
 import pandas
+import numpy as np
 import seaborn as sns
+import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans
+from sklearn.preprocessing import MultiLabelBinarizer, MinMaxScaler
+
 
 from atod import settings
 from atod.ability import Ability
-from atod.tools.cleaning.preprocessing import load_labeling
+from atod.tools.cleaning.preprocessing import load_labels
 from atod.tools.dictionary import (find_all_values, create_encoding,
                                    make_flat_dict)
 from atod.tools.modeling.abilities import (create_categorical, encode_effects,
                                            fill_numeric)
+from atod.tools.cleaning.abilities import clean as cleaning_function
 
 
 class Singleton(type):
@@ -41,7 +45,8 @@ class Abilities(metaclass=Singleton):
     _filename = settings.ABILITIES_FILE
 
     unused_properties = ['HasScepterUpgrade', 'LinkedSpecialBonus',
-                          'HotKeyOverride', 'levelkey']
+                         'HotKeyOverride', 'levelkey', 'FightRecapLevel',
+                         'CalculateSpellDamageTooltip']
 
     def __init__(self):
         self.clean = cleaning_function()
@@ -170,23 +175,35 @@ class Abilities(metaclass=Singleton):
                 result_frame (pandas.DataFrame) : DataFrame of extracted vectors
         '''
 
-        clean = self.clean_properties()
+        # clean = self.clean_properties()
+        clean = cleaning_function()
         heroes_abilities = list(clean)
-        skills = clean
 
-        for skill, description in skills.items():
+        effects = [effect for key, effects in clean.items()
+                          for effect in effects
+                          if effect not in self.unused_properties]
+
+        effects = set(effects)
+
+        # fill categorical variables
+        categorical_part = create_categorical(clean,
+                                              heroes_abilities,
+                                              self.cat_columns)
+
+        # remove categorical variables from description
+        for skill, description in clean.items():
             for cat in self.cat_variables:
                 if cat in description:
                     del description[cat]
 
-        numeric_part = fill_numeric(skills, heroes_abilities, self.get_properties())
-        categorical_part = create_categorical(skills,
-                                              heroes_abilities,
-                                              self.cat_columns)
-        numeric_part = numeric_part.fillna(value=-1)
-        categorical_part = categorical_part.fillna(value=-1)
+        # fill numeric part of dataframe
+        numeric_part = fill_numeric(clean, heroes_abilities, effects)
 
+        # concatenate 2 parts
         result_frame = pandas.concat([numeric_part, categorical_part], axis=1)
+        # result_frame = result_frame.drop(['changed', 'ID'], axis=1)
+        # result_frame = result_frame.dropna(axis=1, thresh=2)
+        # result_frame = result_frame.fillna(value=0)
 
         return result_frame
 
@@ -236,12 +253,13 @@ class Abilities(metaclass=Singleton):
         return properties
 
     def plot_property(self, property_):
-        '''Plots all values of given property with matplotlib.
+        ''' Plots all values of given property with matplotlib.
 
             Args:
                 property_ (str): property to plot
 
         '''
+
         abilities_to_plot = self.with_property(property_)
         properties = pandas.Series([a[1] for a in abilities_to_plot],
                                    index=[a[0] for a in abilities_to_plot])
@@ -346,34 +364,33 @@ class Abilities(metaclass=Singleton):
         ''' Loads training and test data for classification.
 
             Returns:
-                ((X_train, y_train), X_test) (tuple of pd.DataFrame)
+                X_train, y_train, X_test  of pd.DataFrame)
         '''
-        frame = self.frame
-        # print(frame.shape)
-        # select skills from labeling (talents are not included)
-        # labeling = {k: v for k, v in load_labeling().items()
-        #                   if 'labels' in v}
-        labeling = load_labeling()
+
+        frame = self.clean_frame
+        labeling = load_labels()
+        labeled_abilities = list(labeling)
+        # list of labels as integers
+        labels_unique = [labeling[a] for a in labeled_abilities]
+
+        # binarize data
+        mlb = MultiLabelBinarizer()
+        labels_bin = mlb.fit_transform(labels_unique)
+
+        labels = pandas.DataFrame(labels_bin, index=labeled_abilities,
+                                  columns=settings.LABELS)
+
+        mm_scaler = MinMaxScaler()
+        mm_scaler.fit(frame)
 
         # get labeled skill from frame
         train = frame.loc[list(labeling)]
+        train = train.fillna(value=0)
+        train = mm_scaler.transform(train)
 
         # drop labeled skill from frame
-        for ability in labeling:
-            if ability in frame.index:
-                frame = frame.drop(ability)
-
-        labels = pandas.DataFrame([], index=list(labeling),
-                                   columns=settings.LABELS)
-        # Fill labels
-        # TODO: find initializer for that
-        for ability in labels.index:
-            for label, value in zip(settings.LABELS, labeling[ability]):
-                labels.loc[ability][label] = value
-
-        # print(train.shape, labels.shape, frame.shape)
-
-        print(list(train.columns))
+        frame = frame.drop([a for a in labeling if a in frame.index], axis=0)
+        # frame = mm_scaler.transform(frame)
 
         return train, labels, frame
 

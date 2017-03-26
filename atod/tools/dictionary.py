@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 '''Set of functions on dict needed for different parts of the program.'''
 import re
+import logging
 from sklearn.preprocessing import LabelEncoder
 
 
@@ -35,7 +36,7 @@ def count_keys(dictionary):
         if isinstance(value, dict):
             rec = count_keys(value)
             for k, v in rec.items():
-                key2occur.setdefault(k, v)
+                key2occur.setdefault(k, 0)
                 key2occur[k] += v
 
     return key2occur
@@ -170,3 +171,50 @@ def create_encoding(values):
             encoding[var_name][value] = e
 
     return encoding
+
+
+def find_keys(dict_, keywords=[], mode='any'):
+    ''' Returns all the hero abilities.
+
+        Args:
+            dict_ (dict): dictionary to search keywords in
+            keywords (list): words to be find in skills
+            mode (str): 'all' or 'any' defines which keywords
+                should be found in key for him to added to result
+
+        Returns:
+            abilities_ (list): list of Ability
+    '''
+
+    if len(keywords) == 0:
+        logging.warning('No keys in find_properties() call.')
+        return []
+
+    properties = dict()
+    for key, value in dict_.items():
+        if mode == 'any':
+            props = find_keys_any(value, keywords)
+            if len(props) == 0:
+                continue
+            properties[key] = {p[0]: p[1] for p in props}
+
+    return properties
+
+
+def find_keys_any(dict_, keywords=[]):
+    ''' Searches for properties which contain any of keywords.
+
+        Args:
+            dict_ (dict): dict to search into
+            keywords (iterable of strings): words which should be found
+
+        Returns:
+            properties (list of tuples): tuple example ('property', 1)
+    '''
+    properties = list()
+    for property_, value in dict_.items():
+        for k in keywords:
+            if k in property_:
+                properties.append((property_, value))
+
+    return properties
