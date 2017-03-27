@@ -2,7 +2,7 @@
 ''' Set of functions to work with npc_abilities.json'''
 import pandas
 
-from atod.tools.dictionary import make_flat_dict
+from atod.utils.dictionary import make_flat_dict
 
 
 def encode_effects(data, rows, columns):

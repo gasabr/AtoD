@@ -12,7 +12,7 @@ def json_to_rows(filename, scheme):
 
         Args:
             filename (str) - name of json file to parse
-            scheme (list of str) - fieds what should be extracted from file
+            scheme (list of str) - fields what should be extracted from file
 
         Returns:
             rows (list of dicts) - dict there scheme elements are keys

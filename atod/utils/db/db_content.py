@@ -1,7 +1,8 @@
 from atod import settings
-from atod.models import HeroModel, ItemModel
+from atod.models.hero import HeroModel
+from atod.models.item import ItemModel
 from atod.setup_db import session
-from atod.tools.db import to_rows
+from atod.utils.db import to_rows
 
 
 def fill_heroes():
@@ -27,6 +28,12 @@ def fill_items():
             session.add(item)
             session.commit()
             unique_ids.add(row['ID'])
+
+
+def fill_abilities():
+    ''' FIlls abilities table with the data from cleaned abilities file. '''
+    rows = to_rows.json_to_rows(settings.CLEAN_ABILITIES_FILE,
+                                settings.heroes_scheme)
 
 
 if __name__ == '__main__':

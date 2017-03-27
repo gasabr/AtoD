@@ -3,7 +3,7 @@ import unittest
 from os.path import join
 
 from atod import settings
-from atod.tools import dictionary
+from atod.utils import dictionary
 
 class TestDictionary(unittest.TestCase):
     ''' Tests for functions from dictionary module. '''
@@ -25,11 +25,14 @@ class TestDictionary(unittest.TestCase):
         with open(filename, 'r') as fp:
             data = json.load(fp)
 
-        result = dictionary.collect_kv(data['input'],
+        for case in data:
+            result = dictionary.collect_kv(case['input'],
                                        exclude=['Version', 'var_type'])
+            self.assertEqual(sorted(result, key=lambda k: list(k.keys())[0]),
+                 sorted(case['output'], key=lambda k: list(k.keys())[0]))
 
-        self.assertEqual(sorted(result, key=lambda k: list(k.keys())[0]),
-                 sorted(data['output'], key=lambda k: list(k.keys())[0]))
+        # self.assertEqual(sorted(result, key=lambda k: list(k.keys())[0]),
+        #          sorted(data['output'], key=lambda k: list(k.keys())[0]))
 
     # TODO: test with different set of attributes
     def test_all_keys(self):

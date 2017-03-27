@@ -26,11 +26,14 @@ args = parser.parse_args()
 
 
 def clean_value(string):
-    ''' If the string contains numbers transform string to float.
+    ''' Transforms quoted value to the standard types.
 
-        All the values are parsed as-is that means they are strings, but to
-        use them they should be transformed to numbers. FOR NOW, if there are
-        list of numbers function will return MEAN of it.
+        Strategy:
+            "int" -> int
+            "float" -> float
+            "int int" -> [int int]
+            "any string" -> string
+        Check out test_data/numbers.json for examples
 
         Args:
             string (str) : value in parsed dictionary
@@ -179,7 +182,7 @@ def to_json(input_filename=None, output_filename=None):
     # if output filename is not provided
     if output_filename == '':
         # create a path for parsed file:
-        # DATA_FOLDER/<inputfile_no_extension>.json
+        # DATA_FOLDER/parsed/<inputfile_no_extension>.json
         output_filename = input_filename.split('.')[0] + '.json'
 
     if output_filename:

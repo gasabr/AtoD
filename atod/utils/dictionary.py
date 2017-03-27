@@ -59,26 +59,19 @@ def collect_kv(dict_, exclude=[]):
 
         Returns:
             kv_pairs (list): see examples
-
-        Examples:
-            >>> di = {'a': 1, 'b':{'c':3, 'd':4}}
-            >>> collect_kv(di)
-            [{'a':1}, {'c':3}, {'d':4}]
     '''
     kv_pairs = []
-    # the reason for this is described in TestJson2Vectors fixme
     if not isinstance(dict_, dict):
         return []
 
     for k, v in dict_.items():
-        if isinstance(v, str) or isinstance(v, int) or isinstance(v, float):
+        if isinstance(v, dict):
+            kv_pairs.extend(collect_kv(v, exclude=exclude))
+        # if isinstance(v, str) or isinstance(v, int) or isinstance(v, float):
+        else:
             if k in exclude:
                 continue
             kv_pairs.append({k: v})
-        elif isinstance(v, list):
-            kv_pairs.append({k: sum(v)/len(v)})
-        else:
-            kv_pairs.extend(collect_kv(v, exclude=exclude))
 
     return kv_pairs
 

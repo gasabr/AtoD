@@ -50,7 +50,7 @@ field_format = {
     'FIELD_STRING': String,
 }
 
-# sheme for heroes_<v> table
+# scheme for heroes_<v> table
 heroes_scheme = {
     "AttributeStrengthGain": Float,
     "MovementSpeed": Integer,

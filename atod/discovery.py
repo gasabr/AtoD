@@ -5,14 +5,14 @@
 import json
 
 from atod import settings
-from atod.tools import dictionary
-from atod.tools.cleaning import abilities
 from atod.abilities import abilities as Abilities
 from atod.hero import Hero
+from atod.utils import dictionary
+from atod.utils.preprocessing import clean_abilities
 
 
 def print_keys_occurrences():
-    data = abilities.clean()
+    data = clean_abilities.clean()
     key2occur = dictionary.count_keys(data)
 
     # remove abilities names from key2occur

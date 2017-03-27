@@ -3,7 +3,7 @@ from sqlalchemy.inspection import inspect
 
 from atod.setup_db import session
 import atod.settings as settings
-from atod.models import HeroModel
+from atod.models.hero import HeroModel
 from atod.abilities import abilities as Abilities
 
 mapper = inspect(HeroModel)

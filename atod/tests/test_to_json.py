@@ -2,7 +2,7 @@
 import json
 import unittest
 
-from atod.tools.parsing.to_json import to_json, clean_value
+from atod.utils.preprocessing.to_json import to_json, clean_value
 
 EXAMPLES_FOLDER = '/Users/gasabr/AtoD/atod/tests/tests_data/game_files/'
 

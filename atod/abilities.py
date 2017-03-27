@@ -1,22 +1,20 @@
 import json
 import re
 
-import pandas
-import numpy as np
-import seaborn as sns
 import matplotlib.pyplot as plt
+import pandas
+import seaborn as sns
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import MultiLabelBinarizer, MinMaxScaler
 
-
 from atod import settings
 from atod.ability import Ability
-from atod.tools.cleaning.preprocessing import load_labels
-from atod.tools.dictionary import (find_all_values, create_encoding,
+from atod.utils.dictionary import (find_all_values, create_encoding,
                                    make_flat_dict)
-from atod.tools.modeling.abilities import (create_categorical, encode_effects,
+from atod.utils.modeling.abilities import (create_categorical, encode_effects,
                                            fill_numeric)
-from atod.tools.cleaning.abilities import clean as cleaning_function
+from atod.utils.preprocessing.clean_abilities import clean as cleaning_function
+from atod.utils.preprocessing.load_labels import load_labels
 
 
 class Singleton(type):

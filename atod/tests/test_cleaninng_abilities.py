@@ -1,10 +1,11 @@
-import os
 import json
+import os
 import unittest
 
 from atod import settings
-from atod.tools.cleaning.abilities import (min_max2avg, remove_word,
-                                           merge_similar_)
+from atod.utils.preprocessing.clean_abilities import (average_properties_, remove_word,
+                                                      merge_similar_)
+
 
 class TestCleaningAbilities(unittest.TestCase):
 
@@ -18,7 +19,7 @@ class TestCleaningAbilities(unittest.TestCase):
             test_data = json.load(fp)
 
         for case in test_data:
-            self.assertEqual(min_max2avg(case['input']), case['output'])
+            self.assertEqual(average_properties_(case['input']), case['output'])
 
     def test_tooltip_removing(self):
         file = os.path.join(self.data_folder, 'tooltip.json')

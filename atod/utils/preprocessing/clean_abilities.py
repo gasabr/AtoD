@@ -9,7 +9,7 @@ import json
 import logging
 
 from atod import settings
-from atod.tools.dictionary import all_keys, make_flat_dict
+from atod.utils.dictionary import all_keys, make_flat_dict
 
 
 logging.basicConfig(level=logging.DEBUG)
@@ -173,37 +173,45 @@ def average_properties(skills):
 
     for ability, description in skills.items():
         if any(map(lambda x: 'max' in x, description)):
-            skills[ability] = min_max2avg(description)
+            skills[ability] = average_properties_(description)
 
     return skills
 
 
-def min_max2avg(description):
+def average_properties_(desc):
     ''' Converts min and max properties to one containing their avg.
 
         Args:
-            description (dict): ability properties
+            desc (dict): ability properties
 
         Returns:
             desc (dict): changed dict
 
         Examples:
             >>> d = {'min_stun': 1, 'max_stun': 2}
-            >>> d_ = min_max2avg(d)
+            >>> d_avg = average_properties_(d)
+            >>> d_avg
             {'stun': 1.5, 'changed': True}
     '''
 
-    desc = description.copy()
-    for property_, value in description.items():
-        if 'max' in property_:
-            partition = property_.partition('max')
+    for prop, value in desc.items():
+        if isinstance(value, list):
+            desc[prop] = sum([i/len(value) for i in value])
+
+    for prop in list(desc):
+        # if there is max property create min
+        if 'max' in prop:
+            partition = prop.partition('max')
             min_prop = partition[0] + 'min' + partition[2]
-            if min_prop in desc.keys():
-                new_prop = (partition[0].rstrip('_') + partition[2]).strip('_')
-                desc[new_prop] = (value + description[min_prop]) / 2
-                desc['changed'] = True
-                del desc[min_prop]
-                del desc[property_]
+        else:
+            min_prop = None
+
+        if min_prop in desc.keys():
+            new_prop = (partition[0].rstrip('_') + partition[2]).strip('_')
+            desc[new_prop] = (desc[prop] + desc[min_prop]) / 2
+            desc['changed'] = True
+            del desc[min_prop]
+            del desc[prop]
 
     return desc
 
@@ -288,7 +296,7 @@ def clean():
 
     # convert min and max properties to their avg
     skills = average_properties(skills)
-    show_progress('MIN MAX -> AVG', skills)
+    show_progress('AVERAGE PROPERTIES', skills)
 
     # remove tooltip properties from skills
     skills = clean_properties(skills, word='tooltip')
