@@ -1,10 +1,11 @@
 import json
+
 from sqlalchemy.inspection import inspect
 
-from atod.setup_db import session
 import atod.settings as settings
-from atod.models.hero import HeroModel
 from atod.abilities import abilities as Abilities
+from atod.models.hero import HeroModel
+from atod.utils.db.setup_db import session
 
 mapper = inspect(HeroModel)
 

@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 ''' Set of functions to work with npc_abilities.json'''
+import json
 import pandas
 
+from atod import settings
 from atod.utils.dictionary import make_flat_dict
 
 
@@ -81,3 +83,18 @@ def create_which_ability(abilities):
 
     return which_ability
 
+
+def add_labels():
+    with open(settings.ABILITIES_LABELED_FILE, 'r') as fp:
+        labeled = json.load(fp)['DOTAAbilities']
+
+    with open(settings.CLEAN_ABILITIES_FILE, 'r') as fp:
+        clean = json.load(fp)
+
+    for ability, description in labeled.items():
+        if 'labels' in description and \
+                    ability in clean.keys():
+            clean[ability]['labels'] = description['labels']
+
+    with open(settings.TMP_ABILITIES, 'w+') as fp:
+        json.dump(clean, fp, indent=2)

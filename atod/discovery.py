@@ -46,5 +46,20 @@ def find_deprecated_skills():
             print(h.abilities)
             print('------------')
 
+
+def print_labeled():
+    ''' Prints how much abilities are labeled. '''
+    with open(settings.TMP_ABILITIES, 'r') as fp:
+        in_process = json.load(fp)
+
+    labeled = 0
+
+    for ability, description in in_process.items():
+        if 'labels' in description:
+            labeled += 1
+
+    return '{}/{} abilities are labeled'.format(labeled, len(in_process))
+
+
 if __name__ == '__main__':
     find_deprecated_skills()

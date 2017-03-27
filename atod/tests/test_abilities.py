@@ -4,9 +4,11 @@ import unittest
 
 from atod import settings
 from atod.abilities import abilities as Abilities
+from atod.utils.preprocessing.abilities import (encode_effects,
+                                        create_categorical)
 from atod.utils.dictionary import make_flat_dict
-from atod.utils.modeling.abilities import encode_effects, create_categorical
-from atod.utils.preprocessing.clean_abilities import clean as get_clean_abilities
+from atod.utils.preprocessing.clean_abilities import clean \
+    as get_clean_abilities
 
 
 class TestAbilities(unittest.TestCase):

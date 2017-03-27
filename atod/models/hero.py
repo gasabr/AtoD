@@ -1,7 +1,7 @@
 from sqlalchemy import Table, Column, Integer
 
-from atod.setup_db import Base
 from atod import settings
+from atod.utils.db.setup_db import Base
 
 heroes = (Column(n, t) for n, t
           in settings.heroes_scheme.items() if n != 'HeroID')

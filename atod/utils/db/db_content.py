@@ -1,8 +1,8 @@
 from atod import settings
 from atod.models.hero import HeroModel
 from atod.models.item import ItemModel
-from atod.setup_db import session
 from atod.utils.db import to_rows
+from atod.utils.db.setup_db import session
 
 
 def fill_heroes():

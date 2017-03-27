@@ -9,10 +9,10 @@ from sklearn.preprocessing import MultiLabelBinarizer, MinMaxScaler
 
 from atod import settings
 from atod.ability import Ability
+from atod.utils.preprocessing.abilities import (create_categorical,
+                                    encode_effects, fill_numeric)
 from atod.utils.dictionary import (find_all_values, create_encoding,
                                    make_flat_dict)
-from atod.utils.modeling.abilities import (create_categorical, encode_effects,
-                                           fill_numeric)
 from atod.utils.preprocessing.clean_abilities import clean as cleaning_function
 from atod.utils.preprocessing.load_labels import load_labels
 
