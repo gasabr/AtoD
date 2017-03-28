@@ -13,13 +13,14 @@ class TestCleaningAbilities(unittest.TestCase):
         self.data_folder = os.path.join(settings.TESTS_DATA_FOLDER,
                                         'cleaning/')
 
-    def test_min_max2avg(self):
+    def test_average_properties(self):
         file = os.path.join(self.data_folder, 'min_max2avg.json')
         with open(file, 'r') as fp:
             test_data = json.load(fp)
 
         for case in test_data:
-            self.assertEqual(average_properties_(case['input']), case['output'])
+            self.assertEqual(average_properties_(case['input']),
+                             case['output'])
 
     def test_tooltip_removing(self):
         file = os.path.join(self.data_folder, 'tooltip.json')

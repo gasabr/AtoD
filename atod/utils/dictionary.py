@@ -171,7 +171,7 @@ def find_keys(dict_, keywords=[], mode='any'):
 
         Args:
             dict_ (dict): dictionary to search keywords in
-            keywords (list): words to be find in skills
+            keywords (list): words to be found in skills
             mode (str): 'all' or 'any' defines which keywords
                 should be found in key for him to added to result
 

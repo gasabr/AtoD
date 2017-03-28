@@ -1,5 +1,6 @@
 {
   "ministun": "stun_duration",
+  "ministun_duration": "stun_duration",
   "min_range": "",
   "projectile_max_time": "",
   "max_stunrange": "",

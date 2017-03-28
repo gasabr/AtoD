@@ -12,7 +12,7 @@ from atod import settings
 from atod.utils.dictionary import all_keys, make_flat_dict
 
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 
 
 def find_skills(raw_abilities):
@@ -40,6 +40,7 @@ def find_skills(raw_abilities):
     deprecated = ['drow_ranger_wave_of_silence', 'centaur_khan_war_stomp',
                   'ember_spirit_fire_remnant', 'faceless_void_backtrack',
                   'death_prophet_witchcraft']
+    # neutral creeps abilities
     creeps_abilities = ['ogre_magi_frost_armor',
                         'polar_furbolg_ursa_warrior_thunder_clap']
     # abilities which are available only with aghanim scepter
@@ -179,7 +180,10 @@ def average_properties(skills):
 
 
 def average_properties_(desc):
-    ''' Converts min and max properties to one containing their avg.
+    ''' Converts properties to their avg.
+    
+        Changed property can be something_max, something_min, or
+        just a list with ability stat by levels. 
 
         Args:
             desc (dict): ability properties
@@ -194,10 +198,6 @@ def average_properties_(desc):
             {'stun': 1.5, 'changed': True}
     '''
 
-    for prop, value in desc.items():
-        if isinstance(value, list):
-            desc[prop] = sum([i/len(value) for i in value])
-
     for prop in list(desc):
         # if there is max property create min
         if 'max' in prop:
@@ -206,14 +206,47 @@ def average_properties_(desc):
         else:
             min_prop = None
 
-        if min_prop in desc.keys():
+        # check if min_prop in decription
+        if min_prop and min_prop in desc.keys():
+            # create new property name
             new_prop = (partition[0].rstrip('_') + partition[2]).strip('_')
-            desc[new_prop] = (desc[prop] + desc[min_prop]) / 2
+            if is_number(desc[prop]) and is_number(desc[min_prop]):
+                desc[new_prop] = (desc[prop] + desc[min_prop]) / 2
+
+            elif isinstance(desc[prop], list) and \
+                    isinstance(desc[min_prop], list):
+                desc[new_prop] = [(i+j)/2 for i, j in
+                                  zip(desc[prop], desc[min_prop])]
             desc['changed'] = True
+            # remove old properties
             del desc[min_prop]
             del desc[prop]
 
     return desc
+
+
+def is_number(num):
+    if isinstance(num, int) or isinstance(num, float):
+        return True
+    return False
+
+
+def lists_to_mean(skills):
+    ''' Converts lists to their mean value.
+    
+        Takes:
+            skills (dict): dict to 'average'
+            
+        Returns:
+            skills (dict) dict where every list is converted to mean.
+    '''
+
+    for ability, desc in skills.items():
+        for prop, value in desc.items():
+            if isinstance(value, list):
+                desc[prop] = sum(value) / len(value)
+
+    return skills
 
 
 def clean_properties(dict_, word, remove_prop=False):
@@ -275,7 +308,15 @@ def show_progress(stage_name, abilities):
     logging.info('================================================\n')
 
 
-def clean():
+def clean(lists_to_mean=False):
+    ''' Controls cleaning process.
+    
+        Function calls other functions to change skills dictionary.
+        `lists_to_mean` is needed to simplify analysis.
+        
+        Takes:
+            lists_to_mean (bool): transform or not lists to mean
+    '''
     with open(settings.ABILITIES_FILE, 'r') as fp:
         raw = json.load(fp)
     show_progress('RAW', raw)
@@ -293,6 +334,9 @@ def clean():
     # remove ability name from its properties
     skills = remove_skills_names(skills)
     show_progress('REMOVE ABILITY NAME', skills)
+
+    if lists_to_mean:
+        skills = lists_to_mean(skills)
 
     # convert min and max properties to their avg
     skills = average_properties(skills)
@@ -317,5 +361,7 @@ def clean():
 if __name__ == '__main__':
     clean_abilities = clean()
 
-    with open(settings.CLEAN_ABILITIES_FILE, 'w+') as fp:
+    tmp_file = settings.DATA_FOLDER + 'abilities_lists.json'
+
+    with open(tmp_file, 'w+') as fp:
         json.dump(clean_abilities, fp, indent=2)

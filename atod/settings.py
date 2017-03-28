@@ -31,11 +31,12 @@ DICTIONARY_FOLDER = path.join(DATA_FOLDER, 'dictionary/')
 ABILITIES_DICT_FILE = path.join(DICTIONARY_FOLDER, 'abilities.dict')
 ABILITIES_CORPUS_FILE = path.join(DICTIONARY_FOLDER, 'abilities.mm')
 
-ABILITIES_LABELING_FILE = path.join(DATA_FOLDER, 'abilities_labeling.json')
-ABILITIES_LABELED_FILE  = path.join(DATA_FOLDER, 'abilities_labeled.json')
-ABILITIES_TRAIN_FILE    = path.join(DATA_FOLDER, 'abilities_labeled.json')
+TMP_FOLDER = path.join(DATA_FOLDER, 'tmp/')
+ABILITIES_LABELING_FILE = path.join(TMP_FOLDER, 'abilities_labeling.json')
+ABILITIES_LABELED_FILE  = path.join(TMP_FOLDER, 'abilities_labeled.json')
+ABILITIES_TRAIN_FILE    = path.join(TMP_FOLDER, 'abilities_labeled.json')
 ABILITIES_CHANGES_FILE  = path.join(DATA_FOLDER, 'abilities_changes.json')
-CLEAN_ABILITIES_FILE    = path.join(DATA_FOLDER, 'abilities_clean.json')
+CLEAN_ABILITIES_FILE    = path.join(TMP_FOLDER, 'abilities_mean.json')
 TMP_ABILITIES = path.join(DATA_FOLDER, 'tmp_abilities.json')
 
 # ===============================================================================
