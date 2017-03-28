@@ -32,8 +32,7 @@ def fill_items():
 
 def fill_abilities():
     ''' FIlls abilities table with the data from cleaned abilities file. '''
-    rows = to_rows.json_to_rows(settings.CLEAN_ABILITIES_FILE,
-                                settings.heroes_scheme)
+    pass
 
 
 if __name__ == '__main__':

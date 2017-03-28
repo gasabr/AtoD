@@ -38,6 +38,7 @@ ABILITIES_TRAIN_FILE    = path.join(TMP_FOLDER, 'abilities_labeled.json')
 ABILITIES_CHANGES_FILE  = path.join(DATA_FOLDER, 'abilities_changes.json')
 CLEAN_ABILITIES_FILE    = path.join(TMP_FOLDER, 'abilities_mean.json')
 TMP_ABILITIES = path.join(DATA_FOLDER, 'tmp_abilities.json')
+ABILITIES_LISTS_FILE    = path.join(TMP_FOLDER, 'abilities_lists.json')
 
 # ===============================================================================
 # DataBase settings

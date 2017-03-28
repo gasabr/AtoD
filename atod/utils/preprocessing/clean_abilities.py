@@ -12,7 +12,7 @@ from atod import settings
 from atod.utils.dictionary import all_keys, make_flat_dict
 
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.WARNING)
 
 
 def find_skills(raw_abilities):

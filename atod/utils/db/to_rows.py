@@ -141,3 +141,44 @@ def write_item_types():
         json.dump(all_, fp, indent=2)
 
     return all_
+
+
+def ability_to_rows(skills):
+    base = dict()
+    with_list_values = dict()
+    for k, v in skills.items():
+        if isinstance(v, list):
+            with_list_values[k] = v
+        else:
+            base[k] = v
+
+    max_lvl = max([len(v) for _, v in with_list_values.items()])
+
+    lvl_part = dict()
+    for lvl in range(max_lvl):
+        for k, v in with_list_values.items():
+            lvl_part[k] = v[lvl] if lvl < len(v) else v[-1]
+
+        # TODO: why should I use copy here?
+        result = base.copy()
+        for k, v in lvl_part.items():
+            result[k] = v
+        result['lvl'] = lvl + 1
+
+        yield result
+
+
+def parse_skills_names(skills, heroes):
+    ''' Splits skill name form game to hero name and skill name.
+    
+        In-game files store skills names as <hero>_<skill>, this function
+        parses this representation to the names of the hero and of the skill.
+        
+        Args:
+            skills (list of strings): skills names from in-game files
+            heroes (list of strings): heroes name in-game
+            
+        Returns:
+            
+    '''
+    pass
