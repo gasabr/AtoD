@@ -34,7 +34,6 @@
       "FightRecapLevel": 1,
       "AbilityCastPoint": 0.0,
       "damage": 127.5,
-      "changed": true,
       "AbilityUnitDamageType": "DAMAGE_TYPE_PHYSICAL"
     }
   },
@@ -42,7 +41,6 @@
     "input": {
       "ID": 5426,
       "AbilityCastPoint": 0.4,
-      "changed": true,
       "AbilityUnitTargetType": "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC",
       "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET",
       "SpellDispellableType": "SPELL_DISPELLABLE_YES_STRONG",
@@ -62,7 +60,6 @@
     "output": {
       "ID": 5426,
       "AbilityCastPoint": 0.4,
-      "changed": true,
       "SpellDispellableType": "SPELL_DISPELLABLE_YES_STRONG",
       "AbilityCastRange": 500,
       "SpellImmunityType": "SPELL_IMMUNITY_ENEMIES_NO",

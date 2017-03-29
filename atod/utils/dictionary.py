@@ -58,7 +58,7 @@ def collect_kv(dict_, exclude=[]):
             exclude (list): except for this keys
 
         Returns:
-            kv_pairs (list): see examples
+            kv_pairs (list): 
     '''
     kv_pairs = []
     if not isinstance(dict_, dict):
@@ -67,11 +67,9 @@ def collect_kv(dict_, exclude=[]):
     for k, v in dict_.items():
         if isinstance(v, dict):
             kv_pairs.extend(collect_kv(v, exclude=exclude))
-        # if isinstance(v, str) or isinstance(v, int) or isinstance(v, float):
         else:
-            if k in exclude:
-                continue
-            kv_pairs.append({k: v})
+            if k not in exclude:
+                kv_pairs.append({k: v})
 
     return kv_pairs
 
@@ -94,6 +92,7 @@ def make_flat_dict(dict_, exclude=[]):
             {'a':1, 'c':2}
     '''
     # get array of one-element dicts
+    # TODO: remove this strange thin
     exclude.extend(['Version', 'var_type'])
     dicts = collect_kv(dict_, exclude=exclude)
     result = {}
@@ -211,3 +210,28 @@ def find_keys_any(dict_, keywords=[]):
                 properties.append((property_, value))
 
     return properties
+
+
+def get_types(dict_):
+    ''' Defines types of values in dictionary.
+    
+        If the value is a list, set or tuple, all the types would be 
+        added. Dictionary would be added as dict, not types of values.
+    
+        Args:
+            dict_ (dict): dictionary to define types
+            
+        Returns:
+            types (dict): keys to list of values types
+    '''
+
+    types = dict()
+    for key, value in dict_.items():
+        types.setdefault(key, set())
+
+        if isinstance(value, (list, set, tuple)):
+            types[key] = types[key].union([type(i) for i in value])
+        else:
+            types[key].add(type(value))
+
+    return types

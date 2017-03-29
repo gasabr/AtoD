@@ -50,6 +50,9 @@ field_format = {
     'FIELD_FLOAT': Float,
     'FIELD_INTEGER': Integer,
     'FIELD_STRING': String,
+    int: Integer,
+    str: String,
+    float: Float
 }
 
 # scheme for heroes_<v> table

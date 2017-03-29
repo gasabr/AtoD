@@ -83,7 +83,6 @@ def remove_skills_names(skills):
     '''
 
     for skill, description in skills.items():
-        skill_changed = False
         for property_ in list(description):
             property_split = property_.split('_')
             new_name_list = [p for p in property_split if p not in skill]
@@ -92,13 +91,9 @@ def remove_skills_names(skills):
                 new_name = ''.join([n + '_' for n in new_name_list]).strip('_')
                 skills[skill][new_name] = description[property_]
                 del skills[skill][property_]
-                skill_changed = True
 
             else:
                 continue
-
-        if skill_changed:
-            skills[skill]['changed'] = True
 
     return skills
 
@@ -195,7 +190,7 @@ def average_properties_(desc):
             >>> d = {'min_stun': 1, 'max_stun': 2}
             >>> d_avg = average_properties_(d)
             >>> d_avg
-            {'stun': 1.5, 'changed': True}
+            {'stun': 1.5}
     '''
 
     for prop in list(desc):
@@ -217,7 +212,6 @@ def average_properties_(desc):
                     isinstance(desc[min_prop], list):
                 desc[new_prop] = [(i+j)/2 for i, j in
                                   zip(desc[prop], desc[min_prop])]
-            desc['changed'] = True
             # remove old properties
             del desc[min_prop]
             del desc[prop]
@@ -293,7 +287,7 @@ def show_progress(stage_name, abilities):
     ''' Function logs (prints) info about current stage of cleaning.
 
         This is needed to understand what is going on with data after
-        each stage of cleaning: how an amount of keys has changed...
+        each stage of cleaning.
 
         Args:
             stage_name (str): will be printed before log message
@@ -361,7 +355,7 @@ def clean(lists_to_mean=False):
 if __name__ == '__main__':
     clean_abilities = clean()
 
-    tmp_file = settings.DATA_FOLDER + 'abilities_lists.json'
+    tmp_file = settings.TMP_FOLDER + 'abilities_lists.json'
 
     with open(tmp_file, 'w+') as fp:
         json.dump(clean_abilities, fp, indent=2)

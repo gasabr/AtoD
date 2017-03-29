@@ -64,6 +64,27 @@ class TestDictionary(unittest.TestCase):
 
         self.assertEqual(sorted(result), sorted(data['output']))
 
+    def test_get_types(self):
+        # there is no easy way to serialize set and python types in json,
+        # because of it data for this test is written in function.
+        inp = {
+            "int": 10,
+            "float": 10.1,
+            "list1": [10, 1.0],
+            "dict": {
+                "key": "value"
+            },
+            "list2": ["string", 10]
+        }
+        output = {
+            "int": {int},
+            "float": {float},
+            "list1": {int, float},
+            "dict": {dict},
+            "list2": {str, int}
+        }
+
+        self.assertEqual(dictionary.get_types(inp), output)
 
 if __name__ == '__main__':
     unittest.main()
