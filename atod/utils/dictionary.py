@@ -235,3 +235,10 @@ def get_types(dict_):
             types[key].add(type(value))
 
     return types
+
+
+def get_str_keys(dict_):
+    ''' Returns:
+            keys which contain only alphabet chars
+    '''
+    return [c for c in dict_.keys() if re.findall(r'[a-zA-Z|\_]+', c)]

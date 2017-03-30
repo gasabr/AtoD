@@ -14,14 +14,13 @@ class AbilityModel(Base):
 
     # fill list of columns
     for key, type_ in _scheme.items():
-        if key != 'ID':
-            _cols.append(Column(key, type_, nullable=True))
-        else:
-            _cols.append(Column(key, type_, primary_key=True))
+        _cols.append(Column(key, type_, nullable=True))
 
-    _cols.append(Column('HeroID', settings.field_format[int], ForeignKey(fk_column)))
+    _cols.append(Column('pk', settings.field_format[str],  primary_key=True))
+    _cols.append(Column('HeroID', settings.field_format[int],
+                        ForeignKey(fk_column)))
 
-    hero = relationship(settings.HEROES_TABLE)
+    # hero = relationship(settings.HEROES_TABLE)
 
     __table__ = Table(settings.ABILITIES_TABLE, Base.metadata,
                       *_cols)

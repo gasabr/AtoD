@@ -143,7 +143,7 @@ def write_item_types():
     return all_
 
 
-def ability_to_rows(skills):
+def ability_to_row(skills, scheme):
     ''' Transforms ability description to database row. '''
     base = dict()
     with_list_values = dict()
@@ -153,49 +153,49 @@ def ability_to_rows(skills):
         else:
             base[k] = v
 
-    # for col in scheme:
-    #     if col not in base and col not in with_list_values:
-    #         base[col] = None
+    for col in scheme:
+        if col not in base and col not in with_list_values:
+            base[col] = None
 
-    max_lvl = max([len(v) for _, v in with_list_values.items()])
+    if len(with_list_values) != 0:
+        max_lvl = max([len(v) for _, v in with_list_values.items()])
 
-    lvl_part = dict()
-    for lvl in range(max_lvl):
-        for k, v in with_list_values.items():
-            lvl_part[k] = v[lvl] if lvl < len(v) else v[-1]
+        lvl_part = dict()
+        for lvl in range(max_lvl):
+            for k, v in with_list_values.items():
+                lvl_part[k] = v[lvl] if lvl < len(v) else v[-1]
 
-        # TODO: why should I use copy here?
-        result = base.copy()
-        for k, v in lvl_part.items():
-            result[k] = v
-        result['lvl'] = lvl + 1
+            # TODO: why should I use copy here?
+            result = base.copy()
+            for k, v in lvl_part.items():
+                result[k] = v
+            result['lvl'] = lvl + 1
 
-        yield result
+            yield result
+
+    else:
+        base['lvl'] = 1
+        yield base
 
 
-def parse_skills_names(skills, heroes):
+def parse_skill_name(skill, heroes):
     ''' Splits skill name form game to hero name and skill name.
     
         In-game files store skills names as <hero>_<skill>, this function
         parses this representation to the names of the hero and of the skill.
         
         Args:
-            skills (list of strings): skills names from in-game files
+            skill (str): skills names from in-game files
             heroes (list of strings): heroes name in-game
             
         Returns:
-            parsed (dict): maps in-game skill name to hero and real skill
-                    name. {'in_game_name': {'skill': ..., 'hero': ...}, ...}
+            parsed (hero, skill_name):
     '''
 
-    parsed = dict()
-    for skill in skills:
-        parsed[skill] = dict()
-        for hero in heroes:
-            if hero in skill:
-                parts = skill.partition(hero)
-                skill_name = parts[2].lstrip('_').replace('_', ' ').title()
-                parsed[skill]['hero'] = parts[1].replace('_', ' ').title()
-                parsed[skill]['skill'] = skill_name
+    for hero in heroes:
+        if hero in skill:
+            parts = skill.partition(hero)
 
-    return parsed
+            return parts[1], parts[2].lstrip('_')
+
+    return ()

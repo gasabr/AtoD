@@ -4,7 +4,7 @@ import json
 import unittest
 
 from atod import settings
-from atod.utils.db.to_rows import ability_to_rows
+from atod.utils.db.to_rows import ability_to_row
 
 class TestUtilsDB(unittest.TestCase):
 
@@ -17,7 +17,7 @@ class TestUtilsDB(unittest.TestCase):
             tests_data = json.load(fp)
 
         for test in tests_data:
-            results = list(ability_to_rows(test['input']))
+            results = list(ability_to_row(test['input'], test['scheme']))
             for expected, result in zip(test['output'], results):
                 self.assertEqual(expected, result)
 

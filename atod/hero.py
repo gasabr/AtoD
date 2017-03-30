@@ -39,7 +39,8 @@ class Hero(object):
         self.id = converter[name]
         self.in_game_name = in_game_converter[str(self.id)]
 
-        hero_data = session.query(HeroModel).filter(HeroModel.HeroID == self.id)[0]
+        hero_data = session.query(HeroModel).filter(
+            HeroModel.HeroID == self.id)[0]
 
         self.columns = [column.key for column in mapper.attrs]
 

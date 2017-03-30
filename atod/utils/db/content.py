@@ -1,9 +1,11 @@
+import json
+
 from atod import settings
 from atod.utils.db import to_rows
-from atod.models.hero import HeroModel
-from atod.models.item import ItemModel
+from atod.models import HeroModel, ItemModel, AbilityModel
 from atod.utils.db.setup import session
 from atod.utils.db.create_scheme import create_abilities_scheme
+from atod.utils.dictionary import get_str_keys
 
 
 def fill_heroes():
@@ -33,8 +35,26 @@ def fill_items():
 def fill_abilities():
     ''' FIlls abilities table with the data from cleaned abilities file. '''
     scheme = create_abilities_scheme()
-    rows = to_rows.json_to_rows(settings.ABILITIES_LISTS_FILE, scheme)
-    print(rows)
+
+    with open(settings.ABILITIES_LISTS_FILE, 'r') as fp:
+        skills = json.load(fp)
+
+    with open(settings.IN_GAME_CONVERTER, 'r') as fp:
+        converter = json.load(fp)
+
+    heroes = get_str_keys(converter)
+
+    for skill, description in skills.items():
+        hero, skill_name = to_rows.parse_skill_name(skill, heroes)
+        for row in to_rows.ability_to_row(description, scheme):
+            row['HeroID'] = converter[hero]
+            row['name'] = skill_name
+            row['pk'] = str(row['ID']) + '.' + str(row['lvl'])
+
+            skill = AbilityModel(row)
+            session.add(skill)
+
+    session.commit()
 
 
 if __name__ == '__main__':

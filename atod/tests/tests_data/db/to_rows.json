@@ -1,5 +1,6 @@
 [
   {
+    "scheme": ["a", "b", "c"],
     "input": {
       "a": 1,
       "b": "test me",
@@ -21,6 +22,7 @@
     ]
   },
   {
+    "scheme": ["A", "B", "C"],
     "input":{
       "A": 123123,
       "B": [1],
@@ -36,6 +38,7 @@
     ]
   },
   {
+    "scheme": ["A", "B", "C", "D"],
     "input":{
       "A": 123123,
       "B": [1, 2, 3],
@@ -62,6 +65,58 @@
         "B": 3,
         "C": "some string",
         "D": 6,
+        "lvl": 3
+      }
+    ]
+  },
+    {
+    "scheme": ["A", "B", "C", "D"],
+    "input":{
+      "A": 123123,
+      "B": [1],
+      "C": "some string"
+    },
+    "output": [
+      {
+        "A": 123123,
+        "B": 1,
+        "C": "some string",
+        "D": null,
+        "lvl": 1
+      }
+    ]
+  },
+  {
+    "scheme": ["A", "B", "C", "D", "E"],
+    "input":{
+      "A": 123123,
+      "B": [1, 2, 3],
+      "C": "some string",
+      "D": [5, 6]
+    },
+    "output": [
+      {
+        "A": 123123,
+        "B": 1,
+        "C": "some string",
+        "D": 5,
+        "E": null,
+        "lvl": 1
+      },
+      {
+        "A": 123123,
+        "B": 2,
+        "C": "some string",
+        "D": 6,
+        "E": null,
+        "lvl": 2
+      },
+      {
+        "A": 123123,
+        "B": 3,
+        "C": "some string",
+        "D": 6,
+        "E": null,
         "lvl": 3
       }
     ]
