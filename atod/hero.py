@@ -4,8 +4,8 @@ from sqlalchemy.inspection import inspect
 
 import atod.settings as settings
 from atod.abilities import abilities as Abilities
-from atod.models.hero import HeroModel
-from atod.utils.db.setup_db import session
+from atod.models import HeroModel
+from atod.utils.db.setup import session
 
 mapper = inspect(HeroModel)
 

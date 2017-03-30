@@ -1,7 +1,7 @@
 from sqlalchemy import Table, Column, Integer
 
 from atod import settings
-from atod.utils.db.setup_db import Base
+from atod.utils.db.setup import Base
 
 
 items = (Column(name, type_) for name, type_ in
@@ -10,7 +10,7 @@ items = (Column(name, type_) for name, type_ in
 
 class ItemModel(Base):
 
-    __table__ = Table('items_' + settings.CURRENT_VERSION, Base.metadata,
+    __table__ = Table(settings.ITEMS_TABLE, Base.metadata,
                       Column('ID', Integer, primary_key=True),
                       *(col for col in items)
                       )

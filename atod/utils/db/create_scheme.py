@@ -44,6 +44,9 @@ def create_abilities_scheme():
     for key, types in key2type.items():
         scheme[key] = settings.field_format[types.pop()]
 
+    scheme['name'] = settings.field_format[str]
+    scheme['HeroID'] = settings.field_format[int]
+
     return scheme
 
 

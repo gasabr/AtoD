@@ -1,4 +1,5 @@
 import os
+import re
 import json
 import unittest
 
@@ -19,6 +20,19 @@ class TestUtilsDB(unittest.TestCase):
             results = list(ability_to_rows(test['input']))
             for expected, result in zip(test['output'], results):
                 self.assertEqual(expected, result)
+
+    # def test_parsing_skills_names(self):
+    #     with open(settings.ABILITIES_LISTS_FILE, 'r') as fp:
+    #         skills = list(json.load(fp))
+    #
+    #     # TODO: move this to function
+    #     with open(settings.IN_GAME_CONVERTER, 'r') as fp:
+    #         converter = json.load(fp)
+    #
+    #     heroes_names = [c for c in converter.keys()
+    #                     if re.findall(r'[a-zA-Z|\_]+', c)]
+    #
+    #     print(json.dumps())
 
 
 if __name__ == '__main__':

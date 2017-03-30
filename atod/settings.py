@@ -46,6 +46,14 @@ ABILITIES_LISTS_FILE    = path.join(TMP_FOLDER, 'abilities_lists.json')
 DB_NAME = 'AtoD.db'
 DB_PATH = path.join(DATA_FOLDER, DB_NAME)
 
+# tables names
+# i cannot understand how to do it generally in SQLAlchemy, so for now
+HEROES_TABLE = CURRENT_VERSION + '_heroes'
+ITEMS_TABLE = CURRENT_VERSION + '_items'
+ABILITIES_TABLE = CURRENT_VERSION + '_abilities'
+
+tables = [HEROES_TABLE, ITEMS_TABLE, ABILITIES_TABLE]
+
 field_format = {
     'FIELD_FLOAT': Float,
     'FIELD_INTEGER': Integer,

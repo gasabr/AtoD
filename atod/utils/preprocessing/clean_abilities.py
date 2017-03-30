@@ -146,7 +146,8 @@ def merge_similar_(skill, changes):
         elif changes[prop] == '':
             del skill[prop]
             continue
-        # if property should be changed
+
+        # if property should be changed and value is int
         if changes[prop] not in skill \
                         or skill[prop] == skill[changes[prop]] \
                         or skill[changes[prop]] == 0:

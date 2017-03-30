@@ -144,6 +144,7 @@ def write_item_types():
 
 
 def ability_to_rows(skills):
+    ''' Transforms ability description to database row. '''
     base = dict()
     with_list_values = dict()
     for k, v in skills.items():
@@ -151,6 +152,10 @@ def ability_to_rows(skills):
             with_list_values[k] = v
         else:
             base[k] = v
+
+    # for col in scheme:
+    #     if col not in base and col not in with_list_values:
+    #         base[col] = None
 
     max_lvl = max([len(v) for _, v in with_list_values.items()])
 
@@ -179,6 +184,18 @@ def parse_skills_names(skills, heroes):
             heroes (list of strings): heroes name in-game
             
         Returns:
-            
+            parsed (dict): maps in-game skill name to hero and real skill
+                    name. {'in_game_name': {'skill': ..., 'hero': ...}, ...}
     '''
-    pass
+
+    parsed = dict()
+    for skill in skills:
+        parsed[skill] = dict()
+        for hero in heroes:
+            if hero in skill:
+                parts = skill.partition(hero)
+                skill_name = parts[2].lstrip('_').replace('_', ' ').title()
+                parsed[skill]['hero'] = parts[1].replace('_', ' ').title()
+                parsed[skill]['skill'] = skill_name
+
+    return parsed
