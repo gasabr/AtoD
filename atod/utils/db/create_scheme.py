@@ -46,6 +46,7 @@ def create_abilities_scheme():
 
     scheme['name'] = settings.field_format[str]
     scheme['HeroID'] = settings.field_format[int]
+    scheme['lvl'] = settings.field_format[int]
 
     return scheme
 

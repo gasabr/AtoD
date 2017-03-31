@@ -10,7 +10,6 @@ from atod.abilities import abilities as Abilities
 from atod.hero import Hero
 from atod.utils import dictionary
 from atod.utils.preprocessing import clean_abilities
-from atod.utils.db.to_rows import parse_skills_names
 
 
 def print_keys_occurrences():
@@ -49,7 +48,7 @@ def find_deprecated_skills():
             print('------------')
 
 
-def print_labeled():
+def get_labeled():
     ''' Prints how much abilities are labeled. '''
     with open(settings.TMP_ABILITIES, 'r') as fp:
         in_process = json.load(fp)
@@ -62,19 +61,6 @@ def print_labeled():
 
     return '{}/{} abilities are labeled'.format(labeled, len(in_process))
 
-def test_parsing_skills_names():
-    with open(settings.ABILITIES_LISTS_FILE, 'r') as fp:
-        skills = list(json.load(fp))
-
-    # TODO: move this to function
-    with open(settings.IN_GAME_CONVERTER, 'r') as fp:
-        converter = json.load(fp)
-
-    heroes_names = [c for c in converter.keys()
-                    if re.findall(r'[a-zA-Z|\_]+', c)]
-
-    print(json.dumps(parse_skills_names(skills, heroes_names), indent=2))
-
 
 if __name__ == '__main__':
-    test_parsing_skills_names()
+    print(get_labeled())

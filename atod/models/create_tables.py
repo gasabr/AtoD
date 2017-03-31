@@ -2,7 +2,7 @@ import logging
 
 from atod import settings
 from atod.utils.db.setup import engine
-from atod.models import AbilityModel, HeroModel, ItemModel
+from atod.models import AbilitySpecsModel, HeroModel, ItemModel, AbilityModel
 
 logging.basicConfig(level=logging.INFO)
 
@@ -14,6 +14,9 @@ def create_tables():
     if not engine.has_table(settings.ITEMS_TABLE):
         ItemModel.__table__.create(bind=engine)
         logging.info(settings.ITEMS_TABLE + ' was created.')
+    if not engine.has_table(settings.ABILITIES_SPECS_TABLE):
+        AbilitySpecsModel.__table__.create(bind=engine)
+        logging.info(settings.ABILITIES_SPECS_TABLE + ' was created.')
     if not engine.has_table(settings.ABILITIES_TABLE):
         AbilityModel.__table__.create(bind=engine)
         logging.info(settings.ABILITIES_TABLE + ' was created.')

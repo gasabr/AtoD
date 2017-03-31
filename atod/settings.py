@@ -50,9 +50,10 @@ DB_PATH = path.join(DATA_FOLDER, DB_NAME)
 # i cannot understand how to do it generally in SQLAlchemy, so for now
 HEROES_TABLE = CURRENT_VERSION + '_heroes'
 ITEMS_TABLE = CURRENT_VERSION + '_items'
+ABILITIES_SPECS_TABLE = CURRENT_VERSION + '_abilities_specs'
 ABILITIES_TABLE = CURRENT_VERSION + '_abilities'
 
-tables = [HEROES_TABLE, ITEMS_TABLE, ABILITIES_TABLE]
+tables = [HEROES_TABLE, ITEMS_TABLE, ABILITIES_SPECS_TABLE]
 
 field_format = {
     'FIELD_FLOAT': Float,

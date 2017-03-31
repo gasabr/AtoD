@@ -143,7 +143,7 @@ def write_item_types():
     return all_
 
 
-def ability_to_row(skills, scheme):
+def ability_to_row(skills, schema):
     ''' Transforms ability description to database row. '''
     base = dict()
     with_list_values = dict()
@@ -153,7 +153,7 @@ def ability_to_row(skills, scheme):
         else:
             base[k] = v
 
-    for col in scheme:
+    for col in schema:
         if col not in base and col not in with_list_values:
             base[col] = None
 
@@ -193,9 +193,29 @@ def parse_skill_name(skill, heroes):
     '''
 
     for hero in heroes:
-        if hero in skill:
-            parts = skill.partition(hero)
-
+        parts = skill.partition(hero)
+        if hero in skill and parts[0] == '':
             return parts[1], parts[2].lstrip('_')
 
     return ()
+
+
+def binarize_labels(labels, schema):
+    ''' Binarize abilities labels.
+    
+        Creates a dictionary which maps schema to labels, fills unmarked
+        labels with 0.
+    
+        Args:
+            labels (iterable): numbers of marked labels
+            schema (iterable): keys in result dictionary
+            
+        Returns:
+            binary (dict): mapping of schema to labels
+    '''
+
+    binary = dict()
+    for i, label in enumerate(schema):
+        binary[label] = 1 if i+1 in labels else 0
+
+    return binary
