@@ -20,4 +20,4 @@ class HeroModel(Base):
             self.attrs.add(key)
 
     def __repr__(self):
-        return '<Hero name={}>'.format(self.url)
+        return '<HeroModel::{}>'.format(self.name)

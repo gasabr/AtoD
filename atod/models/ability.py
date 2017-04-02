@@ -24,4 +24,4 @@ class AbilityModel(Base):
             self.attrs.add(key)
 
     def __repr__(self):
-        return '<Ability name={}>'.format(self.name)
+        return '<AbilityModel::{}>'.format(self.name)

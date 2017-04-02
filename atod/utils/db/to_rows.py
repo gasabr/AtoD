@@ -58,24 +58,33 @@ def heroes_file_to_rows(filename, scheme):
     return rows
 
 
-def items_rows(filename, scheme):
+def items_file_to_rows(filename, scheme):
     ''' Get rows for items table. '''
     rows = []
     with open(filename, 'r') as fp:
-        # TODO: get the only key not DOTAHeroes
         data = json.load(fp)
 
     global_key = list(data.keys())[0]
     data = data[global_key]
 
     for in_game_name, description in data.items():
-        tmp = {}
-        print(in_game_name)
+        if in_game_name == 'Version':
+            continue
+
+        tmp = dict()
+
+        tmp['in_game_name'] = in_game_name.split('item_')[1]
+        tmp['name'] = tmp['in_game_name'].replace('_', ' ').title()
+
+        if 'ItemAliases' in description:
+            tmp['aliases'] = description['ItemAliases']
+        else:
+            tmp['aliases'] = None
+
         for key in scheme.keys():
             try:
                 tmp[key] = description[key]
-                # print('tmp[{}] ='.format(key), description[key])
-            # hero_base doesn't have some fields
+
             except KeyError as e:
                 tmp[key] = None
             # there are some non hero fields causes this

@@ -25,15 +25,16 @@ def fill_heroes():
 
 def fill_items():
     '''Fills items table with the data from items.json.'''
-    rows = to_rows.items_rows(settings.ITEMS_FILE, settings.items_scheme)
+    rows = to_rows.items_file_to_rows(settings.ITEMS_FILE, settings.items_scheme)
     unique_ids = set()
 
     for row in rows:
         if row['ID'] not in unique_ids:
             item = ItemModel(row)
             session.add(item)
-            session.commit()
             unique_ids.add(row['ID'])
+
+    session.commit()
 
 
 def fill_abilities_specs():
@@ -49,7 +50,12 @@ def fill_abilities_specs():
     heroes = get_str_keys(converter)
 
     for skill, description in skills.items():
-        hero, skill_name = to_rows.parse_skill_name(skill, heroes)
+        try:
+            hero, skill_name = to_rows.parse_skill_name(skill, heroes)
+        # if skill name cannot be parsed
+        except ValueError:
+            continue
+
         for row in to_rows.ability_to_row(description, schema):
             row['HeroID'] = converter[hero]
             row['name'] = skill_name
@@ -102,4 +108,4 @@ def fill_abilities():
 
 
 if __name__ == '__main__':
-    fill_heroes()
+    fill_abilities_specs()

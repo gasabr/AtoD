@@ -120,7 +120,8 @@ heroes_scheme = {
     # "Ability15": "special_bonus_movement_speed_35",
     "AttackAcquisitionRange": Integer,
     "aliases": String,
-    "in_game_name":  String
+    "in_game_name":  String,
+    "name": String
     # "StatusHealthRegen": Float
 }
 
@@ -130,6 +131,10 @@ with open(DATA_FOLDER + 'items_types.json', 'r') as fp:
 items_scheme = {}
 for key, value in items_types.items():
     items_scheme[key] = field_format[value]
+
+items_scheme['name'] = String
+items_scheme['in_game_name'] = String
+items_scheme['aliases'] = String
 
 LABELS = ['stun', 'transformation', 'slow', 'durability', 'nuke',
           'escape', 'non-hero', 'attack_bonus', 'heal',
