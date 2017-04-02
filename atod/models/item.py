@@ -18,3 +18,6 @@ class ItemModel(Base):
     def __init__(self, attrs):
         for key, value in attrs.items():
             setattr(self, key, value)
+
+    def __repr__(self):
+        return '<Item alias={}>'.format(self.ItemAliases)

@@ -18,3 +18,6 @@ class HeroModel(Base):
         for key, value in attrs.items():
             setattr(self, key, value)
             self.attrs.add(key)
+
+    def __repr__(self):
+        return '<Hero name={}>'.format(self.url)

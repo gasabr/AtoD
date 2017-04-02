@@ -85,16 +85,17 @@ def create_which_ability(abilities):
 
 
 def add_labels():
-    with open(settings.ABILITIES_LABELED_FILE, 'r') as fp:
-        labeled = json.load(fp)['DOTAAbilities']
+    with open(settings.TMP_ABILITIES, 'r') as fp:
+        labeled = json.load(fp)
 
-    with open(settings.CLEAN_ABILITIES_FILE, 'r') as fp:
+    with open(settings.ABILITIES_LISTS_FILE, 'r') as fp:
         clean = json.load(fp)
 
-    for ability, description in labeled.items():
-        if 'labels' in description and \
-                    ability in clean.keys():
-            clean[ability]['labels'] = description['labels']
+    for ability, description in clean.items():
+        if ability in labeled and 'labels' in labeled[ability]:
+            clean[ability]['labels'] = labeled[ability]['labels']
+        else:
+            clean[ability]['labels'] = []
 
-    with open(settings.TMP_ABILITIES, 'w+') as fp:
+    with open(settings.ABILITIES_LISTS_LABELED_FILE, 'w+') as fp:
         json.dump(clean, fp, indent=2)

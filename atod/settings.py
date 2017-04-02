@@ -6,9 +6,9 @@ CURRENT_VERSION = '702'
 
 HEROES_TABLE_URL = 'http://dota2.gamepedia.com/Table_of_hero_attributes'
 
-# ===============================================================================
+# ============================================================================
 # Folders, files, paths
-# ===============================================================================
+# ============================================================================
 BASE_FOLDER = path.dirname(path.abspath(__file__))
 DATA_FOLDER = path.join(BASE_FOLDER, 'data/')
 TESTS_DATA_FOLDER = path.join(BASE_FOLDER, 'tests/tests_data/')
@@ -40,9 +40,11 @@ CLEAN_ABILITIES_FILE    = path.join(TMP_FOLDER, 'abilities_mean.json')
 TMP_ABILITIES = path.join(DATA_FOLDER, 'tmp_abilities.json')
 ABILITIES_LISTS_FILE    = path.join(TMP_FOLDER, 'abilities_lists.json')
 
-# ===============================================================================
+ABILITIES_LISTS_LABELED_FILE = path.join(TMP_FOLDER, 'labeled_lists.json')
+
+# ============================================================================
 # DataBase settings
-# ===============================================================================
+# ============================================================================
 DB_NAME = 'AtoD.db'
 DB_PATH = path.join(DATA_FOLDER, DB_NAME)
 
@@ -90,7 +92,7 @@ heroes_scheme = {
     "AttributeBaseIntelligence": Integer,
     # "Ability12": "special_bonus_attack_damage_75", # ForeignKey
     # "Ability4": "axe_culling_blade", # FK
-    "url": String,
+    # "url": String,
     "ArmorPhysical": Float,
     # "Ability13": "special_bonus_hp_250", # FK
     "AttributePrimary": String,  # TODO: enum this or what? - dummy code better
@@ -117,6 +119,8 @@ heroes_scheme = {
     "AttackCapabilities": String,  # TODO: parse
     # "Ability15": "special_bonus_movement_speed_35",
     "AttackAcquisitionRange": Integer,
+    "aliases": String,
+    "in_game_name":  String
     # "StatusHealthRegen": Float
 }
 

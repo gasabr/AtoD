@@ -1,9 +1,10 @@
 ''' Set of functions which help to understand data and see what can be
     cleaned.
+    In future this file would provide functions to take a look at the overall
+    data, for example amount of abilities, heroes...
 '''
 
 import json
-import re
 
 from atod import settings
 from atod.abilities import abilities as Abilities

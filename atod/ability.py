@@ -1,3 +1,4 @@
+''' This module describes single hero ability.'''
 import json
 
 from atod import settings

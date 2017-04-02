@@ -10,13 +10,17 @@ from atod.utils.db.create_scheme import create_abilities_scheme
 
 def fill_heroes():
     '''Fills heroes table with the data from npc_heroes.json.'''
-    rows = to_rows.json_to_rows(settings.HEROES_FILE, settings.heroes_scheme)
+    rows = to_rows.heroes_file_to_rows(settings.HEROES_FILE,
+                                       settings.heroes_scheme)
 
     for row in rows:
-        if row['HeroID']:
+        if 'HeroID' in row:
             hero = HeroModel(row)
             session.add(hero)
-            session.commit()
+        else:
+            raise KeyError(row['name'])
+
+    session.commit()
 
 
 def fill_items():
@@ -60,7 +64,7 @@ def fill_abilities_specs():
 def fill_abilities():
     ''' Fills abilities table'''
 
-    with open(settings.TMP_ABILITIES, 'r') as fp:
+    with open(settings.ABILITIES_LISTS_LABELED_FILE, 'r') as fp:
         skills = json.load(fp)
 
     with open(settings.IN_GAME_CONVERTER, 'r') as fp:
@@ -98,4 +102,4 @@ def fill_abilities():
 
 
 if __name__ == '__main__':
-    fill_abilities()
+    fill_heroes()

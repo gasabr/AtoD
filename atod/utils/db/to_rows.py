@@ -4,7 +4,8 @@ import json
 
 from atod import settings
 
-def json_to_rows(filename, scheme):
+
+def heroes_file_to_rows(filename, scheme):
     ''' Gets the data from json files according to given db scheme.
 
         Idea: json file contents a lot of information that i don't need in db,
@@ -19,13 +20,29 @@ def json_to_rows(filename, scheme):
     '''
     rows = []
     with open(filename, 'r') as fp:
-        data = json.load(fp)
-        global_key = list(data.keys())[0]
-        data = data[global_key]
+        data = json.load(fp)['DOTAHeroes']
 
     for in_game_name, description in data.items():
-        tmp = {}
+        if in_game_name == 'Version' or 'hero_base' in in_game_name\
+                or not 'url' in description:
+            continue
+
+        tmp = dict()
+        tmp['in_game_name'] = in_game_name.split('npc_dota_hero_')[1]
+        tmp['name'] = description['url']
+        del description['url']
+
+        # add name aliases
+        try:
+            tmp['aliases'] = description['NameAliases']
+        except KeyError:
+            tmp['aliases'] = None
+
+        # add all over keys
         for key in scheme.keys():
+            if key in tmp:
+                continue
+
             try:
                 tmp[key] = description[key]
             # hero_base doesn't have some fields
@@ -37,9 +54,6 @@ def json_to_rows(filename, scheme):
 
         if len(tmp) > 0:
             rows.append(tmp)
-
-            if 'HeroID' not in tmp:
-                print(tmp)
 
     return rows
 

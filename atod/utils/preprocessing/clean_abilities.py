@@ -33,7 +33,7 @@ def find_skills(raw_abilities):
 
     heroes_names = [c for c in converter.keys()
                     if re.findall(r'[a-zA-Z|\_]+', c)]
-    stop_words = ['special_bonus', 'hidden', 'empty', 'scepter', 'voodoo',
+    stop_words = ['special_bonus', 'hidden', 'empty', 'scepter',
                   'stop', 'self', 'cancel', 'throw', 'return', 'release',
                   'brake', 'end']
     # removed from the game or useless skills
@@ -356,7 +356,5 @@ def clean(lists_to_mean=False):
 if __name__ == '__main__':
     clean_abilities = clean()
 
-    tmp_file = settings.TMP_FOLDER + 'abilities_lists.json'
-
-    with open(tmp_file, 'w+') as fp:
+    with open(settings.ABILITIES_LISTS_FILE, 'w+') as fp:
         json.dump(clean_abilities, fp, indent=2)
