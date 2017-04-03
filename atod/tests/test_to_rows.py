@@ -1,10 +1,10 @@
-import os
-import re
 import json
+import os
 import unittest
 
 from atod import settings
-from atod.utils.db.to_rows import ability_to_row
+from atod.preprocessing.json2rows import ability_to_row
+
 
 class TestUtilsDB(unittest.TestCase):
 

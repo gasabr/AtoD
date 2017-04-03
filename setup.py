@@ -13,11 +13,11 @@ setup(
     version = "0.1.0",
     author = "Abroskin Gleb",
     author_email = "abroskingleb@gmail.com",
-    description = ("An interactive Dota2 wiki."),
+    description = ("An interactive DotA2 wiki."),
     license = "MIT",
     keywords = "example documentation tutorial",
     url = "http://packages.python.org/atod",
-    packages=['atod', 'atod.utils', 'atod.tests'],
+    packages=['atod', 'atod.preprocessing', 'atod.tests', 'atod.models'],
     long_description=read('README.rst'),
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",

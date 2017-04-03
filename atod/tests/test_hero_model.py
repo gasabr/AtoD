@@ -1,6 +1,6 @@
 import unittest
 
-from atod import session
+from atod.db import session
 from atod.models import HeroModel
 
 

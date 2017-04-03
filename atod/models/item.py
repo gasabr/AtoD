@@ -1,7 +1,7 @@
 from sqlalchemy import Table, Column, Integer
 
 from atod import settings
-from atod.utils.db.setup import Base
+from atod.db import Base
 
 
 items = (Column(name, type_) for name, type_ in

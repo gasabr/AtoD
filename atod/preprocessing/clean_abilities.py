@@ -9,7 +9,7 @@ import json
 import logging
 
 from atod import settings
-from atod.utils.dictionary import all_keys, make_flat_dict
+from atod.preprocessing.dictionary import all_keys, make_flat_dict
 
 
 logging.basicConfig(level=logging.WARNING)

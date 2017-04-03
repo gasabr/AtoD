@@ -1,7 +1,7 @@
 from sqlalchemy import Table, Column, Integer, String, ForeignKey
 
 from atod import settings
-from atod.utils.db.setup import Base
+from atod.db import Base
 
 
 class AbilityModel(Base):

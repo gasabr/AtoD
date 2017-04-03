@@ -1,17 +1,18 @@
 import json
 
+from atod.preprocessing.db.setup import session
+
 from atod import settings
-from atod.utils.dictionary import get_str_keys
+from atod.db.schemas import create_abilities_scheme
 from atod.models import HeroModel, ItemModel, AbilitySpecsModel, AbilityModel
-from atod.utils.db import to_rows
-from atod.utils.db.setup import session
-from atod.utils.db.create_scheme import create_abilities_scheme
+from atod.preprocessing import json2rows
+from atod.preprocessing.dictionary import get_str_keys
 
 
 def fill_heroes():
     '''Fills heroes table with the data from npc_heroes.json.'''
-    rows = to_rows.heroes_file_to_rows(settings.HEROES_FILE,
-                                       settings.heroes_scheme)
+    rows = json2rows.heroes_file_to_rows(settings.HEROES_FILE,
+                                         settings.heroes_scheme)
 
     for row in rows:
         if 'HeroID' in row:
@@ -25,7 +26,7 @@ def fill_heroes():
 
 def fill_items():
     '''Fills items table with the data from items.json.'''
-    rows = to_rows.items_file_to_rows(settings.ITEMS_FILE, settings.items_scheme)
+    rows = json2rows.items_file_to_rows(settings.ITEMS_FILE, settings.items_scheme)
     unique_ids = set()
 
     for row in rows:
@@ -51,12 +52,12 @@ def fill_abilities_specs():
 
     for skill, description in skills.items():
         try:
-            hero, skill_name = to_rows.parse_skill_name(skill, heroes)
+            hero, skill_name = json2rows.parse_skill_name(skill, heroes)
         # if skill name cannot be parsed
         except ValueError:
             continue
 
-        for row in to_rows.ability_to_row(description, schema):
+        for row in json2rows.ability_to_row(description, schema):
             row['HeroID'] = converter[hero]
             row['name'] = skill_name
             row['pk'] = str(row['ID']) + '.' + str(row['lvl'])
@@ -81,7 +82,7 @@ def fill_abilities():
     for skill, description in skills.items():
         # get skill and hero names
         try:
-            hero, skill_name = to_rows.parse_skill_name(skill, heroes)
+            hero, skill_name = json2rows.parse_skill_name(skill, heroes)
         except ValueError:
             continue
 
@@ -91,8 +92,8 @@ def fill_abilities():
         # binarize labels
         # for marked abilities
         if 'labels' in description:
-            row = to_rows.binarize_labels(description['labels'],
-                                      settings.LABELS)
+            row = json2rows.binarize_labels(description['labels'],
+                                            settings.LABELS)
         # for unmarked abilities
         else:
             row = {k: 0 for k in settings.LABELS}

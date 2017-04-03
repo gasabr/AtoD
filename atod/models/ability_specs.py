@@ -1,9 +1,8 @@
+from atod.db.setup import Base
 from sqlalchemy import Table, Column, ForeignKey
-from sqlalchemy.orm import relationship
 
 from atod import settings
-from atod.utils.db.setup import Base
-from atod.utils.db.create_scheme import create_abilities_scheme
+from atod.db.schemas import create_abilities_scheme
 
 
 class AbilitySpecsModel(Base):

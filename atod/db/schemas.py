@@ -1,7 +1,7 @@
 import json
 
 from atod import settings
-from atod.utils.dictionary import get_types
+from atod.preprocessing.dictionary import get_types
 
 
 def create_abilities_scheme():

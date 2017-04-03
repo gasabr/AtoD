@@ -9,8 +9,7 @@ import json
 from atod import settings
 from atod.abilities import abilities as Abilities
 from atod.hero import Hero
-from atod.utils import dictionary
-from atod.utils.preprocessing import clean_abilities
+from atod.preprocessing import dictionary, clean_abilities
 
 
 def print_keys_occurrences():

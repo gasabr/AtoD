@@ -4,7 +4,7 @@ import json
 import pandas
 
 from atod import settings
-from atod.utils.dictionary import make_flat_dict
+from atod.preprocessing.dictionary import make_flat_dict
 
 
 def encode_effects(data, rows, columns):

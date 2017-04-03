@@ -7,7 +7,7 @@ CURRENT_VERSION = '702'
 HEROES_TABLE_URL = 'http://dota2.gamepedia.com/Table_of_hero_attributes'
 
 # ============================================================================
-# Folders, files, paths
+# Folders, files, pathws
 # ============================================================================
 BASE_FOLDER = path.dirname(path.abspath(__file__))
 DATA_FOLDER = path.join(BASE_FOLDER, 'data/')
@@ -16,7 +16,7 @@ TESTS_DATA_FOLDER = path.join(BASE_FOLDER, 'tests/tests_data/')
 NPC_PATH = '/Users/gasabr/Library/Application Support/Steam/steamapps/common/dota 2 beta/game/dota/scripts'
 
 # from game files with data
-# TODO: organize such path more accurate / change data/ folder structure
+# TODO: organize such path more  accurate / change data/ folder structure
 HEROES_FILE = path.join(DATA_FOLDER, 'parsed/npc_heroes.json')
 ITEMS_FILE = path.join(DATA_FOLDER, 'parsed/items.json')
 ABILITIES_FILE = path.join(DATA_FOLDER, 'parsed/npc_abilities.json')

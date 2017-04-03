@@ -3,7 +3,7 @@ import unittest
 from os.path import join
 
 from atod import settings
-from atod.utils import dictionary
+from atod.preprocessing import dictionary
 
 class TestDictionary(unittest.TestCase):
     ''' Tests for functions from dictionary module. '''

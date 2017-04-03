@@ -4,7 +4,7 @@ from gensim import corpora, models
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 from atod import settings
-from atod.utils.dictionary import make_flat_dict
+from atod.preprocessing.dictionary import make_flat_dict
 from atod.abilities import abilities as Abilities
 
 

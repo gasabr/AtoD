@@ -1,7 +1,7 @@
 import logging
 
 from atod import settings
-from atod.utils.db.setup import engine
+from atod.db import engine
 from atod.models import AbilitySpecsModel, HeroModel, ItemModel, AbilityModel
 
 logging.basicConfig(level=logging.INFO)
