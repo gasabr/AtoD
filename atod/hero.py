@@ -19,6 +19,13 @@ PRIMARIES = {
 class Hero(object):
     ''' Interface for HeroModel. '''
 
+    base_health = 200
+    base_health_regen = 0.25
+    base_mana = 50
+    base_mana_regen = 0.01
+    base_damage = 21
+    base_armor = 0
+
     def __init__(self, name, lvl=1):
         ''' Create hero instance by id. '''
         # TODO: create metaclass to prevent changing this variables
@@ -59,18 +66,34 @@ class Hero(object):
     # properties
     @property
     def str(self):
-        return self.AttributeBaseStrength + \
-                   (self.lvl - 1) * self.AttributeStrengthGain
+        return int(self.AttributeBaseStrength + \
+                   (self.lvl - 1) * self.AttributeStrengthGain)
 
     @property
     def int(self):
-        return self.AttributeBaseIntelligence + \
-                   (self.lvl - 1) * self.AttributeAgilityGain
+        return int(self.AttributeBaseIntelligence + \
+                   (self.lvl - 1) * self.AttributeAgilityGain)
 
     @property
     def agi(self):
-        return self.AttributeBaseAgility + \
-                   (self.lvl - 1) * self.AttributeAgilityGain
+        return int(self.AttributeBaseAgility + \
+                   (self.lvl - 1) * self.AttributeAgilityGain)
+
+    @property
+    def health(self):
+        return self.base_health + self.str * 20
+
+    @property
+    def health_regen(self):
+        return self.base_health_regen + self.str * 0.03
+
+    @property
+    def mana(self):
+        return self.int * 12
+
+    @property
+    def mana_regen(self):
+        return self.int * 0.04
 
     # TODO: this should be property with setter
     def abilities_labels(self):
