@@ -1,13 +1,12 @@
 #!/usr/bin/env python
 import json
-import numpy as np
-from sklearn.cluster import DBSCAN, KMeans
-from sklearn.preprocessing import MinMaxScaler
+
+from sklearn.cluster import KMeans
 from sklearn.multiclass import OneVsRestClassifier
+from sklearn.preprocessing import MinMaxScaler
 from sklearn.svm import SVC
 
-from atod import settings
-from atod.abilities import abilities as Abilities
+from atod.preprocessing.abilities import abilities as Abilities
 
 categorical_features = [
     "AbilityUnitDamageType",

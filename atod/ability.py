@@ -2,6 +2,13 @@
 import json
 
 from atod import settings
+from atod.group import Group
+from atod.models import AbilityModel, AbilitySpecsModel
+
+
+class Abilities(Group):
+    pass
+
 
 class Ability:
     '''Wrapper for raw json data from Abilities.'''

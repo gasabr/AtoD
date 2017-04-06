@@ -3,9 +3,9 @@ import json
 from sqlalchemy.inspection import inspect
 
 import atod.settings as settings
-from atod.abilities import abilities as Abilities
 from atod.db import session
 from atod.models import HeroModel
+from atod.preprocessing.abilities import abilities as Abilities
 
 mapper = inspect(HeroModel)
 
@@ -24,7 +24,7 @@ class Hero(object):
     base_mana = 50
     base_mana_regen = 0.01
     base_damage = 21
-    base_armor = 0
+    base_armor = -1
 
     def __init__(self, name, lvl=1):
         ''' Create hero instance by id. '''
@@ -94,6 +94,10 @@ class Hero(object):
     @property
     def mana_regen(self):
         return self.int * 0.04
+
+    @property
+    def armor(self):
+        return round(self.ArmorPhysical + self.agi / 7, 2)
 
     # TODO: this should be property with setter
     def abilities_labels(self):
