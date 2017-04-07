@@ -1,6 +1,6 @@
 import json
 
-from atod.preprocessing.db.setup import session
+from atod.db import session
 
 from atod import settings
 from atod.db.schemas import create_abilities_scheme
@@ -109,4 +109,4 @@ def fill_abilities():
 
 
 if __name__ == '__main__':
-    fill_abilities_specs()
+    fill_abilities()

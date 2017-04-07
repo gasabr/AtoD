@@ -137,10 +137,10 @@ items_scheme['in_game_name'] = String
 items_scheme['aliases'] = String
 
 LABELS = ['stun', 'transformation', 'slow', 'durability', 'nuke',
-          'escape', 'non-hero', 'attack_bonus', 'heal',
-          'based on attr', 'aoe', 'period damage', 'attack debuff',
-          'invis', 'vision', 'silence', 'lifesteal', 'armor buff',
-          'armor debuff', 'save', 'move speed buff', 'illusions', 'chance',
-          'multiply heroes', 'global', 'shield', 'attribute gain',
-          'amplify magic dmg', 'summon unit', 'regen', 'daytime dependent',
-          'stacks', 'purge', 'in percents']
+          'escape', 'non_hero', 'attack_bonus', 'heal',
+          'based_on_attr', 'aoe', 'period_damage', 'attack_debuff',
+          'invis', 'vision', 'silence', 'lifesteal', 'armor_buff',
+          'armor_debuff', 'save', 'move_speed_buff', 'illusions', 'chance',
+          'multiply_heroes', 'global', 'shield', 'attribute_gain',
+          'amplify_magic_dmg', 'summon_unit', 'regen', 'daytime_dependent',
+          'stacks', 'purge', 'in_percents']

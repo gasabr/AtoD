@@ -10,6 +10,7 @@ from atod import settings
 from atod.hero import Hero
 from atod.preprocessing import dictionary, clean_abilities
 from atod.preprocessing.abilities import abilities as Abilities
+from atod.ability import Abilities
 
 
 def print_keys_occurrences():
@@ -62,5 +63,9 @@ def get_labeled():
     return '{}/{} abilities are labeled'.format(labeled, len(in_process))
 
 
+def check_abilities():
+    a = Abilities.from_hero_id(12)
+    print(dir(a.members[0]))
+
 if __name__ == '__main__':
-    print(get_labeled())
+    check_abilities()

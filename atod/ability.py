@@ -3,11 +3,26 @@ import json
 
 from atod import settings
 from atod.group import Group
+from atod.db import session
 from atod.models import AbilityModel, AbilitySpecsModel
 
 
 class Abilities(Group):
-    pass
+
+    @classmethod
+    def from_hero_id(cls, HeroID):
+        response = session.query(AbilityModel)
+        response = response.filter(AbilityModel.HeroID == HeroID).all()
+
+        if len(response) == 0:
+            report = 'No abilities for this HeroID == {}'.format(HeroID)
+            raise ValueError(report)
+
+        members = [ability for ability in response]
+        print(members[0].__dict__)
+
+        return cls(members)
+
 
 
 class Ability:

@@ -14,8 +14,7 @@ class AbilityModel(Base):
     fk_heroes = settings.HEROES_TABLE + '.HeroID'
     _cols.append(Column('HeroID', Integer, ForeignKey(fk_heroes)))
 
-    __table__ = Table(settings.ABILITIES_TABLE, Base.metadata,
-                      *_cols)
+    __table__ = Table(settings.ABILITIES_TABLE, Base.metadata, *_cols)
 
     def __init__(self, attrs):
         self.attrs = set()
