@@ -8,7 +8,7 @@ from sklearn.cluster import KMeans
 from sklearn.preprocessing import MultiLabelBinarizer, MinMaxScaler
 
 from atod import settings
-from atod.ability import Ability
+from atod.abilities import Ability
 from atod.modeling.abilities import (create_categorical,
                                      encode_effects, fill_numeric)
 from atod.preprocessing.clean_abilities import \

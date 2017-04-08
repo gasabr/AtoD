@@ -2,10 +2,10 @@ import json
 
 from sqlalchemy.inspection import inspect
 
-import atod.settings as settings
+from atod import settings
 from atod.db import session
 from atod.models import HeroModel
-from atod.preprocessing.abilities import abilities as Abilities
+from atod.abilities import Abilities
 
 mapper = inspect(HeroModel)
 
@@ -61,7 +61,7 @@ class Hero(object):
 
         self.primary = PRIMARIES[self.AttributePrimary]
 
-        self.abilities = Abilities.filter(hero=self.in_game_name)
+        self.abilities = Abilities.from_hero_id(self.id)
 
     # properties
     @property
@@ -98,15 +98,6 @@ class Hero(object):
     @property
     def armor(self):
         return round(self.ArmorPhysical + self.agi / 7, 2)
-
-    # TODO: this should be property with setter
-    def abilities_labels(self):
-        '''Returns dictionary ability->labels.'''
-        labels = {}
-        for a in self.abilities:
-            labels[a.raw_name] = a.labels
-
-        return labels
 
     def has(self, effect):
         for ability, labels in self.abilities_labels().items():

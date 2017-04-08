@@ -1,2 +1,2 @@
 from atod.hero import Hero
-from atod.ability import Ability
+from atod.abilities import Ability
