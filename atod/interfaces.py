@@ -46,12 +46,11 @@ class Group:
         ''' Return a math vector representation. '''
         pass
 
-    def __getitem__(self, member):
-        for m in self.members:
-            if m.name == member:
-                return m
+    def __getitem__(self, item):
+        return self.members[item]
 
-        return None
+    def __len__(self):
+        return len(self.members)
 
     def __str__(self):
         info = '<' + self.__class__.__name__ + ' ['

@@ -29,7 +29,7 @@ def heroes_file_to_rows(filename, scheme):
 
         tmp = dict()
         tmp['in_game_name'] = in_game_name.split('npc_dota_hero_')[1]
-        tmp['name'] = description['url']
+        tmp['name'] = description['url'].replace('_', ' ')
         del description['url']
 
         # add name aliases

@@ -77,6 +77,3 @@ class Abilities(Group):
         members_ = [cls.member_type(ability[0]) for ability in response]
 
         return cls(members_)
-
-    def __len__(self):
-        return len(self.members)

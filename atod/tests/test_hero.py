@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import unittest
 
-from atod.hero import Hero
+from atod.heroes import Hero
 
 class TestHero(unittest.TestCase):
 

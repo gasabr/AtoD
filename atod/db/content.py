@@ -109,4 +109,4 @@ def fill_abilities():
 
 
 if __name__ == '__main__':
-    fill_abilities()
+    fill_heroes()

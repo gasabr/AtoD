@@ -7,7 +7,7 @@
 import json
 
 from atod import settings
-from atod.hero import Hero
+from atod.heroes import Hero, Heroes
 from atod.preprocessing import dictionary, clean_abilities
 from atod.preprocessing.abilities import abilities as Abilities
 from atod.abilities import Abilities
@@ -66,5 +66,9 @@ def get_labeled():
 def check_abilities():
     a = Abilities.from_hero_id(12)
 
+def check_heroes():
+    hero = Hero.from_name('Shadow Fiend')
+    print(hero)
+
 if __name__ == '__main__':
-    check_abilities()
+    check_heroes()
