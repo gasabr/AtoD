@@ -6,8 +6,8 @@ from atod.heroes import Hero
 class TestHero(unittest.TestCase):
 
     def setUp(self):
-        self.sf_1 = Hero('Shadow Fiend')
-        self.sf_10 = Hero('Shadow Fiend', 10)
+        self.sf_1 = Hero(11)
+        self.sf_10 = Hero(11, 10)
 
     def test_id(self):
         self.assertEqual(self.sf_1.id, 11)

@@ -64,7 +64,10 @@ def get_labeled():
 
 
 def check_abilities():
-    a = Abilities.from_hero_id(12)
+    h = Hero(9)
+    print(h.abilities[0].to_series())
+    # print(h.abilities[0].specs)
+
 
 def check_heroes():
     heroes = []
@@ -76,4 +79,4 @@ def check_heroes():
 
 
 if __name__ == '__main__':
-    check_heroes()
+    check_abilities()

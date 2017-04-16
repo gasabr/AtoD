@@ -76,7 +76,37 @@ class Ability(Member):
     # @property
     def to_series(self):
         if self.lvl == 0:
-            return pd.Series(self.all_specs)
+            # average all specs
+            summary = self._get_summary()
+            # merge specs with labels
+            labels = {k: v for k, v in self._bin_labels.items()
+                      if k not in summary}
+            series = pd.concat([summary, pd.Series(labels)], axis=0)
+            return series
+        else:
+            # get specs for defined lvl
+            # merge specs with labels
+            pass
+
+    def _get_summary(self):
+        ''' Return series where every features are averaged. 
+        
+            This function averages all the properties.
+             
+             Returns:
+                 summary (pd.Series): described summary
+        '''
+        summary = pd.Series(self.specs[1])
+        sum_dict = dict()
+        for lvl in range(1, len(self.specs)):
+            for prop, value in self.specs[lvl].items():
+                if isinstance(value, int) or isinstance(value, float):
+                    sum_dict.setdefault(prop, 0)
+                    sum_dict[prop] += value / len(self.specs)
+
+        summary = summary.drop('pk')
+
+        return summary
 
 
 class Abilities(Group):

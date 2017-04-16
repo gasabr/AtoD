@@ -25,7 +25,7 @@ class Hero(Member):
     base_damage = 21
     base_armor = -1
 
-    def __init__(self, id_):
+    def __init__(self, id_, lvl=1):
         query = session.query(HeroModel)
         specs = query.filter(HeroModel.HeroID == id_).first()
         super().__init__(specs.HeroID, specs.name)
@@ -35,7 +35,7 @@ class Hero(Member):
         # remove SQLAlchemy condition variable
         del specs.__dict__['_sa_instance_state']
 
-        self.lvl = 1
+        self.lvl = lvl
         self.specs = specs.__dict__
         self.abilities = Abilities.from_hero_id(self.id)
 
