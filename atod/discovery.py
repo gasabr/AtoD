@@ -63,12 +63,6 @@ def get_labeled():
     return '{}/{} abilities are labeled'.format(labeled, len(in_process))
 
 
-def check_abilities():
-    h = Hero(9)
-    print(h.abilities[0].to_series())
-    # print(h.abilities[0].specs)
-
-
 def check_heroes():
     heroes = []
     for id_ in [1, 2, 3, 4, 5]:
@@ -79,4 +73,4 @@ def check_heroes():
 
 
 if __name__ == '__main__':
-    check_abilities()
+    check_heroes()

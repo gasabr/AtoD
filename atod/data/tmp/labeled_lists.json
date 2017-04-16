@@ -118,7 +118,8 @@
       24,
       8,
       32,
-      22
+      22,
+      16
     ],
     "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
   },
@@ -2574,7 +2575,8 @@
       2.0
     ],
     "labels": [
-      4
+      4,
+      2
     ],
     "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
   },

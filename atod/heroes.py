@@ -55,7 +55,9 @@ class Hero(Member):
             raise ValueError('Can not find id for hero name: {}'.format(name))
 
     def to_series(self):
-        return pd.Series({'name': self.name, **self.specs,
+        with_info = {'name': self.name, 'hero_id': self.id, **self.specs,
+                          **self.abilities.to_dataframe()}
+        return pd.Series({'name': self.name, 'hero_id': self.id, **self.specs,
                           **self.abilities.get_labels_summary()})
 
     # properties

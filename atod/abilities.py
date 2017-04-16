@@ -73,20 +73,22 @@ class Ability(Member):
         '''
         return pd.Series(self._bin_labels)
 
-    # @property
     def to_series(self):
         if self.lvl == 0:
             # average all specs
             summary = self._get_summary()
-            # merge specs with labels
-            labels = {k: v for k, v in self._bin_labels.items()
-                      if k not in summary}
-            series = pd.concat([summary, pd.Series(labels)], axis=0)
-            return series
+
         else:
             # get specs for defined lvl
-            # merge specs with labels
-            pass
+            summary = self.all_specs[self.lvl]
+
+        summary['id'] = self.id
+        labels = {'label_' + k: v for k, v in self._bin_labels.items()}
+
+        # merge specs with labels
+        series = pd.concat([summary, pd.Series(labels)], axis=0)
+
+        return series
 
     def _get_summary(self):
         ''' Return series where every features are averaged. 
@@ -103,6 +105,10 @@ class Ability(Member):
                 if isinstance(value, int) or isinstance(value, float):
                     sum_dict.setdefault(prop, 0)
                     sum_dict[prop] += value / len(self.specs)
+
+        for column in self.all_specs[1]:
+            if column not in summary:
+                summary[column] = None
 
         summary = summary.drop('pk')
 
@@ -137,9 +143,3 @@ class Abilities(Group):
         del summary['name']
 
         return summary
-
-    # @property
-    def to_dataframe(self):
-        data = pd.DataFrame([p.to_series() for p in self.members])
-
-        return data
