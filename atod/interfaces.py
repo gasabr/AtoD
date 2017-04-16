@@ -2,6 +2,7 @@
 
     It can be Heroes, Abilities, Items or somethings else. 
 '''
+import pandas as pd
 
 from atod.db import session
 
@@ -42,9 +43,10 @@ class Group:
         ''' Compare items. '''
         pass
 
-    def as_vector(self):
-        ''' Return a math vector representation. '''
-        pass
+    def to_dataframe(self):
+        data = pd.DataFrame([p.to_series() for p in self.members])
+
+        return data
 
     def __getitem__(self, item):
         return self.members[item]
@@ -68,5 +70,30 @@ class Member:
         self.id   = id_
         self.name = name
 
-    def as_dict(self):
+    def as_vector(self, schema=[]):
+        ''' Returns a math vector representation. 
+
+            Args:
+                schema (iterable of strings): list of keys that should be in
+
+            Returns:
+                vector (pandas.Series): representation
+
+        '''
+        # check schema, if not provided add all keys except for name
+        # get representation of this objects as dictionary according to schema
+        # from representation create vector
         pass
+
+    def _dict2vector(self, specs):
+        ''' Creates pandas.Series from dictionary with the rules below.
+
+            Args:
+                specs (dict): information to create Series    
+
+        '''
+        pass
+
+    def as_dict(self):
+        ''' Returns representation of this object as a dictionary.'''
+        return dict()

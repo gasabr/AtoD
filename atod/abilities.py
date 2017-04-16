@@ -1,4 +1,6 @@
 ''' This module describes single hero ability.'''
+import pandas as pd
+
 from atod.db import session
 from atod.interfaces import Group, Member
 from atod.models import AbilityModel, AbilitySpecsModel
@@ -23,8 +25,9 @@ class Ability(Member):
         # define default lvl
         self.lvl = 0
 
-        self.bin_labels = self._extract_properties(res)
-        self.labels = [l for l in self.bin_labels if self.bin_labels[l] == 1]
+        self._bin_labels = self._extract_properties(res)
+        self._labels = [l for l in self._bin_labels
+                        if self._bin_labels[l] == 1]
 
         # get specs IMPORTANT: ID is not pk for this table, abilities are
         # stored by level, so every ability has at least 3 records
@@ -50,15 +53,30 @@ class Ability(Member):
         bin_labels = response.__dict__.copy()
 
         bin_labels = {k: v for k, v in bin_labels.items()
-                      if k != 'ID' and not k.startswith('_')}
+                      if k != 'ID' and k != 'HeroID'
+                      and not k.startswith('_')}
 
         return bin_labels
 
     def __str__(self):
-        return '<Ability name={}, labels={}>'.format(self.name, self.lvl)
+        return '<Ability name={}, labels={}>'.format(self.name, self._labels)
 
     def __repr__(self):
         return '<Ability object name={}>'.format(self.name)
+
+    @property
+    def bin_labels(self):
+        ''' Returns vector representation of this ability.
+        
+            Returns:
+                vector (pd.Series): vector build upon all_labels attribute
+        '''
+        return pd.Series(self._bin_labels)
+
+    # @property
+    def to_series(self):
+        if self.lvl == 0:
+            return pd.Series(self.all_specs)
 
 
 class Abilities(Group):
@@ -77,3 +95,21 @@ class Abilities(Group):
         members_ = [cls.member_type(ability[0]) for ability in response]
 
         return cls(members_)
+
+    def get_labels_summary(self):
+        bin_vectors = [m.bin_labels for m in self.members]
+
+        # FIXME: can't make it work other way
+        summary = bin_vectors[0]
+        for b in bin_vectors[1:]:
+            summary = summary + b
+
+        del summary['name']
+
+        return summary
+
+    # @property
+    def to_dataframe(self):
+        data = pd.DataFrame([p.to_series() for p in self.members])
+
+        return data

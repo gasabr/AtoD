@@ -67,8 +67,13 @@ def check_abilities():
     a = Abilities.from_hero_id(12)
 
 def check_heroes():
-    hero = Hero.from_name('Shadow Fiend')
-    print(hero)
+    heroes = []
+    for id_ in [1, 2, 3, 4, 5]:
+        heroes.append(Hero(id_))
+
+    h = Heroes(heroes)
+    print(h.to_dataframe())
+
 
 if __name__ == '__main__':
     check_heroes()

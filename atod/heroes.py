@@ -1,4 +1,5 @@
 from sqlalchemy.inspection import inspect
+import pandas as pd
 
 from atod.db import session
 from atod.models import HeroModel
@@ -31,7 +32,8 @@ class Hero(Member):
 
         self.in_game_name = specs.in_game_name
         del specs.__dict__['name']
-        del specs.__dict__['in_game_name']
+        # remove SQLAlchemy condition variable
+        del specs.__dict__['_sa_instance_state']
 
         self.lvl = 1
         self.specs = specs.__dict__
@@ -51,6 +53,10 @@ class Hero(Member):
 
         except TypeError:
             raise ValueError('Can not find id for hero name: {}'.format(name))
+
+    def to_series(self):
+        return pd.Series({'name': self.name, **self.specs,
+                          **self.abilities.get_labels_summary()})
 
     # properties
     @property
