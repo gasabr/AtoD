@@ -11,7 +11,7 @@ class Ability(Member):
 
     model = AbilityModel
 
-    def __init__(self, id_):
+    def __init__(self, id_, lvl=0):
         # check if user has set up model attribute
         if self.model is None:
             class_name = self.__class__.__name__
@@ -22,26 +22,7 @@ class Ability(Member):
 
         # init super class
         super().__init__(res.ID, res.name)
-        # define default lvl
-        self.lvl = 0
-
-        self._bin_labels = self._extract_properties(res)
-        self._labels = [l for l in self._bin_labels
-                        if self._bin_labels[l] == 1]
-
-        # get specs IMPORTANT: ID is not pk for this table, abilities are
-        # stored by level, so every ability has at least 3 records
-        specs = session.query(AbilitySpecsModel)
-        lvls  = specs.filter(AbilitySpecsModel.ID == id_).all()
-
-        # add specs as dictionaries
-        self.all_specs = dict()
-        self.specs = dict()
-        for record in lvls:
-            lvl = record.lvl
-            self.all_specs[lvl] = self._extract_properties(record)
-            self.specs[lvl] = {k: v for k, v in self.all_specs[lvl].items()
-                               if v is not None}
+        self.lvl = lvl
 
     def _extract_properties(self, response):
         ''' Extracts properties from session response. 
@@ -59,60 +40,45 @@ class Ability(Member):
         return bin_labels
 
     def __str__(self):
-        return '<Ability name={}, labels={}>'.format(self.name, self._labels)
+        return '<Ability name={}>'.format(self.name)
 
     def __repr__(self):
         return '<Ability object name={}>'.format(self.name)
 
-    @property
-    def bin_labels(self):
-        ''' Returns vector representation of this ability.
-        
-            Returns:
-                vector (pd.Series): vector build upon all_labels attribute
-        '''
-        return pd.Series(self._bin_labels)
-
     def to_series(self):
+        request = session.query(AbilitySpecsModel)
         if self.lvl == 0:
-            # average all specs
-            summary = self._get_summary()
+            # get stats for all lvls
+            lvls = request.filter(AbilitySpecsModel.ID == self.id).all()
+            # create DataFrame from lvls data
+            all_specs = pd.DataFrame([p.__dict__ for p in lvls])
+            # split DataFrame to text and numbers columns
+            # average numeric part
+            num_part = all_specs.select_dtypes(exclude=[object]).mean()
+            # take first row from text part (all rows are the same)
+            str_part = all_specs.select_dtypes(include=[object]).loc[0]
+
+            # merge parts together
+            specs = pd.concat([str_part, num_part], axis=0)
 
         else:
             # get specs for defined lvl
-            summary = self.all_specs[self.lvl]
+            request = request.filter(AbilitySpecsModel.ID == self.id)
+            lvl_specs = request.filter(AbilitySpecsModel.lvl == self.lvl)
+            lvl_specs = lvl_specs.first()
+            specs = pd.Series(lvl_specs.__dict__)
 
-        summary['id'] = self.id
-        labels = {'label_' + k: v for k, v in self._bin_labels.items()}
+        specs = specs.drop(['HeroID'])
+
+        query = session.query(self.model)
+        result = query.filter(self.model.ID == self.id).first()
+        bin_labels = self._extract_properties(result)
+        labels = {'label_' + k: v for k, v in bin_labels.items()}
 
         # merge specs with labels
-        series = pd.concat([summary, pd.Series(labels)], axis=0)
+        series = pd.concat([specs, pd.Series(labels)], axis=0)
 
         return series
-
-    def _get_summary(self):
-        ''' Return series where every features are averaged. 
-        
-            This function averages all the properties.
-             
-             Returns:
-                 summary (pd.Series): described summary
-        '''
-        summary = pd.Series(self.specs[1])
-        sum_dict = dict()
-        for lvl in range(1, len(self.specs)):
-            for prop, value in self.specs[lvl].items():
-                if isinstance(value, int) or isinstance(value, float):
-                    sum_dict.setdefault(prop, 0)
-                    sum_dict[prop] += value / len(self.specs)
-
-        for column in self.all_specs[1]:
-            if column not in summary:
-                summary[column] = None
-
-        summary = summary.drop('pk')
-
-        return summary
 
 
 class Abilities(Group):
@@ -129,6 +95,13 @@ class Abilities(Group):
             raise ValueError(report)
 
         members_ = [cls.member_type(ability[0]) for ability in response]
+
+        return cls(members_)
+
+    @classmethod
+    def all(cls):
+        ids = [x[0] for x in session.query(AbilityModel.ID).all()]
+        members_ = [Ability(id_) for id_ in ids]
 
         return cls(members_)
 

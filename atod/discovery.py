@@ -68,8 +68,9 @@ def check_heroes():
     for id_ in [1, 2, 3, 4, 5]:
         heroes.append(Hero(id_))
 
-    h = Heroes(heroes)
-    print(h.to_dataframe())
+    # h = Heroes(heroes)
+    h = Hero(20)
+    print(h.abilities.to_dataframe())
 
 
 if __name__ == '__main__':
