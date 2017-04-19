@@ -129,44 +129,45 @@ def parse(filename):
     '''
     result = {}
     keys_stack = []
-    with open(filename, 'r') as fp:
-        try:
-            for row in fp:
-                # clean_ is a list without \t \n or spaces in it
-                clean_ = remove_nt(row)
+    with open(filename, 'r', encoding='utf-8') as fp:
+        for row in fp:
+            # if string contain line separators inside value
+            # this case noticed only in `dota_english.txt`
+            if row.count('"') == 3:
+                row = row[:-1] + ' '
+                next_row = next(fp)[:-1] + ' '
+                while '"' not in next_row:
+                    row += next_row
+                    next_row = next(fp)
+                row += next_row
 
-                # remove comments
-                if clean_.startswith('//'):
-                    continue
+            # clean_ is a list without \t \n or spaces in it
+            clean_ = remove_nt(row)
 
-                # if string contain line separators inside value
-                # this case noticed only in `dota_english.txt`
-                if row.count('"') == 3:
-                    while '"' not in next(fp):
-                        row += next(fp)
+            # remove comments
+            if clean_.startswith('//'):
+                continue
 
-                # remove all the comments and empty strings
-                clean = re.findall(r'"([\S| ]*?)"', row)
+            # remove all the comments and empty strings
+            clean = re.findall(r'"([\S| ]*?)"', clean_)
 
-                # if this is a key or a bracket
-                if len(clean) <= 1:
-                    # if this isn't bracers - this is the key
-                    if len(clean) == 1:
-                        # add the key to the stack
-                        keys_stack.append(clean[0])
+            # if this is a key or a bracket
+            if len(clean) <= 1:
+                # if this isn't bracers - this is the key
+                if len(clean) == 1:
+                    # add the key to the stack
+                    keys_stack.append(clean[0])
 
-                    elif '}' in row:
-                        # pop key from the stack, since corresponding dictionary
-                        # ended
-                        keys_stack.pop()
+                elif '}' in clean_:
+                    # pop key from the stack, since corresponding dictionary
+                    # ended
+                    keys_stack.pop()
 
-                elif len(clean) == 2:
-                    write_on_stack(write_to=result,
-                                   path=keys_stack,
-                                   key=clean[0],
-                                   value=clean_value(clean[1]))
-        except UnicodeDecodeError:
-            print(row)
+            elif len(clean) == 2:
+                write_on_stack(write_to=result,
+                               path=keys_stack,
+                               key=clean[0],
+                               value=clean_value(clean[1]))
 
     return result
 
