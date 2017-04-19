@@ -81,6 +81,7 @@ def write_on_stack(write_to, path, key, value):
         Returns:
             write_to (dict) : changed write_to argument
     '''
+
     current = write_to
     # find or create the end destination for writing value
     for p in path:
@@ -92,7 +93,9 @@ def write_on_stack(write_to, path, key, value):
     # trying to write value in the end of stack
     try:
         current[p][key] = value
-    except KeyError as e:
+    except TypeError:
+        print(path)
+    except KeyError:
         current[key] = value
 
     return write_to
@@ -100,7 +103,6 @@ def write_on_stack(write_to, path, key, value):
 
 def remove_nt(input_str):
     ''' Returns string without tabs, line terminators and spaces. '''
-    # clean = input_str.replace(' ', '')
     clean = input_str.replace('\t', '')
     clean = clean.replace('\n', '')
 
@@ -114,45 +116,57 @@ def parse(filename):
         Second, it checks if the string starts with // - if so, go next row.
         Third, it finds all the payload in string with regex and saves it
         into a list.
-        After that, based on the length of cleaned row list, func defines is it
+        After that, based on the length of cleaned row list, func defines is 
+        it.
         the key, bracers or key with value and performs appropriate action.
 
         Args:
             filename (str) : file to parse
 
         Returns:
-            result (dict) : JSON serializeble dictionary created from given file
+            result (dict) : JSON serializeble dictionary created from given 
+                            file
     '''
     result = {}
     keys_stack = []
     with open(filename, 'r') as fp:
-        for row in fp:
-            # clean_ is a list without \t \n or spaces in it
-            clean_ = remove_nt(row)
+        try:
+            for row in fp:
+                # clean_ is a list without \t \n or spaces in it
+                clean_ = remove_nt(row)
 
-            if clean_.startswith('//'):
-                continue
+                # remove comments
+                if clean_.startswith('//'):
+                    continue
 
-            # remove all the comments and empty strings
-            clean = re.findall(r'''"[\w| |;|_|.|/|\-|'|&]+"|""|[{]|[}]''', clean_)
+                # if string contain line separators inside value
+                # this case noticed only in `dota_english.txt`
+                if row.count('"') == 3:
+                    while '"' not in next(fp):
+                        row += next(fp)
 
-            # if this is a key or a bracket
-            if len(clean) == 1:
-                # if this isn't bracers - this is the key
-                if '{' not in clean and '}' not in clean:
-                    # add the key to the stack
-                    keys_stack.append(clean[0][1:-1])
+                # remove all the comments and empty strings
+                clean = re.findall(r'"([\S| ]*?)"', row)
 
-                if '}' in clean:
-                    # pop key from the stack, since corresponding dictionary
-                    # ended
-                    keys_stack.pop()
+                # if this is a key or a bracket
+                if len(clean) <= 1:
+                    # if this isn't bracers - this is the key
+                    if len(clean) == 1:
+                        # add the key to the stack
+                        keys_stack.append(clean[0])
 
-            if len(clean) == 2:
-                write_on_stack(write_to=result,
-                               path=keys_stack,
-                               key=clean[0][1:-1],
-                               value=clean_value(clean[1][1:-1]))
+                    elif '}' in row:
+                        # pop key from the stack, since corresponding dictionary
+                        # ended
+                        keys_stack.pop()
+
+                elif len(clean) == 2:
+                    write_on_stack(write_to=result,
+                                   path=keys_stack,
+                                   key=clean[0],
+                                   value=clean_value(clean[1]))
+        except UnicodeDecodeError:
+            print(row)
 
     return result
 
@@ -164,7 +178,7 @@ def to_json(input_filename=None, output_filename=None):
         Args:
             input_filename (str) : .txt file in unix-dialect from dota folder
             output_filename(str) : .json file to dump result dict
-                if output_filename == '' will write to the same folder and with
+                if output_filename == '' will write to the same folder and
                 with the same name as input file.
                 if None - won't write result to file
                 (optional, default None)
@@ -180,7 +194,7 @@ def to_json(input_filename=None, output_filename=None):
     result = parse(input_filename)
 
     # if output filename is not provided
-    if output_filename == '':
+    if output_filename is None:
         # create a path for parsed file:
         # DATA_FOLDER/parsed/<inputfile_no_extension>.json
         output_filename = input_filename.split('.')[0] + '.json'
@@ -189,9 +203,11 @@ def to_json(input_filename=None, output_filename=None):
         with open(output_filename, 'w+') as fp:
             json.dump(result, fp, indent=4)
 
+    print(output_filename)
+
     return result
 
 
 if __name__ == '__main__':
-    inp = settings.DATA_FOLDER + 'raw/items.txt'
+    inp = '/Users/gasabr/AtoD/atod/data/raw/dota_english.txt'
     to_json(input_filename=inp)

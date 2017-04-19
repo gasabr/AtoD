@@ -63,15 +63,16 @@ def get_labeled():
     return '{}/{} abilities are labeled'.format(labeled, len(in_process))
 
 
-def check_heroes():
-    heroes = []
-    for id_ in [1, 2, 3, 4, 5]:
-        heroes.append(Hero(id_))
-
-    # h = Heroes(heroes)
-    h = Hero(20)
-    print(h.abilities.to_dataframe())
+def check_parsing():
+    import re
+    path = '/Users/gasabr/AtoD/atod/tests/tests_data/game_files/line-terminator.txt'
+    with open(path, 'r') as fp:
+        for row in fp:
+            a = re.findall(r'"([\S| ]+?)"', row)
+            print(row)
+            print(a)
+            print(a[0][-3:], '\n')
 
 
 if __name__ == '__main__':
-    check_heroes()
+    check_parsing()
