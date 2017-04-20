@@ -304,7 +304,7 @@ def show_progress(stage_name, abilities):
     logging.info('================================================\n')
 
 
-def clean(lists_to_mean=False):
+def clean(data=None, lists_to_mean=False):
     ''' Controls cleaning process.
     
         Function calls other functions to change skills dictionary.
@@ -313,12 +313,13 @@ def clean(lists_to_mean=False):
         Takes:
             lists_to_mean (bool): transform or not lists to mean
     '''
-    with open(settings.ABILITIES_FILE, 'r') as fp:
-        raw = json.load(fp)
-    show_progress('RAW', raw)
+    if not data:
+        with open(settings.ABILITIES_FILE, 'r') as fp:
+            data = json.load(fp)
+        show_progress('RAW', data)
 
     # find heroes abilities
-    skills_nested = find_skills(raw)
+    skills_nested = find_skills(data)
     show_progress('SKILLS', skills_nested)
 
     # make skills flat
