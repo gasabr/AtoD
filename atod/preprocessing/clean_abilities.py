@@ -9,8 +9,9 @@ import json
 import logging
 
 from atod import settings
+from atod.db import session
+from atod.models import HeroModel
 from atod.preprocessing.dictionary import all_keys, make_flat_dict
-
 
 logging.basicConfig(level=logging.WARNING)
 
@@ -353,8 +354,29 @@ def clean(lists_to_mean=False):
     return skills
 
 
-if __name__ == '__main__':
-    clean_abilities = clean()
+def summarize_descriptions(parsed_abilities):
+    ''' Creates descriptions of abilities and dumps it to the file. 
+    
+        Args:
+            parsed_abilities (str): filename of parsed dota_english.txt
+    '''
+    with open(parsed_abilities, 'r') as fp:
+        descriptions = json.load(fp)
 
-    with open(settings.ABILITIES_LISTS_FILE, 'w+') as fp:
-        json.dump(clean_abilities, fp, indent=2)
+    desc_by_ability = dict()
+    keys = sorted(descriptions)
+    ability = ' '
+
+    for key in keys:
+        if ability in key:
+            desc_by_ability[ability][key[len(ability)+1:]] = descriptions[key]
+        else:
+            ability = key
+            desc_by_ability[ability] = dict()
+            desc_by_ability[ability]['name'] = descriptions[ability]
+
+    with open(settings.ABILITIES_DESCRIPTIONS_FILE, 'w+') as fp:
+        json.dump(desc_by_ability, fp, indent=2)
+
+if __name__ == '__main__':
+    summarize_descriptions()

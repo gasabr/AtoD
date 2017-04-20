@@ -64,15 +64,30 @@ def get_labeled():
 
 
 def check_parsing():
-    import re
-    path = '/Users/gasabr/AtoD/atod/tests/tests_data/game_files/line-terminator.txt'
-    with open(path, 'r') as fp:
-        for row in fp:
-            a = re.findall(r'"([\S| ]+?)"', row)
-            print(row)
-            print(a)
-            print(a[0][-3:], '\n')
+    from atod.db import session
+    from atod.models import HeroModel
 
+    names = [n[0] for n in session.query(HeroModel.in_game_name).all()]
+
+    filename = '/Users/gasabr/AtoD/atod/data/parsed/dota_english.json'
+
+    with open(filename, 'r') as fp:
+        data = json.load(fp)
+
+    abilities = dict()
+    prefix = 'DOTA_Tooltip_ability_'
+    # iterate through all keys in "Tokens" of parsed dota_english.json and
+    # find all keys that starts with "DOTA_Tooltip_ability"
+    for key, value in data['lang']['Tokens'].items():
+        if key.startswith(prefix) and \
+                    any(map(lambda n: n in key, names)):
+
+            ability_key = key[len(prefix):]
+            abilities[ability_key] = value
+
+    output_filename = '/Users/gasabr/AtoD/atod/data/abilities.json'
+    with open(output_filename, 'w+') as fp:
+        json.dump(abilities, fp, indent=2)
 
 if __name__ == '__main__':
     check_parsing()

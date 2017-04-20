@@ -42,6 +42,9 @@ ABILITIES_LISTS_FILE    = path.join(TMP_FOLDER, 'abilities_lists.json')
 
 ABILITIES_LISTS_LABELED_FILE = path.join(TMP_FOLDER, 'labeled_lists.json')
 
+ABILITIES_DESCRIPTIONS_FILE = path.join(DATA_FOLDER,
+                                        'abilities_descriptions.json')
+
 # ============================================================================
 # DataBase settings
 # ============================================================================
