@@ -3,8 +3,8 @@ import os
 import unittest
 
 from atod import settings
-from atod.preprocessing.clean_abilities import (average_properties_, remove_word,
-                                                merge_similar_)
+from atod.preprocessing.abilities import (_average_ability_properties, _remove_word,
+                                          _merge_similar)
 
 
 class TestCleaningAbilities(unittest.TestCase):
@@ -19,7 +19,7 @@ class TestCleaningAbilities(unittest.TestCase):
             test_data = json.load(fp)
 
         for case in test_data:
-            self.assertEqual(average_properties_(case['input']),
+            self.assertEqual(_average_ability_properties(case['input']),
                              case['output'])
 
     def test_tooltip_removing(self):
@@ -28,7 +28,7 @@ class TestCleaningAbilities(unittest.TestCase):
             test_data = json.load(fp)
 
         for case in test_data:
-            self.assertEqual(remove_word(case['input'], word='tooltip'),
+            self.assertEqual(_remove_word(case['input'], word='tooltip'),
                              case['output'])
 
     def test_similar_merging(self):
@@ -40,7 +40,7 @@ class TestCleaningAbilities(unittest.TestCase):
             changes = json.load(fp)
 
         for case in test_data:
-            self.assertEqual(merge_similar_(case['input'], changes),
+            self.assertEqual(_merge_similar(case['input'], changes),
                              case['output'])
 
 

@@ -8,13 +8,13 @@ import json
 
 from atod import settings
 from atod.heroes import Hero, Heroes
-from atod.preprocessing import dictionary, clean_abilities
-from atod.preprocessing.abilities import abilities as Abilities
+from atod.preprocessing import dictionary, abilities
+from atod.preprocessing.abilities_old import abilities as Abilities
 from atod.abilities import Abilities
 
 
 def print_keys_occurrences():
-    data = clean_abilities.clean()
+    data = abilities.get_cleaned_abilities()
     key2occur = dictionary.count_keys(data)
 
     # remove abilities names from key2occur

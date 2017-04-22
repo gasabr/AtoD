@@ -2,11 +2,11 @@ from sqlalchemy import Table, Column, Integer
 
 from atod import settings
 from atod.db import Base
-from atod.db.schemas import create_items_scheme
+from atod.db.schemas import get_item_schema
 
 
 items = (Column(name, type_) for name, type_ in
-                        create_items_scheme().items() if name != 'ID')
+         get_item_schema().items() if name != 'ID')
 
 
 class ItemModel(Base):

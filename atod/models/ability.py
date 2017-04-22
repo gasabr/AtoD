@@ -1,12 +1,13 @@
 from sqlalchemy import Table, Column, Integer, String, ForeignKey
 
-from atod import settings
 from atod.db import Base
+from atod import settings
+from atod.db.schemas import get_ability_schema
 
 
 class AbilityModel(Base):
 
-    _cols = [Column(label, Integer) for label in settings.LABELS]
+    _cols = [Column(label, Integer) for label in get_ability_schema()]
     _cols.append(Column('ID', Integer, primary_key=True))
     _cols.append(Column('name', String))
 

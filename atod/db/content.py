@@ -3,7 +3,7 @@ import json
 from atod.db import session
 
 from atod import settings
-from atod.db.schemas import create_abilities_scheme
+from atod.db.schemas import get_ability_specs_schema
 from atod.models import HeroModel, ItemModel, AbilitySpecsModel, AbilityModel
 from atod.preprocessing import json2rows
 from atod.preprocessing.dictionary import get_str_keys
@@ -40,7 +40,7 @@ def fill_items():
 
 def fill_abilities_specs():
     ''' FIlls table with the data from cleaned npc_abilities file. '''
-    schema = create_abilities_scheme()
+    schema = get_ability_specs_schema()
 
     with open(settings.ABILITIES_LISTS_FILE, 'r') as fp:
         skills = json.load(fp)

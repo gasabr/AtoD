@@ -5,8 +5,8 @@ import unittest
 from atod import settings
 from atod.modeling.abilities import (encode_effects,
                                      create_categorical)
-from atod.preprocessing.abilities import abilities as Abilities
-from atod.preprocessing.clean_abilities import clean \
+from atod.preprocessing.abilities_old import abilities as Abilities
+from atod.preprocessing.abilities import get_cleaned_abilities \
     as get_clean_abilities
 from atod.preprocessing.dictionary import make_flat_dict
 

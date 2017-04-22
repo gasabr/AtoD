@@ -4,7 +4,7 @@ import json
 
 from atod import settings
 from atod.preprocessing.txt2json import to_json
-from atod.preprocessing.clean_abilities import clean
+from atod.preprocessing.abilities import get_cleaned_abilities
 
 
 needed_files = ['npc_heroes.txt', 'npc_abilities.txt',
@@ -27,7 +27,7 @@ def update_abilities(file, version):
         raise FileNotFoundError(file + 'not found.')
 
     as_json = to_json(file)
-    clean_  = clean(data=as_json)
+    clean_  = get_cleaned_abilities(data=as_json)
 
 
 

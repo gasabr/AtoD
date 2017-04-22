@@ -1,3 +1,8 @@
+''' There are a lot of variables in descriptions of every subject in the
+    game, so db schemas are pretty complex to write in static form.
+    This file provides interface to all schemas through 
+'''
+
 import json
 import logging
 from sqlalchemy import Integer, String, Float
@@ -5,7 +10,6 @@ from sqlalchemy import Integer, String, Float
 from atod import settings
 from atod.db import Base, engine
 from atod.preprocessing.dictionary import get_types
-# from atod.models import HeroModel, AbilityModel, AbilitySpecsModel
 
 logging.basicConfig(level=logging.INFO)
 
@@ -70,6 +74,10 @@ heroes_scheme = {
 
 
 class Schema():
+    ''' Attempt to create abstraction on all the schemas. unsuccessful.
+    
+        I'm gonna return to create updating functionality.
+    '''
     tables_base_names = ['abilities', 'abilities_specs', 'heroes']
 
     # get the latest version from engine.tables_names()
@@ -112,11 +120,11 @@ class Schema():
         raise ValueError('No table for this model -- check __tables__.')
 
 
-def create_heroes_scheme():
+def get_hero_schema():
     return heroes_scheme
 
 
-def create_abilities_scheme():
+def get_ability_specs_schema():
     ''' Creates schema of abilities table.
     
         Raises:
@@ -163,7 +171,7 @@ def create_abilities_scheme():
     return scheme
 
 
-def create_items_scheme():
+def get_item_schema():
     with open(settings.DATA_FOLDER + 'items_types.json', 'r') as fp:
         items_types = json.load(fp)
 
@@ -177,5 +185,6 @@ def create_items_scheme():
 
     return items_scheme
 
-if __name__ == '__main__':
-    create_abilities_scheme()
+
+def get_ability_schema():
+    return settings.LABELS

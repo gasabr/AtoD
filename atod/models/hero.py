@@ -2,10 +2,10 @@ from sqlalchemy import Table, Column, Integer
 
 from atod import settings
 from atod.db import Base
-from atod.db.schemas import create_heroes_scheme
+from atod.db.schemas import get_hero_schema
 
 heroes = (Column(n, t) for n, t
-          in create_heroes_scheme().items() if n != 'HeroID')
+          in get_hero_schema().items() if n != 'HeroID')
 
 class HeroModel(Base):
 

@@ -1,396 +1,382 @@
-import json
-import re
+''' This script cleans npc_abilities.json file by:
+    - removing skill name from description
+    - replacing lists and with their avg value
+    - merging rare properties to popular
+'''
 
-import matplotlib.pyplot as plt
-import pandas
-import seaborn as sns
-from sklearn.cluster import KMeans
-from sklearn.preprocessing import MultiLabelBinarizer, MinMaxScaler
+import re
+import json
+import logging
 
 from atod import settings
-from atod.abilities import Ability
-from atod.modeling.abilities import (create_categorical,
-                                     encode_effects, fill_numeric)
-from atod.preprocessing.clean_abilities import \
-    clean as cleaning_function
-from atod.preprocessing.dictionary import (find_all_values, create_encoding,
-                                           make_flat_dict)
-from atod.preprocessing.load_labels import load_labels
+from atod.preprocessing.dictionary import all_keys, make_flat_dict
+
+logging.basicConfig(level=logging.WARNING)
 
 
-class Singleton(type):
-    _instances = {}
+def _find_skills(raw_abilities):
+    ''' Finds skills in dictionary.
 
-    def __call__(cls, *args, **kwargs):
-        if cls not in cls._instances:
-            cls._instances[cls] = super(Singleton, cls).__call__(*args, **kwargs)
-        return cls._instances[cls]
+        'Skills' does **not** include scepter upgrades, empty, hidden...
+        abilities full list in stop_words and deprecated.
+
+        Args:
+            raw_abilities (dict): content of npc_abilities.json
+
+        Returns:
+            skills (dict): heroes abilities in `raw_abilities`
+    '''
+    # load converter to get heroes names
+    with open(settings.IN_GAME_CONVERTER, 'r') as fp:
+        converter = json.load(fp)
+
+    heroes_names = [c for c in converter.keys()
+                    if re.findall(r'[a-zA-Z|\_]+', c)]
+    stop_words = ['special_bonus', 'hidden', 'empty', 'scepter',
+                  'stop', 'self', 'cancel', 'throw', 'return', 'release',
+                  'brake', 'end']
+    # removed from the game or useless skills
+    deprecated = ['drow_ranger_wave_of_silence', 'centaur_khan_war_stomp',
+                  'ember_spirit_fire_remnant', 'faceless_void_backtrack',
+                  'death_prophet_witchcraft']
+    # neutral creeps abilities
+    creeps_abilities = ['ogre_magi_frost_armor',
+                        'polar_furbolg_ursa_warrior_thunder_clap']
+    # abilities which are available only with aghanim scepter
+    scepter_abilities = ['nyx_assassin_burrow', 'nyx_assassin_unburrow',
+                         'morphling_hybrid', 'zeus_cloud',
+                         'treant_eyes_in_the_forest']
+
+    # find all the heroes skills, but not talents
+    skills_list = []
+    for key, value in raw_abilities['DOTAAbilities'].items():
+        # if ability contains hero name, doesn't contain stop words
+        if any(map(lambda name: name in key, heroes_names)) \
+                and not any(map(lambda word: word in key, stop_words)) \
+                and key not in deprecated \
+                and key not in creeps_abilities \
+                and key not in scepter_abilities \
+                and key != 'Version':
+            skills_list.append(key)
+
+    skills = {}
+    for ability in skills_list:
+        skills[ability] = raw_abilities['DOTAAbilities'][ability]
+
+    return skills
 
 
-class Abilities(metaclass=Singleton):
-    ''' Singleton wrapper for npc_abilities.json.
+def _remove_skills_names(skills):
+    ''' Removes parts of ability name from all the properties.
 
-        This class provides interface to work with abilities file.
-        I'm using following definitions in the program:
-            property    -- something that describes ability (e.g. cooldown)
-            description -- all the properties of the ability
-            skill       -- playable hero ability
+        There are a lot of skills which properties looks like this:
+        <skillname>_<property>, they could be simplified to <property>.
+        This function does exactly that.
 
-        Attributes:
-            _filename (str): absolute path to npc_abilities.json
-            skills (dict)  : flatted skills from npc_abilities.json
+        Args:
+            skills (dict): flat dictionary of heroes abilities
+
+        Returns:
+            clean (dict): cleaned skills dictionary, where every changed
+                ability has special keyword `changed`.
     '''
 
-    _filename = settings.ABILITIES_FILE
+    for skill, description in skills.items():
+        for property_ in list(description):
+            property_split = property_.split('_')
+            new_name_list = [p for p in property_split if p not in skill]
 
-    unused_properties = ['HasScepterUpgrade', 'LinkedSpecialBonus',
-                         'HotKeyOverride', 'levelkey', 'FightRecapLevel',
-                         'CalculateSpellDamageTooltip']
+            if new_name_list != property_split and len(new_name_list) != 0:
+                new_name = ''.join([n + '_' for n in new_name_list]).strip('_')
+                skills[skill][new_name] = description[property_]
+                del skills[skill][property_]
 
-    def __init__(self):
-        self.clean = cleaning_function()
-        self.skills = dict()
-        for ability, description in self.clean.items():
-            self.skills[ability] = description
-
-        self.cat_variables = self.get_cat_variables()
-
-        self.cat_columns = ['{}={}'.format(k, vv)
-                            for k, v in self.encoding.items()
-                            for vv in v if k in self.cat_variables]
-
-    def find_skills(self):
-        with open(self._filename, 'r') as fp:
-            raw = json.load(fp)
-
-        # load converter to get heroes names
-        with open(settings.IN_GAME_CONVERTER, 'r') as fp:
-            converter = json.load(fp)
-
-        heroes_names = [c for c in converter.keys()
-                        if re.findall(r'[a-zA-Z|\_]+', c)]
-
-        # find all the heroes skills, but not talents
-        skills_list = []
-        for key, value in raw['DOTAAbilities'].items():
-            # if ability contains hero name, doesn't contain special_bonus
-            if any(map(lambda name: name in key, heroes_names)) and \
-                            'special_bonus' not in key and \
-                            'empty' not in key and \
-                            'scepter' not in key:
-                skills_list.append(key)
-
-        skills = {}
-        for ability in skills_list:
-            skills[ability] = raw['DOTAAbilities'][ability]
-
-        return skills
-
-    @property
-    def specials(self):
-        '''Returns mapping ability -> AbilitySpecials without excluded.'''
-        excluded = ['CalculateSpellDamageTooltip',
-                    'LinkedSpecialBonusOperation', 'LinkedSpecialBonus']
-
-        specials = dict()
-        raw = self.raw['DOTAAbilities']
-        # TODO: extend function to more common case (with property())
-        key = 'AbilitySpecial'
-        for ability, description in raw.items():
-            if ability not in self.skills.keys():
+            else:
                 continue
 
-            try:
-                specials[ability] = make_flat_dict(description[key],
-                                                   exclude=excluded)
-            except KeyError:
-                pass
-            # to handle Version
-            except TypeError:
-                pass
-
-
-        return specials
-
-    @property
-    def raw(self):
-        '''Returns npc_abilities.txt as a dict.'''
-        with open(self._filename, 'r') as fp:
-            return json.load(fp)
-
-    @property
-    def skills_list(self):
-        return list(self.skills.keys())
-
-    @property
-    def effects(self):
-        ''' Returns:
-                (set): all words that occurs in abilities descriptions (keys)
-        '''
-        # FIXME: write better effects extraction
-        return set(e for key, effects in self.skills.items()
-                     for effect in effects
-                     for e in effect.split('_'))
-
-    def get_properties(self):
-        return set(effect for key, effects in self.skills.items()
-                          for effect in effects
-                          if effect not in self.unused_properties)
-
-    @property
-    def encoding(self):
-        '''Returns encoding of categorical features.'''
-        values = find_all_values(self.raw['DOTAAbilities'])
-        encoding = create_encoding(values)
-
-        return encoding
-
-    @property
-    def frame(self):
-        ''' Function to call from outside of the module.
-
-            Returns:
-                result_frame (pandas.DataFrame) : DataFrame of extracted vectors
-        '''
-
-        clean = self.clean_properties()
-        heroes_abilities = list(clean)
-        skills = clean
-
-        numeric_part = encode_effects(skills, heroes_abilities, self.effects)
-        categorical_part = create_categorical(skills,
-                                              heroes_abilities,
-                                              self.cat_columns)
-
-        result_frame = pandas.concat([numeric_part, categorical_part], axis=1)
-
-        return result_frame
-
-    @property
-    def clean_frame(self):
-        ''' Function to call from outside of the module.
-
-            Returns:
-                result_frame (pandas.DataFrame) : DataFrame of extracted vectors
-        '''
-
-        # clean = self.clean_properties()
-        clean = cleaning_function()
-        heroes_abilities = list(clean)
-
-        effects = [effect for key, effects in clean.items()
-                          for effect in effects
-                          if effect not in self.unused_properties]
-
-        effects = set(effects)
-
-        # fill categorical variables
-        categorical_part = create_categorical(clean,
-                                              heroes_abilities,
-                                              self.cat_columns)
-
-        # remove categorical variables from description
-        for skill, description in clean.items():
-            for cat in self.cat_variables:
-                if cat in description:
-                    del description[cat]
-
-        # fill numeric part of dataframe
-        numeric_part = fill_numeric(clean, heroes_abilities, effects)
-
-        # concatenate 2 parts
-        result_frame = pandas.concat([numeric_part, categorical_part], axis=1)
-        # result_frame = result_frame.drop(['changed', 'ID'], axis=1)
-        # result_frame = result_frame.dropna(axis=1, thresh=2)
-        # result_frame = result_frame.fillna(value=0)
-
-        return result_frame
-
-    @property
-    def effects_descriptions(self):
-        ''' Generator of not categorical properties strings.
-
-            Yields:
-                property_ (str): property where '_' replaced with ' '
-        '''
-        print(self.cat_variables)
-        for skill, description in self.skills.items():
-            for property_ in description:
-                if property_ not in self.cat_variables:
-                    yield property_.replace('_', ' ')
-
-    def get_cat_variables(self):
-        return set([k for k, v in self.encoding.items()
-                      for vv in v if k != 'var_type' and
-                                     k != 'LinkedSpecialBonus' and
-                                     k != 'HotKeyOverride' and
-                                     k != 'levelkey'])
-
-    # TODO: merge this with filter() function
-    def with_property(self, property_):
-        ''' Finds properties which contain one of `keywords`.
-
-            Args:
-                property_ (str): property to look in ability description keys
-
-            Returns:
-                properties (dict): maps ability to its property value
-
-        '''
-
-        properties = []
-
-        for ability, description in self.skills.items():
-            # if ability has property - remember its value
-            try:
-                properties.append((ability, description[property_]))
-
-            # otherwise - continue searching
-            except KeyError:
-                continue
-
-        return properties
-
-    def plot_property(self, property_):
-        ''' Plots all values of given property with matplotlib.
-
-            Args:
-                property_ (str): property to plot
-
-        '''
-
-        abilities_to_plot = self.with_property(property_)
-        properties = pandas.Series([a[1] for a in abilities_to_plot],
-                                   index=[a[0] for a in abilities_to_plot])
-
-        # TODO: add borders to histogram
-        # plotting
-        # set styles
-        sns.set(style="white", palette="muted", color_codes=True)
-        sns.distplot(properties, color='b')
-        plt.show()
-
-    def clustering_by(self, property_):
-        ''' Clusters abilities by given `property_`.
-
-            Args:
-                property_ (str): property to cluster by
-
-            Returns:
-                clusters (dict): maps skill to its cluster
-        '''
-
-        skills = self.with_property(property_)
-        properties = [[a[1]] for a in skills]
-
-        km = KMeans(n_clusters=3).fit(properties)
-
-        # to get meaningful cluster name, map cluster center to word
-        id2center = list()
-        for cluster_i, cluster_center in enumerate(km.cluster_centers_):
-            id2center.append((cluster_i, cluster_center[0]))
-
-        id2center.sort(key=lambda c: c[1])
-
-        # map id of cluster to the word describing its value
-        id2label = dict()
-        for label, value in zip([x[0] for x in id2center],
-                                ['Small', 'Medium', 'Big']):
-            id2label[label] = value
-
-        # spread results to clusters
-        clusters = {}
-        for skill, cluster in zip([a[0] for a in skills], km.labels_):
-            clusters[skill] = id2label[cluster] + property_
-
-        return clusters
-
-    def filter(self, hero=''):
-        ''' Returns all the hero abilities.
-
-            Plan is to add more filtering options, for example cooldown,
-            effects(armor, slow, damage...).
-
-            Args:
-                hero (str): in game hero name
-                    (optional, default='')
-
-            Returns:
-                abilities_ (list): list of Ability
-        '''
-
-        abilities_ = []
-        if hero != '':
-            for ability, description in self.skills.items():
-                if hero in ability:
-                    abilities_.append(Ability(ability, description))
-
-        return abilities_
-
-    def clean_properties(self):
-        ''' Removes parts of ability name from all the properties.
-
-            There are a lot of skills which properties looks like this:
-            <skillname>_<property>, they could be simplified to <property>.
-            This function does exactly that.
-
-            Returns:
-                clean (dict): cleaned skills dictionary, where every changed
-                    ability has special keyword `changed`.
-        '''
-        clean = self.skills.copy()
-        for skill, description in clean.items():
-            skill_changed = False
-            for property_ in list(description):
-                property_split = property_.split('_')
-                new_name_list = [p for p in property_split if p not in skill]
-
-                if new_name_list != property_split and len(new_name_list) != 0:
-                    new_name = ''.join([n + '_' for n in new_name_list]).strip('_')
-                    clean[skill][new_name] = description[property_]
-                    del clean[skill][property_]
-                    skill_changed = True
-
-                else:
-                    continue
-
-            if skill_changed:
-                clean[skill]['changed'] = True
-
-        return clean
-
-    def load_train_test(self):
-        ''' Loads training and test data for classification.
-
-            Returns:
-                X_train, y_train, X_test  of pd.DataFrame)
-        '''
-
-        frame = self.clean_frame
-        labeling = load_labels()
-        labeled_abilities = list(labeling)
-        # list of labels as integers
-        labels_unique = [labeling[a] for a in labeled_abilities]
-
-        # binarize data
-        mlb = MultiLabelBinarizer()
-        labels_bin = mlb.fit_transform(labels_unique)
-
-        labels = pandas.DataFrame(labels_bin, index=labeled_abilities,
-                                  columns=settings.LABELS)
-
-        mm_scaler = MinMaxScaler()
-        mm_scaler.fit(frame)
-
-        # get labeled skill from frame
-        train = frame.loc[list(labeling)]
-        train = train.fillna(value=0)
-        train = mm_scaler.transform(train)
-
-        # drop labeled skill from frame
-        frame = frame.drop([a for a in labeling if a in frame.index], axis=0)
-        # frame = mm_scaler.transform(frame)
-
-        return train, labels, frame
-
-abilities = Abilities()
+    return skills
+
+
+def _change_properties(skills):
+    ''' Applies abilities_changes.json to skills.
+
+        abilities_changes.json - dict where key is name of old
+        property and corresponding value is the new property name.
+        If value == '' property will be removed.
+        If value is one of the description keys and
+            ability[value] != ability[key] -- no changes
+            ability[value] == ability[key] -- properties will be merged
+
+        Args:
+            skills (dict): flat dictionary of skills
+
+        Returns:
+            skills_ (dict): with changed properties
+    '''
+
+    skills_ = skills.copy()
+    with open(settings.ABILITIES_CHANGES_FILE, 'r') as fp:
+        changes = json.load(fp)
+
+    for skill in list(skills):
+        if any(map(lambda change: change in skills[skill], changes.keys())):
+            skills_[skill] = _merge_similar(skills[skill], changes)
+
+    return skills_
+
+
+def _merge_similar(skill, changes):
+    ''' Merges similar properties.
+    
+        The rule described in parent function -- `change_properties()`.
+        
+        Args:
+            skill (dict): single ability
+            changes (dict): abilities_changes.json as dictionary
+            
+        Returns:
+            skill (dict): cleaned dict
+    '''
+
+    for prop in list(skill.keys()):
+        if prop not in changes.keys():
+            continue
+        # remove property if value == ''
+        elif changes[prop] == '':
+            del skill[prop]
+            continue
+
+        # if property should be changed and value is int
+        if changes[prop] not in skill \
+                        or skill[prop] == skill[changes[prop]] \
+                        or skill[changes[prop]] == 0:
+            skill[changes[prop]] = skill[prop]
+            del skill[prop]
+
+    return skill
+
+
+def _average_properties(skills):
+    ''' Averages properties values where it's possible.
+
+        Args:
+            skills (dict): flat dict of skills
+
+        Returns:
+            skills_ (dict): the same dict, where abilities changed
+                according to rule in `min_max2avg` docstring.
+    '''
+
+    for ability, description in skills.items():
+        if any(map(lambda x: 'max' in x, description)):
+            skills[ability] = _average_ability_properties(description)
+
+    return skills
+
+
+def _average_ability_properties(desc):
+    ''' Converts properties to their avg.
+    
+        Changed property can be something_max, something_min, or
+        just a list with ability stat by levels. 
+
+        Args:
+            desc (dict): ability properties
+
+        Returns:
+            desc (dict): changed dict
+
+        Examples:
+            >>> d = {'min_stun': 1, 'max_stun': 2}
+            >>> d_avg = _average_ability_properties(d)
+            >>> d_avg
+            {'stun': 1.5}
+    '''
+
+    for prop in list(desc):
+        # if there is max property create min
+        if 'max' in prop:
+            partition = prop.partition('max')
+            min_prop = partition[0] + 'min' + partition[2]
+        else:
+            min_prop = None
+
+        # check if min_prop in decription
+        if min_prop and min_prop in desc.keys():
+            # create new property name
+            new_prop = (partition[0].rstrip('_') + partition[2]).strip('_')
+            if is_number(desc[prop]) and is_number(desc[min_prop]):
+                desc[new_prop] = (desc[prop] + desc[min_prop]) / 2
+
+            elif isinstance(desc[prop], list) and \
+                    isinstance(desc[min_prop], list):
+                desc[new_prop] = [(i+j)/2 for i, j in
+                                  zip(desc[prop], desc[min_prop])]
+            # remove old properties
+            del desc[min_prop]
+            del desc[prop]
+
+    return desc
+
+
+def is_number(num):
+    if isinstance(num, int) or isinstance(num, float):
+        return True
+    return False
+
+
+def _lists_to_mean(skills):
+    ''' Converts lists to their mean value.
+    
+        Takes:
+            skills (dict): dict to 'average'
+            
+        Returns:
+            skills (dict) dict where every list is converted to mean.
+    '''
+
+    for ability, desc in skills.items():
+        for prop, value in desc.items():
+            if isinstance(value, list):
+                desc[prop] = sum(value) / len(value)
+
+    return skills
+
+
+def _clean_properties(dict_, word, remove_prop=False):
+    ''' Remove word from property or the whole property. '''
+    for key, value in dict_.items():
+        for k in list(value):
+            if word in k:
+                if not remove_prop:
+                    new_k = _remove_word(k, word)
+                    value[new_k] = value[k]
+                del value[k]
+
+    return dict_
+
+
+def _remove_word(phrase, word):
+    partition = phrase.partition(word)
+    new_phrase = partition[0].strip('_') + '_' \
+            + partition[2].strip('_')
+    new_phrase = new_phrase.strip('_')
+
+    return new_phrase
+
+
+def _clean_move_properties(dict_):
+    remove_words = ('movement', 'movespeed', 'speed', 'move')
+    for ability, description in dict_.items():
+        for key in list(description):
+            new_key = key
+            if 'move' in key:
+                for word in remove_words:
+                    partition = new_key.partition(word)
+                    new_key = partition[0].strip('_') \
+                            + partition[2].rstrip('_')
+                new_key = ('movespeed_' + new_key.lstrip('_')).rstrip('_')
+
+                dict_[ability][new_key] = dict_[ability][key]
+                del dict_[ability][key]
+
+    return dict_
+
+
+def _show_progress(stage_name, abilities):
+    ''' Function logs (prints) info about current stage of cleaning.
+
+        This is needed to understand what is going on with data after
+        each stage of cleaning.
+
+        Args:
+            stage_name (str): will be printed before log message
+            abilities (dict): current stage of abilities cleaning
+    '''
+
+    logging.info('================================================')
+    logging.info('stage - {}'.format(stage_name))
+    logging.info('#abilities = {}'.format(len(abilities)))
+    n_keys = len(set(all_keys(abilities, include_dict_keys=False)))
+    logging.info('#keys = {}'.format(n_keys))
+    logging.info('================================================\n')
+
+
+def get_cleaned_abilities(data=None, lists_to_mean=False):
+    ''' Controls cleaning process.
+    
+        Function calls other functions to change skills dictionary.
+        `lists_to_mean` is needed to simplify analysis.
+        
+        Takes:
+            lists_to_mean (bool): transform or not lists to mean
+    '''
+    if not data:
+        with open(settings.ABILITIES_FILE, 'r') as fp:
+            data = json.load(fp)
+        _show_progress('RAW', data)
+
+    # find heroes abilities
+    skills_nested = _find_skills(data)
+    _show_progress('SKILLS', skills_nested)
+
+    # make skills flat
+    skills = {}
+    for ability, description in skills_nested.items():
+        skills[ability] = make_flat_dict(description)
+    _show_progress('FLAT', skills)
+
+    # remove ability name from its properties
+    skills = _remove_skills_names(skills)
+    _show_progress('REMOVE ABILITY NAME', skills)
+
+    if lists_to_mean:
+        skills = lists_to_mean(skills)
+
+    # convert min and max properties to their avg
+    skills = _average_properties(skills)
+    _show_progress('AVERAGE PROPERTIES', skills)
+
+    # remove tooltip properties from skills
+    skills = _clean_properties(skills, word='tooltip')
+    skills = _clean_properties(skills, word='scepter', remove_prop=True)
+    _show_progress('CLEANING PROPERTIES', skills)
+
+    # clean movespeed properties
+    skills = _clean_move_properties(skills)
+    _show_progress('CLEANING MOVE PROPERTIES', skills)
+
+    # map properties
+    skills = _change_properties(skills)
+    _show_progress('CLEANING 2', skills)
+
+    return skills
+
+
+def group_descriptions(parsed_abilities):
+    ''' Groups the information in dota_english by ability.
+
+        Args:
+            parsed_abilities (str): path to *parsed* dota_english.txt
+
+        Returns:
+            desc_by_ability (dict): {<ability name>: <different descriptions>}
+    '''
+
+    with open(parsed_abilities, 'r') as fp:
+        descriptions = json.load(fp)
+
+    desc_by_ability = dict()
+    keys = sorted(descriptions)
+    ability = ' '
+
+    for key in keys:
+        if ability in key:
+            desc_by_ability[ability][key[len(ability) + 1:]] = descriptions[
+                key]
+        else:
+            ability = key
+            desc_by_ability[ability] = dict()
+            desc_by_ability[ability]['name'] = descriptions[ability]
+
+    return desc_by_ability

@@ -2,11 +2,11 @@ from atod.db.setup import Base
 from sqlalchemy import Table, Column, ForeignKey
 
 from atod import settings
-from atod.db.schemas import create_abilities_scheme
+from atod.db.schemas import get_ability_specs_schema
 
 
 class AbilitySpecsModel(Base):
-    _scheme = create_abilities_scheme()
+    _scheme = get_ability_specs_schema()
     _cols = list()
 
     fk_column = settings.HEROES_TABLE + '.HeroID'
