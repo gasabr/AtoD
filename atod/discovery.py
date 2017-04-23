@@ -9,8 +9,6 @@ import json
 from atod import settings
 from atod.heroes import Hero, Heroes
 from atod.preprocessing import dictionary, abilities
-from atod.preprocessing.abilities_old import abilities as Abilities
-from atod.abilities import Abilities
 
 
 def print_keys_occurrences():
@@ -25,11 +23,6 @@ def print_keys_occurrences():
     keys_by_occur = sorted(key2occur, key=key2occur.get)
     for key in keys_by_occur:
         print(key, '->', key2occur[key])
-
-
-def remove_single_vars():
-    frame = Abilities.clean_frame
-    print(list(frame.shape))
 
 
 def find_deprecated_skills():
@@ -63,31 +56,13 @@ def get_labeled():
     return '{}/{} abilities are labeled'.format(labeled, len(in_process))
 
 
-def check_parsing():
-    from atod.db import session
-    from atod.models import HeroModel
+def check_ad_schema():
+    from atod.preprocessing.dictionary import all_keys
+    from atod.preprocessing.abilities import group_descriptions
+    grouped = group_descriptions()
+    keys = all_keys(grouped)
+    print(set(keys))
 
-    names = [n[0] for n in session.query(HeroModel.in_game_name).all()]
-
-    filename = '/Users/gasabr/AtoD/atod/data/parsed/dota_english.json'
-
-    with open(filename, 'r') as fp:
-        data = json.load(fp)
-
-    abilities = dict()
-    prefix = 'DOTA_Tooltip_ability_'
-    # iterate through all keys in "Tokens" of parsed dota_english.json and
-    # find all keys that starts with "DOTA_Tooltip_ability"
-    for key, value in data['lang']['Tokens'].items():
-        if key.startswith(prefix) and \
-                    any(map(lambda n: n in key, names)):
-
-            ability_key = key[len(prefix):]
-            abilities[ability_key] = value
-
-    output_filename = '/Users/gasabr/AtoD/atod/data/abilities.json'
-    with open(output_filename, 'w+') as fp:
-        json.dump(abilities, fp, indent=2)
 
 if __name__ == '__main__':
-    check_parsing()
+    check_ad_schema()

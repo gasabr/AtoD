@@ -2,24 +2,29 @@ import json
 from os import path
 from sqlalchemy import Float, Integer, String
 
+# also defines root folder for all version dependent files
 CURRENT_VERSION = '702'
 
-HEROES_TABLE_URL = 'http://dota2.gamepedia.com/Table_of_hero_attributes'
-
 # ============================================================================
-# Folders, files, pathws
+# Folders, files, paths
 # ============================================================================
+# folders
 BASE_FOLDER = path.dirname(path.abspath(__file__))
 DATA_FOLDER = path.join(BASE_FOLDER, 'data/')
+VER_FOLDER  = path.join(BASE_FOLDER, CURRENT_VERSION + '/')
 TESTS_DATA_FOLDER = path.join(BASE_FOLDER, 'tests/tests_data/')
+
+necessary_files = ['dota_english.txt',
+                   'npc_heroes.txt'
+                   'npc_abilities',
+                   'items.txt']
 
 NPC_PATH = '/Users/gasabr/Library/Application Support/Steam/steamapps/common/dota 2 beta/game/dota/scripts'
 
-# from game files with data
-# TODO: organize such path more  accurate / change data/ folder structure
 HEROES_FILE = path.join(DATA_FOLDER, 'parsed/npc_heroes.json')
 ITEMS_FILE = path.join(DATA_FOLDER, 'parsed/items.json')
 ABILITIES_FILE = path.join(DATA_FOLDER, 'parsed/npc_abilities.json')
+dota_english_parsed = path.join(DATA_FOLDER, 'parsed/npc_abilities.json')
 
 # TODO: make one beautiful converter from it (or maybe 2)
 # TODO: rename this with FILE
@@ -41,6 +46,7 @@ TMP_ABILITIES = path.join(DATA_FOLDER, 'tmp_abilities.json')
 ABILITIES_LISTS_FILE    = path.join(TMP_FOLDER, 'abilities_lists.json')
 
 ABILITIES_LISTS_LABELED_FILE = path.join(TMP_FOLDER, 'labeled_lists.json')
+
 
 ABILITIES_DESCRIPTIONS_FILE = path.join(DATA_FOLDER,
                                         'abilities_descriptions.json')
