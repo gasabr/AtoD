@@ -2,7 +2,7 @@
 import json
 import unittest
 
-from atod.preprocessing.txt2json import to_json, clean_value
+from atod.preprocessing.txt2json import to_json, _clean_value
 
 EXAMPLES_FOLDER = '/Users/gasabr/AtoD/atod/tests/tests_data/game_files/'
 
@@ -93,7 +93,7 @@ class TestParser(unittest.TestCase):
             data = json.load(fp)
 
         for example in data:
-            self.assertEqual(clean_value(example['input']), example['output'])
+            self.assertEqual(_clean_value(example['input']), example['output'])
 
 
 if __name__ == '__main__':

@@ -7,11 +7,35 @@ import json
 import logging
 from sqlalchemy import Integer, String, Float
 
-from atod import settings
+from atod import settings, files
 from atod.db import Base, engine
 from atod.preprocessing.dictionary import get_types
 
 logging.basicConfig(level=logging.INFO)
+
+field_format = {
+    'FIELD_FLOAT': Float,
+    'FIELD_INTEGER': Integer,
+    'FIELD_STRING': String,
+    int: Integer,
+    str: String,
+    float: Float
+}
+
+python_type_to_string = {
+    int: 'FIELD_INTEGER',
+    str: 'FIELD_STRING',
+    float: 'FIELD_FLOAT'
+}
+
+LABELS = ['stun', 'transformation', 'slow', 'durability', 'nuke',
+          'escape', 'non_hero', 'attack_bonus', 'heal',
+          'based_on_attr', 'aoe', 'period_damage', 'attack_debuff',
+          'invis', 'vision', 'silence', 'lifesteal', 'armor_buff',
+          'armor_debuff', 'save', 'move_speed_buff', 'illusions', 'chance',
+          'multiply_heroes', 'global', 'shield', 'attribute_gain',
+          'amplify_magic_dmg', 'summon_unit', 'regen', 'daytime_dependent',
+          'stacks', 'purge', 'in_percents']
 
 # scheme for heroes_<v> table
 heroes_scheme = {
@@ -136,11 +160,45 @@ def get_ability_specs_schema():
                 items - python
     '''
 
-    with open(settings.ABILITIES_LISTS_FILE) as fp:
-        skills = json.load(fp)
+    schema_file = files.get_abilities_specs_schema_file()
+
+    with open(schema_file, 'r') as fp:
+        schema = {k: field_format[v] for k, v in json.load(fp).items()}
+
+    return schema
+
+
+def get_item_schema():
+    with open(settings.DATA_FOLDER + 'items_types.json', 'r') as fp:
+        items_types = json.load(fp)
+
+    items_scheme = {}
+    for key, value in items_types.items():
+        items_scheme[key] = field_format[value]
+
+    items_scheme['name'] = String
+    items_scheme['in_game_name'] = String
+    items_scheme['aliases'] = String
+
+    return items_scheme
+
+
+def get_ability_schema():
+    return LABELS
+
+
+def _create_abilities_specs_schema(cleaned_abilities, save_to=None):
+    ''' Creates SQLAlchemy schema based on cleaned npc_abilities.txt file.
+    
+        "Clean" mean flat, containing only heroes abilities.
+    
+        Args:
+            cleaned_abilities (dict): cleaned abilities
+            save_to (str)           : path to save schema
+    '''
 
     keys_types = dict()
-    for skill, description in skills.items():
+    for skill, description in cleaned_abilities.items():
         keys_types[skill] = get_types(description)
 
     key2type = dict()
@@ -151,8 +209,7 @@ def get_ability_specs_schema():
 
     # if key contains both float and ints set types as float
     for key, types in key2type.items():
-        # this is not the best way to check types, but for abilities
-        # it's ok
+        # this is not the best way to check types, but for abilities it's ok
         if int in types and float in types:
             key2type[key] = [float]
 
@@ -160,31 +217,24 @@ def get_ability_specs_schema():
         if len(types) > 1:
             raise ValueError('Single key maps to more than one type.')
 
-    scheme = dict()
+    schema = dict()
     for key, types in key2type.items():
-        scheme[key] = settings.field_format[types.pop()]
+        schema[key] = python_type_to_string[types.pop()]
 
-    scheme['name'] = settings.field_format[str]
-    scheme['HeroID'] = settings.field_format[int]
-    scheme['lvl'] = settings.field_format[int]
+    schema['name'] = python_type_to_string[str]
+    schema['HeroID'] = python_type_to_string[int]
+    schema['lvl'] = python_type_to_string[int]
 
-    return scheme
+    if save_to is not None:
+        with open(save_to, 'w+') as fp:
+            json.dump(schema, fp, indent=2)
 
-
-def get_item_schema():
-    with open(settings.DATA_FOLDER + 'items_types.json', 'r') as fp:
-        items_types = json.load(fp)
-
-    items_scheme = {}
-    for key, value in items_types.items():
-        items_scheme[key] = settings.field_format[value]
-
-    items_scheme['name'] = String
-    items_scheme['in_game_name'] = String
-    items_scheme['aliases'] = String
-
-    return items_scheme
+    return schema
 
 
-def get_ability_schema():
-    return settings.LABELS
+if __name__ == '__main__':
+    path = '/Users/gasabr/AtoD/atod/data/702/tmp/abilities_lists.json'
+    save_to = '/Users/gasabr/AtoD/atod/data/abilities_specs_schema.json'
+    with open(path, 'r') as fp:
+        data = json.load(fp)
+    _create_abilities_specs_schema(data, save_to)

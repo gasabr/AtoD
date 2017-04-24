@@ -6,7 +6,7 @@ from sklearn.multiclass import OneVsRestClassifier
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.svm import SVC
 
-from atod.preprocessing.abilities_old import abilities as Abilities
+from deprecated.abilities_old import abilities as Abilities
 
 categorical_features = [
     "AbilityUnitDamageType",

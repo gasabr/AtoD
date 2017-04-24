@@ -5,22 +5,21 @@ import json
 from atod import settings
 
 
-def heroes_file_to_rows(filename, scheme):
+def heroes_to_rows(heroes_dict, scheme):
     ''' Gets the data from json files according to given db scheme.
 
         Idea: json file contents a lot of information that i don't need in db,
         so this function parses file to get the needed attributes.
 
         Args:
-            filename (str) - name of json file to parse
-            scheme (list of str) - fields what should be extracted from file
+            heroes_dict (dict)  : parsed to dict npc_heroes.txt 
+            scheme (list of str): fields what should be extracted from file
 
         Returns:
-            rows (list of dicts) - dict there scheme elements are keys
+            rows (list of dicts): dict there scheme elements are keys
     '''
     rows = []
-    with open(filename, 'r') as fp:
-        data = json.load(fp)['DOTAHeroes']
+    data = heroes_dict['DOTAHeroes']
 
     for in_game_name, description in data.items():
         if in_game_name == 'Version' or 'hero_base' in in_game_name\
@@ -140,7 +139,9 @@ def get_types(abilities):
 
 
 def write_item_types():
-    ''' Combines get_types() and settings.items_scheme in one file.
+    ''' DEPRECATED FOR NOW WITH EVERYTHONG CONNECTED TO ITEMS
+    
+        Combines get_types() and settings.items_scheme in one file.
 
         Returns:
             all_ (dict) = get_types() + settings.items_scheme

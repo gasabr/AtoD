@@ -1,3 +1,4 @@
+import atod.db.schemas
 from atod.db.setup import Base
 from sqlalchemy import Table, Column, ForeignKey
 
@@ -15,8 +16,9 @@ class AbilitySpecsModel(Base):
     for key, type_ in _scheme.items():
         _cols.append(Column(key, type_, nullable=True))
 
-    _cols.append(Column('pk', settings.field_format[str],  primary_key=True))
-    _cols.append(Column('HeroID', settings.field_format[int],
+    _cols.append(Column('pk', atod.db.schemas.field_format[str],
+                        primary_key=True))
+    _cols.append(Column('HeroID', atod.db.schemas.field_format[int],
                         ForeignKey(fk_column)))
 
     __table__ = Table(settings.ABILITIES_SPECS_TABLE, Base.metadata,

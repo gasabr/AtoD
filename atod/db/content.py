@@ -1,56 +1,61 @@
 import json
 
-from atod.db import session
-
-from atod import settings
-from atod.db.schemas import get_ability_specs_schema
-from atod.models import HeroModel, ItemModel, AbilitySpecsModel, AbilityModel
-from atod.preprocessing import json2rows
+from atod import files
+from atod.db import schemas, session, create_tables
+from atod.preprocessing import txt2json, json2rows, abilities
 from atod.preprocessing.dictionary import get_str_keys
+from atod.models import HeroModel, AbilitySpecsModel, AbilityModel
 
 
 def fill_heroes():
-    '''Fills heroes table with the data from npc_heroes.json.'''
-    rows = json2rows.heroes_file_to_rows(settings.HEROES_FILE,
-                                         settings.heroes_scheme)
+    ''' Fills heroes table with the data from npc_heroes.json. '''
+    heroes_file = files.get_heroes_file()
+
+    heroes_dict = txt2json.to_json(heroes_file)
+
+    rows = json2rows.heroes_to_rows(heroes_dict,
+                                    schemas.get_hero_schema())
 
     for row in rows:
-        if 'HeroID' in row:
-            hero = HeroModel(row)
-            session.add(hero)
-        else:
-            raise KeyError(row['name'])
+        hero = HeroModel(row)
+        session.add(hero)
 
+    create_tables.create_tables()
     session.commit()
 
 
-def fill_items():
-    '''Fills items table with the data from items.json.'''
-    rows = json2rows.items_file_to_rows(settings.ITEMS_FILE, settings.items_scheme)
-    unique_ids = set()
-
-    for row in rows:
-        if row['ID'] not in unique_ids:
-            item = ItemModel(row)
-            session.add(item)
-            unique_ids.add(row['ID'])
-
-    session.commit()
+# def fill_items():
+#     '''Fills items table with the data from items.json.'''
+#     rows = json2rows.items_file_to_rows(settings.ITEMS_FILE,
+#                                         schemas.get_item_schema())
+#     unique_ids = set()
+#
+#     for row in rows:
+#         if row['ID'] not in unique_ids:
+#             item = ItemModel(row)
+#             session.add(item)
+#             unique_ids.add(row['ID'])
+#
+#     session.commit()
 
 
 def fill_abilities_specs():
     ''' FIlls table with the data from cleaned npc_abilities file. '''
-    schema = get_ability_specs_schema()
+    raw_file = files.get_abilities_file()
+    parsed   = txt2json.to_json(raw_file)
+    clean    = abilities.get_cleaned_abilities(parsed)
 
-    with open(settings.ABILITIES_LISTS_FILE, 'r') as fp:
-        skills = json.load(fp)
+    schema = schemas.get_ability_specs_schema()
 
-    with open(settings.IN_GAME_CONVERTER, 'r') as fp:
+    # with open(settings.ABILITIES_LISTS_FILE, 'r') as fp:
+    #     skills = json.load(fp)
+
+    with open(files.get_converter_file(), 'r') as fp:
         converter = json.load(fp)
 
     heroes = get_str_keys(converter)
 
-    for skill, description in skills.items():
+    for skill, description in clean.items():
         try:
             hero, skill_name = json2rows.parse_skill_name(skill, heroes)
         # if skill name cannot be parsed
@@ -65,38 +70,43 @@ def fill_abilities_specs():
             skill = AbilitySpecsModel(row)
             session.add(skill)
 
+    # creates tables *if needed*
+    create_tables.create_tables()
     session.commit()
 
 
 def fill_abilities():
     ''' Fills abilities table'''
 
-    with open(settings.ABILITIES_LISTS_LABELED_FILE, 'r') as fp:
+    with open(files.get_labeled_abilities_file(), 'r') as fp:
         skills = json.load(fp)
 
-    with open(settings.IN_GAME_CONVERTER, 'r') as fp:
+    # TODO: create converter table in db instead of it
+    with open(files.get_converter_file(), 'r') as fp:
         converter = json.load(fp)
 
+    # get hero to id converter
     heroes = get_str_keys(converter)
 
     for skill, description in skills.items():
+        if 'special' in skill:
+            continue
+
         # get skill and hero names
         try:
             hero, skill_name = json2rows.parse_skill_name(skill, heroes)
         except ValueError:
             continue
 
-        if 'special' in skill:
-            continue
-
+        # FIXME: using schemas.LABELS is not the right approach
         # binarize labels
         # for marked abilities
         if 'labels' in description:
             row = json2rows.binarize_labels(description['labels'],
-                                            settings.LABELS)
+                                            schemas.LABELS)
         # for unmarked abilities
         else:
-            row = {k: 0 for k in settings.LABELS}
+            row = {k: 0 for k in schemas.LABELS}
 
         row['HeroID'] = converter[hero]
         row['name'] = skill_name
@@ -105,8 +115,9 @@ def fill_abilities():
         skill = AbilityModel(row)
         session.add(skill)
 
+    create_tables.create_tables()
     session.commit()
 
 
 if __name__ == '__main__':
-    fill_heroes()
+    fill_abilities()

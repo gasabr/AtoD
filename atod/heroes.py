@@ -2,7 +2,7 @@ from sqlalchemy.inspection import inspect
 import pandas as pd
 
 from atod.db import session
-from atod.models import HeroModel
+from atod.models.hero import HeroModel
 from atod.abilities import Abilities
 from atod.interfaces import Group, Member
 

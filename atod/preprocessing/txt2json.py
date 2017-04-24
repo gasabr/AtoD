@@ -8,10 +8,8 @@
     - clean_nt() cleans tabs and line terminators from string
 '''
 import re
-import json
 import argparse
 
-from atod import settings
 
 # Command line arguments parser
 parser = argparse.ArgumentParser(
@@ -25,7 +23,7 @@ parser.add_argument('--output',
 args = parser.parse_args()
 
 
-def clean_value(string):
+def _clean_value(string):
     ''' Transforms quoted value to the standard types.
 
         Strategy:
@@ -62,7 +60,7 @@ def clean_value(string):
 
 
 # TODO: check if return write_to is needed
-def write_on_stack(write_to, path, key, value):
+def _write_on_stack(write_to, path, key, value):
     ''' Writes values to the `result` dict.
 
         DFS kind of stack is used to define current level of depth of reading
@@ -101,7 +99,7 @@ def write_on_stack(write_to, path, key, value):
     return write_to
 
 
-def remove_nt(input_str):
+def _remove_nt(input_str):
     ''' Returns string without tabs, line terminators and spaces. '''
     clean = input_str.replace('\t', '')
     clean = clean.replace('\n', '')
@@ -109,7 +107,7 @@ def remove_nt(input_str):
     return clean
 
 
-def parse(filename):
+def _parse(filename):
     ''' Extracts the dict from unix-dialect txt file.
 
         First, it cleans the row - removes all the tabs and line terminators.
@@ -142,7 +140,7 @@ def parse(filename):
                 row += next_row
 
             # clean_ is a list without \t \n or spaces in it
-            clean_ = remove_nt(row)
+            clean_ = _remove_nt(row)
 
             # remove comments
             if clean_.startswith('//'):
@@ -164,47 +162,30 @@ def parse(filename):
                     keys_stack.pop()
 
             elif len(clean) == 2:
-                write_on_stack(write_to=result,
-                               path=keys_stack,
-                               key=clean[0],
-                               value=clean_value(clean[1]))
+                _write_on_stack(write_to=result,
+                                path=keys_stack,
+                                key=clean[0],
+                                value=_clean_value(clean[1]))
 
     return result
 
 
-# TODO: add check for .json in output
-def to_json(input_filename=None, output_filename=None):
+def to_json(input_filename=None):
     ''' Saves parsed by parse() file in *.json.
 
         Args:
             input_filename (str) : .txt file in unix-dialect from dota folder
-            output_filename(str) : .json file to dump result dict
-                if output_filename == '' will write to the same folder and
-                with the same name as input file.
-                if None - won't write result to file
-                (optional, default None)
 
         Returns:
             result (dict) : dict parsed by parse()
     '''
+
     # if input file is not provided nor as cl argument nor as func argument
     if not input_filename:
         print('Please, provide filename.')
         return
 
-    result = parse(input_filename)
-
-    # if output filename is not provided
-    if output_filename is None:
-        # create a path for parsed file:
-        # DATA_FOLDER/parsed/<inputfile_no_extension>.json
-        output_filename = input_filename.split('.')[0] + '.json'
-
-    if output_filename:
-        with open(output_filename, 'w+') as fp:
-            json.dump(result, fp, indent=4)
-
-    print(output_filename)
+    result = _parse(input_filename)
 
     return result
 

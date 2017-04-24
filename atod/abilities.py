@@ -3,7 +3,8 @@ import pandas as pd
 
 from atod.db import session
 from atod.interfaces import Group, Member
-from atod.models import AbilityModel, AbilitySpecsModel
+from atod.models.ability import AbilityModel
+from atod.models.ability_specs import AbilitySpecsModel
 
 
 class Ability(Member):
