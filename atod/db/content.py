@@ -7,7 +7,7 @@ from atod.preprocessing.dictionary import get_str_keys
 from atod.models import HeroModel, AbilitySpecsModel, AbilityModel
 
 
-def fill_heroes():
+def create_and_fill_heroes():
     ''' Fills heroes table with the data from npc_heroes.json. '''
     heroes_file = files.get_heroes_file()
 
@@ -39,7 +39,7 @@ def fill_heroes():
 #     session.commit()
 
 
-def fill_abilities_specs():
+def create_and_fill_abilities_specs():
     ''' FIlls table with the data from cleaned npc_abilities file. '''
     raw_file = files.get_abilities_file()
     parsed   = txt2json.to_json(raw_file)
@@ -75,7 +75,7 @@ def fill_abilities_specs():
     session.commit()
 
 
-def fill_abilities():
+def create_and_fill_abilities():
     ''' Fills abilities table'''
 
     with open(files.get_labeled_abilities_file(), 'r') as fp:
@@ -119,5 +119,20 @@ def fill_abilities():
     session.commit()
 
 
+def create_and_fill_all():
+    ''' Creates *all* tables and fills them with data. 
+    
+        Notes:
+            * There is no list of tables, so tables are created by functions
+            calls.
+    '''
+
+    create_and_fill_heroes()
+    create_and_fill_abilities()
+    create_and_fill_abilities_specs()
+
+    # TODO: write logger message
+
+
 if __name__ == '__main__':
-    fill_abilities()
+    create_and_fill_all()

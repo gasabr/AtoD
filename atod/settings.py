@@ -1,7 +1,7 @@
 from os import path
 
 # add function which will search for data versions
-CURRENT_VERSION = '702'
+CURRENT_VERSION = '703'
 
 # ============================================================================
 # Folders, files, paths
@@ -14,33 +14,7 @@ NPC_PATH = '/Users/gasabr/Library/Application Support/Steam/steamapps/common/dot
 
 # from game files with data
 # TODO: organize such path more  accurate / change data/ folder structure
-# HEROES_FILE = path.join(DATA_FOLDER, 'parsed/npc_heroes.json')
-# ITEMS_FILE = path.join(DATA_FOLDER, 'parsed/items.json')
-# ABILITIES_FILE = path.join(DATA_FOLDER, 'parsed/npc_abilities.json')
-
-# TODO: make one beautiful converter from it (or maybe 2)
-# TODO: rename this with FILE
-# ID_TO_NAME = path.join(DATA_FOLDER, 'heroes-features.json')
-# CONVERTER = path.join(DATA_FOLDER, 'converter.json')
-# IN_GAME_CONVERTER = path.join(DATA_FOLDER, 'in_game_converter.json')
-#
-# DICTIONARY_FOLDER = path.join(DATA_FOLDER, 'dictionary/')
-# ABILITIES_DICT_FILE = path.join(DICTIONARY_FOLDER, 'abilities.dict')
-# ABILITIES_CORPUS_FILE = path.join(DICTIONARY_FOLDER, 'abilities.mm')
-#
-# TMP_FOLDER = path.join(DATA_FOLDER, 'tmp/')
-# ABILITIES_LABELING_FILE = path.join(TMP_FOLDER, 'abilities_labeling.json')
-# ABILITIES_LABELED_FILE  = path.join(TMP_FOLDER, 'abilities_labeled.json')
-# ABILITIES_TRAIN_FILE    = path.join(TMP_FOLDER, 'abilities_labeled.json')
 ABILITIES_CHANGES_FILE  = path.join(DATA_FOLDER, 'abilities_changes.json')
-# CLEAN_ABILITIES_FILE    = path.join(TMP_FOLDER, 'abilities_mean.json')
-# TMP_ABILITIES = path.join(DATA_FOLDER, 'tmp_abilities.json')
-# ABILITIES_LISTS_FILE    = path.join(TMP_FOLDER, 'abilities_lists.json')
-#
-# ABILITIES_LISTS_LABELED_FILE = path.join(TMP_FOLDER, 'labeled_lists.json')
-#
-# ABILITIES_DESCRIPTIONS_FILE = path.join(DATA_FOLDER,
-#                                         'abilities_descriptions.json')
 
 # ============================================================================
 # DataBase settings

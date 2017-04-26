@@ -1,7 +1,7 @@
 ''' This module provides interface to program files.
 
     There can be a few folders with source files, so file paths should be 
-    set dynamically. This module is an abstraction on the files.
+    created at the run-time, this module implements idea.
 '''
 
 import os
