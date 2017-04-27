@@ -232,6 +232,17 @@ def _create_abilities_specs_schema(cleaned_abilities, save_to=None):
     return schema
 
 
+def dump_schemas():
+    schemas = dict()
+    with open(files.get_abilities_specs_schema_file(), 'r') as fp:
+        schemas['abilities_specs'] = json.load(fp)
+
+    schemas['abilities'] = {k: 'FIELD_INTEGER' for k in LABELS}
+    schemas['heroes']    = {k: python_type_to_string[v]
+                            for k, v in heroes_scheme.items()}
+
+
+
 if __name__ == '__main__':
     path = '/Users/gasabr/AtoD/atod/data/702/tmp/abilities_lists.json'
     save_to = '/Users/gasabr/AtoD/atod/data/abilities_specs_schema.json'
