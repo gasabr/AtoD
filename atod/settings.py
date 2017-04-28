@@ -1,7 +1,7 @@
 from os import path
 
 # add function which will search for data versions
-CURRENT_VERSION = '703'
+CURRENT_VERSION = '702'
 
 # ============================================================================
 # Folders, files, paths

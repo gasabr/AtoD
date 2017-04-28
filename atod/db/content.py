@@ -14,7 +14,7 @@ def create_and_fill_heroes():
     heroes_dict = txt2json.to_json(heroes_file)
 
     rows = json2rows.heroes_to_rows(heroes_dict,
-                                    schemas.get_hero_schema())
+                                    schemas.get_heroes_columns())
 
     for row in rows:
         hero = HeroModel(row)
@@ -24,31 +24,13 @@ def create_and_fill_heroes():
     session.commit()
 
 
-# def fill_items():
-#     '''Fills items table with the data from items.json.'''
-#     rows = json2rows.items_file_to_rows(settings.ITEMS_FILE,
-#                                         schemas.get_item_schema())
-#     unique_ids = set()
-#
-#     for row in rows:
-#         if row['ID'] not in unique_ids:
-#             item = ItemModel(row)
-#             session.add(item)
-#             unique_ids.add(row['ID'])
-#
-#     session.commit()
-
-
 def create_and_fill_abilities_specs():
     ''' FIlls table with the data from cleaned npc_abilities file. '''
     raw_file = files.get_abilities_file()
     parsed   = txt2json.to_json(raw_file)
     clean    = abilities.get_cleaned_abilities(parsed)
 
-    schema = schemas.get_ability_specs_schema()
-
-    # with open(settings.ABILITIES_LISTS_FILE, 'r') as fp:
-    #     skills = json.load(fp)
+    schema = schemas.get_abilities_specs_columns()
 
     with open(files.get_converter_file(), 'r') as fp:
         converter = json.load(fp)
@@ -76,7 +58,7 @@ def create_and_fill_abilities_specs():
 
 
 def create_and_fill_abilities():
-    ''' Fills abilities table'''
+    ''' Fills abilities table. '''
 
     with open(files.get_labeled_abilities_file(), 'r') as fp:
         skills = json.load(fp)
@@ -130,8 +112,6 @@ def create_and_fill_all():
     create_and_fill_heroes()
     create_and_fill_abilities()
     create_and_fill_abilities_specs()
-
-    # TODO: write logger message
 
 
 if __name__ == '__main__':

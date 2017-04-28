@@ -1,18 +1,15 @@
-from sqlalchemy import Table, Column, Integer
+from sqlalchemy import Table, Column
 
 from atod import settings
 from atod.db import Base
-from atod.db.schemas import get_hero_schema
+from atod.db.schemas import get_heroes_schema
 
-heroes = (Column(n, t) for n, t
-          in get_hero_schema().items() if n != 'HeroID')
 
 class HeroModel(Base):
 
-    __table__ = Table(settings.HEROES_TABLE, Base.metadata,
-                      Column('HeroID', Integer, primary_key=True,
-                             autoincrement=False),
-                             *(col for col in heroes))
+    heroes = (Column(**col) for col in get_heroes_schema())
+
+    __table__ = Table(settings.HEROES_TABLE, Base.metadata, *heroes)
 
     def __init__(self, attrs):
         self.attrs = set()

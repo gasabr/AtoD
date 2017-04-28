@@ -5,7 +5,7 @@ import json
 from atod import settings
 
 
-def heroes_to_rows(heroes_dict, scheme):
+def heroes_to_rows(heroes_dict, schema):
     ''' Gets the data from json files according to given db scheme.
 
         Idea: json file contents a lot of information that i don't need in db,
@@ -13,7 +13,7 @@ def heroes_to_rows(heroes_dict, scheme):
 
         Args:
             heroes_dict (dict)  : parsed to dict npc_heroes.txt 
-            scheme (list of str): fields what should be extracted from file
+            schema (list of str): fields what should be extracted from file
 
         Returns:
             rows (list of dicts): dict there scheme elements are keys
@@ -38,7 +38,7 @@ def heroes_to_rows(heroes_dict, scheme):
             tmp['aliases'] = None
 
         # add all over keys
-        for key in scheme.keys():
+        for key in schema:
             if key in tmp:
                 continue
 
@@ -167,11 +167,25 @@ def write_item_types():
     return all_
 
 
-def ability_to_row(skills, schema):
-    ''' Transforms ability description to database row. '''
+def ability_to_row(description, schema):
+    ''' Transforms ability description to database row.
+     
+        This function produce descriptions for all levels of ability from
+        its description. 
+    
+        Args:
+            description (dict): mapping property of ability to its values
+            schema (list of strings): fields that should be extracted from
+                the description
+            
+        Yields:
+            dict: mapping of properties to its values on some level. Level is
+                added to result (as 'lvl' key).
+    '''
+
     base = dict()
     with_list_values = dict()
-    for k, v in skills.items():
+    for k, v in description.items():
         if isinstance(v, list):
             with_list_values[k] = v
         else:

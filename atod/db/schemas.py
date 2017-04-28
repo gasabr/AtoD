@@ -1,17 +1,17 @@
 ''' There are a lot of variables in descriptions of every subject in the
     game, so db schemas are pretty complex to write in static form.
-    This file provides interface to all schemas through 
+    This file provides interface to all schemas through function calls.
 '''
 
 import json
 import logging
 from sqlalchemy import Integer, String, Float
 
-from atod import settings, files
-from atod.db import Base, engine
+from atod import files
 from atod.preprocessing.dictionary import get_types
 
 logging.basicConfig(level=logging.INFO)
+
 
 field_format = {
     'FIELD_FLOAT': Float,
@@ -25,7 +25,10 @@ field_format = {
 python_type_to_string = {
     int: 'FIELD_INTEGER',
     str: 'FIELD_STRING',
-    float: 'FIELD_FLOAT'
+    float: 'FIELD_FLOAT',
+    Float: 'FIELD_FLOAT',
+    Integer: 'FIELD_INTEGER',
+    String: 'FIELD_STRING',
 }
 
 LABELS = ['stun', 'transformation', 'slow', 'durability', 'nuke',
@@ -37,7 +40,8 @@ LABELS = ['stun', 'transformation', 'slow', 'durability', 'nuke',
           'amplify_magic_dmg', 'summon_unit', 'regen', 'daytime_dependent',
           'stacks', 'purge', 'in_percents']
 
-# scheme for heroes_<v> table
+# This dictionary is staying there to remind that not all the information
+# about the hero is presented in current schema
 heroes_scheme = {
     "AttributeStrengthGain": Float,
     "MovementSpeed": Integer,
@@ -83,7 +87,7 @@ heroes_scheme = {
     "AttributeBaseStrength": Integer,
     "AttackRate": Float,
     "Role": String,  # TODO: parse
-    "HeroID": Integer,
+    # "HeroID": Integer,
     # "Ability10": "special_bonus_strength_6",
     # "Ability11": "special_bonus_mp_regen_3",
     "MovementTurnRate": Float,
@@ -96,59 +100,44 @@ heroes_scheme = {
     # "StatusHealthRegen": Float
 }
 
+''' Description of how get_<table name>_schema functions works and why.
 
-class Schema():
-    ''' Attempt to create abstraction on all the schemas. unsuccessful.
-    
-        I'm gonna return to create updating functionality.
+    In the source files FIELD_INTEGER and etc are used, schemas in 
+    order to be json serializable are described with the same strings. All
+    get_<table name>_schema functions are doing the same job: 
+    * open db_schemas file
+    * read needed dictionary
+    * map strings to SQLAlchemy types
+    * return results
+'''
+
+
+def get_heroes_schema():
+    ''' Reads heroes schema form db_schemas and returns types mapped to sql.
+
+        Returns:
+            heroes_schema (dict): mapping of column name to its SQLAlchemy
+                                  type
     '''
-    tables_base_names = ['abilities', 'abilities_specs', 'heroes']
 
-    # get the latest version from engine.tables_names()
+    with open(files.get_schemas_file(), 'r') as schemas_file:
+        heroes_schema = json.load(schemas_file)['heroes']
 
-    # __tables__ = [('abilities', AbilityModel),
-    #               ('abilities_specs', AbilitySpecsModel),
-    #               ('heroes', HeroModel)]
+    for column in heroes_schema:
+        for key, value in column.items():
+            # if value in `field_format` - change value to SQLAlchemy type
+            if value in field_format:
+                column[key] = field_format[value]
 
-    def __init__(self):
-        self.current_version = sorted(self._versions)[-1]
-
-    @property
-    def _versions(self):
-        ''' Set of all prefixes for the tables. '''
-        return {v.split('_')[0] for v in Base.metadata.tables.keys()}
+    return heroes_schema
 
 
-    def create_tables(self, version):
-        ''' Creates __tables__ with current_version as prefix. '''
-
-        # check if version already exists
-        if version in self._versions:
-            raise KeyError('Tables for version {}'.format(version)
-                           + 'already exist.')
-        else:
-            self.current_version = version
-
-        for table_name, model in self.__tables__:
-            full_name = self.current_version + table_name
-
-            if not engine.has_table(full_name):
-                model.__table__.create(bind=engine)
-                logging.info(full_name + ' was created.')
-
-    def get_table_name(self, model):
-        for name, model_ in  self.__tables__:
-            if model_ is model:
-                return self.current_version + '_' + name
-
-        raise ValueError('No table for this model -- check __tables__.')
+def get_heroes_columns():
+    ''' Returns list of columns names for heroes table. '''
+    return [column['name'] for column in get_heroes_schema()]
 
 
-def get_hero_schema():
-    return heroes_scheme
-
-
-def get_ability_specs_schema():
+def get_abilities_specs_schema():
     ''' Creates schema of abilities table.
     
         Raises:
@@ -160,31 +149,34 @@ def get_ability_specs_schema():
                 items - python
     '''
 
-    schema_file = files.get_abilities_specs_schema_file()
+    with open(files.get_schemas_file(), 'r') as schemas_file:
+        schema = json.load(schemas_file)['abilities_specs']
 
-    with open(schema_file, 'r') as fp:
-        schema = {k: field_format[v] for k, v in json.load(fp).items()}
+    for column in schema:
+        for key, value in column.items():
+            # if value in `field_format` - change value to SQLAlchemy type
+            if value in field_format:
+                column[key] = field_format[value]
 
     return schema
 
 
-def get_item_schema():
-    with open(settings.DATA_FOLDER + 'items_types.json', 'r') as fp:
-        items_types = json.load(fp)
-
-    items_scheme = {}
-    for key, value in items_types.items():
-        items_scheme[key] = field_format[value]
-
-    items_scheme['name'] = String
-    items_scheme['in_game_name'] = String
-    items_scheme['aliases'] = String
-
-    return items_scheme
+def get_abilities_specs_columns():
+    ''' Returns names of columns in abilties_specs table. '''
+    return [col['name'] for col in get_abilities_specs_schema()]
 
 
-def get_ability_schema():
-    return LABELS
+def get_abilities_schema():
+    with open(files.get_schemas_file(), 'r') as schemas_file:
+        ability_schema = json.load(schemas_file)['abilities']
+
+    for column in ability_schema:
+        for key, value in column.items():
+            # if value in `field_format` - change value to SQLAlchemy type
+            if value in field_format:
+                column[key] = field_format[value]
+
+    return ability_schema
 
 
 def _create_abilities_specs_schema(cleaned_abilities, save_to=None):
@@ -232,20 +224,51 @@ def _create_abilities_specs_schema(cleaned_abilities, save_to=None):
     return schema
 
 
-def dump_schemas():
+def create_schemas():
+    ''' This function write schemas in file with pretty formatting. 
+    
+        After the dump schemas would be changed manually.
+    '''
+
     schemas = dict()
     with open(files.get_abilities_specs_schema_file(), 'r') as fp:
-        schemas['abilities_specs'] = json.load(fp)
+        abilities_specs_schema = json.load(fp)
 
-    schemas['abilities'] = {k: 'FIELD_INTEGER' for k in LABELS}
-    schemas['heroes']    = {k: python_type_to_string[v]
-                            for k, v in heroes_scheme.items()}
+    # read ABILITIES SPECS schema
+    schemas['abilities_specs'] = [{'name': k, 'type_': v}
+                                  for k, v in abilities_specs_schema.items()]
+    # add missing fields
+    schemas['abilities_specs'].append({'name': 'pk', 'type_': 'FIELD_STRING',
+                                       'primary_key': True})
+    schemas['abilities_specs'].append({'name': 'HeroID',
+                                       'type_': 'FIELD_INTEGER'})
 
+    # read ABILITIES schema
+    schemas['abilities'] = [{'name': k, 'type_': 'FIELD_INTEGER'}
+                            for k in LABELS]
+    # add missing fields
+    schemas['abilities'].append({'name': 'name', 'type_': 'FIELD_STRING'})
+    schemas['abilities'].append({'name': 'HeroID', 'type_': 'FIELD_INTEGER'})
+    schemas['abilities'].append({'name': 'ID',   'type_': 'FIELD_INTEGER',
+                                 'primary_key': True})
+
+    # read HEROES schema
+    schemas['heroes'] = [{'name': k, 'type_': python_type_to_string[v]}
+                         for k, v in heroes_scheme.items()]
+
+    schemas['heroes'].append({'name': 'HeroID', 'type_': 'FIELD_INTEGER',
+                              'primary_key': True, 'autoincrement': False})
+
+    return schemas
+
+
+def dump_schemas(schemas):
+    ''' Writes schemas to predefined schemas_file. '''
+
+    with open(files.get_schemas_file(), 'w+') as fp:
+        json.dump(schemas, fp, indent=2)
 
 
 if __name__ == '__main__':
-    path = '/Users/gasabr/AtoD/atod/data/702/tmp/abilities_lists.json'
-    save_to = '/Users/gasabr/AtoD/atod/data/abilities_specs_schema.json'
-    with open(path, 'r') as fp:
-        data = json.load(fp)
-    _create_abilities_specs_schema(data, save_to)
+    schemas = create_schemas()
+    dump_schemas(schemas)

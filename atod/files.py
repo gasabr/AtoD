@@ -75,6 +75,12 @@ def get_abilities_descriptions_file():
     pass
 
 
-def get_items_file():
+def get_schemas_file():
     ''' Returns full path to items.txt for current version. '''
-    pass
+    # current version folder
+    version_folder = os.path.join(settings.DATA_FOLDER,
+                                  settings.CURRENT_VERSION + '/')
+
+    file_path  = os.path.join(version_folder, 'db_schemas.json')
+
+    return file_path

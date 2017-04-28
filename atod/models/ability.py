@@ -1,19 +1,13 @@
-from sqlalchemy import Table, Column, Integer, String, ForeignKey
+from sqlalchemy import Table, Column
 
 from atod.db import Base
 from atod import settings
-from atod.db.schemas import get_ability_schema
+from atod.db.schemas import get_abilities_schema
 
 
 class AbilityModel(Base):
 
-    _cols = [Column(label, Integer) for label in get_ability_schema()]
-    _cols.append(Column('ID', Integer, primary_key=True))
-    _cols.append(Column('name', String))
-
-    # foreign key to this column
-    fk_heroes = settings.HEROES_TABLE + '.HeroID'
-    _cols.append(Column('HeroID', Integer, ForeignKey(fk_heroes)))
+    _cols = [Column(**col) for col in get_abilities_schema()]
 
     __table__ = Table(settings.ABILITIES_TABLE, Base.metadata, *_cols)
 
