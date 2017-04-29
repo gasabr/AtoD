@@ -35,19 +35,20 @@ class Group:
     def remove(self, member_name):
         pass
 
-    def combine(self):
-        ''' Combine properties of items.'''
-        pass
-
     def compare(self):
         ''' Compare items. '''
         pass
 
-    def to_dataframe(self):
-        data = pd.DataFrame([p.to_series() for p in self.members],
+    def get_list(self):
+        ''' Combines all members in one data structure. '''
+        data = pd.DataFrame([p.get_description() for p in self.members],
                             index=[p.name for p in self.members])
 
         return data
+
+    def get_summary(self):
+        ''' Adds properties of all the members and returns result. '''
+        pass
 
     def __getitem__(self, item):
         return self.members[item]
@@ -71,20 +72,11 @@ class Member:
         self.id   = id_
         self.name = name
 
-    def to_series(self):
+    def get_description(self):
         ''' Returns a object as a pd.Series. 
 
             Returns:
                 vector (pandas.Series): representation of the object
-
-        '''
-        pass
-
-    def _dict2vector(self, specs):
-        ''' Creates pandas.Series from dictionary with the rules below.
-
-            Args:
-                specs (dict): information to create Series    
 
         '''
         pass
