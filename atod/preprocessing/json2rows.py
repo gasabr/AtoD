@@ -3,6 +3,9 @@ import os
 import json
 
 from atod import settings
+# this two are for parse_skill_name()
+from atod.db import session
+from atod.models import HeroModel
 
 
 def heroes_to_rows(heroes_dict, schema):
@@ -216,21 +219,25 @@ def ability_to_row(description, schema):
         yield base
 
 
-def parse_skill_name(skill, heroes):
-    ''' Splits skill name form game to hero name and skill name.
+def parse_skill_name(skill):
+    ''' Splits skill name from game to hero name and skill name.
     
         In-game files store skills names as <hero>_<skill>, this function
         parses this representation to the names of the hero and of the skill.
         
+        Raises:
+            ValueError: if there is no heroes table for current version.
+        
         Args:
             skill (str): skills names from in-game files
-            heroes (list of strings): heroes name in-game
             
         Returns:
             parsed (hero, skill_name):
     '''
 
-    for hero in heroes:
+    heroes_names = [h[0] for h in session.query(HeroModel.in_game_name).all()]
+
+    for hero in heroes_names:
         parts = skill.partition(hero)
         if hero in skill and parts[0] == '':
             return parts[1], parts[2].lstrip('_')

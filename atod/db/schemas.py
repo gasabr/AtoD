@@ -111,7 +111,7 @@ heroes_scheme = {
     * return results
 '''
 
-
+''' heroes table'''
 def get_heroes_schema():
     ''' Reads heroes schema form db_schemas and returns types mapped to sql.
 
@@ -137,6 +137,7 @@ def get_heroes_columns():
     return [column['name'] for column in get_heroes_schema()]
 
 
+''' abilities_specs table '''
 def get_abilities_specs_schema():
     ''' Creates schema of abilities table.
     
@@ -166,24 +167,11 @@ def get_abilities_specs_columns():
     return [col['name'] for col in get_abilities_specs_schema()]
 
 
-def get_abilities_schema():
-    with open(files.get_schemas_file(), 'r') as schemas_file:
-        ability_schema = json.load(schemas_file)['abilities']
-
-    for column in ability_schema:
-        for key, value in column.items():
-            # if value in `field_format` - change value to SQLAlchemy type
-            if value in field_format:
-                column[key] = field_format[value]
-
-    return ability_schema
-
-
 def _create_abilities_specs_schema(cleaned_abilities, save_to=None):
     ''' Creates SQLAlchemy schema based on cleaned npc_abilities.txt file.
-    
+
         "Clean" mean flat, containing only heroes abilities.
-    
+
         Args:
             cleaned_abilities (dict): cleaned abilities
             save_to (str)           : path to save schema
@@ -224,6 +212,28 @@ def _create_abilities_specs_schema(cleaned_abilities, save_to=None):
     return schema
 
 
+''' abilities table'''
+def get_abilities_schema():
+    with open(files.get_schemas_file(), 'r') as schemas_file:
+        ability_schema = json.load(schemas_file)['abilities']
+
+    for column in ability_schema:
+        for key, value in column.items():
+            # if value in `field_format` - change value to SQLAlchemy type
+            if value in field_format:
+                column[key] = field_format[value]
+
+    return ability_schema
+
+
+''' abilities_texts table '''
+def get_abilities_texts_schema():
+    texts_file = files.get_abilities_texts_file()
+
+
+
+
+''' General functions. '''
 def create_schemas():
     ''' This function write schemas in file with pretty formatting. 
     

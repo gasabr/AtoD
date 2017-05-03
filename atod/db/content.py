@@ -39,7 +39,7 @@ def create_and_fill_abilities_specs():
 
     for skill, description in clean.items():
         try:
-            hero, skill_name = json2rows.parse_skill_name(skill, heroes)
+            hero, skill_name = json2rows.parse_skill_name(skill)
         # if skill name cannot be parsed
         except ValueError:
             continue
@@ -76,7 +76,7 @@ def create_and_fill_abilities():
 
         # get skill and hero names
         try:
-            hero, skill_name = json2rows.parse_skill_name(skill, heroes)
+            hero, skill_name = json2rows.parse_skill_name(skill)
         except ValueError:
             continue
 
@@ -100,6 +100,25 @@ def create_and_fill_abilities():
     create_tables.create_tables()
     session.commit()
 
+# TODO: move parse_skill_name to abilities
+def create_and_fill_abilities_texts():
+    ''' Fills abilities_texts table. '''
+    texts_file = files.get_abilities_texts_file()
+    # parse texts file and take only texts from it
+    parsed_texts = txt2json.to_json(texts_file)['lang']['Tokens']
+    # group texts by ability
+    grouped_texts = abilities.group_abilities_texts(parsed_texts)
+
+    # for all keys in grouped_texts
+    prefix = 'DOTA_Tooltip_ability_'
+    for key in list(grouped_texts):
+        # print(key[len(prefix):])
+        # print(json2rows.parse_skill_name(key[len(prefix):]))
+        if not key.startswith(prefix) or \
+                len(json2rows.parse_skill_name(key[len(prefix):])) == 0:
+            del grouped_texts[key]
+
+    
 
 def create_and_fill_all():
     ''' Creates *all* tables and fills them with data. 
@@ -115,4 +134,4 @@ def create_and_fill_all():
 
 
 if __name__ == '__main__':
-    create_and_fill_all()
+    create_and_fill_abilities_texts()

@@ -4,13 +4,12 @@
     data, for example amount of abilities, heroes...
 '''
 
-from atod import Abilities
+from atod.db.content import create_and_fill_abilities_texts
 
 
-def check_models():
-    abilities = Abilities.all()
-    abilities.get_specs_list().shape
+def check():
+    create_and_fill_abilities_texts()
 
 
 if __name__ == '__main__':
-    check_models()
+    check()

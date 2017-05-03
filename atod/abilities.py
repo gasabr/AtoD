@@ -7,10 +7,6 @@ from atod.models.ability import AbilityModel
 from atod.models.ability_specs import AbilitySpecsModel
 
 
-def get_dataframe_summary(dataframe):
-    ''' This function add up numeric values and takes fist from text fields.'''
-
-
 class Ability(Member):
     '''Wrapper around Abilities data.'''
 

@@ -171,7 +171,7 @@ def _parse(filename):
 
 
 def to_json(input_filename=None):
-    ''' Saves parsed by parse() file in *.json.
+    ''' Wrapper for _parse() function.
 
         Args:
             input_filename (str) : .txt file in unix-dialect from dota folder

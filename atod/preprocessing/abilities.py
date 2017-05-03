@@ -353,30 +353,26 @@ def get_cleaned_abilities(data=None, lists_to_mean=False):
     return skills
 
 
-def group_descriptions(parsed_abilities):
+def group_abilities_texts(texts):
     ''' Groups the information in dota_english by ability.
 
         Args:
-            parsed_abilities (str): path to *parsed* dota_english.txt
+            texts (dict): *parsed* dota_english.txt
 
         Returns:
             desc_by_ability (dict): {<ability name>: <different descriptions>}
     '''
 
-    with open(parsed_abilities, 'r') as fp:
-        descriptions = json.load(fp)
-
     desc_by_ability = dict()
-    keys = sorted(descriptions)
+    keys = sorted(texts)
     ability = ' '
 
     for key in keys:
         if ability in key:
-            desc_by_ability[ability][key[len(ability) + 1:]] = descriptions[
-                key]
+            desc_by_ability[ability][key[len(ability) + 1:]] = texts[key]
         else:
             ability = key
             desc_by_ability[ability] = dict()
-            desc_by_ability[ability]['name'] = descriptions[ability]
+            desc_by_ability[ability]['name'] = texts[ability]
 
     return desc_by_ability
