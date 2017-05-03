@@ -3,8 +3,9 @@ import json
 from atod import files
 from atod.db import schemas, session, create_tables
 from atod.preprocessing import txt2json, json2rows, abilities
-from atod.preprocessing.dictionary import get_str_keys
-from atod.models import HeroModel, AbilitySpecsModel, AbilityModel
+from atod.preprocessing.dictionary import get_str_keys, all_keys
+from atod.models import (HeroModel, AbilitySpecsModel, AbilityModel,
+                         AbilityTextsModel)
 
 
 def create_and_fill_heroes():
@@ -100,25 +101,16 @@ def create_and_fill_abilities():
     create_tables.create_tables()
     session.commit()
 
-# TODO: move parse_skill_name to abilities
+
 def create_and_fill_abilities_texts():
     ''' Fills abilities_texts table. '''
-    texts_file = files.get_abilities_texts_file()
-    # parse texts file and take only texts from it
-    parsed_texts = txt2json.to_json(texts_file)['lang']['Tokens']
-    # group texts by ability
-    grouped_texts = abilities.group_abilities_texts(parsed_texts)
+    create_tables.create_tables()
 
-    # for all keys in grouped_texts
-    prefix = 'DOTA_Tooltip_ability_'
-    for key in list(grouped_texts):
-        # print(key[len(prefix):])
-        # print(json2rows.parse_skill_name(key[len(prefix):]))
-        if not key.startswith(prefix) or \
-                len(json2rows.parse_skill_name(key[len(prefix):])) == 0:
-            del grouped_texts[key]
+    for specification in abilities.get_abilities_texts():
+        texts = AbilityTextsModel(specification)
+        session.add(texts)
 
-    
+    session.commit()
 
 def create_and_fill_all():
     ''' Creates *all* tables and fills them with data. 
@@ -131,6 +123,7 @@ def create_and_fill_all():
     create_and_fill_heroes()
     create_and_fill_abilities()
     create_and_fill_abilities_specs()
+    create_and_fill_abilities_texts()
 
 
 if __name__ == '__main__':

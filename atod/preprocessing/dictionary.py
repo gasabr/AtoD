@@ -6,7 +6,14 @@ from sklearn.preprocessing import LabelEncoder
 
 
 def all_keys(dict_, exclude=[], include_dict_keys=True):
-    '''Finds list of all the keys in given dict recursively.'''
+    ''' Finds list of all the keys in given dict recursively.
+     
+        Notes:
+            To get all different keys use: set(all_keys(your_dict))
+    
+        Yields:
+            key: single key from the dictionary.
+    '''
     for key in dict_:
         if key not in exclude:
             if isinstance(dict_[key], dict):

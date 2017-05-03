@@ -1,15 +1,20 @@
-from sqlalchemy import Table, Column
+from sqlalchemy import Table, Column, Integer, String
 
 from atod import settings
 from atod.db.setup import Base
-from atod.db.schemas import get_abilities_specs_schema
 
 
 class AbilityTextsModel(Base):
 
-    _cols = [Column(**col) for col in get_abilities_specs_schema()]
+    id          = Column(name='id', type_=Integer, primary_key=True)
+    name        = Column(name='name', type_=String)
+    lore        = Column(name='lore', type_=String, nullable=True)
+    description = Column(name='description', type_=String)
+    notes       = Column(name='notes', type_=String)
+    other       = Column(name='other', type_=String, nullable=True)
 
-    __table__ = Table(settings.ABILITIES_SPECS_TABLE, Base.metadata, *_cols)
+    __table__ = Table(settings.ABILITIES_TEXTS_TABLE, Base.metadata,
+                      id, name, lore, description, notes, other)
 
     def __init__(self, attrs):
         self.attrs = set()

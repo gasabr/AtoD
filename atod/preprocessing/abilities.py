@@ -9,6 +9,7 @@ import json
 import logging
 
 from atod import settings, files
+from atod.preprocessing import txt2json, abilities, json2rows
 from atod.preprocessing.dictionary import all_keys, make_flat_dict
 
 logging.basicConfig(level=logging.WARNING)
@@ -376,3 +377,62 @@ def group_abilities_texts(texts):
             desc_by_ability[ability]['name'] = texts[ability]
 
     return desc_by_ability
+
+
+def get_abilities_texts():
+    ''' Produces ready to use dictionaries to create AbilityTextsModel object.
+    
+        Yields:
+            dict: contain             
+    '''
+
+    texts_file    = files.get_abilities_texts_file()
+    # parse texts file and take only texts from it
+    parsed_texts  = txt2json.to_json(texts_file)['lang']['Tokens']
+    # group texts by ability
+    grouped_texts = abilities.group_abilities_texts(parsed_texts)
+
+    # for all keys in grouped_texts
+    prefix = 'DOTA_Tooltip_ability_'
+    for key in list(grouped_texts):
+        # print(key[len(prefix):])
+        # print(json2rows.parse_skill_name(key[len(prefix):]))
+        if not key.startswith(prefix) or \
+                len(json2rows.parse_skill_name(key[len(prefix):])) == 0:
+            del grouped_texts[key]
+
+    for skill, description in grouped_texts.items():
+        yield sort_texts(description)
+
+
+def sort_texts(unsorted):
+    ''' Creates a dictionary that fits AbilityTextsModel init method.
+    
+        Args:
+            unsorted (dict): all fields in dota_english file for an ability.
+            
+        Returns:
+            dict: where keys are columns in AbilityTextsModel
+    '''
+
+    # description is the most important text, so if ability doesn't contain
+    # one it wouldn't be added in db
+    if 'Description' not in unsorted:
+        return {}
+
+    sorted_ = dict()
+    sorted_['name'] = unsorted['name']
+    sorted_['description'] = unsorted['Description']
+    sorted_['lore'] = unsorted['Lore'] if 'Lore' in unsorted else ''
+
+    sorted_['notes'] = ''
+    sorted_['other'] = ''
+    for key in unsorted:
+        if 'Note' in key:
+            # all notes are just sentences, so there is no need in special
+            # delimeter
+            sorted_['notes'] += unsorted[key] + ' '
+        elif key.lower() not in sorted_:
+            sorted_['other'] += unsorted[key] + ' | '
+
+    return sorted_
