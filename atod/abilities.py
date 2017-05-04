@@ -3,8 +3,7 @@ import pandas as pd
 
 from atod.db import session
 from atod.interfaces import Group, Member
-from atod.models.ability import AbilityModel
-from atod.models.ability_specs import AbilitySpecsModel
+from atod.models import AbilityModel, AbilityTextsModel, AbilitySpecsModel
 
 
 class Ability(Member):
@@ -95,9 +94,22 @@ class Ability(Member):
 
         return specs
 
-    def binarize_properties(self):
-        # analize all the data
-        pass
+    def get_texts(self):
+        ''' Gets all the records in abilities_texts table for this ability.
+        
+            Returns:
+                pd.Series: index contain columns of abilities_texts table. 
+                    Can be empty, if this ability is not represented in texts
+                    table.
+        '''
+
+        query = session.query(AbilityTextsModel)
+        texts_row = query.filter(AbilityTextsModel.id == self.id).first()
+
+        if len(texts_row) == 0:
+            return pd.Series([])
+        else:
+            return pd.Series(texts_row)
 
 
 class Abilities(Group):
@@ -118,6 +130,7 @@ class Abilities(Group):
 
         return cls(members_)
 
+    # TODO: this can be generalized with `member_type.model.ID`
     @classmethod
     def all(cls):
         ''' Creates Abilities object with all heroes abilities in the game.'''

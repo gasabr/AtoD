@@ -28,7 +28,7 @@ def create_tables():
 
     if not engine.has_table(settings.ABILITIES_TEXTS_TABLE):
         AbilityTextsModel.__table__.create(bind=engine)
-        logging.info(settings.ABILITIES_TABLE + ' was created.')
+        logging.info(settings.ABILITIES_TEXTS_TABLE + ' was created.')
 
 
 if __name__ == '__main__':

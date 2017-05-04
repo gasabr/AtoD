@@ -6,7 +6,8 @@ from atod.db.setup import Base
 
 class AbilityTextsModel(Base):
 
-    id          = Column(name='id', type_=Integer, primary_key=True)
+    ID          = Column(name='ID', type_=Integer, primary_key=True,
+                         autoincrement=False)
     name        = Column(name='name', type_=String)
     lore        = Column(name='lore', type_=String, nullable=True)
     description = Column(name='description', type_=String)
@@ -14,7 +15,7 @@ class AbilityTextsModel(Base):
     other       = Column(name='other', type_=String, nullable=True)
 
     __table__ = Table(settings.ABILITIES_TEXTS_TABLE, Base.metadata,
-                      id, name, lore, description, notes, other)
+                      ID, name, lore, description, notes, other)
 
     def __init__(self, attrs):
         self.attrs = set()

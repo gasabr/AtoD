@@ -219,14 +219,16 @@ def ability_to_row(description, schema):
         yield base
 
 
+# FIXME: write heroes_base_info table to fix note of this function.
 def parse_skill_name(skill):
     ''' Splits skill name from game to hero name and skill name.
     
         In-game files store skills names as <hero>_<skill>, this function
         parses this representation to the names of the hero and of the skill.
         
-        Raises:
-            ValueError: if there is no heroes table for current version.
+        Notes:
+            For this function to work heroes table for current version should be
+            created.
         
         Args:
             skill (str): skills names from in-game files
