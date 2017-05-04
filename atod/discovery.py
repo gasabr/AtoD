@@ -5,11 +5,22 @@
 '''
 
 from atod import Abilities, Hero
+from atod.db import session
+from atod.models import HeroModel
 
 
 def check():
     a = Hero(15, 25) # this is Razor
-    print(a.get_description())
+    print(a.get_hero_type())
+
+
+def get_all_types():
+    query = session.query(HeroModel.HeroType).all()
+    types = set([t[0] for t in query if t[0] is not None])
+    types = set([r for t in types
+                   for r in t.split(' | ')])
+
+    print(types)
 
 
 if __name__ == '__main__':

@@ -14,6 +14,23 @@ PRIMARIES = {
     'DOTA_ATTRIBUTE_INTELLECT': 'intellect',
 }
 
+laning_keys = [
+    'RequiresFarm',
+    'RequiresSetup',
+    'RequiresBabysit',
+    'ProvidesSetup',
+    'SoloDesire',
+    'SurvivalRating',
+    'ProvidesBabysit'
+]
+
+all_roles = ['Disabler', 'Nuker', 'Escape', 'Durable', 'Initiator', 'Pusher',
+         'Support', 'Jungler', 'Carry']
+
+all_heroes_types = ['DOTA_BOT_PUSH_SUPPORT', 'DOTA_BOT_STUN_SUPPORT',
+                    'DOTA_BOT_SEMI_CARRY', 'DOTA_BOT_HARD_CARRY',
+                    'DOTA_BOT_NUKER', 'DOTA_BOT_TANK',
+                    'DOTA_BOT_PURE_SUPPORT', 'DOTA_BOT_GANKER']
 
 class Hero(Member):
     ''' Interface for HeroModel. '''
@@ -98,6 +115,44 @@ class Hero(Member):
     def __str__(self):
         return '<Hero {name}, lvl={lvl}>'.format(name=self.name, lvl=self.lvl)
 
+    def get_laning_info(self):
+        ''' Returns:
+                pd.Series: laning info of this hero.
+        '''
+        return pd.Series({k: self.specs[k] for k in laning_keys})
+
+    def get_roles(self):
+        ''' Returns:
+                pd.Series: roles levels of this hero.
+        '''
+
+        # map string roles stored in string to levels stored also in string
+        roles = {role: lvl for role, lvl in
+                 zip(self.specs['Role'].split(','),
+                     self.specs['Rolelevels'].split(','))}
+
+        roles = pd.Series(roles, index=all_roles)
+        roles = roles.fillna(0)
+
+        return roles
+
+    def get_hero_type(self):
+        ''' Returns:
+                pd.Series: laning info of this hero.
+        '''
+
+        types = dict()
+        type_prefix = 'dota_bot_'
+        for type_ in all_heroes_types:
+            # change in game format to more readable
+            clean_type = type_[len(type_prefix):].lower()
+            # if hero belongs to that type
+            if type_ in self.specs['HeroType']:
+                types[clean_type] = 1
+            else:
+                types[clean_type] = 0
+
+        return pd.Series(types)
 
 class Heroes(Group):
 
