@@ -4,7 +4,7 @@ import sqlalchemy
 from atod import files
 from atod.db import schemas, session, create_tables
 from atod.preprocessing import txt2json, json2rows, abilities
-from atod.preprocessing.dictionary import get_str_keys, all_keys
+from atod.preprocessing.dictionary import get_str_keys
 from atod.models import (HeroModel, AbilitySpecsModel, AbilityModel,
                          AbilityTextsModel)
 

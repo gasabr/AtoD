@@ -19,11 +19,10 @@ def heroes_to_rows(heroes_dict, schema):
             heroes_dict (dict)  : parsed to dict npc_heroes.txt 
             schema (list of str): fields what should be extracted from file
 
-        Returns:
-            rows (list of dicts): dict there schema elements are keys
+        Yields:
+            dict: schema elements are keys
     '''
 
-    rows = []
     data = heroes_dict['DOTAHeroes']
 
     for in_game_name, description in data.items():
@@ -60,14 +59,13 @@ def heroes_to_rows(heroes_dict, schema):
                 pass
 
         if len(tmp) > 0:
-            rows.append(tmp)
-
-    return rows
+            yield tmp
 
 
+# DEPRECATED IN CURRENT VERSION
 def items_file_to_rows(filename, scheme):
     ''' Get rows for items table. '''
-    rows = []
+
     with open(filename, 'r') as fp:
         data = json.load(fp)
 
@@ -115,9 +113,7 @@ def items_file_to_rows(filename, scheme):
                 print('retard alert')
 
         if len(tmp) > 0:
-            rows.append(tmp)
-
-    return rows
+            yield tmp
 
 
 def get_types(abilities):

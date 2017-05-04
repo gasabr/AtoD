@@ -118,12 +118,20 @@ class Hero(Member):
     def get_laning_info(self):
         ''' Returns:
                 pd.Series: laning info of this hero.
+                
+            Notes:
+                The latest heroes does not have this field, so Series filled
+                with zeroes would be returned.
         '''
         return pd.Series({k: self.specs[k] for k in laning_keys})
 
     def get_roles(self):
         ''' Returns:
                 pd.Series: roles levels of this hero.
+                
+            Notes:
+                The latest heroes does not have this field, so Series filled
+                with zeroes would be returned.
         '''
 
         # map string roles stored in string to levels stored also in string
@@ -139,6 +147,10 @@ class Hero(Member):
     def get_hero_type(self):
         ''' Returns:
                 pd.Series: laning info of this hero.
+                
+            Notes:
+                The latest heroes does not have this field, so Series filled
+                with zeroes would be returned.
         '''
 
         types = dict()
@@ -153,6 +165,7 @@ class Hero(Member):
                 types[clean_type] = 0
 
         return pd.Series(types)
+
 
 class Heroes(Group):
 

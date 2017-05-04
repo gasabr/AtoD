@@ -7,7 +7,7 @@ from atod.models import AbilityModel, AbilityTextsModel, AbilitySpecsModel
 
 
 class Ability(Member):
-    '''Wrapper around Abilities data.'''
+    ''' Wrapper around Abilities data. '''
 
     model = AbilityModel
 

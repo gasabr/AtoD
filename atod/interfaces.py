@@ -7,6 +7,12 @@ import pandas as pd
 from atod.db import session
 
 class Group:
+    ''' Represents abstract set of members.
+    
+        Attributes:
+            member_type (class): the type of member
+            members (list)     : list of objects of class `member_type` 
+    '''
 
     member_type = None
 
@@ -64,6 +70,14 @@ class Group:
 
 
 class Member:
+    ''' The parent class for all the single elements.
+    
+        Attributes:
+            model (sqlalchemy.ext.declarative.api.DeclarativeMeta): 
+                SQlAlchemy based model which represents table in the db.
+            id (int)  : unique identifier among other members.
+            name (str): name.
+    '''
 
     model = None
 
