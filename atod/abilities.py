@@ -106,7 +106,7 @@ class Ability(Member):
         query = session.query(AbilityTextsModel)
         texts_row = query.filter(AbilityTextsModel.id == self.id).first()
 
-        if len(texts_row) == 0:
+        if texts_row is None:
             return pd.Series([])
         else:
             return pd.Series(texts_row)
@@ -135,6 +135,7 @@ class Abilities(Group):
     def all(cls):
         ''' Creates Abilities object with all heroes abilities in the game.'''
         ids = [x[0] for x in session.query(AbilityModel.ID).all()]
+        # XXX: would be nice to create members only if they are needed
         members_ = [Ability(id_) for id_ in ids]
 
         return cls(members_)
@@ -169,19 +170,22 @@ class Abilities(Group):
         return pd.DataFrame(descriptions, columns=descriptions[0].index,
                             index=None)
 
-    def get_summary(self):
-        ''' Returns the field by field summary of the members.
-         
-            This function sum up all numeric fields in members description,
-            string are returned as is, Nones too.
-            
-            Returns:
-                pd.Series: shape=(len(<member description>),).
+    def get_texts(self):
+        ''' Returns:
+                pd.DataFrame: texts of abilities in DataFrame.
         '''
 
-        # get all abilities in the form of DataFrame
-        descriptions = self.get_list()
+        # get members ids
+        members_ids = [m.id for m in self.members]
+        # get all texts
+        all_texts = session.query(AbilityTextsModel).all()
+        # find texts for members by ids
+        members_texts = [row for row in all_texts
+                         if any(map(lambda x: row.ID == x, members_ids))]
 
-        # create a
-        # if there are some abilities, they all will have categorical features
-        # so to sum them up, I should count them, so binarize first
+        # create DataFrame from chosen rows
+        texts = pd.DataFrame([m.__dict__ for m in members_texts])
+        texts = texts.drop(['_sa_instance_state'], axis=1)
+
+        return texts
+
