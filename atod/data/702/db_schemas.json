@@ -1,104 +1,4 @@
 {
-  "heroes": [
-    {
-      "type_": "FIELD_INTEGER",
-      "name": "MovementSpeed"
-    },
-    {
-      "type_": "FIELD_STRING",
-      "name": "AttributePrimary"
-    },
-    {
-      "type_": "FIELD_INTEGER",
-      "name": "AttributeBaseStrength"
-    },
-    {
-      "type_": "FIELD_STRING",
-      "name": "AttackCapabilities"
-    },
-    {
-      "type_": "FIELD_STRING",
-      "name": "aliases"
-    },
-    {
-      "type_": "FIELD_FLOAT",
-      "name": "ArmorPhysical"
-    },
-    {
-      "type_": "FIELD_INTEGER",
-      "name": "AttributeBaseIntelligence"
-    },
-    {
-      "type_": "FIELD_FLOAT",
-      "name": "MovementTurnRate"
-    },
-    {
-      "type_": "FIELD_FLOAT",
-      "name": "AttackAnimationPoint"
-    },
-    {
-      "type_": "FIELD_INTEGER",
-      "name": "AttackDamageMin"
-    },
-    {
-      "type_": "FIELD_FLOAT",
-      "name": "AttributeStrengthGain"
-    },
-    {
-      "type_": "FIELD_STRING",
-      "name": "in_game_name"
-    },
-    {
-      "type_": "FIELD_INTEGER",
-      "name": "AttackDamageMax"
-    },
-    {
-      "type_": "FIELD_FLOAT",
-      "name": "AttributeAgilityGain"
-    },
-    {
-      "type_": "FIELD_STRING",
-      "name": "Team"
-    },
-    {
-      "type_": "FIELD_FLOAT",
-      "name": "AttackRate"
-    },
-    {
-      "type_": "FIELD_STRING",
-      "name": "Role"
-    },
-    {
-      "type_": "FIELD_FLOAT",
-      "name": "AttributeIntelligenceGain"
-    },
-    {
-      "type_": "FIELD_STRING",
-      "name": "Rolelevels"
-    },
-    {
-      "type_": "FIELD_INTEGER",
-      "name": "AttackRange"
-    },
-    {
-      "type_": "FIELD_STRING",
-      "name": "name"
-    },
-    {
-      "type_": "FIELD_INTEGER",
-      "name": "AttackAcquisitionRange"
-    },
-    {
-      "type_": "FIELD_INTEGER",
-      "name": "AttributeBaseAgility"
-    },
-    {
-      "autoincrement": false,
-      "type_": "FIELD_INTEGER",
-      "name": "HeroID",
-      "primary_key": true
-    }
-  ],
   "abilities_specs": [
     {
       "type_": "FIELD_INTEGER",
@@ -3602,6 +3502,138 @@
     {
       "type_": "FIELD_INTEGER",
       "name": "ID",
+      "primary_key": true
+    }
+  ],
+  "heroes": [
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "AttackAcquisitionRange"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "AttributeBaseAgility"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "ArmorPhysical"
+    },
+    {
+      "type_": "FIELD_STRING",
+      "name": "aliases"
+    },
+    {
+      "type_": "FIELD_STRING",
+      "name": "in_game_name"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "AttackDamageMin"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "SurvivalRating"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "AttributeIntelligenceGain"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "AttributeBaseStrength"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "AttributeBaseIntelligence"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "AttackRate"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "RequiresFarm"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "RequiresSetup"
+    },
+    {
+      "type_": "FIELD_STRING",
+      "name": "Team"
+    },
+    {
+      "type_": "FIELD_STRING",
+      "name": "Rolelevels"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "AttributeAgilityGain"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "ProvidesSetup"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "SoloDesire"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "ProvidesBabysit"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "AttackDamageMax"
+    },
+    {
+      "type_": "FIELD_STRING",
+      "name": "AttackCapabilities"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "MovementTurnRate"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "MovementSpeed"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "RequiresBabysit"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "AttackAnimationPoint"
+    },
+    {
+      "type_": "FIELD_STRING",
+      "name": "name"
+    },
+    {
+      "type_": "FIELD_STRING",
+      "name": "Role"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "AttackRange"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "AttributeStrengthGain"
+    },
+    {
+      "type_": "FIELD_STRING",
+      "name": "HeroType"
+    },
+    {
+      "type_": "FIELD_STRING",
+      "name": "AttributePrimary"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "autoincrement": false,
+      "name": "HeroID",
       "primary_key": true
     }
   ]

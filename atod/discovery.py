@@ -4,13 +4,12 @@
     data, for example amount of abilities, heroes...
 '''
 
-from atod import Abilities
+from atod import Abilities, Hero
 
 
 def check():
-    a = Abilities.all()
-    texts = a.get_texts()
-    print(texts.shape)
+    a = Hero(15, 25) # this is Razor
+    print(a.get_description())
 
 
 if __name__ == '__main__':

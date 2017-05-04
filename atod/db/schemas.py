@@ -22,7 +22,7 @@ field_format = {
     float: Float
 }
 
-python_type_to_string = {
+type_to_string = {
     int: 'FIELD_INTEGER',
     str: 'FIELD_STRING',
     float: 'FIELD_FLOAT',
@@ -42,21 +42,21 @@ LABELS = ['stun', 'transformation', 'slow', 'durability', 'nuke',
 
 # This dictionary is staying there to remind that not all the information
 # about the hero is presented in current schema
-heroes_scheme = {
+heroes_schema = {
     "AttributeStrengthGain": Float,
     "MovementSpeed": Integer,
     # "Bot": {
     #     "Build": {},
-    #     "HeroType": String, # TODO: parse
+    "HeroType": String,
     #     "SupportsEasyMode": "1",
     #     "LaningInfo": {
-    #         "RequiresFarm": Integer,
-    #         "RequiresSetup": Integer,
-    #         "RequiresBabysit": Integer,
-    #         "ProvidesSetup": Integer,
-    #         "SoloDesire": Integer,
-    #         "SurvivalRating": Integer,
-    #         "ProvidesBabysit": Integer
+    "RequiresFarm": Integer,
+    "RequiresSetup": Integer,
+    "RequiresBabysit": Integer,
+    "ProvidesSetup": Integer,
+    "SoloDesire": Integer,
+    "SurvivalRating": Integer,
+    "ProvidesBabysit": Integer,
     #     },
     #     "Loadout": {}
     # },
@@ -70,10 +70,10 @@ heroes_scheme = {
     # "url": String,
     "ArmorPhysical": Float,
     # "Ability13": "special_bonus_hp_250", # FK
-    "AttributePrimary": String,  # TODO: enum this or what? - dummy code better
+    "AttributePrimary": String,
     # how to implement that?
     # "Ability16": "special_bonus_armor_15",
-    "Team": String,  # TODO: enum this or what?
+    "Team": String,
     # "Ability3": "axe_counter_helix",
     "AttackDamageMin": Integer,
     # "Ability14": "special_bonus_hp_regen_25",
@@ -199,11 +199,11 @@ def _create_abilities_specs_schema(cleaned_abilities, save_to=None):
 
     schema = dict()
     for key, types in key2type.items():
-        schema[key] = python_type_to_string[types.pop()]
+        schema[key] = type_to_string[types.pop()]
 
-    schema['name'] = python_type_to_string[str]
-    schema['HeroID'] = python_type_to_string[int]
-    schema['lvl'] = python_type_to_string[int]
+    schema['name'] = type_to_string[str]
+    schema['HeroID'] = type_to_string[int]
+    schema['lvl'] = type_to_string[int]
 
     if save_to is not None:
         with open(save_to, 'w+') as fp:
@@ -226,23 +226,13 @@ def get_abilities_schema():
     return ability_schema
 
 
-''' abilities_texts table '''
-def get_abilities_texts_schema():
-    texts_file = files.get_abilities_texts_file()
-
-
-
-
 ''' General functions. '''
 def create_schemas():
-    ''' This function write schemas in file with pretty formatting. 
-    
-        After the dump schemas would be changed manually.
-    '''
+    ''' This function write schemas in file with pretty formatting. '''
 
     schemas = dict()
-    with open(files.get_abilities_specs_schema_file(), 'r') as fp:
-        abilities_specs_schema = json.load(fp)
+    with open(files.get_schemas_file(), 'r') as fp:
+        abilities_specs_schema = json.load(fp)['abilities_specs']
 
     # read ABILITIES SPECS schema
     schemas['abilities_specs'] = [{'name': k, 'type_': v}
@@ -263,8 +253,8 @@ def create_schemas():
                                  'primary_key': True})
 
     # read HEROES schema
-    schemas['heroes'] = [{'name': k, 'type_': python_type_to_string[v]}
-                         for k, v in heroes_scheme.items()]
+    schemas['heroes'] = [{'name': k, 'type_': type_to_string[v]}
+                         for k, v in heroes_schema.items()]
 
     schemas['heroes'].append({'name': 'HeroID', 'type_': 'FIELD_INTEGER',
                               'primary_key': True, 'autoincrement': False})
@@ -280,5 +270,15 @@ def dump_schemas(schemas):
 
 
 if __name__ == '__main__':
-    schemas = create_schemas()
+    with open(files.get_schemas_file(), 'r') as fp:
+        schemas = json.load(fp)
+
+    tmp_heroes_schema = [{'name': k, 'type_': type_to_string[v]}
+                         for k, v in heroes_schema.items()]
+
+    tmp_heroes_schema.append({'name': 'HeroID', 'type_': 'FIELD_INTEGER',
+                              'primary_key': True, 'autoincrement': False})
+
+    schemas['heroes'] = tmp_heroes_schema
+
     dump_schemas(schemas)

@@ -6,6 +6,7 @@ from atod import settings
 # this two are for parse_skill_name()
 from atod.db import session
 from atod.models import HeroModel
+from atod.preprocessing import dictionary
 
 
 def heroes_to_rows(heroes_dict, schema):
@@ -19,12 +20,14 @@ def heroes_to_rows(heroes_dict, schema):
             schema (list of str): fields what should be extracted from file
 
         Returns:
-            rows (list of dicts): dict there scheme elements are keys
+            rows (list of dicts): dict there schema elements are keys
     '''
+
     rows = []
     data = heroes_dict['DOTAHeroes']
 
     for in_game_name, description in data.items():
+
         if in_game_name == 'Version' or 'hero_base' in in_game_name\
                 or not 'url' in description:
             continue
@@ -40,13 +43,15 @@ def heroes_to_rows(heroes_dict, schema):
         except KeyError:
             tmp['aliases'] = None
 
+        flat_description = dictionary.make_flat_dict(description)
+
         # add all over keys
         for key in schema:
             if key in tmp:
                 continue
 
             try:
-                tmp[key] = description[key]
+                tmp[key] = flat_description[key]
             # hero_base doesn't have some fields
             except KeyError as e:
                 tmp[key] = None

@@ -276,4 +276,4 @@ def get_id_from_in_game_name(hero_name, skill_name):
 
 
 if __name__ == '__main__':
-    create_and_fill_abilities_texts()
+    create_and_fill_heroes()

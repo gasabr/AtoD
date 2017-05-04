@@ -1,5 +1,5 @@
-from sqlalchemy.inspection import inspect
 import pandas as pd
+from sqlalchemy.inspection import inspect
 
 from atod.db import session
 from atod.models.hero import HeroModel
@@ -46,6 +46,7 @@ class Hero(Member):
             Raises:
                 ValueError: if `name` is not in heroes.name column
         '''
+
         query = session.query(HeroModel.HeroID)
         try:
             hero_id = query.filter(HeroModel.name == name).first()[0]
@@ -55,26 +56,24 @@ class Hero(Member):
             raise ValueError('Can not find id for hero name: {}'.format(name))
 
     def get_description(self):
-        # with_info = {'name': self.name, 'hero_id': self.id, **self.specs,
-        #                   **self.abilities.to_dataframe()}
-        return pd.Series({'name': self.name, 'hero_id': self.id, **self.specs,
-                          })
+        return pd.Series({'name': self.name, **self.specs,
+                          **self.abilities.get_summary()})
 
     # properties
     @property
     def str(self):
-        return int(self.AttributeBaseStrength + \
-                   (self.lvl - 1) * self.AttributeStrengthGain)
+        return int(self.specs['AttributeBaseStrength'] + \
+                   (self.lvl - 1) * self.specs['AttributeStrengthGain'])
 
     @property
     def int(self):
-        return int(self.AttributeBaseIntelligence + \
-                   (self.lvl - 1) * self.AttributeAgilityGain)
+        return int(self.specs['AttributeBaseIntelligence'] + \
+                   (self.lvl - 1) * self.specs['AttributeAgilityGain'])
 
     @property
     def agi(self):
-        return int(self.AttributeBaseAgility + \
-                   (self.lvl - 1) * self.AttributeAgilityGain)
+        return int(self.specs['AttributeBaseAgility'] + \
+                   (self.lvl - 1) * self.specs['AttributeAgilityGain'])
 
     @property
     def health(self):
@@ -94,14 +93,7 @@ class Hero(Member):
 
     @property
     def armor(self):
-        return round(self.ArmorPhysical + self.agi / 7, 2)
-
-    def has(self, effect):
-        for ability, labels in self.abilities_labels().items():
-            if effect in labels:
-                return True
-
-        return False
+        return round(self.specs['ArmorPhysical'] + self.agi / 7, 2)
 
     def __str__(self):
         return '<Hero {name}, lvl={lvl}>'.format(name=self.name, lvl=self.lvl)
@@ -110,3 +102,12 @@ class Hero(Member):
 class Heroes(Group):
 
     member_type = Hero
+
+    # TODO: encode role and laning info
+    def get_summary(self):
+        ''' Sums up numeric properties, encodes and sums up categorical. '''
+        # encode role
+        # encode laning info
+        # concatenate all the information together
+        # sum up
+        pass

@@ -141,12 +141,16 @@ class Abilities(Group):
         return cls(members_)
 
     def get_list(self):
-        ''' Returns vector with field to field sum for all members. 
+        ''' Returns information about members in the form: row is a member.
+         
+            'List' because descriptions are just concatenated with each other,
+            but not summed by any means.
         
             Returns:
-                pd.DataFrame: shape=(len(members), len(<member description>)).
-                    Rows are abilities, columns - their properties.
-                    Labels columns names start with 'label_'.
+                pd.DataFrame: shape=(len(self.members), 
+                    len(<member description>)). Rows are abilities, columns - 
+                    their properties. Labels columns names start with 
+                    'label_'.
         '''
 
         # get all descriptions
@@ -156,7 +160,7 @@ class Abilities(Group):
                             index=None)
 
     def get_specs_list(self):
-        ''' Returns list of all member's descriptions (specs part). 
+        ''' Returns list of all member's descriptions (ONLY specs part). 
 
             Returns:
                 pd.DataFrame: shape=(len(members), len(<member description>)).
@@ -166,6 +170,21 @@ class Abilities(Group):
 
         # get all descriptions
         descriptions = [m.get_specs() for m in self.members]
+
+        return pd.DataFrame(descriptions, columns=descriptions[0].index,
+                            index=None)
+
+    def get_labels_list(self):
+        ''' Returns list of all member's descriptions (ONLY specs part). 
+
+            Returns:
+                pd.DataFrame: shape=(len(members), len(<member description>)).
+                    Rows are abilities, columns - their properties.
+                    Labels columns names start with 'label_'.
+        '''
+
+        # get all descriptions
+        descriptions = [m.get_labels() for m in self.members]
 
         return pd.DataFrame(descriptions, columns=descriptions[0].index,
                             index=None)
@@ -189,3 +208,13 @@ class Abilities(Group):
 
         return texts
 
+    def get_summary(self):
+        ''' Sums up all labels of members (they are binary decoded).
+        
+            Returns:
+                pd.Series: 
+        '''
+
+        labels_list = self.get_labels_list()
+
+        return labels_list.sum(axis=0)
