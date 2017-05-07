@@ -63,6 +63,8 @@ class Ability(Member):
         bin_labels = self._extract_properties(result)
         labels = pd.Series({'label_' + k: v for k, v in bin_labels.items()
                             if k != 'name' and k != 'HeroID'})
+        labels['id'] = self.id
+        labels['name'] = self.name
 
         return labels
 
