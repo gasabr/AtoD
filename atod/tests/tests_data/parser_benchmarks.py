@@ -38,7 +38,7 @@ if __name__ == '__main__':
                 [0, 94, 1844, 15387],
                 [0, 4, 15, 214]]
 
-    times = [0.265, 0.235, 0.126, 0.002]
+    times = [265, 235, 126, 2]
 
     solution = solve(counters, times)
     print(solution)

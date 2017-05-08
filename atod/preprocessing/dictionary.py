@@ -74,9 +74,8 @@ def collect_kv(dict_, exclude=[]):
     for k, v in dict_.items():
         if isinstance(v, dict):
             kv_pairs.extend(collect_kv(v, exclude=exclude))
-        else:
-            if k not in exclude:
-                kv_pairs.append({k: v})
+        elif k not in exclude:
+            kv_pairs.append({k: v})
 
     return kv_pairs
 
@@ -94,12 +93,12 @@ def make_flat_dict(dict_, exclude=[]):
             flat (dict) : described in collect_kv()
 
         Examples:
-            >>> d = {'a':1, b:{'c':2}}
+            >>> d = {'a':1, 'b':{'c':2}}
             >>> make_flat_dict(d)
             {'a':1, 'c':2}
     '''
     # get array of one-element dicts
-    # TODO: remove this strange thin
+    # TODO: remove this strange thing
     exclude.extend(['Version', 'var_type'])
     dicts = collect_kv(dict_, exclude=exclude)
     result = {}

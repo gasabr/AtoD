@@ -117,14 +117,9 @@ def _parse(filename):
             dict           : JSON serializable dictionary created from given 
                             file
     '''
+
     result = {}
     keys_stack = []
-
-    long_line = 0
-    comment   = 0
-    n_keys    = 0
-    n_values  = 0
-    n_bracers = 0
 
     with open(filename, 'r', encoding='utf-8') as fp:
         for row in fp:
@@ -136,18 +131,14 @@ def _parse(filename):
                 while '"' not in next_row:
                     row += next_row
                     next_row = next(fp)
-                    long_line += 1
 
                 row += next_row
-
-                long_line += 3
 
             # cleaned_row is a list without \t \n or spaces in it
             cleaned_row = row.replace('\t', '').replace('\n', '')
 
             # remove comments
             if cleaned_row.startswith('//'):
-                comment += 1
                 continue
 
             # remove all the comments and empty strings
@@ -155,7 +146,6 @@ def _parse(filename):
 
             # if this is a key or a bracket
             if len(values) <= 1:
-                n_keys += 1
                 # if this isn't bracers - this is the key
                 if len(values) == 1:
                     # add the key to the stack
@@ -167,13 +157,10 @@ def _parse(filename):
                     keys_stack.pop()
 
             elif len(values) == 2:
-                n_values += 1
                 _write_on_stack(write_to=result,
                                 path=keys_stack,
                                 key=values[0],
                                 value=_clean_value(values[1]))
-
-    print(long_line, comment, n_keys, n_values)
 
     return result
 
