@@ -10,8 +10,8 @@ from atod.models import HeroModel
 
 
 def check():
-    a = Hero(15, 25) # this is Razor
-    print(a.get_hero_type())
+    h = Hero(9)
+    print(h.abilities.get_specs_list())
 
 
 def get_all_types():

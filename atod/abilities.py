@@ -66,14 +66,32 @@ class Ability(Member):
 
         return labels
 
-    def get_specs(self):
-        ''' Returns specs of this ability. '''
-        query = session.query(AbilitySpecsModel)
+    def get_specs(self, include=[]):
+        ''' Returns specs of this ability. 
+        
+            Args:
+                inlcude (list of strings): columns that should be included.
+                
+            Results:
+                pd.DataFrame: data with fields from include for this ability.
+        '''
+
+        columns = [getattr(AbilitySpecsModel, col) for col in include]
+
+        if columns:
+            query = session.query(*columns)
+        else:
+            query = session.query(AbilitySpecsModel)
+
         if self.lvl == 0:
             # get stats for all lvls
             lvls = query.filter(AbilitySpecsModel.ID == self.id).all()
             # create DataFrame from lvls data
-            all_specs = pd.DataFrame([p.__dict__ for p in lvls])
+            try:
+                all_specs = pd.DataFrame([p.__dict__ for p in lvls])
+            except AttributeError as e:
+                named_columns = [dict(zip(columns, p)) for p in lvls]
+                all_specs = pd.DataFrame(named_columns)
             # split DataFrame to text and numbers columns
             # average numeric part
             num_part = all_specs.select_dtypes(exclude=[object]).mean()
@@ -90,7 +108,8 @@ class Ability(Member):
             lvl_specs = lvl_specs.first()
             specs = pd.Series(lvl_specs.__dict__)
 
-        specs = specs.drop(['HeroID'])
+        if 'HeroID' in specs:
+            specs = specs.drop(['HeroID'])
 
         return specs
 
@@ -159,7 +178,7 @@ class Abilities(Group):
         return pd.DataFrame(descriptions, columns=descriptions[0].index,
                             index=None)
 
-    def get_specs_list(self):
+    def get_specs_list(self, include=[]):
         ''' Returns list of all member's descriptions (ONLY specs part). 
 
             Returns:
@@ -169,7 +188,7 @@ class Abilities(Group):
         '''
 
         # get all descriptions
-        descriptions = [m.get_specs() for m in self.members]
+        descriptions = [m.get_specs(include) for m in self.members]
 
         return pd.DataFrame(descriptions, columns=descriptions[0].index,
                             index=None)
