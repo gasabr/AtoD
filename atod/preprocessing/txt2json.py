@@ -99,14 +99,6 @@ def _write_on_stack(write_to, path, key, value):
     return write_to
 
 
-def _remove_nt(input_str):
-    ''' Returns string without tabs, line terminators and spaces. '''
-    clean = input_str.replace('\t', '')
-    clean = clean.replace('\n', '')
-
-    return clean
-
-
 def _parse(filename):
     ''' Extracts the dict from unix-dialect txt file.
 
@@ -122,50 +114,53 @@ def _parse(filename):
             filename (str) : file to parse
 
         Returns:
-            result (dict) : JSON serializeble dictionary created from given 
+            dict           : JSON serializable dictionary created from given 
                             file
     '''
+
     result = {}
     keys_stack = []
+
     with open(filename, 'r', encoding='utf-8') as fp:
         for row in fp:
             # if string contain line separators inside value
-            # this case noticed only in `dota_english.txt`
+            # this case was noticed only in `dota_english.txt`
             if row.count('"') == 3:
                 row = row[:-1] + ' '
                 next_row = next(fp)[:-1] + ' '
                 while '"' not in next_row:
                     row += next_row
                     next_row = next(fp)
+
                 row += next_row
 
-            # clean_ is a list without \t \n or spaces in it
-            clean_ = _remove_nt(row)
+            # cleaned_row is a list without \t \n or spaces in it
+            cleaned_row = row.replace('\t', '').replace('\n', '')
 
             # remove comments
-            if clean_.startswith('//'):
+            if cleaned_row.startswith('//'):
                 continue
 
             # remove all the comments and empty strings
-            clean = re.findall(r'"([\S| ]*?)"', clean_)
+            values = re.findall(r'"([\S| ]*?)"', cleaned_row)
 
             # if this is a key or a bracket
-            if len(clean) <= 1:
+            if len(values) <= 1:
                 # if this isn't bracers - this is the key
-                if len(clean) == 1:
+                if len(values) == 1:
                     # add the key to the stack
-                    keys_stack.append(clean[0])
+                    keys_stack.append(values[0])
 
-                elif '}' in clean_:
+                elif '}' in cleaned_row:
                     # pop key from the stack, since corresponding dictionary
                     # ended
                     keys_stack.pop()
 
-            elif len(clean) == 2:
+            elif len(values) == 2:
                 _write_on_stack(write_to=result,
                                 path=keys_stack,
-                                key=clean[0],
-                                value=_clean_value(clean[1]))
+                                key=values[0],
+                                value=_clean_value(values[1]))
 
     return result
 

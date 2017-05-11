@@ -1,0 +1,66 @@
+\hypertarget{namespaceatod_1_1db_1_1schemas}{}\section{atod.\+db.\+schemas Namespace Reference}
+\label{namespaceatod_1_1db_1_1schemas}\index{atod.\+db.\+schemas@{atod.\+db.\+schemas}}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries level}\hypertarget{namespaceatod_1_1db_1_1schemas_a4a7ea01e71903882d0dd27d6090d429c}{}\label{namespaceatod_1_1db_1_1schemas_a4a7ea01e71903882d0dd27d6090d429c}
+
+\item 
+dictionary {\bfseries field\+\_\+format}
+\item 
+dictionary {\bfseries type\+\_\+to\+\_\+string}
+\item 
+list {\bfseries L\+A\+B\+E\+LS}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyVerb}There are a lot of variables in descriptions of every subject in the
+game, so db schemas are pretty complex to write in static form.
+This file provides interface to all schemas through function calls.
+\end{DoxyVerb}
+ 
+
+\subsection{Variable Documentation}
+\index{atod\+::db\+::schemas@{atod\+::db\+::schemas}!field\+\_\+format@{field\+\_\+format}}
+\index{field\+\_\+format@{field\+\_\+format}!atod\+::db\+::schemas@{atod\+::db\+::schemas}}
+\subsubsection[{\texorpdfstring{field\+\_\+format}{field\_format}}]{\setlength{\rightskip}{0pt plus 5cm}dictionary atod.\+db.\+schemas.\+field\+\_\+format}\hypertarget{namespaceatod_1_1db_1_1schemas_a7f12079a3333d78633ae8abf845e7627}{}\label{namespaceatod_1_1db_1_1schemas_a7f12079a3333d78633ae8abf845e7627}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+1 = \{
+2     \textcolor{stringliteral}{'FIELD\_FLOAT'}: Float,
+3     \textcolor{stringliteral}{'FIELD\_INTEGER'}: Integer,
+4     \textcolor{stringliteral}{'FIELD\_STRING'}: String,
+5     int: Integer,
+6     str: String,
+7     float: Float
+8 \}
+\end{DoxyCode}
+\index{atod\+::db\+::schemas@{atod\+::db\+::schemas}!L\+A\+B\+E\+LS@{L\+A\+B\+E\+LS}}
+\index{L\+A\+B\+E\+LS@{L\+A\+B\+E\+LS}!atod\+::db\+::schemas@{atod\+::db\+::schemas}}
+\subsubsection[{\texorpdfstring{L\+A\+B\+E\+LS}{LABELS}}]{\setlength{\rightskip}{0pt plus 5cm}list atod.\+db.\+schemas.\+L\+A\+B\+E\+LS}\hypertarget{namespaceatod_1_1db_1_1schemas_a903269021db6731cb07d184db3547126}{}\label{namespaceatod_1_1db_1_1schemas_a903269021db6731cb07d184db3547126}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+1 = [\textcolor{stringliteral}{'stun'}, \textcolor{stringliteral}{'transformation'}, \textcolor{stringliteral}{'slow'}, \textcolor{stringliteral}{'durability'}, \textcolor{stringliteral}{'nuke'},
+2           \textcolor{stringliteral}{'escape'}, \textcolor{stringliteral}{'non\_hero'}, \textcolor{stringliteral}{'attack\_bonus'}, \textcolor{stringliteral}{'heal'},
+3           \textcolor{stringliteral}{'based\_on\_attr'}, \textcolor{stringliteral}{'aoe'}, \textcolor{stringliteral}{'period\_damage'}, \textcolor{stringliteral}{'attack\_debuff'},
+4           \textcolor{stringliteral}{'invis'}, \textcolor{stringliteral}{'vision'}, \textcolor{stringliteral}{'silence'}, \textcolor{stringliteral}{'lifesteal'}, \textcolor{stringliteral}{'armor\_buff'},
+5           \textcolor{stringliteral}{'armor\_debuff'}, \textcolor{stringliteral}{'save'}, \textcolor{stringliteral}{'move\_speed\_buff'}, \textcolor{stringliteral}{'illusions'}, \textcolor{stringliteral}{'chance'},
+6           \textcolor{stringliteral}{'multiply\_heroes'}, \textcolor{stringliteral}{'global'}, \textcolor{stringliteral}{'shield'}, \textcolor{stringliteral}{'attribute\_gain'},
+7           \textcolor{stringliteral}{'amplify\_magic\_dmg'}, \textcolor{stringliteral}{'summon\_unit'}, \textcolor{stringliteral}{'regen'}, \textcolor{stringliteral}{'daytime\_dependent'},
+8           \textcolor{stringliteral}{'stacks'}, \textcolor{stringliteral}{'purge'}, \textcolor{stringliteral}{'in\_percents'}]
+\end{DoxyCode}
+\index{atod\+::db\+::schemas@{atod\+::db\+::schemas}!type\+\_\+to\+\_\+string@{type\+\_\+to\+\_\+string}}
+\index{type\+\_\+to\+\_\+string@{type\+\_\+to\+\_\+string}!atod\+::db\+::schemas@{atod\+::db\+::schemas}}
+\subsubsection[{\texorpdfstring{type\+\_\+to\+\_\+string}{type\_to\_string}}]{\setlength{\rightskip}{0pt plus 5cm}dictionary atod.\+db.\+schemas.\+type\+\_\+to\+\_\+string}\hypertarget{namespaceatod_1_1db_1_1schemas_aefa901273797ca2b811b16aa70d5d6db}{}\label{namespaceatod_1_1db_1_1schemas_aefa901273797ca2b811b16aa70d5d6db}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+1 = \{
+2     int: \textcolor{stringliteral}{'FIELD\_INTEGER'},
+3     str: \textcolor{stringliteral}{'FIELD\_STRING'},
+4     float: \textcolor{stringliteral}{'FIELD\_FLOAT'},
+5     Float: \textcolor{stringliteral}{'FIELD\_FLOAT'},
+6     Integer: \textcolor{stringliteral}{'FIELD\_INTEGER'},
+7     String: \textcolor{stringliteral}{'FIELD\_STRING'},
+8 \}
+\end{DoxyCode}

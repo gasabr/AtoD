@@ -1,0 +1,44 @@
+\hypertarget{namespaceatod_1_1preprocessing_1_1abilities}{}\section{atod.\+preprocessing.\+abilities Namespace Reference}
+\label{namespaceatod_1_1preprocessing_1_1abilities}\index{atod.\+preprocessing.\+abilities@{atod.\+preprocessing.\+abilities}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def {\bfseries is\+\_\+number} (num)\hypertarget{namespaceatod_1_1preprocessing_1_1abilities_a93c8652df351168068d544d74cdaddf7}{}\label{namespaceatod_1_1preprocessing_1_1abilities_a93c8652df351168068d544d74cdaddf7}
+
+\item 
+def \hyperlink{namespaceatod_1_1preprocessing_1_1abilities_aa54fc7fcd063953eb37da1690f27e4d0}{get\+\_\+cleaned\+\_\+abilities} (data=None, lists\+\_\+to\+\_\+mean=False)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries level}\hypertarget{namespaceatod_1_1preprocessing_1_1abilities_a00d22e91260dc1cde5aec1374b3bd7ac}{}\label{namespaceatod_1_1preprocessing_1_1abilities_a00d22e91260dc1cde5aec1374b3bd7ac}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyVerb}This script cleans npc_abilities.json file by:
+    - removing skill name from description
+    - replacing lists and with their avg value
+    - merging rare properties to popular
+\end{DoxyVerb}
+ 
+
+\subsection{Function Documentation}
+\index{atod\+::preprocessing\+::abilities@{atod\+::preprocessing\+::abilities}!get\+\_\+cleaned\+\_\+abilities@{get\+\_\+cleaned\+\_\+abilities}}
+\index{get\+\_\+cleaned\+\_\+abilities@{get\+\_\+cleaned\+\_\+abilities}!atod\+::preprocessing\+::abilities@{atod\+::preprocessing\+::abilities}}
+\subsubsection[{\texorpdfstring{get\+\_\+cleaned\+\_\+abilities(data=\+None, lists\+\_\+to\+\_\+mean=\+False)}{get\_cleaned\_abilities(data=None, lists\_to\_mean=False)}}]{\setlength{\rightskip}{0pt plus 5cm}def atod.\+preprocessing.\+abilities.\+get\+\_\+cleaned\+\_\+abilities (
+\begin{DoxyParamCaption}
+\item[{}]{data = {\ttfamily None}, }
+\item[{}]{lists\+\_\+to\+\_\+mean = {\ttfamily False}}
+\end{DoxyParamCaption}
+)}\hypertarget{namespaceatod_1_1preprocessing_1_1abilities_aa54fc7fcd063953eb37da1690f27e4d0}{}\label{namespaceatod_1_1preprocessing_1_1abilities_aa54fc7fcd063953eb37da1690f27e4d0}
+\begin{DoxyVerb}Controls cleaning process.
+
+    Function calls other functions to change skills dictionary.
+    `lists_to_mean` is needed to simplify analysis.
+    
+    Takes:
+        lists_to_mean (bool): transform or not lists to mean
+\end{DoxyVerb}
+ 

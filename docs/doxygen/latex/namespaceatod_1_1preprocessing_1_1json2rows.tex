@@ -1,0 +1,149 @@
+\hypertarget{namespaceatod_1_1preprocessing_1_1json2rows}{}\section{atod.\+preprocessing.\+json2rows Namespace Reference}
+\label{namespaceatod_1_1preprocessing_1_1json2rows}\index{atod.\+preprocessing.\+json2rows@{atod.\+preprocessing.\+json2rows}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \hyperlink{namespaceatod_1_1preprocessing_1_1json2rows_aca0916ae8c843be5b3b2d360eaa45a17}{heroes\+\_\+to\+\_\+rows} (heroes\+\_\+dict, schema)
+\item 
+def \hyperlink{namespaceatod_1_1preprocessing_1_1json2rows_a0e3cbdd5b06afe78e4369af2ad5434df}{items\+\_\+file\+\_\+to\+\_\+rows} (filename, scheme)
+\item 
+def \hyperlink{namespaceatod_1_1preprocessing_1_1json2rows_a41bbe156f01c4c09a663c0ad68e8f34e}{get\+\_\+types} (abilities)
+\item 
+def \hyperlink{namespaceatod_1_1preprocessing_1_1json2rows_af7414ebc4ac808d3e924fc5ed9b0dcf7}{write\+\_\+item\+\_\+types} ()
+\item 
+def \hyperlink{namespaceatod_1_1preprocessing_1_1json2rows_a13cee5b99c6b24bf2aebfd374d621d2a}{ability\+\_\+to\+\_\+row} (description, schema)
+\item 
+def \hyperlink{namespaceatod_1_1preprocessing_1_1json2rows_a33276be2c103ee6ca25228cee80ae123}{parse\+\_\+skill\+\_\+name} (skill)
+\item 
+def \hyperlink{namespaceatod_1_1preprocessing_1_1json2rows_af27be16be3e7c0d2ad8a7e6af62bec2f}{binarize\+\_\+labels} (labels, schema)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyVerb}This file serves db_content.py  \end{DoxyVerb}
+ 
+
+\subsection{Function Documentation}
+\index{atod\+::preprocessing\+::json2rows@{atod\+::preprocessing\+::json2rows}!ability\+\_\+to\+\_\+row@{ability\+\_\+to\+\_\+row}}
+\index{ability\+\_\+to\+\_\+row@{ability\+\_\+to\+\_\+row}!atod\+::preprocessing\+::json2rows@{atod\+::preprocessing\+::json2rows}}
+\subsubsection[{\texorpdfstring{ability\+\_\+to\+\_\+row(description, schema)}{ability\_to\_row(description, schema)}}]{\setlength{\rightskip}{0pt plus 5cm}def atod.\+preprocessing.\+json2rows.\+ability\+\_\+to\+\_\+row (
+\begin{DoxyParamCaption}
+\item[{}]{description, }
+\item[{}]{schema}
+\end{DoxyParamCaption}
+)}\hypertarget{namespaceatod_1_1preprocessing_1_1json2rows_a13cee5b99c6b24bf2aebfd374d621d2a}{}\label{namespaceatod_1_1preprocessing_1_1json2rows_a13cee5b99c6b24bf2aebfd374d621d2a}
+\begin{DoxyVerb}Transforms ability description to database row.
+ 
+    This function produce descriptions for all levels of ability from
+    its description. 
+
+    Args:
+        description (dict): mapping property of ability to its values
+        schema (list of strings): fields that should be extracted from
+            the description
+        
+    Yields:
+        dict: mapping of properties to its values on some level. Level is
+            added to result (as 'lvl' key).
+\end{DoxyVerb}
+ \index{atod\+::preprocessing\+::json2rows@{atod\+::preprocessing\+::json2rows}!binarize\+\_\+labels@{binarize\+\_\+labels}}
+\index{binarize\+\_\+labels@{binarize\+\_\+labels}!atod\+::preprocessing\+::json2rows@{atod\+::preprocessing\+::json2rows}}
+\subsubsection[{\texorpdfstring{binarize\+\_\+labels(labels, schema)}{binarize\_labels(labels, schema)}}]{\setlength{\rightskip}{0pt plus 5cm}def atod.\+preprocessing.\+json2rows.\+binarize\+\_\+labels (
+\begin{DoxyParamCaption}
+\item[{}]{labels, }
+\item[{}]{schema}
+\end{DoxyParamCaption}
+)}\hypertarget{namespaceatod_1_1preprocessing_1_1json2rows_af27be16be3e7c0d2ad8a7e6af62bec2f}{}\label{namespaceatod_1_1preprocessing_1_1json2rows_af27be16be3e7c0d2ad8a7e6af62bec2f}
+\begin{DoxyVerb}Binarize abilities labels.
+
+    Creates a dictionary which maps schema to labels, fills unmarked
+    labels with 0.
+
+    Args:
+        labels (iterable): numbers of marked labels
+        schema (iterable): keys in result dictionary
+        
+    Returns:
+        binary (dict): mapping of schema to labels
+\end{DoxyVerb}
+ \index{atod\+::preprocessing\+::json2rows@{atod\+::preprocessing\+::json2rows}!get\+\_\+types@{get\+\_\+types}}
+\index{get\+\_\+types@{get\+\_\+types}!atod\+::preprocessing\+::json2rows@{atod\+::preprocessing\+::json2rows}}
+\subsubsection[{\texorpdfstring{get\+\_\+types(abilities)}{get\_types(abilities)}}]{\setlength{\rightskip}{0pt plus 5cm}def atod.\+preprocessing.\+json2rows.\+get\+\_\+types (
+\begin{DoxyParamCaption}
+\item[{}]{abilities}
+\end{DoxyParamCaption}
+)}\hypertarget{namespaceatod_1_1preprocessing_1_1json2rows_a41bbe156f01c4c09a663c0ad68e8f34e}{}\label{namespaceatod_1_1preprocessing_1_1json2rows_a41bbe156f01c4c09a663c0ad68e8f34e}
+\begin{DoxyVerb}Maps AbilitySpecial to type of this field.
+
+    Args:
+        abilities (dict) - DOTAAbilities from items.json or npc_abilities
+
+    Returns:
+        fields_types (dict) - mapping of field to its type
+\end{DoxyVerb}
+ \index{atod\+::preprocessing\+::json2rows@{atod\+::preprocessing\+::json2rows}!heroes\+\_\+to\+\_\+rows@{heroes\+\_\+to\+\_\+rows}}
+\index{heroes\+\_\+to\+\_\+rows@{heroes\+\_\+to\+\_\+rows}!atod\+::preprocessing\+::json2rows@{atod\+::preprocessing\+::json2rows}}
+\subsubsection[{\texorpdfstring{heroes\+\_\+to\+\_\+rows(heroes\+\_\+dict, schema)}{heroes\_to\_rows(heroes\_dict, schema)}}]{\setlength{\rightskip}{0pt plus 5cm}def atod.\+preprocessing.\+json2rows.\+heroes\+\_\+to\+\_\+rows (
+\begin{DoxyParamCaption}
+\item[{}]{heroes\+\_\+dict, }
+\item[{}]{schema}
+\end{DoxyParamCaption}
+)}\hypertarget{namespaceatod_1_1preprocessing_1_1json2rows_aca0916ae8c843be5b3b2d360eaa45a17}{}\label{namespaceatod_1_1preprocessing_1_1json2rows_aca0916ae8c843be5b3b2d360eaa45a17}
+\begin{DoxyVerb}Gets the data from json files according to given db scheme.
+
+    Idea: json file contents a lot of information that i don't need in db,
+    so this function parses file to get the needed attributes.
+
+    Args:
+        heroes_dict (dict)  : parsed to dict npc_heroes.txt 
+        schema (list of str): fields what should be extracted from file
+
+    Yields:
+        dict: schema elements are keys
+\end{DoxyVerb}
+ \index{atod\+::preprocessing\+::json2rows@{atod\+::preprocessing\+::json2rows}!items\+\_\+file\+\_\+to\+\_\+rows@{items\+\_\+file\+\_\+to\+\_\+rows}}
+\index{items\+\_\+file\+\_\+to\+\_\+rows@{items\+\_\+file\+\_\+to\+\_\+rows}!atod\+::preprocessing\+::json2rows@{atod\+::preprocessing\+::json2rows}}
+\subsubsection[{\texorpdfstring{items\+\_\+file\+\_\+to\+\_\+rows(filename, scheme)}{items\_file\_to\_rows(filename, scheme)}}]{\setlength{\rightskip}{0pt plus 5cm}def atod.\+preprocessing.\+json2rows.\+items\+\_\+file\+\_\+to\+\_\+rows (
+\begin{DoxyParamCaption}
+\item[{}]{filename, }
+\item[{}]{scheme}
+\end{DoxyParamCaption}
+)}\hypertarget{namespaceatod_1_1preprocessing_1_1json2rows_a0e3cbdd5b06afe78e4369af2ad5434df}{}\label{namespaceatod_1_1preprocessing_1_1json2rows_a0e3cbdd5b06afe78e4369af2ad5434df}
+\begin{DoxyVerb}Get rows for items table. \end{DoxyVerb}
+ \index{atod\+::preprocessing\+::json2rows@{atod\+::preprocessing\+::json2rows}!parse\+\_\+skill\+\_\+name@{parse\+\_\+skill\+\_\+name}}
+\index{parse\+\_\+skill\+\_\+name@{parse\+\_\+skill\+\_\+name}!atod\+::preprocessing\+::json2rows@{atod\+::preprocessing\+::json2rows}}
+\subsubsection[{\texorpdfstring{parse\+\_\+skill\+\_\+name(skill)}{parse\_skill\_name(skill)}}]{\setlength{\rightskip}{0pt plus 5cm}def atod.\+preprocessing.\+json2rows.\+parse\+\_\+skill\+\_\+name (
+\begin{DoxyParamCaption}
+\item[{}]{skill}
+\end{DoxyParamCaption}
+)}\hypertarget{namespaceatod_1_1preprocessing_1_1json2rows_a33276be2c103ee6ca25228cee80ae123}{}\label{namespaceatod_1_1preprocessing_1_1json2rows_a33276be2c103ee6ca25228cee80ae123}
+\begin{DoxyVerb}Splits skill name from game to hero name and skill name.
+
+    In-game files store skills names as <hero>_<skill>, this function
+    parses this representation to the names of the hero and of the skill.
+    
+    Notes:
+        For this function to work heroes table for current version should be
+        created.
+    
+    Args:
+        skill (str): skills names from in-game files
+        
+    Returns:
+        parsed (hero, skill_name):
+\end{DoxyVerb}
+ \index{atod\+::preprocessing\+::json2rows@{atod\+::preprocessing\+::json2rows}!write\+\_\+item\+\_\+types@{write\+\_\+item\+\_\+types}}
+\index{write\+\_\+item\+\_\+types@{write\+\_\+item\+\_\+types}!atod\+::preprocessing\+::json2rows@{atod\+::preprocessing\+::json2rows}}
+\subsubsection[{\texorpdfstring{write\+\_\+item\+\_\+types()}{write\_item\_types()}}]{\setlength{\rightskip}{0pt plus 5cm}def atod.\+preprocessing.\+json2rows.\+write\+\_\+item\+\_\+types (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{namespaceatod_1_1preprocessing_1_1json2rows_af7414ebc4ac808d3e924fc5ed9b0dcf7}{}\label{namespaceatod_1_1preprocessing_1_1json2rows_af7414ebc4ac808d3e924fc5ed9b0dcf7}
+\begin{DoxyVerb}DEPRECATED FOR NOW WITH EVERYTHONG CONNECTED TO ITEMS
+
+    Combines get_types() and settings.items_scheme in one file.
+
+    Returns:
+        all_ (dict) = get_types() + settings.items_scheme
+\end{DoxyVerb}
+ 

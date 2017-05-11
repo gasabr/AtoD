@@ -46,3 +46,8 @@ def get_schemas_file():
 def get_abilities_texts_file():
     ''' Returns path to dota_english.txt file for current version. '''
     return os.path.join(get_version_folder(), 'dota_english.txt')
+
+
+def get_shops_file():
+    ''' Returns path to dota_english.txt file for current version. '''
+    return os.path.join(get_version_folder(), 'shops.txt')
