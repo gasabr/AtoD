@@ -85,18 +85,13 @@ def _write_on_stack(write_to, path, key, value):
     for p in path:
         try:
             current = current[p]
-        except KeyError as e:
-            current[p] = {}
+        except KeyError:
+            current[p] = dict()
             current = current[p]
-    # trying to write value in the end of stack
-    try:
-        current[p][key] = value
-    except TypeError:
-        print(path)
-    except KeyError:
-        current[key] = value
 
-    return write_to
+    current[key] = value
+
+    return current
 
 
 def _parse(filename):
