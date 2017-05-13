@@ -9,6 +9,9 @@ from atod.models import HeroModel
 from atod.preprocessing import dictionary
 
 
+# FIXME: write heroes_base_info table to fix note of parse_skill_name().
+
+
 def heroes_to_rows(heroes_dict, schema):
     ''' Gets the data from json files according to given db scheme.
 
@@ -220,7 +223,6 @@ def ability_to_row(description, schema):
         yield base
 
 
-# FIXME: write heroes_base_info table to fix note of this function.
 def parse_skill_name(skill):
     ''' Splits skill name from game to hero name and skill name.
     
@@ -228,8 +230,8 @@ def parse_skill_name(skill):
         parses this representation to the names of the hero and of the skill.
         
         Notes:
-            For this function to work heroes table for current version should be
-            created.
+            For this function to work heroes table for current version should 
+            be created.
         
         Args:
             skill (str): skills names from in-game files

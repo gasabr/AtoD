@@ -1,5 +1,4 @@
 import json
-import sqlalchemy
 
 from atod import files
 from atod.db import schemas, session, create_tables
@@ -7,6 +6,10 @@ from atod.preprocessing import txt2json, json2rows, abilities
 from atod.preprocessing.dictionary import get_str_keys
 from atod.models import (HeroModel, AbilitySpecsModel, AbilityModel,
                          AbilityTextsModel)
+
+
+# TODO: check if this try-catch (line 123) is needed
+# TODO: separate create_table functions
 
 
 def create_and_fill_heroes():
@@ -101,13 +104,12 @@ def create_and_fill_abilities():
     session.commit()
 
 
-# FIXME: remove dependency from AbilityTable
 def create_and_fill_abilities_texts():
     ''' Fills abilities_texts table. 
     
         Notes:
-            This function need AbilitiesTable to be created for current version.
-            I will try to fix it in future versions.
+            This function need AbilitiesTable to be created for current 
+            version. I will fix it in future versions.
     '''
 
     create_tables.create_tables()
@@ -120,11 +122,7 @@ def create_and_fill_abilities_texts():
         texts = AbilityTextsModel(specification)
         session.add(texts)
 
-        try:
-            session.commit()
-        except sqlalchemy.exc.IntegrityError:
-            print(specification)
-            continue
+        session.commit()
 
 
 def create_and_fill_all():
@@ -276,4 +274,4 @@ def get_id_from_in_game_name(hero_name, skill_name):
 
 
 if __name__ == '__main__':
-    create_and_fill_heroes()
+    create_and_fill_abilities_texts()
