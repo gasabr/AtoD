@@ -6,6 +6,38 @@ import pandas as pd
 
 from atod.db import session
 
+
+class Member:
+    ''' The parent class for all the single elements.
+
+        Attributes:
+            model (sqlalchemy.ext.declarative.api.DeclarativeMeta): 
+                SQlAlchemy based model which represents table in the db.
+            id (int)  : unique identifier among other members.
+            name (str): name.
+    '''
+
+    model = None
+
+    def __init__(self, id_, name):
+        ''' Only initialise necessary attributes for any member. '''
+        self.id = id_
+        self.name = name
+
+    def get_description(self):
+        ''' Returns a object as a pd.Series. 
+
+            Returns:
+                vector (pandas.Series): representation of the object
+
+        '''
+        pass
+
+    def as_dict(self):
+        ''' Returns representation of this object as a dictionary.'''
+        return dict()
+
+
 class Group:
     ''' Represents abstract set of members.
     
@@ -14,7 +46,7 @@ class Group:
             members (list)     : list of objects of class `member_type` 
     '''
 
-    member_type = None
+    member_type = Member
 
     def __init__(self, i_members=[]):
         # check if user has set up `model` attribute
@@ -32,11 +64,10 @@ class Group:
         assert type(member), self.member_type
         self.members.append(member)
 
-    def _all(self):
-        ''' Returns all the records from member's table in db. '''
-        member_model = self.member_type.model
-        response = session.query(member_model).all()
-        return [self.member_type(m) for m in response]
+    @classmethod
+    def all(cls):
+        ''' Creates object with all possible members. '''
+        pass
 
     def remove(self, member_name):
         pass
@@ -67,34 +98,3 @@ class Group:
         info += ''.join([str(m) + ', ' for m in self.members])
         info = info + ']>'
         return info
-
-
-class Member:
-    ''' The parent class for all the single elements.
-    
-        Attributes:
-            model (sqlalchemy.ext.declarative.api.DeclarativeMeta): 
-                SQlAlchemy based model which represents table in the db.
-            id (int)  : unique identifier among other members.
-            name (str): name.
-    '''
-
-    model = None
-
-    def __init__(self, id_, name):
-        ''' Only initialise necessary attributes for any member. '''
-        self.id   = id_
-        self.name = name
-
-    def get_description(self):
-        ''' Returns a object as a pd.Series. 
-
-            Returns:
-                vector (pandas.Series): representation of the object
-
-        '''
-        pass
-
-    def as_dict(self):
-        ''' Returns representation of this object as a dictionary.'''
-        return dict()

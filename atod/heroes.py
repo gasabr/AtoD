@@ -35,6 +35,8 @@ all_heroes_types = ['DOTA_BOT_PUSH_SUPPORT', 'DOTA_BOT_STUN_SUPPORT',
 class Hero(Member):
     ''' Interface for HeroModel. '''
 
+    model = HeroModel
+
     base_health = 200
     base_health_regen = 0.25
     base_mana = 50
@@ -43,8 +45,8 @@ class Hero(Member):
     base_armor = -1
 
     def __init__(self, id_, lvl=1):
-        query = session.query(HeroModel)
-        specs = query.filter(HeroModel.HeroID == id_).first()
+        query = session.query(self.model)
+        specs = query.filter(self.model.HeroID == id_).first()
         super().__init__(specs.HeroID, specs.name)
 
         self.in_game_name = specs.in_game_name
@@ -66,7 +68,7 @@ class Hero(Member):
 
         query = session.query(HeroModel.HeroID)
         try:
-            hero_id = query.filter(HeroModel.name == name).first()[0]
+            hero_id = query.filter(cls.model.name == name).first()[0]
             return cls(hero_id)
 
         except TypeError:
@@ -179,3 +181,19 @@ class Heroes(Group):
         # concatenate all the information together
         # sum up
         pass
+
+    @classmethod
+    def all(cls):
+        ''' Creates Abilities object with all heroes abilities in the game.'''
+        member_model = cls.member_type.model
+        ids = [x[0] for x in session.query(member_model.HeroID).all()]
+
+        members_ = list()
+        for id_ in ids:
+            try:
+                members_.append(cls.member_type(id_))
+            # XXX: can not create abilities for hero with HeroID == 16
+            except ValueError as e:
+                print(e)
+
+        return cls(members_)
