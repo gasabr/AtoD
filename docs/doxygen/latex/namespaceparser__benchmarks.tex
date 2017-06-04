@@ -1,0 +1,57 @@
+\hypertarget{namespaceparser__benchmarks}{}\section{parser\+\_\+benchmarks Namespace Reference}
+\label{namespaceparser__benchmarks}\index{parser\+\_\+benchmarks@{parser\+\_\+benchmarks}}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+def {\bfseries time\+\_\+parser} (filename)\hypertarget{namespaceparser__benchmarks_a00b85a8cd3109dfa27b9694b5be1d61f}{}\label{namespaceparser__benchmarks_a00b85a8cd3109dfa27b9694b5be1d61f}
+
+\item 
+def {\bfseries file\+\_\+len} (filename)\hypertarget{namespaceparser__benchmarks_ae845829732c5dacef0ffe6833d5fe511}{}\label{namespaceparser__benchmarks_ae845829732c5dacef0ffe6833d5fe511}
+
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+list {\bfseries files\+\_\+}
+\item 
+{\bfseries n\+\_\+lines} = file\+\_\+len(file)\hypertarget{namespaceparser__benchmarks_a9b821d945bd7eddbad4535f6f6d08637}{}\label{namespaceparser__benchmarks_a9b821d945bd7eddbad4535f6f6d08637}
+
+\item 
+{\bfseries time\+\_\+} = time\+\_\+parser(file)\hypertarget{namespaceparser__benchmarks_afc7df3a678d04c92491a366c6fe40283}{}\label{namespaceparser__benchmarks_afc7df3a678d04c92491a366c6fe40283}
+
+\item 
+list {\bfseries counters}
+\item 
+list {\bfseries times} = \mbox{[}265, 235, 126, 2\mbox{]}\hypertarget{namespaceparser__benchmarks_a704dcbdf1e924af058a7ac9d0604a1ec}{}\label{namespaceparser__benchmarks_a704dcbdf1e924af058a7ac9d0604a1ec}
+
+\item 
+{\bfseries solution} = solve(counters, times)\hypertarget{namespaceparser__benchmarks_a5667d72a691380f11e58f7686cea6a71}{}\label{namespaceparser__benchmarks_a5667d72a691380f11e58f7686cea6a71}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\begin{DoxyVerb}This file checks how fast my parser works.\end{DoxyVerb}
+ 
+
+\subsection{Variable Documentation}
+\index{parser\+\_\+benchmarks@{parser\+\_\+benchmarks}!counters@{counters}}
+\index{counters@{counters}!parser\+\_\+benchmarks@{parser\+\_\+benchmarks}}
+\subsubsection[{\texorpdfstring{counters}{counters}}]{\setlength{\rightskip}{0pt plus 5cm}list parser\+\_\+benchmarks.\+counters}\hypertarget{namespaceparser__benchmarks_ac0b88e48637c27772d1f5d393f52c7d1}{}\label{namespaceparser__benchmarks_ac0b88e48637c27772d1f5d393f52c7d1}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+1 = [[34, 361, 2, 21963],
+2                 [0, 11075, 5626, 14277],
+3                 [0, 94, 1844, 15387],
+4                 [0, 4, 15, 214]]
+\end{DoxyCode}
+\index{parser\+\_\+benchmarks@{parser\+\_\+benchmarks}!files\+\_\+@{files\+\_\+}}
+\index{files\+\_\+@{files\+\_\+}!parser\+\_\+benchmarks@{parser\+\_\+benchmarks}}
+\subsubsection[{\texorpdfstring{files\+\_\+}{files\_}}]{\setlength{\rightskip}{0pt plus 5cm}list parser\+\_\+benchmarks.\+files\+\_\+}\hypertarget{namespaceparser__benchmarks_a5c3e20b3e7c2dad9f3258ac8b19a0e70}{}\label{namespaceparser__benchmarks_a5c3e20b3e7c2dad9f3258ac8b19a0e70}
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+1 = [files.get\_abilities\_texts\_file(),
+2               files.get\_abilities\_file(),
+3               files.get\_heroes\_file(),
+4               files.get\_shops\_file()]
+\end{DoxyCode}

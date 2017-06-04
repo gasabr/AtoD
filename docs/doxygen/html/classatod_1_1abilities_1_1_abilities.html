@@ -88,8 +88,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a097c69ffe687d823506a74aa18efc867"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa86cdc4abf4ee615197c09dfb43300ca"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatod_1_1abilities_1_1_abilities.html#aa86cdc4abf4ee615197c09dfb43300ca">get_list</a> (self)</td></tr>
 <tr class="separator:aa86cdc4abf4ee615197c09dfb43300ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a815ad0f5d36d72298f2dffeb41d3dfc3"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatod_1_1abilities_1_1_abilities.html#a815ad0f5d36d72298f2dffeb41d3dfc3">get_specs_list</a> (self)</td></tr>
-<tr class="separator:a815ad0f5d36d72298f2dffeb41d3dfc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51916c4d551758aef056df33276ccd74"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatod_1_1abilities_1_1_abilities.html#a51916c4d551758aef056df33276ccd74">get_specs_list</a> (self, include=[])</td></tr>
+<tr class="separator:a51916c4d551758aef056df33276ccd74"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2cc0448d65e22ab6d9da0a784d0276c5"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatod_1_1abilities_1_1_abilities.html#a2cc0448d65e22ab6d9da0a784d0276c5">get_labels_list</a> (self)</td></tr>
 <tr class="separator:a2cc0448d65e22ab6d9da0a784d0276c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a51f21a6496e8061f58f6de24c5e74ac5"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatod_1_1abilities_1_1_abilities.html#a51f21a6496e8061f58f6de24c5e74ac5">get_texts</a> (self)</td></tr>
@@ -103,6 +103,8 @@ def&#160;</td><td class="memItemRight" valign="bottom"><b>__init__</b> (self, i_
 <tr class="memitem:a837162f848dea73b4fbb97fc43462096 inherit pub_methods_classatod_1_1interfaces_1_1_group"><td class="memItemLeft" align="right" valign="top"><a id="a837162f848dea73b4fbb97fc43462096"></a>
 def&#160;</td><td class="memItemRight" valign="bottom"><b>add</b> (self, member)</td></tr>
 <tr class="separator:a837162f848dea73b4fbb97fc43462096 inherit pub_methods_classatod_1_1interfaces_1_1_group"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa899721e9071f3b91d5ee54a53d9716c inherit pub_methods_classatod_1_1interfaces_1_1_group"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatod_1_1interfaces_1_1_group.html#aa899721e9071f3b91d5ee54a53d9716c">all</a> (cls)</td></tr>
+<tr class="separator:aa899721e9071f3b91d5ee54a53d9716c inherit pub_methods_classatod_1_1interfaces_1_1_group"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac6ff24627bb35c20bdf53917db4ffccd inherit pub_methods_classatod_1_1interfaces_1_1_group"><td class="memItemLeft" align="right" valign="top"><a id="ac6ff24627bb35c20bdf53917db4ffccd"></a>
 def&#160;</td><td class="memItemRight" valign="bottom"><b>remove</b> (self, member_name)</td></tr>
 <tr class="separator:ac6ff24627bb35c20bdf53917db4ffccd inherit pub_methods_classatod_1_1interfaces_1_1_group"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -129,7 +131,7 @@ Static Public Attributes</h2></td></tr>
 <tr class="separator:ac16ab1be4985ec9cda43bddd3e34cece"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_static_attribs_classatod_1_1interfaces_1_1_group"><td colspan="2" onclick="javascript:toggleInherit('pub_static_attribs_classatod_1_1interfaces_1_1_group')"><img src="closed.png" alt="-"/>&#160;Static Public Attributes inherited from <a class="el" href="classatod_1_1interfaces_1_1_group.html">atod.interfaces.Group</a></td></tr>
 <tr class="memitem:a44890a5d53a0ac2bb6e033ee1ce480a3 inherit pub_static_attribs_classatod_1_1interfaces_1_1_group"><td class="memItemLeft" align="right" valign="top"><a id="a44890a5d53a0ac2bb6e033ee1ce480a3"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>member_type</b> = None</td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><b>member_type</b> = <a class="el" href="classatod_1_1interfaces_1_1_member.html">Member</a></td></tr>
 <tr class="separator:a44890a5d53a0ac2bb6e033ee1ce480a3 inherit pub_static_attribs_classatod_1_1interfaces_1_1_group"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
@@ -230,7 +232,7 @@ pd.DataFrame: shape=(len(self.members),
 </pre> 
 </div>
 </div>
-<a id="a815ad0f5d36d72298f2dffeb41d3dfc3"></a>
+<a id="a51916c4d551758aef056df33276ccd74"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -238,8 +240,18 @@ pd.DataFrame: shape=(len(self.members),
           <td class="memname">def atod.abilities.Abilities.get_specs_list </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em></td><td>)</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>include</em> = <code>[]</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">

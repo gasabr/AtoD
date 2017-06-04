@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['effects',['effects',['../classabilities__old_1_1_abilities.html#a6f4c7cce97440feefe4e5c0b655f00c6',1,'abilities_old::Abilities']]],
-  ['effects_5fdescriptions',['effects_descriptions',['../classabilities__old_1_1_abilities.html#a44f4974d12c407d669248fea33ffd363',1,'abilities_old::Abilities']]],
-  ['encode_5feffects',['encode_effects',['../namespaceatod_1_1ml_1_1abilities.html#a79422e57b75f32749f2020b374ad8d68',1,'atod::ml::abilities']]],
-  ['encoding',['encoding',['../classabilities__old_1_1_abilities.html#a674c9327e5e6090a214ba86e6c817940',1,'abilities_old::Abilities']]],
-  ['extract_5feffects',['extract_effects',['../namespaceatod_1_1preprocessing_1_1dictionary.html#a95a41297fb31441a27198e41793cafdf',1,'atod::preprocessing::dictionary']]]
+  ['find_5fall_5fvalues',['find_all_values',['../namespaceatod_1_1preprocessing_1_1dictionary.html#a0af7e0fe23ce68a769d9748c4c3a2ecf',1,'atod::preprocessing::dictionary']]],
+  ['find_5fkeys',['find_keys',['../namespaceatod_1_1preprocessing_1_1dictionary.html#aa55d75457292bdf99b678b2a9f90ca98',1,'atod::preprocessing::dictionary']]],
+  ['find_5fkeys_5fany',['find_keys_any',['../namespaceatod_1_1preprocessing_1_1dictionary.html#addec63c00cc2c844618c260f2149bc84',1,'atod::preprocessing::dictionary']]],
+  ['from_5fhero_5fid',['from_hero_id',['../classatod_1_1abilities_1_1_abilities.html#a1594c605444025644a197875b8b51faa',1,'atod::abilities::Abilities']]],
+  ['from_5fname',['from_name',['../classatod_1_1heroes_1_1_hero.html#ac2ba0862900a63e0a1f1d7a09111eb5f',1,'atod::heroes::Hero']]]
 ];

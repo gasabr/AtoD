@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['label',['label',['../namespaceatod_1_1ml_1_1abilities.html#ace5515a17627d9dfe112c4035e21ff12',1,'atod::ml::abilities']]],
-  ['league',['League',['../classleague_1_1_league.html',1,'league']]],
-  ['load_5ftrain_5ftest',['load_train_test',['../classabilities__old_1_1_abilities.html#a076fa41cc24e0d38a60b6ac05d5bc71c',1,'abilities_old::Abilities']]]
+  ['label',['label',['../namespaceatod_1_1examples_1_1abilities.html#a88be7d6dc018665b6f26787784eaedb5',1,'atod::examples::abilities']]]
 ];

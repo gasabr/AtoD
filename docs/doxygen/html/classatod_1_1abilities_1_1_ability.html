@@ -96,8 +96,8 @@ def&#160;</td><td class="memItemRight" valign="bottom"><b>__repr__</b> (self)</t
 <tr class="separator:a79f3dd1154fb1862d396da4bb47eca85"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a991ef8299a9817642bf457f7e8dd03b3"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatod_1_1abilities_1_1_ability.html#a991ef8299a9817642bf457f7e8dd03b3">get_labels</a> (self)</td></tr>
 <tr class="separator:a991ef8299a9817642bf457f7e8dd03b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af34b6c7240c2311edaffd784fb89cb4f"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatod_1_1abilities_1_1_ability.html#af34b6c7240c2311edaffd784fb89cb4f">get_specs</a> (self)</td></tr>
-<tr class="separator:af34b6c7240c2311edaffd784fb89cb4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95ac2238451ea94be76e532788a681a4"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatod_1_1abilities_1_1_ability.html#a95ac2238451ea94be76e532788a681a4">get_specs</a> (self, include=[])</td></tr>
+<tr class="separator:a95ac2238451ea94be76e532788a681a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8ec6949a32f54ba31021fd710d525045"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classatod_1_1abilities_1_1_ability.html#a8ec6949a32f54ba31021fd710d525045">get_texts</a> (self)</td></tr>
 <tr class="separator:a8ec6949a32f54ba31021fd710d525045"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classatod_1_1interfaces_1_1_member"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classatod_1_1interfaces_1_1_member')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classatod_1_1interfaces_1_1_member.html">atod.interfaces.Member</a></td></tr>
@@ -165,7 +165,7 @@ Static Public Attributes</h2></td></tr>
 <pre class="fragment">Returns labels of ability. </pre> 
 </div>
 </div>
-<a id="af34b6c7240c2311edaffd784fb89cb4f"></a>
+<a id="a95ac2238451ea94be76e532788a681a4"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -173,12 +173,29 @@ Static Public Attributes</h2></td></tr>
           <td class="memname">def atod.abilities.Ability.get_specs </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em></td><td>)</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>include</em> = <code>[]</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<pre class="fragment">Returns specs of this ability. </pre> 
+<pre class="fragment">Returns specs of this ability. 
+
+    Args:
+inlcude (list of strings): columns that should be included.
+
+    Results:
+pd.DataFrame: data with fields from include for this ability.
+</pre> 
 </div>
 </div>
 <a id="a8ec6949a32f54ba31021fd710d525045"></a>

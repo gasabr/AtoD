@@ -22,7 +22,7 @@ def \hyperlink{classatod_1_1abilities_1_1_ability_a79f3dd1154fb1862d396da4bb47ec
 \item 
 def \hyperlink{classatod_1_1abilities_1_1_ability_a991ef8299a9817642bf457f7e8dd03b3}{get\+\_\+labels} (self)
 \item 
-def \hyperlink{classatod_1_1abilities_1_1_ability_af34b6c7240c2311edaffd784fb89cb4f}{get\+\_\+specs} (self)
+def \hyperlink{classatod_1_1abilities_1_1_ability_a95ac2238451ea94be76e532788a681a4}{get\+\_\+specs} (self, include=\mbox{[}$\,$\mbox{]})
 \item 
 def \hyperlink{classatod_1_1abilities_1_1_ability_a8ec6949a32f54ba31021fd710d525045}{get\+\_\+texts} (self)
 \end{DoxyCompactItemize}
@@ -63,12 +63,20 @@ def \hyperlink{classatod_1_1abilities_1_1_ability_a8ec6949a32f54ba31021fd710d525
 \begin{DoxyVerb}Returns labels of ability. \end{DoxyVerb}
  \index{atod\+::abilities\+::\+Ability@{atod\+::abilities\+::\+Ability}!get\+\_\+specs@{get\+\_\+specs}}
 \index{get\+\_\+specs@{get\+\_\+specs}!atod\+::abilities\+::\+Ability@{atod\+::abilities\+::\+Ability}}
-\subsubsection[{\texorpdfstring{get\+\_\+specs(self)}{get\_specs(self)}}]{\setlength{\rightskip}{0pt plus 5cm}def atod.\+abilities.\+Ability.\+get\+\_\+specs (
+\subsubsection[{\texorpdfstring{get\+\_\+specs(self, include=[])}{get\_specs(self, include=[])}}]{\setlength{\rightskip}{0pt plus 5cm}def atod.\+abilities.\+Ability.\+get\+\_\+specs (
 \begin{DoxyParamCaption}
-\item[{}]{self}
+\item[{}]{self, }
+\item[{}]{include = {\ttfamily \mbox{[}\mbox{]}}}
 \end{DoxyParamCaption}
-)}\hypertarget{classatod_1_1abilities_1_1_ability_af34b6c7240c2311edaffd784fb89cb4f}{}\label{classatod_1_1abilities_1_1_ability_af34b6c7240c2311edaffd784fb89cb4f}
-\begin{DoxyVerb}Returns specs of this ability. \end{DoxyVerb}
+)}\hypertarget{classatod_1_1abilities_1_1_ability_a95ac2238451ea94be76e532788a681a4}{}\label{classatod_1_1abilities_1_1_ability_a95ac2238451ea94be76e532788a681a4}
+\begin{DoxyVerb}Returns specs of this ability. 
+
+    Args:
+inlcude (list of strings): columns that should be included.
+
+    Results:
+pd.DataFrame: data with fields from include for this ability.
+\end{DoxyVerb}
  \index{atod\+::abilities\+::\+Ability@{atod\+::abilities\+::\+Ability}!get\+\_\+texts@{get\+\_\+texts}}
 \index{get\+\_\+texts@{get\+\_\+texts}!atod\+::abilities\+::\+Ability@{atod\+::abilities\+::\+Ability}}
 \subsubsection[{\texorpdfstring{get\+\_\+texts(self)}{get\_texts(self)}}]{\setlength{\rightskip}{0pt plus 5cm}def atod.\+abilities.\+Ability.\+get\+\_\+texts (

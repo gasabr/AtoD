@@ -1,8 +1,8 @@
 var searchData=
 [
   ['abilities',['abilities',['../namespaceatod_1_1abilities.html',1,'atod']]],
+  ['abilities',['abilities',['../namespaceatod_1_1examples_1_1abilities.html',1,'atod::examples']]],
   ['abilities',['abilities',['../namespaceatod_1_1preprocessing_1_1abilities.html',1,'atod::preprocessing']]],
-  ['abilities',['abilities',['../namespaceatod_1_1ml_1_1abilities.html',1,'atod::ml']]],
   ['dictionary',['dictionary',['../namespaceatod_1_1preprocessing_1_1dictionary.html',1,'atod::preprocessing']]],
   ['discovery',['discovery',['../namespaceatod_1_1discovery.html',1,'atod']]],
   ['files',['files',['../namespaceatod_1_1files.html',1,'atod']]],
