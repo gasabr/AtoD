@@ -1,35 +1,35 @@
 ====
 AtoD
 ====
-An Interactive DotA2 wiki.
+DotA2 data for ML.
 
-This is a library which provides interface for DotA2 data in the suitable for
-Machine Learning tasks form.
+What and why
+============
+DotA2 API gives you a lot of information about matches, leagues, players, 
+but there's no way to get the data about game itself: heroes, their abilities etc.
+This library helps with this task. And there is short summary of features:
 
-.. highlight:: python
+- tools to extract data from in-game files (heroes attributes, abilities specs)
+- classes Hero, Ability... to represent the data
+- some examples of usage
 
-::
-    from atod import Hero
+Examples
+========
+Create a hero from name and get some basic info.
 
-    am = Hero(1) # 1 is Anti-Mage's id
-    am = Hero.from_name('Anti-Mage') # produces the same result as above
+    >>> from atod import Hero
+    >>> am = Hero.from_name('Anti-Mage') # produces the same result as above
+    >>> am.str
+    22
+    >>> print(am.abilities)
+    <Abilities [<Ability name=mana_break>, <Ability name=blink>, <Ability name=spell_shield>, <Ability name=mana_void>, ]>
+    >>> am.lvl = 15 
+    >>> am.str
+    38
+
 
 The code above creates Anti-Mage, which has some basic attributes: strength,
-agility, armor all of them are counted on the fly, so if you will change the
+agility, armor all of them are counted at the run-time, so if you will change the
 level of hero, attributes will change too.
-
-Use ``dir(Hero)`` to get all available properties of the Hero class.
-
-::
-    am_abilities = am.abilities.get_list()
-
-Every hero has abilities, they are represented by special class -- Abilities.
-Abilities contain some members -- list of Ability objects. Ability contain 4
-main components:
-
-- texts: description, lore, notes (all this is shown on ability card in the
-game)
-- specs: a lot of variables with string and numeric values. The database
-contains "cleaned" version of abilities. What "cleaned" means will be
-described later
-- labels: abstract variables (~35) which should replace long specifications
+Other examples of usage the Hero class can be found at examples/hero_data.ipynb.
+Also you can use ``dir(Hero)`` to get all available properties of the Hero class.
