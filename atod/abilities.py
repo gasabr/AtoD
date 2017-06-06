@@ -21,12 +21,13 @@ class Ability(Member):
         res = session.query(self.model).filter(self.model.ID == id_).first()
 
         # init super class
-        super().__init__(res.ID, res.name)
+        super().__init__(res.ID)
+        self.name = res.name
         self.lvl = lvl
 
     def _extract_properties(self, response):
-        ''' Extracts properties from session response. 
-        
+        ''' Extracts properties from session response.
+
             Args:
                 response (instance of the `model`): row in db
         '''
@@ -69,11 +70,11 @@ class Ability(Member):
         return labels
 
     def get_specs(self, include=[]):
-        ''' Returns specs of this ability. 
-        
+        ''' Returns specs of this ability.
+
             Args:
                 inlcude (list of strings): columns that should be included.
-                
+
             Results:
                 pd.DataFrame: data with fields from include for this ability.
         '''
@@ -117,9 +118,9 @@ class Ability(Member):
 
     def get_texts(self):
         ''' Gets all the records in abilities_texts table for this ability.
-        
+
             Returns:
-                pd.Series: index contain columns of abilities_texts table. 
+                pd.Series: index contain columns of abilities_texts table.
                     Can be empty, if this ability is not represented in texts
                     table.
         '''
@@ -163,14 +164,14 @@ class Abilities(Group):
 
     def get_list(self):
         ''' Returns information about members in the form: row is a member.
-         
+
             'List' because descriptions are just concatenated with each other,
             but not summed by any means.
-        
+
             Returns:
-                pd.DataFrame: shape=(len(self.members), 
-                    len(<member description>)). Rows are abilities, columns - 
-                    their properties. Labels columns names start with 
+                pd.DataFrame: shape=(len(self.members),
+                    len(<member description>)). Rows are abilities, columns -
+                    their properties. Labels columns names start with
                     'label_'.
         '''
 
@@ -181,7 +182,7 @@ class Abilities(Group):
                             index=None)
 
     def get_specs_list(self, include=[]):
-        ''' Returns list of all member's descriptions (ONLY specs part). 
+        ''' Returns list of all member's descriptions (ONLY specs part).
 
             Returns:
                 pd.DataFrame: shape=(len(members), len(<member description>)).
@@ -196,7 +197,7 @@ class Abilities(Group):
                             index=None)
 
     def get_labels_list(self):
-        ''' Returns list of all member's descriptions (ONLY specs part). 
+        ''' Returns list of all member's descriptions (ONLY specs part).
 
             Returns:
                 pd.DataFrame: shape=(len(members), len(<member description>)).
@@ -231,9 +232,9 @@ class Abilities(Group):
 
     def get_summary(self):
         ''' Sums up all labels of members (they are binary decoded).
-        
+
             Returns:
-                pd.Series: 
+                pd.Series:
         '''
 
         labels_list = self.get_labels_list()

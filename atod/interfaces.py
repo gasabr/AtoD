@@ -1,6 +1,6 @@
-''' This is an interface for any class which describes group of something. 
+''' This is an interface for any class which describes group of something.
 
-    It can be Heroes, Abilities, Items or somethings else. 
+    It can be Heroes, Abilities, Items or somethings else.
 '''
 import pandas as pd
 
@@ -11,21 +11,19 @@ class Member:
     ''' The parent class for all the single elements.
 
         Attributes:
-            model (sqlalchemy.ext.declarative.api.DeclarativeMeta): 
+            model (sqlalchemy.ext.declarative.api.DeclarativeMeta):
                 SQlAlchemy based model which represents table in the db.
             id (int)  : unique identifier among other members.
-            name (str): name.
     '''
 
     model = None
 
-    def __init__(self, id_, name):
+    def __init__(self, id_):
         ''' Only initialise necessary attributes for any member. '''
         self.id = id_
-        self.name = name
 
     def get_description(self):
-        ''' Returns a object as a pd.Series. 
+        ''' Returns a object as a pd.Series.
 
             Returns:
                 vector (pandas.Series): representation of the object
@@ -40,10 +38,10 @@ class Member:
 
 class Group:
     ''' Represents abstract set of members.
-    
+
         Attributes:
             member_type (class): the type of member
-            members (list)     : list of objects of class `member_type` 
+            members (list)     : list of objects of class `member_type`
     '''
 
     member_type = Member

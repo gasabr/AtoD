@@ -47,8 +47,9 @@ class Hero(Member):
     def __init__(self, id_, lvl=1):
         query = session.query(self.model)
         specs = query.filter(self.model.HeroID == id_).first()
-        super().__init__(specs.HeroID, specs.name)
+        super().__init__(specs.HeroID)
 
+        self.name = specs.name
         self.in_game_name = specs.in_game_name
         del specs.__dict__['name']
         # remove SQLAlchemy condition variable
@@ -60,8 +61,8 @@ class Hero(Member):
 
     @classmethod
     def from_name(cls, name):
-        ''' Converts name to id with and calls init. 
-        
+        ''' Converts name to id with and calls init.
+
             Raises:
                 ValueError: if `name` is not in heroes.name column
         '''
@@ -120,7 +121,7 @@ class Hero(Member):
     def get_laning_info(self):
         ''' Returns:
                 pd.Series: laning info of this hero.
-                
+
             Notes:
                 The latest heroes does not have this field, so Series filled
                 with zeroes would be returned.
@@ -130,7 +131,7 @@ class Hero(Member):
     def get_roles(self):
         ''' Returns:
                 pd.Series: roles levels of this hero.
-                
+
             Notes:
                 The latest heroes does not have this field, so Series filled
                 with zeroes would be returned.
@@ -149,7 +150,7 @@ class Hero(Member):
     def get_hero_type(self):
         ''' Returns:
                 pd.Series: laning info of this hero.
-                
+
             Notes:
                 The latest heroes does not have this field, so Series filled
                 with zeroes would be returned.
