@@ -8,7 +8,8 @@ from atod.interfaces import Group, Member
 
 mapper = inspect(HeroModel)
 
-PRIMARIES = {
+# Move this to file or table in db
+primaries = {
     'DOTA_ATTRIBUTE_AGILITY': 'agility',
     'DOTA_ATTRIBUTE_STRENGTH': 'strength',
     'DOTA_ATTRIBUTE_INTELLECT': 'intellect',
@@ -47,6 +48,7 @@ class Hero(Member):
     def __init__(self, id_, lvl=1):
         query = session.query(self.model)
         specs = query.filter(self.model.HeroID == id_).first()
+        sorted_specs = self._sort_specs(specs.__dict__)
         super().__init__(specs.HeroID)
 
         self.name = specs.name
@@ -126,7 +128,7 @@ class Hero(Member):
                 The latest heroes does not have this field, so Series filled
                 with zeroes would be returned.
         '''
-        return pd.Series({k: self.specs[k] for k in laning_keys})
+        return pd.Series({'laning_' + k: self.specs[k] for k in laning_keys})
 
     def get_roles(self):
         ''' Returns:
@@ -138,7 +140,8 @@ class Hero(Member):
         '''
 
         # map string roles stored in string to levels stored also in string
-        roles = {role: lvl for role, lvl in
+        prefix = 'role_'
+        roles = {prefix + role: lvl for role, lvl in
                  zip(self.specs['Role'].split(','),
                      self.specs['Rolelevels'].split(','))}
 
@@ -149,7 +152,7 @@ class Hero(Member):
 
     def get_hero_type(self):
         ''' Returns:
-                pd.Series: laning info of this hero.
+                pd.Series: binary encoded type of this hero.
 
             Notes:
                 The latest heroes does not have this field, so Series filled
@@ -168,6 +171,45 @@ class Hero(Member):
                 types[clean_type] = 0
 
         return pd.Series(types)
+
+    def get_bin(self):
+        ''' Returns description, where all possible columns are encoded. '''
+        # return pd.concat(self.)
+        pass
+
+    def get_numeric(self):
+        ''' Returns only numeric features from hero description. '''
+        pass
+
+    def _sort_specs(self, specs):
+        ''' Sorts specs into 4 groups.
+
+            For easier data encoding specs can be separated into 4 groups:
+                * attributes;
+                * role;
+                * type of the hero;
+                * laning;
+
+            Args:
+                specs (dict): result of SQL query to the hero table in the db.
+
+            Returns:
+                dict: containing 4 nested dictionaries listed above.
+        '''
+        from pprint import pprint
+        del specs['_sa_instance_state']
+        sorted_specs = dict()
+
+        for key, value in specs.items():
+            if key in laning_keys:
+                sorted_specs.setdefault('laning', {})
+                sorted_specs['laning'][key] = value
+
+            # elif any(map(lambda x: x in value, all_roles)):
+            #     sorted_specs['role'] =
+            # 'AttackCapabilities'
+
+        pprint(specs)
 
 
 class Heroes(Group):
