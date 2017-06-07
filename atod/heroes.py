@@ -160,7 +160,7 @@ class Hero(Member):
         '''
 
         # map string roles stored in string to levels stored also in string
-        roles = {role: lvl for role, lvl in
+        roles = {role: int(lvl) for role, lvl in
                  zip(self.specs['Role'].split(','),
                      self.specs['Rolelevels'].split(','))}
 
@@ -224,14 +224,19 @@ class Heroes(Group):
 
     member_type = Hero
 
-    # TODO: encode role and laning info
-    def get_summary(self):
-        ''' Sums up numeric properties, encodes and sums up categorical. '''
-        # encode role
-        # encode laning info
-        # concatenate all the information together
-        # sum up
-        pass
+    @classmethod
+    def from_ids(cls, ids):
+        member_model = cls.member_type.model
+
+        members_ = list()
+        for id_ in ids:
+            try:
+                members_.append(cls.member_type(id_))
+            # XXX: can not create abilities for hero with HeroID == 16
+            except ValueError as e:
+                print(e)
+
+        return cls(members_)
 
     @classmethod
     def all(cls):
@@ -248,3 +253,18 @@ class Heroes(Group):
                 print(e)
 
         return cls(members_)
+
+    def get_summary(self):
+        ''' Sums up numeric properties, encodes and sums up categorical. '''
+        descriptions = [m.get_bin_description() for m in self.members]
+        descriptions = pd.DataFrame(descriptions)
+
+        # no use to the name in summary
+        descriptions = descriptions.drop(['name'], axis=1)
+        columns_summary = [sum(descriptions[c]) for c in descriptions.columns]
+        summary = pd.Series(columns_summary, index=descriptions.columns)
+
+        return summary
+
+    def get_names(self):
+        return [m.name for m in self.members]
