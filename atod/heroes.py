@@ -1,4 +1,5 @@
 import pandas as pd
+from pprint import pprint
 from sqlalchemy.inspection import inspect
 
 from atod.db import session
@@ -8,7 +9,25 @@ from atod.interfaces import Group, Member
 
 mapper = inspect(HeroModel)
 
-PRIMARIES = {
+attributes_list = [
+    'ArmorPhysical',
+    'AttackAcquisitionRange',
+    'AttackAnimationPoint',
+    'AttackDamageMax',
+    'AttackDamageMin',
+    'AttackRange',
+    'AttackRate',
+    'AttributeAgilityGain',
+    'AttributeBaseAgility',
+    'AttributeBaseIntelligence',
+    'AttributeBaseStrength',
+    'AttributeIntelligenceGain',
+    'AttributeStrengthGain',
+    'MovementSpeed',
+    'MovementTurnRate',
+ ]
+
+primaries = {
     'DOTA_ATTRIBUTE_AGILITY': 'agility',
     'DOTA_ATTRIBUTE_STRENGTH': 'strength',
     'DOTA_ATTRIBUTE_INTELLECT': 'intellect',
@@ -126,7 +145,10 @@ class Hero(Member):
                 The latest heroes does not have this field, so Series filled
                 with zeroes would be returned.
         '''
-        return pd.Series({k: self.specs[k] for k in laning_keys})
+        laning_info = {k: self.specs[k] for k in laning_keys}
+        laning_info = pd.Series(laning_info).fillna(value=0)
+
+        return laning_info
 
     def get_roles(self):
         ''' Returns:
@@ -162,13 +184,41 @@ class Hero(Member):
             # change in game format to more readable
             clean_type = type_[len(type_prefix):].lower()
             # if hero belongs to that type
-            if type_ in self.specs['HeroType']:
+            if self.specs['HeroType'] is not None \
+                        and type_ in self.specs['HeroType']:
                 types[clean_type] = 1
             else:
                 types[clean_type] = 0
 
-        return pd.Series(types)
+        types = pd.Series(types).fillna(value=0)
 
+        return types
+
+    def get_primary_attribute(self):
+        primary_attributes = {k: 1 if self.specs['AttributePrimary'] == k else 0
+                                 for k in primaries}
+
+        prefix = 'DOTA_'
+        index = [a[len(prefix):] for a in primaries.keys()]
+        primary_attributes = pd.Series(primary_attributes, index=index)
+        primary_attributes = primary_attributes.fillna(value=0)
+
+        return primary_attributes
+
+    def get_attributes(self):
+        ''' Returns only attributes which are not encoded. '''
+        attributes = {k: self.specs[k] for k in attributes_list}
+        attributes = pd.Series(attributes).fillna(value=0)
+
+        return attributes
+
+    def get_bin_description(self):
+        ''' Returns description with all the variables encoded. '''
+        description = [self.get_attributes(), self.get_roles(),
+                       self.get_primary_attribute(), self.get_hero_type(),
+                       self.get_laning_info(), pd.Series({'name': self.name})]
+
+        return pd.concat(description)
 
 class Heroes(Group):
 
