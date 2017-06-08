@@ -4,12 +4,12 @@
     data, for example amount of abilities, heroes...
 '''
 
-from atod import Abilities, Hero
+from atod import Match
 from atod.db import session
 from atod.models import HeroModel
 
 
 if __name__ == '__main__':
-    for id_ in [1, 5, 28, 65, 12]:
-        hero = Hero(id_)
-        print(hero.name, list(hero.get_roles()))
+    match_id = 1000193456
+    match = Match(match_id)
+    print(match.radiant.get_summary().shape)
