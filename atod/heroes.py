@@ -85,6 +85,7 @@ class Hero(Member):
     def __init__(self, id_, lvl=1):
         query = session.query(self.model)
         specs = query.filter(self.model.HeroID == id_).first()
+        sorted_specs = self._sort_specs(specs.__dict__)
         super().__init__(specs.HeroID)
 
         self.name = specs.name
@@ -164,6 +165,7 @@ class Hero(Member):
                 The latest heroes does not have this field, so Series filled
                 with zeroes would be returned.
         '''
+
         laning_info = dict()
         for key in laning_keys:
             laning_info['laning_' + camel2python(key)] = self.specs[key]
@@ -201,7 +203,7 @@ class Hero(Member):
 
     def get_hero_type(self):
         ''' Returns:
-                pd.Series: laning info of this hero.
+                pd.Series: binary encoded type of this hero.
 
             Notes:
                 The latest heroes does not have this field, so Series filled
@@ -235,6 +237,7 @@ class Hero(Member):
         encoded = pd.Series(encoded)
         encoded = encoded.fillna(value=0)
 
+
         return encoded
 
     def get_attributes(self):
@@ -252,6 +255,7 @@ class Hero(Member):
 
         return pd.concat(description)
 
+      
 class Heroes(Group):
 
     member_type = Hero
