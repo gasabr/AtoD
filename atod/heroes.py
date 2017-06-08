@@ -85,7 +85,6 @@ class Hero(Member):
     def __init__(self, id_, lvl=1):
         query = session.query(self.model)
         specs = query.filter(self.model.HeroID == id_).first()
-        sorted_specs = self._sort_specs(specs.__dict__)
         super().__init__(specs.HeroID)
 
         self.name = specs.name
