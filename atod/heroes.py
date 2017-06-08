@@ -1,4 +1,6 @@
+import re
 import pandas as pd
+from pprint import pprint
 from sqlalchemy.inspection import inspect
 
 from atod.db import session
@@ -8,11 +10,27 @@ from atod.interfaces import Group, Member
 
 mapper = inspect(HeroModel)
 
-# Move this to file or table in db
+attributes_list = [
+    'ArmorPhysical',
+    'AttackAcquisitionRange',
+    'AttackAnimationPoint',
+    'AttackDamageMax',
+    'AttackDamageMin',
+    'AttackRange',
+    'AttackRate',
+    'AttributeAgilityGain',
+    'AttributeBaseAgility',
+    'AttributeBaseIntelligence',
+    'AttributeBaseStrength',
+    'AttributeIntelligenceGain',
+    'AttributeStrengthGain',
+    'MovementSpeed',
+    'MovementTurnRate',
+ ]
+
 primaries = {
-    'DOTA_ATTRIBUTE_AGILITY': 'agility',
-    'DOTA_ATTRIBUTE_STRENGTH': 'strength',
-    'DOTA_ATTRIBUTE_INTELLECT': 'intellect',
+    'DOTA_ATTRIBUTE_AGILITY', 'DOTA_ATTRIBUTE_STRENGTH',
+    'DOTA_ATTRIBUTE_INTELLECT',
 }
 
 laning_keys = [
@@ -32,6 +50,25 @@ all_heroes_types = ['DOTA_BOT_PUSH_SUPPORT', 'DOTA_BOT_STUN_SUPPORT',
                     'DOTA_BOT_SEMI_CARRY', 'DOTA_BOT_HARD_CARRY',
                     'DOTA_BOT_NUKER', 'DOTA_BOT_TANK',
                     'DOTA_BOT_PURE_SUPPORT', 'DOTA_BOT_GANKER']
+
+
+# TODO: move this function to mo appropriate place
+def camel2python(inp):
+    ''' Converts camel style string to lower case with unders.
+
+        Args:
+            inp (string): string to be converted
+
+        Returns:
+            string: result
+    '''
+
+    # split string into pieces started with capital letter
+    words = re.findall(r'[A-Z][a-z]+', inp)
+    result = '_'.join([word.lower() for word in words])
+
+    return result
+
 
 class Hero(Member):
     ''' Interface for HeroModel. '''
@@ -128,7 +165,14 @@ class Hero(Member):
                 The latest heroes does not have this field, so Series filled
                 with zeroes would be returned.
         '''
-        return pd.Series({'laning_' + k: self.specs[k] for k in laning_keys})
+
+        laning_info = dict()
+        for key in laning_keys:
+            laning_info['laning_' + camel2python(key)] = self.specs[key]
+
+        laning_info = pd.Series(laning_info).fillna(value=0)
+
+        return laning_info
 
     def get_roles(self):
         ''' Returns:
@@ -140,12 +184,19 @@ class Hero(Member):
         '''
 
         # map string roles stored in string to levels stored also in string
-        prefix = 'role_'
-        roles = {prefix + role: lvl for role, lvl in
-                 zip(self.specs['Role'].split(','),
-                     self.specs['Rolelevels'].split(','))}
+        if len(self.specs['Rolelevels'].split(',')) == 0:
+            print('{} does not have roles.'.format(self.name))
 
-        roles = pd.Series(roles, index=all_roles)
+        roles = dict()
+        for role, lvl in zip(self.specs['Role'].split(','),
+                             self.specs['Rolelevels'].split(',')):
+            key = 'role_' + role.lower()
+            value = int(lvl)
+
+            roles[key] = value
+
+        roles = pd.Series(roles,
+                          index=map(lambda x: 'role_' + x.lower(), all_roles))
         roles = roles.fillna(0)
 
         return roles
@@ -163,67 +214,65 @@ class Hero(Member):
         type_prefix = 'dota_bot_'
         for type_ in all_heroes_types:
             # change in game format to more readable
-            clean_type = type_[len(type_prefix):].lower()
+            clean_type = 'type_' + type_[len(type_prefix):].lower()
             # if hero belongs to that type
-            if type_ in self.specs['HeroType']:
+            if self.specs['HeroType'] is not None \
+                        and type_ in self.specs['HeroType']:
                 types[clean_type] = 1
             else:
                 types[clean_type] = 0
 
-        return pd.Series(types)
+        types = pd.Series(types).fillna(value=0)
 
-    def get_bin(self):
-        ''' Returns description, where all possible columns are encoded. '''
-        # return pd.concat(self.)
-        pass
+        return types
 
-    def get_numeric(self):
-        ''' Returns only numeric features from hero description. '''
-        pass
+    def get_primary_attribute(self):
+        prefix = 'DOTA_'
+        encoded = dict()
 
-    def _sort_specs(self, specs):
-        ''' Sorts specs into 4 groups.
+        for k in primaries:
+            clean_key = 'primary_' + k[len(prefix):].lower()
+            encoded[clean_key] = 1 if self.specs['AttributePrimary'] == k else 0
 
-            For easier data encoding specs can be separated into 4 groups:
-                * attributes;
-                * role;
-                * type of the hero;
-                * laning;
-
-            Args:
-                specs (dict): result of SQL query to the hero table in the db.
-
-            Returns:
-                dict: containing 4 nested dictionaries listed above.
-        '''
-        from pprint import pprint
-        del specs['_sa_instance_state']
-        sorted_specs = dict()
-
-        for key, value in specs.items():
-            if key in laning_keys:
-                sorted_specs.setdefault('laning', {})
-                sorted_specs['laning'][key] = value
-
-            # elif any(map(lambda x: x in value, all_roles)):
-            #     sorted_specs['role'] =
-            # 'AttackCapabilities'
-
-        pprint(specs)
+        encoded = pd.Series(encoded)
+        encoded = encoded.fillna(value=0)
 
 
+        return encoded
+
+    def get_attributes(self):
+        ''' Returns only attributes which are not encoded. '''
+        attributes = {camel2python(k): self.specs[k] for k in attributes_list}
+        attributes = pd.Series(attributes).fillna(value=0)
+
+        return attributes
+
+    def get_bin_description(self):
+        ''' Returns description with all the variables encoded. '''
+        description = [self.get_attributes(), self.get_roles(),
+                       self.get_primary_attribute(), self.get_hero_type(),
+                       self.get_laning_info(), pd.Series({'name': self.name})]
+
+        return pd.concat(description)
+
+      
 class Heroes(Group):
 
     member_type = Hero
 
-    # TODO: encode role and laning info
-    def get_summary(self):
-        ''' Sums up numeric properties, encodes and sums up categorical. '''
-        # encode role
-        # encode laning info
-        # concatenate all the information together
-        # sum up
-        pass
+    @classmethod
+    def from_ids(cls, ids):
+        member_model = cls.member_type.model
+
+        members_ = list()
+        for id_ in ids:
+            try:
+                members_.append(cls.member_type(id_))
+            # XXX: can not create abilities for hero with HeroID == 16
+            except ValueError as e:
+                print(e)
+
+        return cls(members_)
 
     @classmethod
     def all(cls):
@@ -240,3 +289,18 @@ class Heroes(Group):
                 print(e)
 
         return cls(members_)
+
+    def get_summary(self):
+        ''' Sums up numeric properties, encodes and sums up categorical. '''
+        descriptions = [m.get_bin_description() for m in self.members]
+        descriptions = pd.DataFrame(descriptions)
+
+        # no use to the name in summary
+        descriptions = descriptions.drop(['name'], axis=1)
+        columns_summary = [sum(descriptions[c]) for c in descriptions.columns]
+        summary = pd.Series(columns_summary, index=descriptions.columns)
+
+        return summary
+
+    def get_names(self):
+        return [m.name for m in self.members]
