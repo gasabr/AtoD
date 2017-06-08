@@ -248,7 +248,8 @@ class Hero(Member):
         ''' Returns description with all the variables encoded. '''
         description = [self.get_attributes(), self.get_roles(),
                        self.get_primary_attribute(), self.get_hero_type(),
-                       self.get_laning_info(), pd.Series({'name': self.name})]
+                       self.get_laning_info(), pd.Series({'name': self.name}),
+                       self.abilities.get_summary()]
 
         return pd.concat(description)
 
@@ -292,7 +293,7 @@ class Heroes(Group):
         descriptions = pd.DataFrame(descriptions)
 
         # no use to the name in summary
-        descriptions = descriptions.drop(['name'], axis=1)
+        descriptions = descriptions.drop(['name', 'id'], axis=1)
         columns_summary = [sum(descriptions[c]) for c in descriptions.columns]
         summary = pd.Series(columns_summary, index=descriptions.columns)
 

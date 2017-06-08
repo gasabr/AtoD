@@ -208,8 +208,7 @@ class Abilities(Group):
         # get all descriptions
         descriptions = [m.get_labels() for m in self.members]
 
-        return pd.DataFrame(descriptions, columns=descriptions[0].index,
-                            index=None)
+        return pd.DataFrame(descriptions, columns=descriptions[0].index)
 
     def get_texts(self):
         ''' Returns:
@@ -238,5 +237,7 @@ class Abilities(Group):
         '''
 
         labels_list = self.get_labels_list()
+        summary = labels_list.sum(axis=0)
+        del summary['name']
 
-        return labels_list.sum(axis=0)
+        return summary
