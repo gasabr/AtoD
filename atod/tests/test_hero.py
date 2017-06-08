@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import unittest
 
-from atod.heroes import Hero
+from atod.heroes import Hero, camel2python
 
 class TestHero(unittest.TestCase):
 
@@ -20,6 +20,10 @@ class TestHero(unittest.TestCase):
 
     def test_abilities_adding(self):
         self.assertEqual(len(self.sf_1.abilities), 6)
+
+    def test_camel2python(self):
+        test_str = 'PrimaryAttribute'
+        self.assertEqual(camel2python(test_str), 'primary_attribute')
 
 
 if __name__ == '__main__':

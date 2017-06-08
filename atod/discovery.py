@@ -9,19 +9,7 @@ from atod.db import session
 from atod.models import HeroModel
 
 
-def check():
-    h = Hero(9)
-    print(h.abilities.get_specs_list())
-
-
-def get_all_types():
-    query = session.query(HeroModel.HeroType).all()
-    types = set([t[0] for t in query if t[0] is not None])
-    types = set([r for t in types
-                   for r in t.split(' | ')])
-
-    print(types)
-
-
 if __name__ == '__main__':
-    check()
+    for id_ in [1, 5, 28, 65, 12]:
+        hero = Hero(id_)
+        print(hero.name, list(hero.get_roles()))

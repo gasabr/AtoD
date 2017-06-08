@@ -1,3 +1,4 @@
+import re
 import pandas as pd
 from pprint import pprint
 from sqlalchemy.inspection import inspect
@@ -28,9 +29,8 @@ attributes_list = [
  ]
 
 primaries = {
-    'DOTA_ATTRIBUTE_AGILITY': 'agility',
-    'DOTA_ATTRIBUTE_STRENGTH': 'strength',
-    'DOTA_ATTRIBUTE_INTELLECT': 'intellect',
+    'DOTA_ATTRIBUTE_AGILITY', 'DOTA_ATTRIBUTE_STRENGTH',
+    'DOTA_ATTRIBUTE_INTELLECT',
 }
 
 laning_keys = [
@@ -50,6 +50,25 @@ all_heroes_types = ['DOTA_BOT_PUSH_SUPPORT', 'DOTA_BOT_STUN_SUPPORT',
                     'DOTA_BOT_SEMI_CARRY', 'DOTA_BOT_HARD_CARRY',
                     'DOTA_BOT_NUKER', 'DOTA_BOT_TANK',
                     'DOTA_BOT_PURE_SUPPORT', 'DOTA_BOT_GANKER']
+
+
+# TODO: move this function to mo appropriate place
+def camel2python(inp):
+    ''' Converts camel style string to lower case with unders.
+
+        Args:
+            inp (string): string to be converted
+
+        Returns:
+            string: result
+    '''
+
+    # split string into pieces started with capital letter
+    words = re.findall(r'[A-Z][a-z]+', inp)
+    result = '_'.join([word.lower() for word in words])
+
+    return result
+
 
 class Hero(Member):
     ''' Interface for HeroModel. '''
@@ -145,7 +164,10 @@ class Hero(Member):
                 The latest heroes does not have this field, so Series filled
                 with zeroes would be returned.
         '''
-        laning_info = {k: self.specs[k] for k in laning_keys}
+        laning_info = dict()
+        for key in laning_keys:
+            laning_info['laning_' + camel2python(key)] = self.specs[key]
+
         laning_info = pd.Series(laning_info).fillna(value=0)
 
         return laning_info
@@ -160,11 +182,19 @@ class Hero(Member):
         '''
 
         # map string roles stored in string to levels stored also in string
-        roles = {role: int(lvl) for role, lvl in
-                 zip(self.specs['Role'].split(','),
-                     self.specs['Rolelevels'].split(','))}
+        if len(self.specs['Rolelevels'].split(',')) == 0:
+            print('{} does not have roles.'.format(self.name))
 
-        roles = pd.Series(roles, index=all_roles)
+        roles = dict()
+        for role, lvl in zip(self.specs['Role'].split(','),
+                             self.specs['Rolelevels'].split(',')):
+            key = 'role_' + role.lower()
+            value = int(lvl)
+
+            roles[key] = value
+
+        roles = pd.Series(roles,
+                          index=map(lambda x: 'role_' + x.lower(), all_roles))
         roles = roles.fillna(0)
 
         return roles
@@ -182,7 +212,7 @@ class Hero(Member):
         type_prefix = 'dota_bot_'
         for type_ in all_heroes_types:
             # change in game format to more readable
-            clean_type = type_[len(type_prefix):].lower()
+            clean_type = 'type_' + type_[len(type_prefix):].lower()
             # if hero belongs to that type
             if self.specs['HeroType'] is not None \
                         and type_ in self.specs['HeroType']:
@@ -195,19 +225,21 @@ class Hero(Member):
         return types
 
     def get_primary_attribute(self):
-        primary_attributes = {k: 1 if self.specs['AttributePrimary'] == k else 0
-                                 for k in primaries}
-
         prefix = 'DOTA_'
-        index = [a[len(prefix):] for a in primaries.keys()]
-        primary_attributes = pd.Series(primary_attributes, index=index)
-        primary_attributes = primary_attributes.fillna(value=0)
+        encoded = dict()
 
-        return primary_attributes
+        for k in primaries:
+            clean_key = 'primary_' + k[len(prefix):].lower()
+            encoded[clean_key] = 1 if self.specs['AttributePrimary'] == k else 0
+
+        encoded = pd.Series(encoded)
+        encoded = encoded.fillna(value=0)
+
+        return encoded
 
     def get_attributes(self):
         ''' Returns only attributes which are not encoded. '''
-        attributes = {k: self.specs[k] for k in attributes_list}
+        attributes = {camel2python(k): self.specs[k] for k in attributes_list}
         attributes = pd.Series(attributes).fillna(value=0)
 
         return attributes
