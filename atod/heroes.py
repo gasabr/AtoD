@@ -165,7 +165,6 @@ class Hero(Member):
                 The latest heroes does not have this field, so Series filled
                 with zeroes would be returned.
         '''
-
         laning_info = dict()
         for key in laning_keys:
             laning_info['laning_' + camel2python(key)] = self.specs[key]
@@ -237,7 +236,6 @@ class Hero(Member):
         encoded = pd.Series(encoded)
         encoded = encoded.fillna(value=0)
 
-
         return encoded
 
     def get_attributes(self):
@@ -255,7 +253,6 @@ class Hero(Member):
 
         return pd.concat(description)
 
-      
 class Heroes(Group):
 
     member_type = Hero
