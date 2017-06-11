@@ -3,8 +3,18 @@ AtoD
 ====
 DotA2 data for ML.
 
+Goals
+=====
+- create an API to get any DotA related data as easy as possible and ready
+for ML experiments
+- create hero recommendation engine
+- create web interface with interactive representation of the info
+
 What and why
 ============
+First of all it's educational project which is created to learn some staff, hope
+someone will find it useful.
+
 DotA2 API gives you a lot of information about matches, leagues, players,
 but there's no way to get the data about game itself: heroes, their abilities etc.
 This library helps with this task. And there is short summary of features:
@@ -32,5 +42,5 @@ The code above creates Anti-Mage, which has some basic attributes: strength,
 agility, armor all of them are counted at the run-time, so if you will change the
 level of hero, attributes will change too.
 
-Other examples of usage of the Hero class can be found at examples/hero_data.ipynb.
+Other examples of usage of the Hero class can be found at `examples/hero_data.ipynb.`
 Auto generated docs can be found at ``docs/doxygen/html/index.html``.
