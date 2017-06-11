@@ -8,8 +8,9 @@ import json
 import logging
 import re
 
-from atod import settings, files
-from atod.preprocessing.dictionary import all_keys, make_flat_dict
+from atod import settings
+from atod.utils import files
+from atod.utils.dictionary import all_keys, make_flat_dict
 
 logging.basicConfig(level=logging.WARNING)
 

@@ -17,7 +17,7 @@ setup(
     license = "MIT",
     keywords = "example documentation tutorial",
     url = "http://packages.python.org/atod",
-    packages=['atod', 'atod.preprocessing', 'atod.tests', 'atod.models'],
+    packages=['atod', 'atod.utils', 'atod.tests', 'atod.db_models'],
     long_description=read('README.rst'),
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",

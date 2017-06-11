@@ -3,8 +3,8 @@ import os
 import unittest
 
 from atod import settings
-from atod.preprocessing.abilities import (_average_ability_properties, _remove_word,
-                                          _merge_similar)
+from atod.utils.abilities import (_average_ability_properties, _remove_word,
+                                  _merge_similar)
 
 
 class TestCleaningAbilities(unittest.TestCase):

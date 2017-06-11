@@ -1,11 +1,10 @@
 import json
 
-from atod import files
 from atod.db import schemas, session, create_tables
-from atod.preprocessing import txt2json, json2rows, abilities
-from atod.preprocessing.dictionary import get_str_keys
-from atod.models import (HeroModel, AbilitySpecsModel, AbilityModel,
-                         AbilityTextsModel)
+from atod.db_models import (HeroModel, AbilitySpecsModel, AbilityModel,
+                            AbilityTextsModel)
+from atod.utils import txt2json, json2rows, abilities, files
+from atod.utils.dictionary import get_str_keys
 
 
 # TODO: check if this try-catch (line 123) is needed
@@ -139,7 +138,7 @@ def create_and_fill_all():
     create_and_fill_abilities_texts()
 
 
-''' Functions below are doing preprocessing of abilities texts and the reason
+''' Functions below are doing utils of abilities texts and the reason
     they are here is because they need filled database tables (heroes and
     abilities).
 '''

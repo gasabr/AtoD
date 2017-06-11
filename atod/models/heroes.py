@@ -1,12 +1,11 @@
 import re
 import pandas as pd
-from pprint import pprint
 from sqlalchemy.inspection import inspect
 
 from atod.db import session
-from atod.models.hero import HeroModel
-from atod.abilities import Abilities
-from atod.interfaces import Group, Member
+from atod.db_models.hero import HeroModel
+from atod.models.abilities import Abilities
+from atod.models.interfaces import Group, Member
 
 mapper = inspect(HeroModel)
 

@@ -3,7 +3,7 @@ import os
 import unittest
 
 from atod import settings
-from atod.preprocessing.json2rows import ability_to_row
+from atod.utils.json2rows import ability_to_row
 
 
 class TestUtilsDB(unittest.TestCase):

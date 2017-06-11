@@ -5,10 +5,11 @@
 
 import json
 import logging
+
 from sqlalchemy import Integer, String, Float
 
-from atod import files
-from atod.preprocessing.dictionary import get_types
+from atod.utils import files
+from atod.utils.dictionary import get_types
 
 logging.basicConfig(level=logging.INFO)
 

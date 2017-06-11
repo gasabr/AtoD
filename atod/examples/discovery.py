@@ -6,7 +6,7 @@
 
 from atod import Match
 from atod.db import session
-from atod.models import HeroModel
+from atod.db_models import HeroModel
 
 
 if __name__ == '__main__':

@@ -2,8 +2,8 @@
 import pandas as pd
 
 from atod.db import session
-from atod.interfaces import Group, Member
-from atod.models import AbilityModel, AbilityTextsModel, AbilitySpecsModel
+from atod.models.interfaces import Group, Member
+from atod.db_models import AbilityModel, AbilityTextsModel, AbilitySpecsModel
 
 
 class Ability(Member):

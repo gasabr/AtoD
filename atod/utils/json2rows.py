@@ -5,8 +5,8 @@ import json
 from atod import settings
 # this two are for parse_skill_name()
 from atod.db import session
-from atod.models import HeroModel
-from atod.preprocessing import dictionary
+from atod.db_models import HeroModel
+from atod.utils import dictionary
 
 
 # FIXME: write heroes_base_info table to fix note of parse_skill_name().

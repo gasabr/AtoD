@@ -1,10 +1,11 @@
 ''' This file checks how fast my parser works.'''
 
 import time
+
 from numpy.linalg import solve
 
-from atod import files
-from atod.preprocessing.txt2json import to_json
+from atod.utils import files
+from atod.utils.txt2json import to_json
 
 
 def time_parser(filename):

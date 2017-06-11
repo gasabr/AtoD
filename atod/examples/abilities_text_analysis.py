@@ -5,7 +5,7 @@ from gensim import corpora, models
 from sklearn.feature_extraction.text import TfidfVectorizer
 
 from atod import settings
-from atod.preprocessing.dictionary import make_flat_dict
+from atod.utils.dictionary import make_flat_dict
 from deprecated.abilities_old import abilities as Abilities
 
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s',
