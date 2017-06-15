@@ -8,17 +8,19 @@ api = dota2api.Initialise(yamjam()['AtoD']['DOTA2_API_KEY'])
 
 
 class Match(object):
-    ''' Attributes:
-            id (int)        : id of the match
-            radiant (Heroes): Heroes in radiant team
-            dire    (Heroes): Heroes in dire team
+    ''' Representation of the single match.
+
+    Attributes:
+        id (int)        : id of the match
+        radiant (Heroes): Heroes in radiant team
+        dire    (Heroes): Heroes in dire team
     '''
 
-    def __init__(self, match_id):
+    def __init__(self, match_id: int):
         ''' Calls the API and creates a match representation from result.
 
             Args:
-                match_id (int): Dota match ID
+                match_id: Dota match ID
         '''
 
         self.id = match_id

@@ -70,10 +70,11 @@ def camel2python(inp):
 
 
 class Hero(Member):
-    ''' Interface for HeroModel. '''
+    ''' Representation of single Hero. '''
 
     model = HeroModel
 
+    # FIXME: This info should be read from file/db not hardcoded
     base_health = 200
     base_health_regen = 0.25
     base_mana = 50
@@ -257,7 +258,8 @@ class Heroes(Group):
     member_type = Hero
 
     @classmethod
-    def from_ids(cls, ids):
+    def from_ids(cls, ids: list):
+        ''' Creates Heroes object from list of ids. '''
         member_model = cls.member_type.model
 
         members_ = list()
@@ -272,7 +274,7 @@ class Heroes(Group):
 
     @classmethod
     def all(cls):
-        ''' Creates Abilities object with all heroes abilities in the game.'''
+        ''' Creates Heroes object with all heroes in the game.'''
         member_model = cls.member_type.model
         ids = [x[0] for x in session.query(member_model.HeroID).all()]
 
@@ -300,3 +302,30 @@ class Heroes(Group):
 
     def get_names(self):
         return [m.name for m in self.members]
+
+    def get_ids(self, binarised=False):
+        ''' Returns heroes ids.
+
+        Can be useful, when you have a team and instead of getting id for all
+        heroes you use this.
+
+        Args:
+            bin (bool, default=False): if bin the function will return binarised
+                vector of heroes ids, so you don't need to know how many heroes
+                are in the game.
+
+        Returns:
+            pd.Series: shape=(, len(self.members)) by default, if binary version
+                was requested shape=(, # heroes in the game).
+
+        '''
+
+        name2id = {m.name: m.id  for m in self.members}
+
+        if binarised:
+            all_ids = [h[0] for h in session.query(HeroModel.HeroID).all()]
+            members_ids = [id_ for id_ in name2id.values()]
+            bin_ids = {id_: 1 if id_ in members_ids else 0 for id_ in all_ids}
+            return pd.Series(bin_ids)
+        else:
+            return pd.Series(name2id)
