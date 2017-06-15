@@ -70,7 +70,16 @@ def camel2python(inp):
 
 
 class Hero(Member):
-    ''' Representation of single Hero. '''
+    ''' Representation of single Hero.
+
+    Attributes:
+        name (str)           : name of the hero
+        in_game_name (str)   : name that is used for hero inside the game
+        lvl (int)            : current hero lvl
+        specs (dict)         : raw db row as dictionary
+        abilities (Abilities): representation of hero's abilities
+
+    '''
 
     model = HeroModel
 
@@ -82,6 +91,7 @@ class Hero(Member):
     base_damage = 21
     base_armor = -1
 
+    # FIXME: check if lvl is always int
     def __init__(self, id_, lvl=1):
         query = session.query(self.model)
         specs = query.filter(self.model.HeroID == id_).first()
@@ -89,7 +99,7 @@ class Hero(Member):
 
         self.name = specs.name
         self.in_game_name = specs.in_game_name
-        del specs.__dict__['name']
+
         # remove SQLAlchemy condition variable
         del specs.__dict__['_sa_instance_state']
 
@@ -113,9 +123,41 @@ class Hero(Member):
         except TypeError:
             raise ValueError('Can not find id for hero name: {}'.format(name))
 
-    def get_description(self):
-        return pd.Series({'name': self.name, **self.specs,
-                          **self.abilities.get_summary()})
+    def get_description(self, include: list):
+        ''' Constructs hero description.
+
+        Possible include values:
+        * 'name'
+        * 'id'
+        * 'laning'
+        * 'roles'
+        * 'types'
+        * 'attributes'
+
+        Args:
+            include (list, default=[]): tells how the hero should be described.
+
+        '''
+
+        description = list()
+
+        for field in include:
+            if field == 'name':
+                description.append(pd.Series({'name': self.name}))
+            elif field == 'id':
+                description.append(pd.Series({'id': self.id}))
+            elif field == 'laning':
+                description.append(self._get_laning())
+            elif field == 'role':
+                description.append(self._get_role())
+            elif field == 'type':
+                description.append(self._get_type())
+            elif field == 'attributes':
+                description.append(self._get_attributes())
+            else:
+                print('{} is not one of possible descriptions.', field)
+
+        return pd.concat(description)
 
     # properties
     @property
@@ -156,7 +198,7 @@ class Hero(Member):
     def __str__(self):
         return '<Hero {name}, lvl={lvl}>'.format(name=self.name, lvl=self.lvl)
 
-    def get_laning_info(self):
+    def _get_laning(self):
         ''' Returns:
                 pd.Series: laning info of this hero.
 
@@ -172,9 +214,9 @@ class Hero(Member):
 
         return laning_info
 
-    def get_roles(self):
+    def _get_role(self):
         ''' Returns:
-                pd.Series: roles levels of this hero.
+                pd.Series: role levels of this hero.
 
             Notes:
                 The latest heroes does not have this field, so Series filled
@@ -199,7 +241,7 @@ class Hero(Member):
 
         return roles
 
-    def get_hero_type(self):
+    def _get_type(self):
         ''' Returns:
                 pd.Series: binary encoded type of this hero.
 
@@ -224,7 +266,7 @@ class Hero(Member):
 
         return types
 
-    def get_primary_attribute(self):
+    def _get_primary_attribute(self):
         prefix = 'DOTA_'
         encoded = dict()
 
@@ -237,21 +279,13 @@ class Hero(Member):
 
         return encoded
 
-    def get_attributes(self):
+    def _get_attributes(self):
         ''' Returns only attributes which are not encoded. '''
         attributes = {camel2python(k): self.specs[k] for k in attributes_list}
         attributes = pd.Series(attributes).fillna(value=0)
 
         return attributes
 
-    def get_bin_description(self):
-        ''' Returns description with all the variables encoded. '''
-        description = [self.get_attributes(), self.get_roles(),
-                       self.get_primary_attribute(), self.get_hero_type(),
-                       self.get_laning_info(), pd.Series({'name': self.name}),
-                       self.abilities.get_summary()]
-
-        return pd.concat(description)
 
 class Heroes(Group):
 
@@ -288,9 +322,19 @@ class Heroes(Group):
 
         return cls(members_)
 
-    def get_summary(self):
-        ''' Sums up numeric properties, encodes and sums up categorical. '''
-        descriptions = [m.get_bin_description() for m in self.members]
+    def get_summary(self, include):
+        ''' Sums up heroes descriptions in included categories.
+
+        Notes:
+            'name' and 'id' will be dropped because where is no reason to
+            add together string and hero id.
+
+        Returns:
+            pd.Series: sum of desired attributes for all members (heroes).
+
+        '''
+
+        descriptions = [m.get_description(include) for m in self.members]
         descriptions = pd.DataFrame(descriptions)
 
         # no use to the name in summary
@@ -301,6 +345,9 @@ class Heroes(Group):
         return summary
 
     def get_names(self):
+        ''' Returns:
+                list: names of members.
+        '''
         return [m.name for m in self.members]
 
     def get_ids(self, binarised=False):
@@ -310,9 +357,9 @@ class Heroes(Group):
         heroes you use this.
 
         Args:
-            bin (bool, default=False): if bin the function will return binarised
-                vector of heroes ids, so you don't need to know how many heroes
-                are in the game.
+            binarised (bool, default=False): if bin the function will return
+                binarised vector of heroes ids, so you don't need to know how
+                many heroes are in the game.
 
         Returns:
             pd.Series: shape=(, len(self.members)) by default, if binary version

@@ -35,3 +35,16 @@ class Match(object):
                 self.radiant.add(Hero(pick['hero_id']))
             else:
                 self.dire.add(Hero(pick['hero_id']))
+
+    def get_description(include=[]):
+        ''' Returns description of certain match.
+
+        Description consist of 3 parts: radiant description, dire description
+        and result. Complete length of description vector is 2n + 1, where
+        n is a lenght of side description (depends on choosen parameters).
+
+        Args:
+            include (list, default=[]): the same with Heroes.get_description().
+
+        '''
+        pass
