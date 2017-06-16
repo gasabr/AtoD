@@ -49,24 +49,29 @@ class Match(object):
             include (list): the same with Hero.get_description().
 
         Returns:
-            pd.Series:
+            pd.Series
 
         '''
 
+        # get descriptions of sides
         radiant_description = self.radiant.get_summary(include)
         dire_description    = self.dire.get_summary(include)
 
         len_desc = radiant_description.shape[0]
 
+        # create array for MultiIndex object
         index_arrays = [['radiant'] * len_desc + ['dire'] * len_desc,
                         list(radiant_description.index) * 2]
 
+        # convert array to list of tuples
         index_tuples = list(zip(*index_arrays))
+        # add result comlumn
         index_tuples.append(('result', 'radiant_win'))
 
         index = pd.MultiIndex.from_tuples(index_tuples,
                                           names=['side', 'variables'])
 
+        # unite all the columns
         variables = [*radiant_description, *dire_description, self.radiant_win]
         description = pd.Series(variables, index=index)
 

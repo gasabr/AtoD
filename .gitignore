@@ -7,3 +7,5 @@ kaggle-data/
 atod.egg-info/
 dist/
 .idea/*
+atod/examples/discovery.ipynb
+atod/examples/discovery.py

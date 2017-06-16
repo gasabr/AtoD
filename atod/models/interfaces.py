@@ -1,7 +1,3 @@
-''' This is an interface for any class which describes group of something.
-
-    It can be Heroes, Abilities, Items or somethings else.
-'''
 import pandas as pd
 
 from atod.db import session

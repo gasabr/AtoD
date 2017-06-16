@@ -1,4 +1,3 @@
-''' This module describes single hero ability.'''
 import pandas as pd
 
 from atod.db import session
@@ -7,7 +6,13 @@ from atod.db_models import AbilityModel, AbilityTextsModel, AbilitySpecsModel
 
 
 class Ability(Member):
-    ''' Wrapper around Abilities data. '''
+    ''' Representation of Ability data. 
+    
+    Attributes:
+        name (str): name of ability
+        id (int): unique id of ability
+    
+    '''
 
     model = AbilityModel
 
