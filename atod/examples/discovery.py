@@ -12,4 +12,4 @@ from atod.db_models import HeroModel
 if __name__ == '__main__':
     match_id = 1000193456
     match = Match(match_id)
-    print(match.radiant.get_summary().shape)
+    print(match.get_description(include=['laning', 'type']))

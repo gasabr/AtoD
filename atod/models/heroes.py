@@ -338,7 +338,11 @@ class Heroes(Group):
         descriptions = pd.DataFrame(descriptions)
 
         # no use to the name in summary
-        descriptions = descriptions.drop(['name', 'id'], axis=1)
+        if 'name' in descriptions.columns:
+            descriptions = descriptions.drop(['name'], axis=1)
+        if 'id' in descriptions.columns:
+            descriptions = descriptions.drop(['id'], axis=1)
+            
         columns_summary = [sum(descriptions[c]) for c in descriptions.columns]
         summary = pd.Series(columns_summary, index=descriptions.columns)
 
