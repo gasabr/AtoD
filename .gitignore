@@ -1,7 +1,7 @@
 .DS_Store
 /deprecated
-*/__pycache__/
-v2/__pycache__/*
+__pycache__/
+.ipynb_checkpoints/
 code/.DS_Store
 kaggle-data/
 atod.egg-info/
