@@ -3,12 +3,16 @@ import logging
 from atod import settings
 from atod.db import engine
 from atod.db_models import (AbilitySpecsModel, HeroModel, AbilityModel,
-                            AbilityTextsModel)
+                            AbilityTextsModel, PatchModel)
 
 logging.basicConfig(level=logging.INFO)
 
 
 def create_tables():
+    if not engine.has_table('patches'):
+        PatchModel.__table__.create(bind=engine)
+        logging.info('`patches` table was created.')
+
     if not engine.has_table(settings.HEROES_TABLE):
         HeroModel.__table__.create(bind=engine)
         logging.info(settings.HEROES_TABLE + ' was created.')
