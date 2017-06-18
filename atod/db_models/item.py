@@ -1,6 +1,6 @@
 from sqlalchemy import Table, Column, Integer
 
-from atod import settings
+from atod import meta_info
 from atod.db import Base
 from atod.db.schemas import get_item_schema
 
@@ -11,7 +11,7 @@ items = (Column(name, type_) for name, type_ in
 
 class ItemModel(Base):
 
-    __table__ = Table(settings.ITEMS_TABLE, Base.metadata,
+    __table__ = Table(meta_info.get_tables_prefix() + 'items', Base.metadata,
                       Column('ID', Integer, primary_key=True),
                       *(col for col in items)
                       )

@@ -1,7 +1,6 @@
 from datetime import datetime
 from sqlalchemy import Table, Column, String, Integer, DateTime
 
-from atod import settings
 from atod.db.setup import Base
 
 

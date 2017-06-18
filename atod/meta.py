@@ -1,5 +1,9 @@
 import os
 
+from atod import settings
+from atod.db import session
+from atod.db_models.patch import PatchModel
+
 
 class Meta(object):
     ''' Class stores meta information about versions. '''
@@ -8,7 +12,13 @@ class Meta(object):
 
     def __init__(self):
         ''' Finds the last created version and set up lib to use it. '''
-        pass
+        print('init')
+        query = session.query(
+                    PatchModel.name).order_by(
+                    PatchModel.created).limit(1)
+
+        self.name = query.first()[0]
+        self.folder = os.path.join(settings.DATA_FOLDER, self.name)
 
     def add_version(self, name: str, folder: str):
         ''' Adds new version from the files in `folder`.
@@ -26,18 +36,19 @@ class Meta(object):
             FileNotFoundError: if folder does not exists.
         '''
 
+        # check name for uniqueness
         self.name = name
+
         if os.path.exists(folder):
             self.folder = folder
         else:
             raise FileNotFoundError('folder does not exists')
 
-    def get_table_name(table: str):
-        ''' Composes the name for the `table` from version and table base name.
-
-
+    def get_tables_prefix(self):
+        ''' Returns:
+                str: prefix for all the tables of current version, ends with '_'
         '''
-        pass
+        return self.name + '_'
 
 
-m = Meta('788', 'some folder')
+meta_info = Meta()

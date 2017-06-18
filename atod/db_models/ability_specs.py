@@ -1,6 +1,6 @@
 from sqlalchemy import Table, Column
 
-from atod import settings
+from atod import meta_info
 from atod.db.setup import Base
 from atod.db.schemas import get_abilities_specs_schema
 
@@ -9,7 +9,8 @@ class AbilitySpecsModel(Base):
 
     _cols = [Column(**col) for col in get_abilities_specs_schema()]
 
-    __table__ = Table(settings.ABILITIES_SPECS_TABLE, Base.metadata, *_cols)
+    __table__ = Table(meta_info.get_tables_prefix() + 'abilities_specs',
+                      Base.metadata, *_cols)
 
     def __init__(self, attrs):
         self.attrs = set()

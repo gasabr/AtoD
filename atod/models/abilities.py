@@ -2,16 +2,18 @@ import pandas as pd
 
 from atod.db import session
 from atod.models.interfaces import Group, Member
-from atod.db_models import AbilityModel, AbilityTextsModel, AbilitySpecsModel
+from atod.db_models.ability import AbilityModel
+from atod.db_models.ability_specs import AbilitySpecsModel
+from atod.db_models.ability_texts import AbilityTextsModel
 
 
 class Ability(Member):
-    ''' Representation of Ability data. 
-    
+    ''' Representation of Ability data.
+
     Attributes:
         name (str): name of ability
         id (int): unique id of ability
-    
+
     '''
 
     model = AbilityModel
