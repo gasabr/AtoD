@@ -1,0 +1,3640 @@
+{
+  "abilities_specs": [
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "explode_delay"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "damage_sec"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "4_times"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "bonus_stack_damage"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "place_distance"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "damage_trigger"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "damage_per_soul"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "bonus_damage"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "initial_stun_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "cleave_ending_width"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "channel_time"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "damage_multiplier"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "slow_1"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "wolf_hp"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "attack_speed_pct"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "end_radius"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "MaxLevel"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "hero_delay"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "vision_width"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "frost_aoe"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "radius_tree"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "absorb_amount"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "formation_time"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "damage_outgoing"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "pass_damage"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "zombie_interval"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "restore_chance"
+    },
+    {
+      "type_": "FIELD_STRING",
+      "name": "levelkey"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "trigger_delay"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "multiplier"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "spawn_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "hero_damage"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "base_heal"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "charge_restore_time"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "heal"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "duration_hero"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "resist_debuff"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "vision_range"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "sight_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "fireblast_mana_cost"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "health_bonus_pct"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "arrow_count"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "cleave_distance"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "fire_delay"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "hp_cost_perc_per_second"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "wex_damage"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "vision"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "illusion_damage_pct"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "attack_speed_slow"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "starting_aoe"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "attack_spill_range"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "slow_duration"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "top_level_height"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "proc_chance"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "dash_length"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "miss_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "wolf_index"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "bonus_max_attack_count"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "unit_bonus_damage"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "channel_vision_interval"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "health_regen"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "invis_threshold_pct"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "pull_radius"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "unperched_stunned_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "damage_gain_pct"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "bonus_physical_damage"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "extra_chance_pct"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "AbilityChannelTime"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "strength_damage"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "leap_speed"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "hero_stun_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "slow_2"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "bonus_gold_self"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "extra_slow"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "init_damage"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "knockback"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "illusion_proc_chance_pct"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "bonus_attack_speed"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "damage_bonus"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "AbilityModifierSupportBonus"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "bash_damage"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "channel_vision_step"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "speed_aoe"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "mana"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "attackspeed_bonus"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "required_hits"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "travel_cost_base"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "fixed_vision"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "bounce_radius"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "CalculateSpellDamageTooltip"
+    },
+    {
+      "type_": "FIELD_STRING",
+      "name": "AbilityUnitTargetFlag"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "death_heal"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "mana_pool_damage_pct"
+    },
+    {
+      "type_": "FIELD_STRING",
+      "name": "SpellImmunityType"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "bonus_health"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "magic_damage_resistance_pct"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "bonus_night_vision"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "2_times"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "trigger_distance"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "treant_large_damage_bonus"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "heal_percent"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "aoe"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "eyes_radius"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "self_slow_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "return_time"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "movespeed"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "bonus_damage_threshold"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "hp_cost_perc"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "max_stacks"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "creep_stun_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "bonus_damage_taken"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "hp_perc_damage"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "aoe_radius"
+    },
+    {
+      "type_": "FIELD_STRING",
+      "name": "SpellDispellableType"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "slow_amount"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "stack_limit"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "bonus_damage_from_creep"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "wave_damage"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "quas_damage"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "reduction_radius"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "total_cast_time"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "pull_units_per_second_heroes"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "ground_jump_distance"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "length_buffer"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "magic_resist"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "return_speed"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "kill_threshold"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "spawn_count"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "wave_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "bash_duration"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "damage_cap_amount"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "slow_attack_speed"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "movespeed_bonus_per_stack"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "base_attack_time"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "bolt_interval"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "str_scale_up"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "full_power_radius"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "hit_count"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "damage"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "heal_percentage"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "bonus_gold"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "wave_count"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "freeze_cooldown"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "jump_damage_reduction_pct"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "crack_distance"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "damage_threshold"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "attack_spill_width"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "break_radius"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "damage_reset_interval"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "end_distance"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "fire_rate"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "int_steal"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "speed_fire"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "bonus_damage_pct"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "vision_duration"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "second_radius"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "mana_cost"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "fade_time"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "allied_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "structure_damage_mod"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "duration_creep"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "duration_unit"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "perched_vision"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "multicast_delay"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "tick_rate"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "speedbonus_as"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "slow"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "damage_per"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "lvl"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "hero_duration"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "counter_duration"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "bonus_attack_damage"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "armor_reduction"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "projectile_speed"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "aoe_damage"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "total_illusion_damage_in_pct"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "rock_search_radius"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "evasion_chance"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "bat"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "AbilityCastRange"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "turn_reduction"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "think_interval"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "proc_chance_pct"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "DisplayAdditionalHeroes"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "attack_range"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "illusion_incoming_dmg_pct"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "health_regen_per_instance"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "speed_multiplier"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "attack_speed_bonus_pct"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "air_time"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "OnLearnbar"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "side_angle"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "clones"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "delay_plus_castpoint"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "redirect"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "max_charges"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "initial_mana_base"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "strike_interval"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "radius_start"
+    },
+    {
+      "type_": "FIELD_STRING",
+      "name": "LinkedSpecialBonus"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "hits_to_kill"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "unit_distance"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "extra_pull_buffer"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "attack_slow"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "attack_bonus"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "mana_steal"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "collision_radius"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "intellect_damage_pct"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "AbilityCastRangeBuffer"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "illusion_total_damage_incoming"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "trigger_chance"
+    },
+    {
+      "type_": "FIELD_STRING",
+      "name": "name"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "lift_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "vision_interval"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "per_level"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "illusion_incoming_damage"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "vampiric_aura"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "target_damage"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "corrosive_breath_damage"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "vision_cone"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "idle_delay"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "true_sight_radius"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "bonus_reset_time"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "slow_durtion"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "buff_persistence"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "bonus_regen_pct"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "freeze_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "duration_day"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "unit_dmg"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "set_time"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "drain_length"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "kill_pct"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "dot_duration"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "max_multiply_stacks"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "knockback_height"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "HeroID"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "hawk_daysight"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "creep_damage"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "agility_duration"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "illusion_1_damage_in_pct"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "hp_perc_heal"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "pull_speed"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "distance_damage_pct"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "speed_loss"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "illusion_damage"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "neutral_disable"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "magic_resistance_pct"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "movespeed_per_instance"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "damage_modifier"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "revolution_time"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "delay_time"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "slow_attack_speed_pct"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "crit_bonus"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "stuns"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "damage_count"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "regen_duration"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "aura"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "ignite_range"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "self_slow"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "attackslow"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "visibility_threshold_pct"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "drag_distance"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "spread"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "final_aoe"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "aura_fade_time"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "cooldown_upgrade"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "vision_reduction_pct"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "activation_radius"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "damage_amplification"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "presence_radius"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "hit_point_minimum_pct"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "incoming_damage"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "mana_drain"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "AbilityDuration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "pass_slow_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "attack_reduction"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "attack_point"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "rockets_per_second"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "gold_steal"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "tombstone_heal"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "ID"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "stun_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "attack_speed_per_instance"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "slow_steps"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "rock_distance"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "bonus_damage_per_instance"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "percent_damage"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "explosion_radius"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "scale"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "perched_spot_height"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "bonus_reset_time_roshan"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "illusion_1_damage_out_pct"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "damage_per_second"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "bonus_attributes"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "steal_range"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "tick"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "bonus_damage_duration"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "quill_release_threshold"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "per_hit"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "points_per_tick"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "absorption"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "attacks_to_destroy"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "backtrack_time"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "path_radius"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "jump_damage_cooldown"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "damage_per_mana_pct"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "duration_creeps"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "backlash_damage"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "damage_tick"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "proximity_threshold"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "maximum_resistance"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "attack_rate"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "aura_radius"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "damage_incoming"
+    },
+    {
+      "type_": "FIELD_STRING",
+      "name": "HotKeyOverride"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "push_length"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "movespeed_bonus"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "fade_delay"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "hero_hit_radius"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "cleave_damage"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "hawk_nightsight"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "attack_speed_bonus"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "split_attack_count"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "speed_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "movespeed_invis"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "spring_leap_speed"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "stat_loss"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "num_first_soldiers"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "health_damage"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "maim_attack_speed"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "bounce_distance"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "windup"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "near_radius"
+    },
+    {
+      "type_": "FIELD_STRING",
+      "name": "AbilityUnitTargetFlags"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "health_threshold"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "golem_regen"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "self_damage"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "poison_duration"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "bonus_building_damage"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "atk_speed_bonus"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "pull_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "damage_time"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "side_damage"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "buffer"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "damage_interval"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "pulse_interval"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "total_damage"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "break_distance"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "miss_rate_day"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "fireblast_cooldown"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "fall_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "damage_per_charge"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "bounce_delay"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "tree_width"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "illusion_outgoing"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "damage_percent_add"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "FightRecapLevel"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "treant_large_hp_bonus"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "burn_tick_interval"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "secondary_radius"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "bonus_speed"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "hp_regen"
+    },
+    {
+      "type_": "FIELD_STRING",
+      "name": "AbilityBehavior"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "damage_per_sec"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "damage_reduction_pct"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "bonus_speed_heroes"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "wave_interval"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "bonus_hp_regen"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "line_width_start"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "drain_rate"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "health_min"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "str_steal"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "bolt_speed"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "damage_increase_pct"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "per_sec"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "num_explosions"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "hero_bonus_damage"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "maim_duration"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "evasion_pct"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "damage_delay"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "tower_hits_to_kill"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "backstab_angle"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "bonus_gold_cap"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "bonus_armor"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "bonus_bonus_gold"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "reward_damage"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "grow_bonus_damage_pct"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "side_damage_reduction"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "slow_aoe"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "life_extension"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "detonate_delay"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "share_percentage"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "hp_leech_pct"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "damage_per_hero"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "ending_width"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "reveal_radius"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "damage_per_unit"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "splash_damage_pct"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "bonus_evasion"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "channel_vision_radius"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "target_sight_radius"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "slow_rate_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "damage_total"
+    },
+    {
+      "type_": "FIELD_STRING",
+      "name": "AbilityUnitTargetType"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "movespeed_slow"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "average_damage"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "intelligence_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "bonus_hero_damage"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "dash_width"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "reflect_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "creep_attack_damage_reduction"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "damage_reduction"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "turn_rate"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "pull_units_per_second"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "radius_grow"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "backtrack_duration"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "length"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "damage_share_percentage"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "bash_chance"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "health_bonus_creep_pct"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "max_targets"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "max"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "modelscale"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "creep_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "armor"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "armor_per_second"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "chance"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "unit_hp"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "wolf_bat"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "attack_interval"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "brew_explosion"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "windup_radius"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "spell_resist_pct"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "stack_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "distance"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "splash_radius"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "movement_slow"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "death_heal_creep"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "hero_attack_damage_reduction"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "HasScepterUpgrade"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "illusion_2_damage_out_pct"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "disarm_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "stun_radius"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "vision_step"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "activation_delay"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "latch_distance"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "heal_amount"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "rock_damage"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "illusion_total_damage_in_pct"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "total_damage_incoming"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "break_damage"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "drain_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "impact_damage"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "dominate_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "attack_range_bonus"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "damage_first"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "hp_threshold"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "hurt_percent"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "sleep_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "non_hero_damage_pct"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "max_distance"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "pull_rotate_speed"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "projectile_duration"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "initial_mana_percentage"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "respawn"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "split_radius"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "knockback_distance"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "dot_damage"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "tree_radius"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "max_range"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "maim_damage"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "vision_distance"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "explode_radius"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "wolf_damage"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "armor_duration"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "total_steps"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "turn_rate_pct"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "starting_width"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "chance_pct"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "health_gain_pct"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "penalty_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "explosion_dist"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "cleave_damage_pct"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "hawk_hp"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "num_ticks"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "slow_3"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "building_bonus"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "miss_rate"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "bonus_gold_radius"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "tick_interval"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "strength_buff_amount"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "armor_reduction_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "main_damage"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "treant_damage_bonus"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "radius_end"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "damage_radius"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "max_damage_charges"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "souls_hero_bonus"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "total_heal"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "health_conversion"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "max_channel_time"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "fail_stun_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "hawk_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "face_duration"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "pulses"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "mana_per_second"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "total_arrow_count"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "agi_gain"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "unit_movespeed"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "resistance"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "distance_cap"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "destroy_attacks"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "stun"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "tick_damage"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "width_end"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "LevelsBetweenUpgrades"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "maim_chance"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "crack_width"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "max_units"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "stun_delay"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "stun_chance"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "illusion_damage_incoming"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "cast_range"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "armor_reduction_pct"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "travel_speed"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "night_vision_bonus"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "damage_absorb"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "attackspeed_slow"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "deniable_pct"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "death_buffer"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "pause_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "health_per_second"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "hero_multiplier"
+    },
+    {
+      "type_": "FIELD_STRING",
+      "name": "LinkedSpecialBonusOperation"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "latch_radius"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "restore_amount"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "start_radius"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "attack_factor"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "dot_interval"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "bloodlust_cooldown"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "slow_radius"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "heal_amt"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "targets"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "first_radius"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "outgoing"
+    },
+    {
+      "type_": "FIELD_STRING",
+      "name": "AbilityType"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "mana_multiplier"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "knockback_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "miss_chance"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "ticks"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "blocker_duration"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "bonus_speed_creeps"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "lifesteal"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "hit_radius"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "brew_time"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "drain_pct"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "ranged_damage"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "heal_additive"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "bonus_hp"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "search_range"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "fow_range"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "width"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "unit_count"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "bounce_range"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "soul_conversion"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "bonus_mana_regen"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "bounce_aoe"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "freeze_damage"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "drain_interval"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "heal_interval"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "soul_release"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "max_slow"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "mana_cost_per_second"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "corrosive_breath_duration"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "illusion_2_damage_in_pct"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "movespeed_slow_pct"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "OnCastbar"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "reincarnate_time"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "far_radius"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "movespeed_bonus_pct"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "angle"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "impact_radius"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "num_elements"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "slow_per_int"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "knockback_max_distance"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "bonus_spell_damage_pct_allies"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "blind_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "far_damage"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "max_targets_inc"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "leadership_radius"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "base_damage"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "illusion_damage_in_pct"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "strike_damage"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "damage_percentage"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "building_damage_pct"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "stat_loss_pct"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "secondary_projectile_speed"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "damage_heroes"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "total_pulses"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "duration_damage"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "transformation_time"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "bonus_magic_resistance"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "bonus_intellect"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "movement_slow_pct"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "crit_multiplier"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "outgoing_damage"
+    },
+    {
+      "type_": "FIELD_STRING",
+      "name": "AbilityTextureName"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "radius"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "teleport_delay"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "cooldown_reduction"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "movespeed_slow_per_stack"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "IsGrantedByScepter"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "fake_distance"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "explosion_interval"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "attack_count"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "spirit_speed"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "bonus_health_regen"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "damage_per_burn"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "mana_regen_self"
+    },
+    {
+      "type_": "FIELD_STRING",
+      "name": "AbilityUnitTargetTeam"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "regen_rate"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "jumps"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "heath_regen"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "channel"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "soul_death_release"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "max_damage"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "illusion_dmg_pct"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "damage_charge_time"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "regen_rate_self"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "model_scale"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "damage_cap_interval"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "bounty_multiplier"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "num_second_soldiers"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "damage_per_stack"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "creep_root_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "int_multiplier"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "heal_amp"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "bonus_agility"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "launch_radius"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "damage_reflect_pct"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "hp_threshold_max"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "health_threshold_pct"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "give_up_distance"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "pct"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "damage_base"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "hp"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "float_multiplier"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "rock_explosion_delay"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "default_radius"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "bonus_spell_damage_pct"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "attrib_bonus"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "images_count"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "max_illusions"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "max_hero_attacks"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "spirits"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "fade"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "speed_slow"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "reduction_damage"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "AbilityManaCost"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "rock_search_aoe"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "illusion_from_illusion_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "purge_frequency"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "burn_damage_pct"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "mana_burned"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "rock_explosion_radius"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "hero_bonus_hp"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "grab_radius"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "push_distance"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "crit_chance"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "impact_slow_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "acceleration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "bounce_tick"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "frost_bonus_attack_speed"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "damage_reflection_pct"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "pull_tether_range"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "maximum_attack_speed"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "should_stun"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "absorb"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "width_initial"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "damage_limit"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "frost_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "crit_mult_creeps"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "armor_per_stack"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "movespeed_damage_pct"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "outer_attack_buffer"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "damage_range"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "tree_destruction_radius"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "crit_damage"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "RequiredLevel"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "bonus_damage_from_hero"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "damage_second"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "first_wave_delay"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "reduction"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "drain_amount"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "damage_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "speed"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "speed_bounces"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "charges"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "illusion_outgoing_damage"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "illusion_incoming_damage_total"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "remnant_radius"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "bonus_mana"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "area_effect"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "bonus_attack_range"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "lifesteal_pct"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "total_illusion_incoming_damage"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "silence_duration"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "cast_radius"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "bonus_attackspeed"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "slow_first"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "near_damage"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "order_lock_duration"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "heal_bonus"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "bonus_pct"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "agility_bonus"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "drain_range_buffer"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "bonus"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "max_attacks"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "perched_jump_distance"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "slow_second"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "stack_damage"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "unit_bonus_hp"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "hero_path_duration"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "cleave_starting_width"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "damage_reduction_percent"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "mana_restore"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "count"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "transparency_fade"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "spell_resistance"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "damage_health_pct"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "interval"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "ignite_aoe"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "hp_cost"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "activation_time"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "crack_time"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "sight_radius_day"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "respawn_constant"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "turn_rate_initial"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "land_time"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "sight_radius_night"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "cast_delay"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "enemy_vision_time"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "AbilityCooldown"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "magic_damage_reduction_pct"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "damage_pct"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "health_cost"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "line_speed"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "slow_duration_first"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "illusion_damage_outgoing"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "burn_damage"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "max_treants"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "spawn_radius"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "charge_speed"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "latch_speed"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "cooldown"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "damage_health"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "element_spacing"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "max_invoked_spells"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "creep_damage_penalty"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "delay"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "animation_rate"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "AbilityModifierSupportValue"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "health"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "AbilityDamage"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "path_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "extra_slow_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "speed_bonus"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "incoming_damage_total_pct"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "treant_hp_bonus"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "channel_vision_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "burn_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "strikes"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "ensnare_duration"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "element_radius"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "range"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "total_pull_distance"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "vision_radius"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "aftershock_range"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "bounces"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "grow_rate"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "travel_cost_percent"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "attack_delay"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "burrow_aoe"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "angle_step"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "hp_drain"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "blind_pct"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "ghost_spawn_rate"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "charge_damage"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "invuln_duration"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "bloodlust_aoe"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "minimum_damage"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "line_width_end"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "amount"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "int_steal_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "damage_max"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "debuff_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "illusion_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "grace_time"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "damage_cleanse"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "search_radius"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "push_duration"
+    },
+    {
+      "type_": "FIELD_STRING",
+      "name": "AbilityUnitDamageType"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "instances"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "crit_mult"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "hits_destroy"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "jump_delay"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "axe_range"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "initial_speed"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "dodge_chance"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "pre_flight_time"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "hurt_attrib_bonus"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "jump_count"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "intelligence_bonus"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "pulse_duration"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "health_cost_percent"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "buff_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "travel_distance"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "AbilityCastPoint"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "reduction_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "mana_regen"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "vision_aoe"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "damage_creeps"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "leash_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "last_proc"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "tower_bonus"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "end_vision_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "recovery_time"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "illusion_damage_out_pct"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "3_times"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "frostbite_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "fow_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "heal_per_second"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "cast_time"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "wolf_duration"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "attack_speed"
+    },
+    {
+      "type_": "FIELD_STRING",
+      "name": "pk",
+      "primary_key": true
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "HeroID"
+    }
+  ],
+  "abilities": [
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "stun"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "transformation"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "slow"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "durability"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "nuke"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "escape"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "non_hero"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "attack_bonus"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "heal"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "based_on_attr"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "aoe"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "period_damage"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "attack_debuff"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "invis"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "vision"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "silence"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "lifesteal"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "armor_buff"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "armor_debuff"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "save"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "move_speed_buff"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "illusions"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "chance"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "multiply_heroes"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "global"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "shield"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "attribute_gain"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "amplify_magic_dmg"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "summon_unit"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "regen"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "daytime_dependent"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "stacks"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "purge"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "in_percents"
+    },
+    {
+      "type_": "FIELD_STRING",
+      "name": "name"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "HeroID"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "ID",
+      "primary_key": true
+    }
+  ],
+  "heroes": [
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "AttackAcquisitionRange"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "AttributeBaseAgility"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "ArmorPhysical"
+    },
+    {
+      "type_": "FIELD_STRING",
+      "name": "aliases"
+    },
+    {
+      "type_": "FIELD_STRING",
+      "name": "in_game_name"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "AttackDamageMin"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "SurvivalRating"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "AttributeIntelligenceGain"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "AttributeBaseStrength"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "AttributeBaseIntelligence"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "AttackRate"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "RequiresFarm"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "RequiresSetup"
+    },
+    {
+      "type_": "FIELD_STRING",
+      "name": "Team"
+    },
+    {
+      "type_": "FIELD_STRING",
+      "name": "Rolelevels"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "AttributeAgilityGain"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "ProvidesSetup"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "SoloDesire"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "ProvidesBabysit"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "AttackDamageMax"
+    },
+    {
+      "type_": "FIELD_STRING",
+      "name": "AttackCapabilities"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "MovementTurnRate"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "MovementSpeed"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "RequiresBabysit"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "AttackAnimationPoint"
+    },
+    {
+      "type_": "FIELD_STRING",
+      "name": "name"
+    },
+    {
+      "type_": "FIELD_STRING",
+      "name": "Role"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "AttackRange"
+    },
+    {
+      "type_": "FIELD_FLOAT",
+      "name": "AttributeStrengthGain"
+    },
+    {
+      "type_": "FIELD_STRING",
+      "name": "HeroType"
+    },
+    {
+      "type_": "FIELD_STRING",
+      "name": "AttributePrimary"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "autoincrement": false,
+      "name": "HeroID",
+      "primary_key": true
+    }
+  ]
+}

@@ -7,11 +7,7 @@ from atod.utils import txt2json, json2rows, abilities, files
 from atod.utils.dictionary import get_str_keys
 
 
-# TODO: check if this try-catch (line 123) is needed
-# TODO: separate create_table functions
-
-
-def create_and_fill_heroes():
+def fill_heroes():
     ''' Fills heroes table with the data from npc_heroes.json. '''
     heroes_file = files.get_heroes_file()
 
@@ -24,11 +20,10 @@ def create_and_fill_heroes():
         hero = HeroModel(row)
         session.add(hero)
 
-    create_tables.create_tables()
     session.commit()
 
 
-def create_and_fill_abilities_specs():
+def fill_abilities_specs():
     ''' FIlls table with the data from cleaned npc_abilities file. '''
     raw_file = files.get_abilities_file()
     parsed   = txt2json.to_json(raw_file)
@@ -54,12 +49,10 @@ def create_and_fill_abilities_specs():
             skill = AbilitySpecsModel(row)
             session.add(skill)
 
-    # creates tables *if needed*
-    create_tables.create_tables()
     session.commit()
 
 
-def create_and_fill_abilities():
+def fill_abilities():
     ''' Fills abilities table. '''
 
     with open(files.get_labeled_abilities_file(), 'r') as fp:
@@ -99,19 +92,16 @@ def create_and_fill_abilities():
         skill = AbilityModel(row)
         session.add(skill)
 
-    create_tables.create_tables()
     session.commit()
 
 
-def create_and_fill_abilities_texts():
-    ''' Fills abilities_texts table. 
-    
+def fill_abilities_texts():
+    ''' Fills abilities_texts table.
+
         Notes:
-            This function need AbilitiesTable to be created for current 
+            This function need AbilitiesTable to be created for current
             version. I will fix it in future versions.
     '''
-
-    create_tables.create_tables()
 
     for specification in get_abilities_texts():
         # if specification is empty
@@ -122,20 +112,6 @@ def create_and_fill_abilities_texts():
         session.add(texts)
 
         session.commit()
-
-
-def create_and_fill_all():
-    ''' Creates *all* tables and fills them with data. 
-    
-        Notes:
-            * There is no list of tables, so tables are created by functions
-            calls.
-    '''
-
-    create_and_fill_heroes()
-    create_and_fill_abilities()
-    create_and_fill_abilities_specs()
-    create_and_fill_abilities_texts()
 
 
 ''' Functions below are doing utils of abilities texts and the reason
@@ -169,7 +145,7 @@ def group_abilities_texts(texts):
 
 def get_abilities_texts():
     ''' Produces ready to use dictionaries to create AbilityTextsModel object.
-    
+
         Yields:
             dict: containing all the needed keys or empty if texts can not be
                   sorted
@@ -214,10 +190,10 @@ def get_abilities_texts():
 
 def sort_texts(unsorted):
     ''' Creates a dictionary that fits AbilityTextsModel init method.
-    
+
         Args:
             unsorted (dict): all fields in dota_english file for an ability.
-            
+
         Returns:
             dict: where keys are columns in AbilityTextsModel
     '''
@@ -247,14 +223,14 @@ def sort_texts(unsorted):
 
 def get_id_from_in_game_name(hero_name, skill_name):
     ''' Finds skill id.
-    
+
         This function is needed to prevent collision: when a few heroes have
         skill with the same name.
-        
+
         Args:
             hero_name (str): hero part of in-game ability name
             skill_name (str): skill part of in-game ability name
-            
+
         Returns:
             int or None: int if id is found, None otherwise
     '''

@@ -13,11 +13,6 @@ def create_tables():
         HeroModel.__table__.create(bind=engine)
         logging.info(settings.HEROES_TABLE + ' was created.')
 
-    # items are excluded from the program for some time
-    # if not engine.has_table(settings.ITEMS_TABLE):
-    #     ItemModel.__table__.create(bind=engine)
-    #     logging.info(settings.ITEMS_TABLE + ' was created.')
-
     if not engine.has_table(settings.ABILITIES_SPECS_TABLE):
         AbilitySpecsModel.__table__.create(bind=engine)
         logging.info(settings.ABILITIES_SPECS_TABLE + ' was created.')
