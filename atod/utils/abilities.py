@@ -9,7 +9,7 @@ import logging
 import re
 
 from atod import settings
-from atod.utils import files
+from atod import meta_info
 from atod.utils.dictionary import all_keys, make_flat_dict
 
 logging.basicConfig(level=logging.WARNING)
@@ -28,7 +28,7 @@ def _find_skills(raw_abilities):
             skills (dict): heroes abilities in `raw_abilities`
     '''
     # load converter to get heroes names
-    with open(files.get_converter_file(), 'r') as fp:
+    with open(meta_info.get_full_path('in_game_converter.json'), 'r') as fp:
         converter = json.load(fp)
 
     heroes_names = [c for c in converter.keys()

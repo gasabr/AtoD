@@ -1,7 +1,7 @@
 import unittest
 
 from atod.db import session
-from atod.db_models import HeroModel
+from atod.db_models.hero import HeroModel
 
 
 class MyTestCase(unittest.TestCase):

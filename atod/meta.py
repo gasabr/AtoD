@@ -12,7 +12,6 @@ class Meta(object):
 
     def __init__(self):
         ''' Finds the last created version and set up lib to use it. '''
-        print('init')
         query = session.query(
                     PatchModel.name).order_by(
                     PatchModel.created).limit(1)
@@ -49,6 +48,10 @@ class Meta(object):
                 str: prefix for all the tables of current version, ends with '_'
         '''
         return self.name + '_'
+
+    def get_full_path(self, filename: str):
+        ''' Returns full path for given file. '''
+        return os.path.join(self.folder, filename)
 
 
 meta_info = Meta()

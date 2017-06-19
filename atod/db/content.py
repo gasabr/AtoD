@@ -1,15 +1,20 @@
 import json
 
-from atod.db import schemas, session, create_tables
-from atod.db_models import (HeroModel, AbilitySpecsModel, AbilityModel,
-                            AbilityTextsModel)
-from atod.utils import txt2json, json2rows, abilities, files
+from atod.db import schemas, session
+from atod import meta_info
+# db models
+from atod.db_models.hero import HeroModel
+from atod.db_models.ability import AbilityModel
+from atod.db_models.ability_specs import  AbilitySpecsModel
+from atod.db_models.ability_texts import AbilityTextsModel
+# utils
+from atod.utils import txt2json, json2rows, abilities
 from atod.utils.dictionary import get_str_keys
 
 
 def fill_heroes():
     ''' Fills heroes table with the data from npc_heroes.json. '''
-    heroes_file = files.get_heroes_file()
+    heroes_file = meta_info.get_full_path('npc_heroes.txt')
 
     heroes_dict = txt2json.to_json(heroes_file)
 
@@ -25,13 +30,13 @@ def fill_heroes():
 
 def fill_abilities_specs():
     ''' FIlls table with the data from cleaned npc_abilities file. '''
-    raw_file = files.get_abilities_file()
+    raw_file = meta_info.get_full_path('npc_abilities.txt')
     parsed   = txt2json.to_json(raw_file)
     clean    = abilities.get_cleaned_abilities(parsed)
 
     schema = schemas.get_abilities_specs_columns()
 
-    with open(files.get_converter_file(), 'r') as fp:
+    with open(meta_info.get_full_path('in_game_converter.json'), 'r') as fp:
         converter = json.load(fp)
 
     for skill, description in clean.items():
@@ -55,11 +60,11 @@ def fill_abilities_specs():
 def fill_abilities():
     ''' Fills abilities table. '''
 
-    with open(files.get_labeled_abilities_file(), 'r') as fp:
+    with open(meta_info.get_full_path('labeled_abilities.json'), 'r') as fp:
         skills = json.load(fp)
 
     # TODO: create converter table in db instead of it
-    with open(files.get_converter_file(), 'r') as fp:
+    with open(meta_info.get_full_path('in_game_converter.json'), 'r') as fp:
         converter = json.load(fp)
 
     # get hero to id converter
@@ -151,7 +156,7 @@ def get_abilities_texts():
                   sorted
     '''
 
-    texts_file    = files.get_abilities_texts_file()
+    texts_file    = meta_info.get_full_path('abilities_texts.json')
     # parse texts file and take only texts from it
     parsed_texts  = txt2json.to_json(texts_file)['lang']['Tokens']
     # group texts by ability
@@ -246,7 +251,3 @@ def get_id_from_in_game_name(hero_name, skill_name):
         return None
     else:
         return ability_id_[0]
-
-
-if __name__ == '__main__':
-    create_and_fill_abilities_texts()

@@ -8,7 +8,7 @@ import logging
 
 from sqlalchemy import Integer, String, Float
 
-from atod.utils import files
+from atod import meta_info
 from atod.utils.dictionary import get_types
 
 logging.basicConfig(level=logging.INFO)
@@ -121,8 +121,8 @@ def get_heroes_schema():
                                   type
     '''
 
-    with open(files.get_schemas_file(), 'r') as schemas_file:
-        heroes_schema = json.load(schemas_file)['heroes']
+    with open(meta_info.get_full_path('db_schemas.json'), 'r') as fp:
+        heroes_schema = json.load(fp)['heroes']
 
     for column in heroes_schema:
         for key, value in column.items():
@@ -151,7 +151,8 @@ def get_abilities_specs_schema():
                 items - python
     '''
 
-    with open(files.get_schemas_file(), 'r') as schemas_file:
+    path = meta_info.get_full_path('db_schemas.json')
+    with open(path, 'r') as schemas_file:
         schema = json.load(schemas_file)['abilities_specs']
 
     for column in schema:
@@ -215,7 +216,7 @@ def _create_abilities_specs_schema(cleaned_abilities, save_to=None):
 
 ''' abilities table'''
 def get_abilities_schema():
-    with open(files.get_schemas_file(), 'r') as schemas_file:
+    with open(meta_info.get_full_path('db_schemas.json'), 'r') as schemas_file:
         ability_schema = json.load(schemas_file)['abilities']
 
     for column in ability_schema:
@@ -232,7 +233,7 @@ def create_schemas():
     ''' This function write schemas in file with pretty formatting. '''
 
     schemas = dict()
-    with open(files.get_schemas_file(), 'r') as fp:
+    with open(meta_info.get_full_path('db_schemas.json'), 'r') as fp:
         abilities_specs_schema = json.load(fp)['abilities_specs']
 
     # read ABILITIES SPECS schema
@@ -266,12 +267,12 @@ def create_schemas():
 def dump_schemas(schemas):
     ''' Writes schemas to predefined schemas_file. '''
 
-    with open(files.get_schemas_file(), 'w+') as fp:
+    with open(meta_info.get_full_path('db_schemas.json'), 'w+') as fp:
         json.dump(schemas, fp, indent=2)
 
 
 if __name__ == '__main__':
-    with open(files.get_schemas_file(), 'r') as fp:
+    with open(meta_info.get_full_path('db_schemas.json'), 'r') as fp:
         schemas = json.load(fp)
 
     tmp_heroes_schema = [{'name': k, 'type_': type_to_string[v]}

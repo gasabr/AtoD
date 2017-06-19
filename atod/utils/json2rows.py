@@ -5,7 +5,7 @@ import json
 from atod import settings
 # this two are for parse_skill_name()
 from atod.db import session
-from atod.db_models import HeroModel
+from atod.db_models.hero import HeroModel
 from atod.utils import dictionary
 
 
