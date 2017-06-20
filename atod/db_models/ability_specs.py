@@ -9,8 +9,7 @@ class AbilitySpecsModel(Base):
 
     _cols = [Column(**col) for col in get_abilities_specs_schema()]
 
-    __table__ = Table(meta_info.get_tables_prefix() + 'abilities_specs',
-                      Base.metadata, *_cols)
+    __table__ = Table('abilities_specs', Base.metadata, *_cols)
 
     def __init__(self, attrs):
         self.attrs = set()

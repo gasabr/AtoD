@@ -22,6 +22,7 @@ def fill_heroes():
                                     schemas.get_heroes_columns())
 
     for row in rows:
+        row['patch'] = meta_info.patch
         hero = HeroModel(row)
         session.add(hero)
 
@@ -50,6 +51,7 @@ def fill_abilities_specs():
             row['HeroID'] = converter[hero]
             row['name'] = skill_name
             row['pk'] = str(row['ID']) + '.' + str(row['lvl'])
+            row['patch'] = meta_info.patch
 
             skill = AbilitySpecsModel(row)
             session.add(skill)
@@ -80,8 +82,6 @@ def fill_abilities():
         except ValueError:
             continue
 
-        # FIXME: using schemas.LABELS is not the right approach
-        # binarize labels
         # for marked abilities
         if 'labels' in description:
             row = json2rows.binarize_labels(description['labels'],
@@ -93,6 +93,7 @@ def fill_abilities():
         row['HeroID'] = converter[hero]
         row['name'] = skill_name
         row['ID'] = description['ID']
+        row['patch'] = meta_info.patch
 
         skill = AbilityModel(row)
         session.add(skill)
@@ -113,6 +114,7 @@ def fill_abilities_texts():
         if not specification:
             continue
 
+        specification['patch'] = meta_info.patch
         texts = AbilityTextsModel(specification)
         session.add(texts)
 

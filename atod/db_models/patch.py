@@ -17,4 +17,5 @@ class PatchModel(Base):
         self.date = datetime.now()
 
     def __repr__(self):
-        return '<AbilitySpecs name={}, created={}>'.format(self.name, self.lvl)
+        return '<AbilitySpecs name={}, created={}>'.format(self.name,
+                                                           self.lvl)

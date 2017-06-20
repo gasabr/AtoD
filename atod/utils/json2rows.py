@@ -15,7 +15,7 @@ from atod.utils import dictionary
 def heroes_to_rows(heroes_dict, schema):
     ''' Gets the data from json files according to given db scheme.
 
-        Idea: json file contents a lot of information that i don't need in db,
+        Idea: json file contents a lot of information that I don't need in db,
         so this function parses file to get the needed attributes.
 
         Args:
@@ -23,7 +23,7 @@ def heroes_to_rows(heroes_dict, schema):
             schema (list of str): fields what should be extracted from file
 
         Yields:
-            dict: schema elements are keys
+            dict: where schema elements are keys
     '''
 
     data = heroes_dict['DOTAHeroes']

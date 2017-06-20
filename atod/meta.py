@@ -3,12 +3,21 @@ import os
 from atod import settings
 from atod.db import session
 from atod.db_models.patch import PatchModel
+# from atod.db_models.hero import HeroModel
+# from atod.db_models.ability import AbilityModel
+# from atod.db_models.ability_specs import AbilitySpecsModel
+# from atod.db_models.ability_texts import AbilityTextsModel
 
 
 class Meta(object):
     ''' Class stores meta information about versions. '''
 
-    base_files = ['npc_abilities.txt', 'npc_heroes.txt', 'npc_units.txt']
+    # files needed to create new version
+    game_files = ['npc_abilities.txt', 'npc_heroes.txt', 'npc_units.txt',
+                  'dota_english.txt']
+    config_files = ['db_schemas.json', 'in_game_converter.json',
+                    'labeled_abilities.json']
+    # tables = [AbilitySpecsModel, AbilityTextsModel, AbilityModel, HeroModel]
 
     def __init__(self):
         ''' Finds the last created version and set up lib to use it. '''
@@ -16,42 +25,45 @@ class Meta(object):
                     PatchModel.name).order_by(
                     PatchModel.created).limit(1)
 
-        self.name = query.first()[0]
-        self.folder = os.path.join(settings.DATA_FOLDER, self.name)
-
-    def add_version(self, name: str, folder: str):
-        ''' Adds new version from the files in `folder`.
-
-        Notes:
-            `name` will be used as prefix for all the tables for this version.
-            `name` does not contain points, but can contain a letter, for
-            example 687e is correct.
-
-        Args:
-            name: the name of the folder in data/ which contain version files.
-            folder: path to game/dota/scripts folder.
-
-        Raises:
-            FileNotFoundError: if folder does not exists.
-        '''
-
-        # check name for uniqueness
-        self.name = name
-
-        if os.path.exists(folder):
-            self.folder = folder
-        else:
-            raise FileNotFoundError('folder does not exists')
+        self._patch_name = query.first()[0]
+        self._patch_folder = os.path.join(settings.DATA_FOLDER,
+                                          self._patch_name)
 
     def get_tables_prefix(self):
         ''' Returns:
-                str: prefix for all the tables of current version, ends with '_'
+                str: prefix for all the tables ends with '_'.
         '''
-        return self.name + '_'
+        return self._patch_name + '_'
 
     def get_full_path(self, filename: str):
-        ''' Returns full path for given file. '''
-        return os.path.join(self.folder, filename)
+        ''' Compose full path for source file for current version. 
+        
+        Args:
+            filename: one of the game files or config files.
+            
+        Returns:
+            str: full path for source file.
+            
+        '''
+        return os.path.join(self._patch_folder, filename)
 
+    @property
+    def files_list(self):
+        files_list = self.game_files + self.config_files
+        return files_list
+
+    @property
+    def patch(self):
+        return self._patch_name
+
+    def set_patch(self, name: str):
+        # check if the patch is created in the db
+        patches = [p[0] for p in session.query(PatchModel.name).all()]
+
+        if name not in patches:
+            raise ValueError('Please, create a record in `patches` table'
+                             'before using the patch.')
+
+        self._patch_name = name
 
 meta_info = Meta()

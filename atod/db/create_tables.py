@@ -2,8 +2,12 @@ import logging
 
 from atod import settings
 from atod.db import engine
-from atod.db_models import (AbilitySpecsModel, HeroModel, AbilityModel,
-                            AbilityTextsModel, PatchModel)
+# db models
+from atod.db_models import PatchModel
+from atod.db_models.hero import HeroModel
+from atod.db_models.ability import AbilityModel
+from atod.db_models.ability_specs import  AbilitySpecsModel
+from atod.db_models.ability_texts import AbilityTextsModel
 
 logging.basicConfig(level=logging.INFO)
 
