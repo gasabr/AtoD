@@ -1,5 +1,6 @@
 import pandas as pd
 
+from atod import meta_info
 from atod.db import session
 from atod.models.interfaces import Group, Member
 from atod.db_models.ability import AbilityModel
@@ -18,14 +19,22 @@ class Ability(Member):
 
     model = AbilityModel
 
-    def __init__(self, id_, lvl=0):
+    def __init__(self, id_, lvl=0, patch=''):
         # check if user has set up model attribute
         if self.model is None:
             class_name = self.__class__.__name__
             raise ValueError('Please set up model for {}', format(class_name))
 
         # search row in model where id equal to id_
-        res = session.query(self.model).filter(self.model.ID == id_).first()
+        if patch == '':
+            current_patch = meta_info.patch
+            res = session.query(self.model).filter(
+                self.model.ID == id_,
+                self.model.patch == current_patch).first()
+        else:
+            res = session.query(self.model).filter(
+                self.model.ID == id_,
+                self.model.patch == patch).first()
 
         # init super class
         super().__init__(res.ID)
@@ -146,7 +155,7 @@ class Abilities(Group):
     member_type = Ability
 
     @classmethod
-    def from_hero_id(cls, HeroID):
+    def from_hero_id(cls, HeroID, patch=''):
         ''' Adds to members all abilities of the hero with `HeroID`. '''
         response = session.query(AbilityModel.ID)
         response = response.filter(AbilityModel.HeroID == HeroID).all()
@@ -155,7 +164,7 @@ class Abilities(Group):
             report = 'No abilities for this HeroID == {}'.format(HeroID)
             raise ValueError(report)
 
-        members_ = [cls.member_type(ability[0]) for ability in response]
+        members_ = [cls.member_type(a[0], patch) for a in response]
 
         return cls(members_)
 

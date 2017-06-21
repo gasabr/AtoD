@@ -2,6 +2,7 @@ import re
 import pandas as pd
 from sqlalchemy.inspection import inspect
 
+from atod import meta_info
 from atod.db import session
 from atod.db_models.hero import HeroModel
 from atod.models.abilities import Abilities
@@ -92,9 +93,17 @@ class Hero(Member):
     base_armor = -1
 
     # FIXME: check if lvl is always int
-    def __init__(self, id_, lvl=1):
+    def __init__(self, id_, lvl=1, patch=''):
         query = session.query(self.model)
-        specs = query.filter(self.model.HeroID == id_).first()
+
+        if patch == '':
+            current_patch = meta_info.patch
+            specs = query.filter(self.model.HeroID == id_,
+                                 self.model.patch == current_patch).first()
+        else:
+            specs = query.filter(self.model.HeroID == id_,
+                                 self.model.patch == patch).first()
+
         super().__init__(specs.HeroID)
 
         self.name = specs.name
@@ -292,14 +301,14 @@ class Heroes(Group):
     member_type = Hero
 
     @classmethod
-    def from_ids(cls, ids: list):
+    def from_ids(cls, ids: list, patch=''):
         ''' Creates Heroes object from list of ids. '''
         member_model = cls.member_type.model
 
         members_ = list()
         for id_ in ids:
             try:
-                members_.append(cls.member_type(id_))
+                members_.append(cls.member_type(id_, patch=patch))
             # XXX: can not create abilities for hero with HeroID == 16
             except ValueError as e:
                 print(e)
@@ -307,7 +316,7 @@ class Heroes(Group):
         return cls(members_)
 
     @classmethod
-    def all(cls):
+    def all(cls, patch=''):
         ''' Creates Heroes object with all heroes in the game.'''
         member_model = cls.member_type.model
         ids = [x[0] for x in session.query(member_model.HeroID).all()]
@@ -315,7 +324,7 @@ class Heroes(Group):
         members_ = list()
         for id_ in ids:
             try:
-                members_.append(cls.member_type(id_))
+                members_.append(cls.member_type(id_, patch=patch))
             # XXX: can not create abilities for hero with HeroID == 16
             except ValueError as e:
                 print(e)

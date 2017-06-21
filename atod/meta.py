@@ -9,8 +9,11 @@ class Meta(object):
     def __init__(self):
         ''' Finds the last created version and set up lib to use it. '''
         create_tables()
-        self._patch_name = None
-        self._patch_folder = None
+
+        query = session.query(PatchModel.name).order_by(
+                    PatchModel.created).first()
+
+        self._patch_name = query[0]
 
     def get_full_path(self, filename: str):
         ''' Compose full path for source file for current version. 
