@@ -1,7 +1,7 @@
 ''' Provides function for manually updating database. '''
 import os
 
-from atod import settings, meta_info
+from atod import meta_info
 from atod.db import content, session
 from atod.db_models import PatchModel
 from atod.db.create_tables import create_tables

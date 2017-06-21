@@ -158,7 +158,7 @@ def get_abilities_texts():
                   sorted
     '''
 
-    texts_file    = meta_info.get_full_path('abilities_texts.json')
+    texts_file    = meta_info.get_full_path('dota_english.txt')
     # parse texts file and take only texts from it
     parsed_texts  = txt2json.to_json(texts_file)['lang']['Tokens']
     # group texts by ability

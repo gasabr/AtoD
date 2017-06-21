@@ -1,6 +1,5 @@
 from sqlalchemy import Table, Column, Integer, String
 
-from atod import meta_info
 from atod.db.setup import Base
 
 
@@ -14,8 +13,7 @@ class AbilityTextsModel(Base):
     notes       = Column(name='notes', type_=String)
     other       = Column(name='other', type_=String, nullable=True)
 
-    __table__ = Table(meta_info.get_tables_prefix() + 'abilities_texts',
-                      Base.metadata,
+    __table__ = Table('abilities_texts', Base.metadata,
                       ID, name, lore, description, notes, other)
 
     def __init__(self, attrs):

@@ -1,7 +1,6 @@
 from sqlalchemy import Table, Column
 
 from atod.db import Base
-from atod import meta_info
 from atod.db.schemas import get_abilities_schema
 
 

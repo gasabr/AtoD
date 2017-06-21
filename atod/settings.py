@@ -20,15 +20,7 @@ ABILITIES_CHANGES_FILE  = path.join(DATA_FOLDER, 'abilities_changes.json')
 # ============================================================================
 DB_NAME = 'AtoD.db'
 DB_PATH = path.join(DATA_FOLDER, DB_NAME)
-
-# tables names
-HEROES_TABLE = CURRENT_VERSION + '_heroes'
-ITEMS_TABLE = CURRENT_VERSION + '_items'
-ABILITIES_SPECS_TABLE = CURRENT_VERSION + '_abilities_specs'
-ABILITIES_TEXTS_TABLE = CURRENT_VERSION + '_abilities_texts'
-ABILITIES_TABLE = CURRENT_VERSION + '_abilities'
-
-tables = [HEROES_TABLE, ITEMS_TABLE, ABILITIES_SPECS_TABLE]
+DB_SCHEMAS_FILE = path.join(DATA_FOLDER, 'db_schemas.json')
 
 config_files = ['db_schemas.json', 'in_game_converter.json',
                 'labeled_abilities.json']

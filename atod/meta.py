@@ -3,11 +3,6 @@ import os
 from atod import settings
 from atod.db import session
 from atod.db_models.patch import PatchModel
-# from atod.db_models.hero import HeroModel
-# from atod.db_models.ability import AbilityModel
-# from atod.db_models.ability_specs import AbilitySpecsModel
-# from atod.db_models.ability_texts import AbilityTextsModel
-
 
 class Meta(object):
     ''' Class stores meta information about versions. '''
@@ -17,23 +12,29 @@ class Meta(object):
                   'dota_english.txt']
     config_files = ['db_schemas.json', 'in_game_converter.json',
                     'labeled_abilities.json']
-    # tables = [AbilitySpecsModel, AbilityTextsModel, AbilityModel, HeroModel]
 
     def __init__(self):
         ''' Finds the last created version and set up lib to use it. '''
-        query = session.query(
-                    PatchModel.name).order_by(
-                    PatchModel.created).limit(1)
+        try:
+            query = session.query(
+                        PatchModel.name).order_by(
+                        PatchModel.created).limit(1)
+            self._patch_name = query.first()[0]
+            self._patch_folder = os.path.join(settings.DATA_FOLDER,
+                                              self._patch_name)
 
-        self._patch_name = query.first()[0]
-        self._patch_folder = os.path.join(settings.DATA_FOLDER,
-                                          self._patch_name)
+        except TypeError as empty_patches_table:
+            print('Please, create new patch with atod.update.add_patch(...)'
+                  'Without it you will not be able to use app.')
 
-    def get_tables_prefix(self):
-        ''' Returns:
-                str: prefix for all the tables ends with '_'.
-        '''
-        return self._patch_name + '_'
+            print('Enter patch name:')
+            name = input()
+
+            # FIXME: check strings for correctness
+
+            self._patch_name = name
+            self._patch_folder = os.path.join(settings.DATA_FOLDER,
+                                              self._patch_name)
 
     def get_full_path(self, filename: str):
         ''' Compose full path for source file for current version. 

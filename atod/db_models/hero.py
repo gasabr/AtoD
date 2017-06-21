@@ -1,7 +1,6 @@
 from sqlalchemy import Table, Column
 
 from atod.db import Base
-from atod import meta_info
 from atod.db.schemas import get_heroes_schema
 
 
@@ -12,9 +11,6 @@ class HeroModel(Base):
     __table__ = Table('heroes', Base.metadata, *heroes)
 
     def __init__(self, attrs):
-        __table__ = Table(meta_info.get_tables_prefix() + 'heroes',
-                          Base.metadata, *self.heroes)
-
         self.attrs = set()
         for key, value in attrs.items():
             setattr(self, key, value)
