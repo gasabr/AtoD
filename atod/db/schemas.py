@@ -8,7 +8,7 @@ import logging
 
 from sqlalchemy import Integer, String, Float
 
-from atod import meta_info
+from atod import settings
 from atod.utils.dictionary import get_types
 
 logging.basicConfig(level=logging.INFO)
@@ -121,7 +121,7 @@ def get_heroes_schema():
                                   type
     '''
 
-    with open(meta_info.get_full_path('db_schemas.json'), 'r') as fp:
+    with open(settings.DB_SCHEMAS_FILE, 'r') as fp:
         heroes_schema = json.load(fp)['heroes']
 
     for column in heroes_schema:
@@ -151,8 +151,7 @@ def get_abilities_specs_schema():
                 items - python
     '''
 
-    path = meta_info.get_full_path('db_schemas.json')
-    with open(path, 'r') as schemas_file:
+    with open(settings.DB_SCHEMAS_FILE, 'r') as schemas_file:
         schema = json.load(schemas_file)['abilities_specs']
 
     for column in schema:
@@ -216,7 +215,7 @@ def _create_abilities_specs_schema(cleaned_abilities, save_to=None):
 
 ''' abilities table'''
 def get_abilities_schema():
-    with open(meta_info.get_full_path('db_schemas.json'), 'r') as schemas_file:
+    with open(settings.DB_SCHEMAS_FILE, 'r') as schemas_file:
         ability_schema = json.load(schemas_file)['abilities']
 
     for column in ability_schema:

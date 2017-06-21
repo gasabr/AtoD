@@ -3345,9 +3345,13 @@
       "name": "attack_speed"
     },
     {
-      "type_": "FIELD_STRING",
-      "name": "pk",
+      "type_": "FIELD_INTEGER",
+      "name": "index",
       "primary_key": true
+    },
+    {
+      "type_": "FIELD_STRING",
+      "name": "patch"
     },
     {
       "type_": "FIELD_INTEGER",
@@ -3501,8 +3505,16 @@
     },
     {
       "type_": "FIELD_INTEGER",
-      "name": "ID",
+      "name": "ID"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "index",
       "primary_key": true
+    },
+    {
+      "type_": "FIELD_STRING",
+      "name": "patch"
     }
   ],
   "heroes": [
@@ -3632,9 +3644,51 @@
     },
     {
       "type_": "FIELD_INTEGER",
-      "autoincrement": false,
-      "name": "HeroID",
+      "name": "HeroID"
+    },
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "index",
       "primary_key": true
+    },
+    {
+      "type_": "FIELD_STRING",
+      "name": "patch"
+    }
+  ],
+  "abilities_texts": [
+    {
+      "type_": "FIELD_INTEGER",
+      "name": "index",
+      "primary_key": true
+    },
+    {
+      "type_": "FIELD_STRING",
+      "name": "patch"
+    },
+    {
+      "type_": "FIELD_STRING",
+      "name": "description"
+    },
+    {
+      "type_": "FIELD_STRING",
+      "name": "lore"
+    },
+    {
+      "type_": "FIELD_STRING",
+      "name": "notes"
+    },
+    {
+      "type_": "FIELD_STRING",
+      "name": "other"
+    },
+    {
+      "type_": "FIELD_STRING",
+      "name": "name"
+    },
+    {
+      "type_": "FIELD_STRING",
+      "name": "ID"
     }
   ]
 }

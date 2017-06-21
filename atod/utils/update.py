@@ -1,10 +1,18 @@
 ''' Provides function for manually updating database. '''
 import os
 
-from atod import meta_info
 from atod.db import content, session
 from atod.db_models import PatchModel
 from atod.db.create_tables import create_tables
+
+
+# files needed to create new version
+_game_files = ['npc_abilities.txt', 'npc_heroes.txt', 'npc_units.txt',
+              'dota_english.txt']
+_config_files = ['db_schemas.json', 'in_game_converter.json',
+                'labeled_abilities.json']
+
+_version_files = _game_files + _config_files
 
 
 def add_version_(self, name: str, folder: str):
@@ -55,8 +63,7 @@ def add_patch(name: str, folder: str):
         print('The provided folder {} does not exists.'.format(folder))
 
     # check if all the needed files exist
-    needed_files = meta_info.files_list
-    for file_ in needed_files:
+    for file_ in _version_files:
         full_path = os.path.join(folder, file_)
 
         if not os.path.exists(full_path):
@@ -70,8 +77,6 @@ def add_patch(name: str, folder: str):
         patch = PatchModel(name)
         session.add(patch)
         session.commit()
-
-    meta_info.set_patch(name)
 
     # create tables for the new patch (meta info stores new version)
     create_tables()

@@ -7,12 +7,6 @@ from atod.db_models.patch import PatchModel
 class Meta(object):
     ''' Class stores meta information about versions. '''
 
-    # files needed to create new version
-    game_files = ['npc_abilities.txt', 'npc_heroes.txt', 'npc_units.txt',
-                  'dota_english.txt']
-    config_files = ['db_schemas.json', 'in_game_converter.json',
-                    'labeled_abilities.json']
-
     def __init__(self):
         ''' Finds the last created version and set up lib to use it. '''
         try:
