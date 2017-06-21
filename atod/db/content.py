@@ -1,7 +1,7 @@
 import json
 
 from atod.db import schemas, session
-from atod import meta_info
+from atod import settings
 # db models
 from atod.db_models.hero import HeroModel
 from atod.db_models.ability import AbilityModel
@@ -9,12 +9,19 @@ from atod.db_models.ability_specs import  AbilitySpecsModel
 from atod.db_models.ability_texts import AbilityTextsModel
 # utils
 from atod.utils import txt2json, json2rows, abilities
-from atod.utils.dictionary import get_str_keys
 
 
-def fill_heroes():
-    ''' Fills heroes table with the data from npc_heroes.json. '''
-    heroes_file = meta_info.get_full_path('npc_heroes.txt')
+def add_heroes(npc_heroes: str, patch: str):
+    ''' Unite everything that is needed to add heroes to the db table.
+     
+    That method does: parses `raw_file` to json, extracts information from
+    json according to heroes table schema, adds heroes to the table. 
+    
+    Args:
+        npc_heroes: full path to the npc_heroes.txt file.
+        patch: version of the game from which info was taken.
+    '''
+    heroes_file = npc_heroes
 
     heroes_dict = txt2json.to_json(heroes_file)
 
@@ -22,22 +29,28 @@ def fill_heroes():
                                     schemas.get_heroes_columns())
 
     for row in rows:
-        row['patch'] = meta_info.patch
+        row['patch'] = patch
         hero = HeroModel(row)
         session.add(hero)
 
     session.commit()
 
 
-def fill_abilities_specs():
-    ''' FIlls table with the data from cleaned npc_abilities file. '''
-    raw_file = meta_info.get_full_path('npc_abilities.txt')
-    parsed   = txt2json.to_json(raw_file)
-    clean    = abilities.get_cleaned_abilities(parsed)
+def add_abilities_specs(npc_abilties: str, patch: str):
+    ''' Fills table with the data from cleaned npc_abilities file. 
+    
+    Args:
+        npc_abilties: full path to the npc_abilities.txt file.
+        patch: version of the game from which info was taken.
+        
+    '''
+
+    parsed = txt2json.to_json(npc_abilties)
+    clean  = abilities.get_cleaned_abilities(parsed)
 
     schema = schemas.get_abilities_specs_columns()
 
-    with open(meta_info.get_full_path('in_game_converter.json'), 'r') as fp:
+    with open(settings.CONVERTER_FILE, 'r') as fp:
         converter = json.load(fp)
 
     for skill, description in clean.items():
@@ -51,7 +64,7 @@ def fill_abilities_specs():
             row['HeroID'] = converter[hero]
             row['name'] = skill_name
             row['pk'] = str(row['ID']) + '.' + str(row['lvl'])
-            row['patch'] = meta_info.patch
+            row['patch'] = patch
 
             skill = AbilitySpecsModel(row)
             session.add(skill)
@@ -59,18 +72,19 @@ def fill_abilities_specs():
     session.commit()
 
 
-def fill_abilities():
-    ''' Fills abilities table. '''
+def add_abilities(labels: str, patch: str):
+    ''' Fills abilities table. 
+    
+    Args:
+        labels: full path to the labeled_abilities.json file
+        patch: version of the data
+    '''
 
-    with open(meta_info.get_full_path('labeled_abilities.json'), 'r') as fp:
+    with open(labels, 'r') as fp:
         skills = json.load(fp)
 
-    # TODO: create converter table in db instead of it
-    with open(meta_info.get_full_path('in_game_converter.json'), 'r') as fp:
+    with open(settings.CONVERTER_FILE, 'r') as fp:
         converter = json.load(fp)
-
-    # get hero to id converter
-    heroes = get_str_keys(converter)
 
     for skill, description in skills.items():
         if 'special' in skill:
@@ -93,7 +107,7 @@ def fill_abilities():
         row['HeroID'] = converter[hero]
         row['name'] = skill_name
         row['ID'] = description['ID']
-        row['patch'] = meta_info.patch
+        row['patch'] = patch
 
         skill = AbilityModel(row)
         session.add(skill)
@@ -101,20 +115,24 @@ def fill_abilities():
     session.commit()
 
 
-def fill_abilities_texts():
+def add_abilities_texts(dota_english: str, patch):
     ''' Fills abilities_texts table.
 
-        Notes:
-            This function need AbilitiesTable to be created for current
-            version. I will fix it in future versions.
+    Notes:
+        This function need AbilitiesTable to be created for current
+        version. I will fix it in future versions.
+        
+    Args:
+        dota_english: full path to the dota_english.txt file.
+        patch: version of the game from which info was taken.
     '''
 
-    for specification in get_abilities_texts():
+    for specification in get_abilities_texts(dota_english):
         # if specification is empty
         if not specification:
             continue
 
-        specification['patch'] = meta_info.patch
+        specification['patch'] = patch
         texts = AbilityTextsModel(specification)
         session.add(texts)
 
@@ -150,7 +168,7 @@ def group_abilities_texts(texts):
     return desc_by_ability
 
 
-def get_abilities_texts():
+def get_abilities_texts(dota_english: str):
     ''' Produces ready to use dictionaries to create AbilityTextsModel object.
 
         Yields:
@@ -158,7 +176,7 @@ def get_abilities_texts():
                   sorted
     '''
 
-    texts_file    = meta_info.get_full_path('dota_english.txt')
+    texts_file    = dota_english
     # parse texts file and take only texts from it
     parsed_texts  = txt2json.to_json(texts_file)['lang']['Tokens']
     # group texts by ability

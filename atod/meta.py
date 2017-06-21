@@ -1,7 +1,6 @@
 import os
 
-from atod import settings
-from atod.db import session
+from atod.db import session, create_tables
 from atod.db_models.patch import PatchModel
 
 class Meta(object):
@@ -9,26 +8,9 @@ class Meta(object):
 
     def __init__(self):
         ''' Finds the last created version and set up lib to use it. '''
-        try:
-            query = session.query(
-                        PatchModel.name).order_by(
-                        PatchModel.created).limit(1)
-            self._patch_name = query.first()[0]
-            self._patch_folder = os.path.join(settings.DATA_FOLDER,
-                                              self._patch_name)
-
-        except TypeError as empty_patches_table:
-            print('Please, create new patch with atod.update.add_patch(...)'
-                  'Without it you will not be able to use app.')
-
-            print('Enter patch name:')
-            name = input()
-
-            # FIXME: check strings for correctness
-
-            self._patch_name = name
-            self._patch_folder = os.path.join(settings.DATA_FOLDER,
-                                              self._patch_name)
+        create_tables()
+        self._patch_name = None
+        self._patch_folder = None
 
     def get_full_path(self, filename: str):
         ''' Compose full path for source file for current version. 

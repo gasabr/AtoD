@@ -22,7 +22,7 @@ def create_tables():
 
     if not engine.has_table('abilities_specs'):
         AbilitySpecsModel.__table__.create(bind=engine)
-        logging.info('abilities_specs was created.')
+        logging.info('`abilities_specs` was created.')
 
     if not engine.has_table('abilities'):
         AbilityModel.__table__.create(bind=engine)

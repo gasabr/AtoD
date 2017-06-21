@@ -14,6 +14,7 @@ NPC_PATH = '/Users/gasabr/Library/Application Support/Steam/steamapps/common/dot
 
 # from game files with data
 ABILITIES_CHANGES_FILE  = path.join(DATA_FOLDER, 'abilities_changes.json')
+CONVERTER_FILE  = path.join(DATA_FOLDER, 'in_game_converter.json')
 
 # ============================================================================
 # DataBase settings
