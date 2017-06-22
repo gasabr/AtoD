@@ -93,7 +93,24 @@ class Hero(Member):
     base_armor = -1
 
     # FIXME: check if lvl is always int
-    def __init__(self, id_, lvl=1, patch=''):
+    def __init__(self, id_: int, lvl=1, patch=''):
+        ''' Initializes Hero by default with level one from the last patch.
+        
+        Args:
+            id_ (int): hero's id in the game, API responses store the same
+            lvl (int): desired level of the hero
+            patch (str): same as version of the game
+            
+        '''
+
+        # check types of arguments
+        if not isinstance(id_, int):
+            raise TypeError('`id_` argument should be type int.')
+        if not isinstance(lvl, int):
+            raise TypeError('`lvl` argument should be type int.')
+        if not isinstance(patch, str):
+            raise TypeError('`patch` argument should be type str.')
+
         query = session.query(self.model)
 
         if patch == '':
@@ -117,17 +134,22 @@ class Hero(Member):
         self.abilities = Abilities.from_hero_id(self.id)
 
     @classmethod
-    def from_name(cls, name):
+    def from_name(cls, name, lvl=1, patch=''):
         ''' Converts name to id with and calls init.
+        
+        Args:
+            name (str) : hero's is game name in the game
+            lvl (int)  : desired level of the hero
+            patch (str): same as version of the game
 
-            Raises:
-                ValueError: if `name` is not in heroes.name column
+        Raises:
+            ValueError: if `name` is not in heroes.name column
         '''
 
         query = session.query(HeroModel.HeroID)
         try:
             hero_id = query.filter(cls.model.name == name).first()[0]
-            return cls(hero_id)
+            return cls(hero_id, lvl, patch)
 
         except TypeError:
             raise ValueError('Can not find id for hero name: {}'.format(name))
@@ -139,8 +161,8 @@ class Hero(Member):
         * 'name'
         * 'id'
         * 'laning'
-        * 'roles'
-        * 'types'
+        * 'role'
+        * 'type'
         * 'attributes'
 
         Args:
@@ -164,7 +186,12 @@ class Hero(Member):
             elif field == 'attributes':
                 description.append(self._get_attributes())
             else:
-                print('{} is not one of possible descriptions.', field)
+                print('{} is not one of possible descriptions.'.format(field))
+
+        if len(description) == 0:
+            raise AttributeError('include argument should contain at least'
+                                 'one of the ["name", "id", "laning",'
+                                 '"roles", "type", "attributes"]')
 
         return pd.concat(description)
 
