@@ -27,9 +27,19 @@ class Member:
         '''
         pass
 
-    def as_dict(self):
-        ''' Returns representation of this object as a dictionary.'''
-        return dict()
+    def _valid_arg_types(self, id_, lvl, patch):
+        ''' Checks validness of arguments types. 
+        
+        Raises TypeError with all the info in message, if any of arguments
+        has incorrect type.
+        '''
+        # check types of arguments
+        if not isinstance(id_, int):
+            raise TypeError('`id_` argument should be type int.')
+        if not isinstance(lvl, int):
+            raise TypeError('`lvl` argument should be type int.')
+        if not isinstance(patch, str):
+            raise TypeError('`patch` argument should be type str.')
 
 
 class Group:

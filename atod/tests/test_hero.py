@@ -14,12 +14,9 @@ class TestHero(unittest.TestCase):
 
     def test_init(self):
         ''' Tests different ways to create hero. '''
-        self.assertRaises(TypeError, Hero.__init__, 'Earthshaker')
-        self.assertRaises(TypeError, Hero.__init__, 11, 1.0)
-        # FIXME: this won't work without keyword arguments -- very strange
-        #        but if you try just a function as Hero(11, 5, 706) it will
-        #        raise TypeError exception
-        self.assertRaises(TypeError, Hero.__init__, id_=11, lvl=5, patch=706)
+        self.assertRaises(TypeError, Hero, 'Earthshaker')
+        self.assertRaises(TypeError, Hero, 11, 1.0)
+        self.assertRaises(TypeError, Hero, 11, 5, 706)
 
         # test creation of the Hero from name
         # misspeled name
@@ -29,7 +26,7 @@ class TestHero(unittest.TestCase):
         # call with empty include argument
         self.assertRaises(TypeError, self.sf_1.get_description)
         # test if `include` does not contain any of possible fields
-        self.assertRaises(AttributeError, self.sf_1.get_description, ['asd'])
+        self.assertRaises(ValueError, self.sf_1.get_description, ['asd'])
         # test if one of the `include`d is possible and one is not
         self.assertEqual((1,),
                          self.sf_1.get_description(['name', 'asd']).shape)

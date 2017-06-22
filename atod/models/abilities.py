@@ -13,13 +13,31 @@ class Ability(Member):
 
     Attributes:
         name (str): name of ability
-        id (int): unique id of ability
+        lvl (int) : level of ability
 
     '''
 
     model = AbilityModel
 
     def __init__(self, id_, lvl=0, patch=''):
+        ''' Initializes Ability from id, lvl and patch. 
+        
+        Args:
+            id_ (int): hero's id in the game, API responses store the same
+            lvl (int, default=0): desired level of the hero
+            patch (str, default=''): same as version of the game. Default 
+                value means the latest available patch.
+                
+        Raises:
+            In addition to Member._valid_arg_types() can raise
+            ValueError: if there is no Ability with such ID 
+        '''
+
+        self._valid_arg_types(id_, lvl, patch)
+
+        if lvl < 0 or lvl > 10:
+            raise ValueError('Level should be in range [0, 10]')
+
         # check if user has set up model attribute
         if self.model is None:
             class_name = self.__class__.__name__
@@ -35,6 +53,9 @@ class Ability(Member):
             res = session.query(self.model).filter(
                 self.model.ID == id_,
                 self.model.patch == patch).first()
+
+        if res is None:
+            raise ValueError('There is no ability with id {}'.format(id_))
 
         # init super class
         super().__init__(res.ID)
@@ -88,11 +109,12 @@ class Ability(Member):
     def get_specs(self, include=[]):
         ''' Returns specs of this ability.
 
-            Args:
-                inlcude (list of strings): columns that should be included.
+        Args:
+            inlcude (list of strings): columns that should be included.
 
-            Results:
-                pd.DataFrame: data with fields from include for this ability.
+        Results:
+            pd.DataFrame: data with fields from include for this ability.
+            
         '''
 
         columns = [getattr(AbilitySpecsModel, col) for col in include]
@@ -154,6 +176,7 @@ class Abilities(Group):
 
     member_type = Ability
 
+    # TODO: write version with levels arguments
     @classmethod
     def from_hero_id(cls, HeroID, patch=''):
         ''' Adds to members all abilities of the hero with `HeroID`. '''
@@ -164,7 +187,7 @@ class Abilities(Group):
             report = 'No abilities for this HeroID == {}'.format(HeroID)
             raise ValueError(report)
 
-        members_ = [cls.member_type(a[0], patch) for a in response]
+        members_ = [cls.member_type(a[0], patch=patch) for a in response]
 
         return cls(members_)
 

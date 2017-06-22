@@ -92,7 +92,6 @@ class Hero(Member):
     base_damage = 21
     base_armor = -1
 
-    # FIXME: check if lvl is always int
     def __init__(self, id_: int, lvl=1, patch=''):
         ''' Initializes Hero by default with level one from the last patch.
         
@@ -101,15 +100,12 @@ class Hero(Member):
             lvl (int): desired level of the hero
             patch (str): same as version of the game
             
+        Raises:
+            see Member._valid_arg_types() for info.
         '''
 
-        # check types of arguments
-        if not isinstance(id_, int):
-            raise TypeError('`id_` argument should be type int.')
-        if not isinstance(lvl, int):
-            raise TypeError('`lvl` argument should be type int.')
-        if not isinstance(patch, str):
-            raise TypeError('`patch` argument should be type str.')
+        # raise an exception if types are incorrect
+        self._valid_arg_types(id_, lvl, patch)
 
         query = session.query(self.model)
 
@@ -189,9 +185,9 @@ class Hero(Member):
                 print('{} is not one of possible descriptions.'.format(field))
 
         if len(description) == 0:
-            raise AttributeError('include argument should contain at least'
-                                 'one of the ["name", "id", "laning",'
-                                 '"roles", "type", "attributes"]')
+            raise ValueError('include argument should contain at least'
+                             'one of the ["name", "id", "laning",'
+                             '"roles", "type", "attributes"]')
 
         return pd.concat(description)
 
