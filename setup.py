@@ -1,27 +1,26 @@
 import os
 from setuptools import setup
 
-# Utility function to read the README file.
-# Used for the long_description.  It's nice, because now 1) we have a top level
-# README file and 2) it's easier to type in the README file than to put a raw
-# string in below ...
+
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 setup(
-    name = "atod",
+    name = "AtoD",
     version = "0.1.0",
     author = "Abroskin Gleb",
     author_email = "abroskingleb@gmail.com",
-    description = ("An interactive DotA2 wiki."),
+    description = ("Easy access to DotA2 internal data."),
     license = "MIT",
-    keywords = "example documentation tutorial",
-    url = "http://packages.python.org/atod",
-    packages=['atod', 'atod.utils', 'atod.tests', 'atod.db_models'],
+    keywords = "games data DotA2 ml",
+    url = "https://github.com/gasabr/AtoD",
+    packages=['atod', 'atod.utils', 'atod.tests', 'atod.db_models',
+              'atod.models', 'atod.db'],
     long_description=read('README.rst'),
     classifiers=[
-        "Development Status :: 2 - Pre-Alpha",
+        "Development Status :: 3 - Alpha",
         "Topic :: Games/Entertainment",
         "License :: OSI Approved :: MIT License",
+        "Programming Language :: Python :: 3.5"
     ],
 )

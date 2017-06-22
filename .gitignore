@@ -1,5 +1,4 @@
 .DS_Store
-/deprecated
 __pycache__/
 .ipynb_checkpoints/
 code/.DS_Store

@@ -5,15 +5,13 @@ DotA2 data for ML.
 
 Goals
 =====
-- create an API to get any DotA related data as easy as possible and ready
-for ML experiments
+- create an API to get any DotA related data as easy as possible and ready for ML experiments
 - create hero recommendation engine
 - create web interface with interactive representation of the info
 
 What and why
 ============
-First of all it's educational project which is created to learn some staff, hope
-someone will find it useful.
+First of all it's educational project which is created to learn some staff, hope someone will find it useful.
 
 DotA2 API gives you a lot of information about matches, leagues, players,
 but there's no way to get the data about game itself: heroes, their abilities etc.
@@ -25,6 +23,7 @@ This library helps with this task. And there is short summary of features:
 
 Examples
 ========
+Please, take a look at jupyter notebooks in `examples/` folder to see how the lib can be used.
 Create a hero from name and get some basic info.
 
     >>> from atod import Hero
@@ -35,7 +34,7 @@ Create a hero from name and get some basic info.
     <Abilities [<Ability name=mana_break>, <Ability name=blink>, <Ability name=spell_shield>, <Ability name=mana_void>, ]>
     >>> am.lvl = 15
     >>> am.str
-    38
+    43
 
 
 The code above creates Anti-Mage, which has some basic attributes: strength,
