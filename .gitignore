@@ -3,8 +3,9 @@ __pycache__/
 .ipynb_checkpoints/
 code/.DS_Store
 kaggle-data/
-atod.egg-info/
+AtoD.egg-info/
 dist/
+build/
 .idea/*
 examples/discovery.ipynb
 examples/discovery.py

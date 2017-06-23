@@ -3,7 +3,6 @@ import os
 
 from atod.db import content, session
 from atod.db_models import PatchModel
-from atod.db.create_tables import create_tables
 
 
 # files needed to create new version

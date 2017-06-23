@@ -1,9 +1,7 @@
 ''' This file serves db_content.py  '''
-import os
 import json
 
-from atod import settings
-# this two are for parse_skill_name()
+# this are for parse_skill_name()
 from atod.db import session
 from atod.db_models.hero import HeroModel
 from atod.utils import dictionary
@@ -55,10 +53,10 @@ def heroes_to_rows(heroes_dict, schema):
             try:
                 tmp[key] = flat_description[key]
             # hero_base doesn't have some fields
-            except KeyError as e:
+            except KeyError:
                 tmp[key] = None
             # there are some non hero fields causes this
-            except TypeError as t:
+            except TypeError:
                 pass
 
         if len(tmp) > 0:
@@ -93,10 +91,10 @@ def items_file_to_rows(filename, scheme):
             try:
                 tmp[key] = description[key]
 
-            except KeyError as e:
+            except KeyError:
                 tmp[key] = None
             # there are some non hero fields causes this
-            except TypeError as t:
+            except TypeError:
                 pass
 
         # extract specials
@@ -106,9 +104,9 @@ def items_file_to_rows(filename, scheme):
                 for k, v in value.items():
                     if k != 'var_type':
                         tmp[k] = v
-        except TypeError as e:
+        except TypeError:
             print(description)
-        except KeyError as e:
+        except KeyError:
             pass
 
         for kk in tmp.keys():
@@ -137,41 +135,12 @@ def get_types(abilities):
                     if key != 'var_type' and key:
                         fields_types[k] = value['var_type']
         # all the recipies will fall there
-        except KeyError as e:
+        except KeyError:
             pass
-        except TypeError as e:
+        except TypeError:
             pass
 
     return fields_types
-
-
-def write_item_types():
-    ''' DEPRECATED FOR NOW WITH EVERYTHONG CONNECTED TO ITEMS
-    
-        Combines get_types() and settings.items_scheme in one file.
-
-        Returns:
-            all_ (dict) = get_types() + settings.items_scheme
-    '''
-
-    with open(settings.DATA_FOLDER + 'parsed/items.json') as fp:
-        DOTAAbilities = json.load(fp)['DOTAAbilities']
-    specials = get_types(DOTAAbilities)
-    basics = settings.items_scheme
-
-    all_ = {}
-    for key, value in basics.items():
-        all_[key] = value
-
-    for key, value in specials.items():
-        # TODO: move mapping to function if needed
-        all_[key] = value
-
-    filename = os.path.join(settings.DATA_FOLDER, 'items_types.json')
-    with open(filename, 'w+') as fp:
-        json.dump(all_, fp, indent=2)
-
-    return all_
 
 
 def ability_to_row(description, schema):

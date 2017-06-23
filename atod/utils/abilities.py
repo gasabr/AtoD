@@ -302,22 +302,19 @@ def _show_progress(stage_name, abilities):
     logging.info('================================================\n')
 
 
-def get_cleaned_abilities(data=None, lists_to_mean=False):
+def get_cleaned_abilities(npc_abilities=None, lists_to_mean=False):
     ''' Controls cleaning process.
     
         Function calls other functions to change skills dictionary.
         `lists_to_mean` is needed to simplify analysis.
         
-        Takes:
+        Args:
+            npc_abilities (dict): parsed npc_abilities.txt file
             lists_to_mean (bool): transform or not lists to mean
     '''
-    if not data:
-        with open(settings.ABILITIES_FILE, 'r') as fp:
-            data = json.load(fp)
-        _show_progress('RAW', data)
 
     # find heroes abilities
-    skills_nested = _find_skills(data)
+    skills_nested = _find_skills(npc_abilities)
     _show_progress('SKILLS', skills_nested)
 
     # make skills flat

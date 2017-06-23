@@ -326,8 +326,6 @@ class Heroes(Group):
     @classmethod
     def from_ids(cls, ids: list, patch=''):
         ''' Creates Heroes object from list of ids. '''
-        member_model = cls.member_type.model
-
         members_ = list()
         for id_ in ids:
             try:
@@ -366,8 +364,8 @@ class Heroes(Group):
 
         '''
 
-        descriptions = [m.get_description(include) for m in self.members]
-        descriptions = pd.DataFrame(descriptions)
+        descriptions_ = [m.get_description(include) for m in self.members]
+        descriptions = pd.DataFrame(descriptions_)
 
         # no use to the name in summary
         if 'name' in descriptions.columns:

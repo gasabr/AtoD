@@ -1,5 +1,3 @@
-import os
-
 from atod.db import session, create_tables
 from atod.db_models.patch import PatchModel
 
@@ -14,23 +12,6 @@ class Meta(object):
                     PatchModel.created).first()
 
         self._patch_name = query[0]
-
-    def get_full_path(self, filename: str):
-        ''' Compose full path for source file for current version. 
-        
-        Args:
-            filename: one of the game files or config files.
-            
-        Returns:
-            str: full path for source file.
-            
-        '''
-        return os.path.join(self._patch_folder, filename)
-
-    @property
-    def files_list(self):
-        files_list = self.game_files + self.config_files
-        return files_list
 
     @property
     def patch(self):

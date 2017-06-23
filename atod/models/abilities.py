@@ -110,7 +110,8 @@ class Ability(Member):
         ''' Returns specs of this ability.
 
         Args:
-            inlcude (list of strings): columns that should be included.
+            include (list of strings, default=[]): columns that should be 
+                included.
 
         Results:
             pd.DataFrame: data with fields from include for this ability.
@@ -130,7 +131,7 @@ class Ability(Member):
             # create DataFrame from lvls data
             try:
                 all_specs = pd.DataFrame([p.__dict__ for p in lvls])
-            except AttributeError as e:
+            except AttributeError:
                 named_columns = [dict(zip(columns, p)) for p in lvls]
                 all_specs = pd.DataFrame(named_columns)
             # split DataFrame to text and numbers columns

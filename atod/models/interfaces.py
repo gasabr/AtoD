@@ -1,7 +1,5 @@
 import pandas as pd
 
-from atod.db import session
-
 
 class Member:
     ''' The parent class for all the single elements.

@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 import unittest
-import pandas as pd
 
 from atod.models.heroes import Hero, camel2python
 

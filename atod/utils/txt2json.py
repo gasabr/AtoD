@@ -44,7 +44,7 @@ def _clean_value(string):
     if string.strip('-f').replace('.', '', 1).isdigit():
         try:
             return int(string)
-        except ValueError as e:
+        except ValueError:
             if string[-1] == 'f':
                 return float(string[:-1])
             else:
