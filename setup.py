@@ -7,7 +7,7 @@ def read(fname):
 
 setup(
     name = "AtoD",
-    version = "0.0.0",
+    version = "0.0.1",
     author = "Abroskin Gleb",
     author_email = "abroskingleb@gmail.com",
     description = ("Easy access to DotA2 internal data."),
@@ -30,5 +30,6 @@ setup(
         "SQLAlchemy",
         "yamjam",
         "scipy",
-    ]
+    ],
+    include_package_data=True,
 )
