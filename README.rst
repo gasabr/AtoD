@@ -21,13 +21,28 @@ This library helps with this task. And there is short summary of features:
 - classes Hero, Ability... to represent the data
 - some examples of usage
 
+Usage
+=====
+Module can be installed through pip:
+
+    pip install atod
+
+To use Match class you should get your own DotA2 API key here_ and add it to
+YamJam_ config file which can be found at `~/.yamjam/config.yaml`. If you don't have one
+just create it with
+
+    touch ~/.yamjam/config.yaml
+
+.. _here http://steamcommunity.com/dev/apikey
+.. _YamJam http://yamjam.readthedocs.io/en/latest/
+
 Examples
 ========
 Please, take a look at jupyter notebooks in `examples/` folder to see how the lib can be used.
 Create a hero from name and get some basic info.
 
     >>> from atod import Hero
-    >>> am = Hero.from_name('Anti-Mage') # produces the same result as above
+    >>> am = Hero.from_name('Anti-Mage')
     >>> am.str
     22
     >>> print(am.abilities)
@@ -37,7 +52,7 @@ Create a hero from name and get some basic info.
     43
 
 
-The code above creates Anti-Mage, which has some basic attributes: strength,
+The code above creates Anti-Mage, which has some basic attributes: strength (str),
 agility, armor all of them are counted at the run-time, so if you will change the
 level of hero, attributes will change too.
 
