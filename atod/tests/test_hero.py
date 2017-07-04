@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 import unittest
 
-from atod.models.heroes import Hero, camel2python
+from atod.models.hero import camel2python
+from atod import Hero
 
 
 class TestHero(unittest.TestCase):
