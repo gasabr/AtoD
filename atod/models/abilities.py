@@ -20,17 +20,17 @@ class Ability(Member):
     model = AbilityModel
 
     def __init__(self, id_, lvl=0, patch=''):
-        ''' Initializes Ability from id, lvl and patch. 
-        
+        ''' Initializes Ability from id, lvl and patch.
+
         Args:
             id_ (int): hero's id in the game, API responses store the same
             lvl (int, default=0): desired level of the hero
-            patch (str, default=''): same as version of the game. Default 
+            patch (str, default=''): same as version of the game. Default
                 value means the latest available patch.
-                
+
         Raises:
             In addition to Member._valid_arg_types() can raise
-            ValueError: if there is no Ability with such ID 
+            ValueError: if there is no Ability with such ID
         '''
 
         self._valid_arg_types(id_, lvl, patch)
@@ -83,18 +83,28 @@ class Ability(Member):
     def __repr__(self):
         return '<Ability object name={}>'.format(self.name)
 
-    def get_description(self):
-        ''' Combines specs and labels in one description. '''
+    def get_description(self, include: list):
+        ''' Combines specs and labels in one description.
 
-        labels = self.get_labels()
-        specs  = self.get_specs()
+        Possible values in `include` list:
+            * labels
+            * specs
+            * texts
+
+        Args:
+            include: list of fields which should be included in description.
+
+        Returns:
+            pd.DataFrame: description with requested fields.
+            
+        '''
 
         # merge specs with labels
         series = pd.concat([specs, labels], axis=0)
 
         return series
 
-    def get_labels(self):
+    def _get_labels(self):
         ''' Returns labels of ability. '''
         query = session.query(self.model)
         result = query.filter(self.model.ID == self.id).first()
@@ -106,16 +116,16 @@ class Ability(Member):
 
         return labels
 
-    def get_specs(self, include=[]):
+    def _get_specs(self, include=[]):
         ''' Returns specs of this ability.
 
         Args:
-            include (list of strings, default=[]): columns that should be 
+            include (list of strings, default=[]): columns that should be
                 included.
 
         Results:
             pd.DataFrame: data with fields from include for this ability.
-            
+
         '''
 
         columns = [getattr(AbilitySpecsModel, col) for col in include]
@@ -155,7 +165,7 @@ class Ability(Member):
 
         return specs
 
-    def get_texts(self):
+    def _get_texts(self):
         ''' Gets all the records in abilities_texts table for this ability.
 
             Returns:
@@ -202,7 +212,7 @@ class Abilities(Group):
 
         return cls(members_)
 
-    def get_list(self):
+    def get_list(self, include: list):
         ''' Returns information about members in the form: row is a member.
 
             'List' because descriptions are just concatenated with each other,
@@ -216,7 +226,7 @@ class Abilities(Group):
         '''
 
         # get all descriptions
-        descriptions = [m.get_description() for m in self.members]
+        descriptions = [m.get_description(include) for m in self.members]
 
         return pd.DataFrame(descriptions, columns=descriptions[0].index,
                             index=None)

@@ -94,12 +94,12 @@ class Hero(Member):
 
     def __init__(self, id_: int, lvl=1, patch=''):
         ''' Initializes Hero by default with level one from the last patch.
-        
+
         Args:
             id_ (int): hero's id in the game, API responses store the same
             lvl (int): desired level of the hero
             patch (str): same as version of the game
-            
+
         Raises:
             see Member._valid_arg_types() for info.
         '''
@@ -132,7 +132,7 @@ class Hero(Member):
     @classmethod
     def from_name(cls, name, lvl=1, patch=''):
         ''' Converts name to id with and calls init.
-        
+
         Args:
             name (str) : hero's is game name in the game
             lvl (int)  : desired level of the hero
@@ -239,10 +239,18 @@ class Hero(Member):
                 with zeroes would be returned.
         '''
         laning_info = dict()
-        for key in laning_keys:
-            laning_info['laning_' + camel2python(key)] = self.specs[key]
+        multi_index_keys = list()
 
-        laning_info = pd.Series(laning_info).fillna(value=0)
+        for key in laning_keys:
+            multi_index_keys.append(camel2python(key))
+            laning_info[camel2python(key)] = self.specs[key]
+
+        multi_index = [['laning'] * len(laning_keys),
+                        multi_index_keys]
+
+        laning_info = pd.Series(laning_info, index=multi_index)
+
+        print(type(laning_info.index))
 
         return laning_info
 
@@ -372,7 +380,7 @@ class Heroes(Group):
             descriptions = descriptions.drop(['name'], axis=1)
         if 'id' in descriptions.columns:
             descriptions = descriptions.drop(['id'], axis=1)
-            
+
         columns_summary = [sum(descriptions[c]) for c in descriptions.columns]
         summary = pd.Series(columns_summary, index=descriptions.columns)
 
