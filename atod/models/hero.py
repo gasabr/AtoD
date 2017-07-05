@@ -7,61 +7,6 @@ from atod import Member, meta_info, Abilities
 from atod.db import session
 from atod.db_models.hero import HeroModel
 
-mapper = inspect(HeroModel)
-attributes_list = [
-    'ArmorPhysical',
-    'AttackAcquisitionRange',
-    'AttackAnimationPoint',
-    'AttackDamageMax',
-    'AttackDamageMin',
-    'AttackRange',
-    'AttackRate',
-    'AttributeAgilityGain',
-    'AttributeBaseAgility',
-    'AttributeBaseIntelligence',
-    'AttributeBaseStrength',
-    'AttributeIntelligenceGain',
-    'AttributeStrengthGain',
-    'MovementSpeed',
-    'MovementTurnRate',
- ]
-primaries = {
-    'DOTA_ATTRIBUTE_AGILITY', 'DOTA_ATTRIBUTE_STRENGTH',
-    'DOTA_ATTRIBUTE_INTELLECT',
-}
-laning_keys = [
-    'RequiresFarm',
-    'RequiresSetup',
-    'RequiresBabysit',
-    'ProvidesSetup',
-    'SoloDesire',
-    'SurvivalRating',
-    'ProvidesBabysit'
-]
-all_roles = ['Disabler', 'Nuker', 'Escape', 'Durable', 'Initiator', 'Pusher',
-         'Support', 'Jungler', 'Carry']
-all_heroes_types = ['DOTA_BOT_PUSH_SUPPORT', 'DOTA_BOT_STUN_SUPPORT',
-                    'DOTA_BOT_SEMI_CARRY', 'DOTA_BOT_HARD_CARRY',
-                    'DOTA_BOT_NUKER', 'DOTA_BOT_TANK',
-                    'DOTA_BOT_PURE_SUPPORT', 'DOTA_BOT_GANKER']
-
-
-def camel2python(inp):
-    ''' Converts camel style string to lower case with unders.
-
-        Args:
-            inp (string): string to be converted
-
-        Returns:
-            string: result
-    '''
-
-    # split string into pieces started with capital letter
-    words = re.findall(r'[A-Z][a-z]+', inp)
-    result = '_'.join([word.lower() for word in words])
-
-    return result
-
 
 class Hero(Member):
     ''' Representation of single Hero.
@@ -318,3 +263,59 @@ class Hero(Member):
         attributes = pd.Series(attributes).fillna(value=0)
 
         return attributes
+
+
+mapper = inspect(HeroModel)
+attributes_list = [
+    'ArmorPhysical',
+    'AttackAcquisitionRange',
+    'AttackAnimationPoint',
+    'AttackDamageMax',
+    'AttackDamageMin',
+    'AttackRange',
+    'AttackRate',
+    'AttributeAgilityGain',
+    'AttributeBaseAgility',
+    'AttributeBaseIntelligence',
+    'AttributeBaseStrength',
+    'AttributeIntelligenceGain',
+    'AttributeStrengthGain',
+    'MovementSpeed',
+    'MovementTurnRate',
+ ]
+primaries = {
+    'DOTA_ATTRIBUTE_AGILITY', 'DOTA_ATTRIBUTE_STRENGTH',
+    'DOTA_ATTRIBUTE_INTELLECT',
+}
+laning_keys = [
+    'RequiresFarm',
+    'RequiresSetup',
+    'RequiresBabysit',
+    'ProvidesSetup',
+    'SoloDesire',
+    'SurvivalRating',
+    'ProvidesBabysit'
+]
+all_roles = ['Disabler', 'Nuker', 'Escape', 'Durable', 'Initiator', 'Pusher',
+         'Support', 'Jungler', 'Carry']
+all_heroes_types = ['DOTA_BOT_PUSH_SUPPORT', 'DOTA_BOT_STUN_SUPPORT',
+                    'DOTA_BOT_SEMI_CARRY', 'DOTA_BOT_HARD_CARRY',
+                    'DOTA_BOT_NUKER', 'DOTA_BOT_TANK',
+                    'DOTA_BOT_PURE_SUPPORT', 'DOTA_BOT_GANKER']
+
+
+def camel2python(inp):
+    ''' Converts camel style string to lower case with unders.
+
+        Args:
+            inp (string): string to be converted
+
+        Returns:
+            string: result
+    '''
+
+    # split string into pieces started with capital letter
+    words = re.findall(r'[A-Z][a-z]+', inp)
+    result = '_'.join([word.lower() for word in words])
+
+    return result

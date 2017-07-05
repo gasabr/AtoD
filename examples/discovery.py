@@ -8,5 +8,6 @@ from atod import Hero
 
 
 if __name__ == '__main__':
-    am = Hero(1)
-    am.get_description(['laning'])
+    axe = Hero(1)
+    d = axe.abilities[1].get_description(['specs'])
+    print(d['name'])

@@ -98,8 +98,20 @@ class Ability(Member):
             
         '''
 
+        descriptions = list()
+
+        for field in include:
+            if field == 'labels':
+                descriptions.append(self._get_labels())
+            elif field == 'specs':
+                descriptions.append(self._get_specs())
+            elif field == 'texts':
+                descriptions.append(self._get_texts())
+            else:
+                print('{} is not one of possible descriptions.'.format(field))
+
         # merge specs with labels
-        series = pd.concat([specs, labels], axis=0)
+        series = pd.concat(descriptions, axis=0)
 
         return series
 
@@ -109,40 +121,29 @@ class Ability(Member):
         result = query.filter(self.model.ID == self.id).first()
         bin_labels = self._extract_properties(result)
         labels = pd.Series({'label_' + k: v for k, v in bin_labels.items()
-                            if k != 'name' and k != 'HeroID'})
+                            if k != 'name' and k != 'HeroID'
+                            and k != 'patch' and k != 'index'})
         labels['id'] = self.id
         labels['name'] = self.name
 
         return labels
 
-    def _get_specs(self, include=[]):
+    def _get_specs(self):
         ''' Returns specs of this ability.
-
-        Args:
-            include (list of strings, default=[]): columns that should be
-                included.
 
         Results:
             pd.DataFrame: data with fields from include for this ability.
 
         '''
 
-        columns = [getattr(AbilitySpecsModel, col) for col in include]
-
-        if columns:
-            query = session.query(*columns)
-        else:
-            query = session.query(AbilitySpecsModel)
+        query = session.query(AbilitySpecsModel)
 
         if self.lvl == 0:
             # get stats for all lvls
             lvls = query.filter(AbilitySpecsModel.ID == self.id).all()
             # create DataFrame from lvls data
-            try:
-                all_specs = pd.DataFrame([p.__dict__ for p in lvls])
-            except AttributeError:
-                named_columns = [dict(zip(columns, p)) for p in lvls]
-                all_specs = pd.DataFrame(named_columns)
+            all_specs = pd.DataFrame([p.__dict__ for p in lvls])
+
             # split DataFrame to text and numbers columns
             # average numeric part
             num_part = all_specs.select_dtypes(exclude=[object]).mean()
@@ -155,12 +156,14 @@ class Ability(Member):
         else:
             # get specs for defined lvl
             query = query.filter(AbilitySpecsModel.ID == self.id)
+
             lvl_specs = query.filter(AbilitySpecsModel.lvl == self.lvl)
             lvl_specs = lvl_specs.first()
+
             specs = pd.Series(lvl_specs.__dict__)
 
         if 'HeroID' in specs:
-            specs = specs.drop(['HeroID'])
+            specs = specs.drop(['HeroID', 'patch', 'index'])
 
         return specs
 
@@ -168,15 +171,18 @@ class Ability(Member):
         ''' Gets all the records in abilities_texts table for this ability.
 
             Returns:
-                pd.Series: index contain columns of abilities_texts table.
-                    Can be empty, if this ability is not represented in texts
-                    table.
+                pd.Series: containing id, description, lore, name, notes and
+                    others fields. Will be completely empty, if this ability 
+                    is not represented in texts table.
         '''
 
         query = session.query(AbilityTextsModel)
-        texts_row = query.filter(AbilityTextsModel.id == self.id).first()
+        texts_row = query.filter(AbilityTextsModel.ID == self.id).first()
 
         if texts_row is None:
             return pd.Series([])
         else:
-            return pd.Series(texts_row)
+            result = pd.Series(texts_row.__dict__)
+            result = result.drop(['_sa_instance_state'])
+
+            return result

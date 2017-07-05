@@ -36,6 +36,25 @@ class Abilities(Group):
 
         return cls(members_)
 
+    def get_description(self, include):
+        '''
+        Possible options for `include`:
+        * labels
+        * specs
+        
+        You can't get texts with this function, because it would break idea:
+        this function is to get information about *all* members combined, but
+        if you want to get independent info for each member - call desired
+        function on each member.
+        
+        Args:
+            include: list
+        
+        Returns:
+
+        '''
+        pass
+
     def get_list(self, include: list):
         ''' Returns information about members in the form: row is a member.
 

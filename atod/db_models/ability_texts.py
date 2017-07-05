@@ -23,4 +23,4 @@ class AbilityTextsModel(Base):
             self.attrs.add(key)
 
     def __repr__(self):
-        return '<AbilitySpecs name={}, lvl={}>'.format(self.name, self.lvl)
+        return '<AbilityTexts name={}>'.format(self.name)

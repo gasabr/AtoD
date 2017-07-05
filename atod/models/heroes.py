@@ -6,9 +6,6 @@ from atod.db_models.hero import HeroModel
 from atod.models.interfaces import Group
 
 
-# TODO: move this function to mo appropriate place
-
-
 class Heroes(Group):
 
     member_type = Hero
