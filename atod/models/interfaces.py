@@ -4,32 +4,32 @@ import pandas as pd
 class Member:
     ''' The parent class for all the single elements.
 
-        Attributes:
-            model (sqlalchemy.ext.declarative.api.DeclarativeMeta):
-                SQlAlchemy based model which represents table in the db.
-            id (int)  : unique identifier among other members.
+    Attributes:
+        model (sqlalchemy.ext.declarative.api.DeclarativeMeta):
+            SQlAlchemy based model which represents table in the db.
+        id (int)   : unique identifier among other members.
+        lvl (int)  : level of a member
+        patch (str): patch for which data should be provided
     '''
 
     model = None
 
-    def __init__(self, id_):
+    def __init__(self, id_, lvl, patch):
         ''' Only initialise necessary attributes for any member. '''
         self.id = id_
+        self.lvl = lvl
+        self.patch = patch
 
     def get_description(self):
-        ''' Returns a object as a pd.Series.
-
-            Returns:
-                vector (pandas.Series): representation of the object
-
-        '''
+        ''' Returns description of an object as a pd.Series. '''
         pass
 
     def _valid_arg_types(self, id_, lvl, patch):
         ''' Checks validness of arguments types. 
         
-        Raises TypeError with all the info in message, if any of arguments
-        has incorrect type.
+        Raises:
+             TypeError: with all the info in message, if any of arguments
+                has incorrect type.
         '''
         # check types of arguments
         if not isinstance(id_, int):
@@ -43,9 +43,9 @@ class Member:
 class Group:
     ''' Represents abstract set of members.
 
-        Attributes:
-            member_type (class): the type of member
-            members (list)     : list of objects of class `member_type`
+    Attributes:
+        member_type (class): the type of member
+        members (list)     : list of objects of class `member_type`
     '''
 
     member_type = Member
@@ -71,16 +71,10 @@ class Group:
         ''' Creates object with all possible members. '''
         pass
 
-    def remove(self, member_name):
-        pass
-
-    def compare(self):
-        ''' Compare items. '''
-        pass
-
     def get_list(self):
         ''' Combines all members in one data structure. '''
-        data = pd.DataFrame([p.get_description() for p in self.members],
+        data = pd.DataFrame([p.get_description(['name', 'id'])
+                             for p in self.members],
                             index=[p.name for p in self.members])
 
         return data
@@ -88,9 +82,6 @@ class Group:
     def get_summary(self):
         ''' Adds properties of all the members and returns result. '''
         pass
-
-    def __getitem__(self, item):
-        return self.members[item]
 
     def __len__(self):
         return len(self.members)
