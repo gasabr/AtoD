@@ -4,12 +4,10 @@
     data, for example amount of abilities, heroes...
 '''
 
-from atod import Match
-from atod.db import session
-from atod.db_models import HeroModel
+from atod import Hero
 
 
 if __name__ == '__main__':
-    match_id = 1000193456
-    match = Match(match_id)
-    print(match.get_description(include=['laning', 'type']))
+    axe = Hero(1)
+    d = axe.abilities[1].get_description(['specs'])
+    print(d['name'])
