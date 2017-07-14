@@ -42,7 +42,7 @@ class Ability(Member):
             class_name = self.__class__.__name__
             raise ValueError('Please set up model for {}', format(class_name))
 
-        # get information from the database if patch is not specified 
+        # get information from the database if patch is not specified
         if patch == '':
             current_patch = meta_info.patch
             res = session.query(self.model).filter(
@@ -89,13 +89,15 @@ class Ability(Member):
             * labels
             * specs
             * texts
+            * name
+            * id
 
         Args:
             include: list of fields which should be included in description.
 
         Returns:
             pd.DataFrame: description with requested fields.
-            
+
         '''
 
         descriptions = list()
@@ -107,10 +109,14 @@ class Ability(Member):
                 descriptions.append(self._get_specs())
             elif field == 'texts':
                 descriptions.append(self._get_texts())
+            elif field == 'name':
+                descriptions.append(pd.Series([self.name]))
+            elif field == 'id':
+                descriptions.append(pd.Series([self.id]))
             else:
                 print('{} is not one of possible descriptions.'.format(field))
 
-        # merge all descriptions 
+        # merge all descriptions
         series = pd.concat(descriptions, axis=0)
 
         return series
@@ -123,8 +129,6 @@ class Ability(Member):
         labels = pd.Series({'label_' + k: v for k, v in bin_labels.items()
                             if k != 'name' and k != 'HeroID'
                             and k != 'patch' and k != 'index'})
-        labels['id'] = self.id
-        labels['name'] = self.name
 
         return labels
 
@@ -172,7 +176,7 @@ class Ability(Member):
 
             Returns:
                 pd.Series: containing id, description, lore, name, notes and
-                    others fields. Will be completely empty, if this ability 
+                    others fields. Will be completely empty, if this ability
                     is not represented in texts table.
         '''
 

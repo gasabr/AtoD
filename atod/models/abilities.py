@@ -36,101 +36,16 @@ class Abilities(Group):
 
         return cls(members_)
 
-    def get_description(self, include):
-        '''
-        Possible options for `include`:
-        * labels
-        * specs
-        
-        You can't get texts with this function, because it would break idea:
-        this function is to get information about *all* members combined, but
-        if you want to get independent info for each member - call desired
-        function on each member.
-        
-        Args:
-            include: list
-        
-        Returns:
+    def get_description(self):
+        ''' Returns sum of abilities labels. '''
 
-        '''
-        pass
 
-    def get_list(self, include: list):
-        ''' Returns information about members in the form: row is a member.
+        # add all labels to one DataFrame
+        labels = pd.DataFrame([m.get_description(['labels'])
+                               for m in self.members])
 
-            'List' because descriptions are just concatenated with each other,
-            but not summed by any means.
+        # sum columns in the DataFrame
+        labels_summary = pd.Series([sum(labels[c])
+                                    for c in labels.columns])
 
-            Returns:
-                pd.DataFrame: shape=(len(self.members),
-                    len(<member description>)). Rows are abilities, columns -
-                    their properties. Labels columns names start with
-                    'label_'.
-        '''
-
-        # get all descriptions
-        descriptions = [m.get_description(include) for m in self.members]
-
-        return pd.DataFrame(descriptions, columns=descriptions[0].index,
-                            index=None)
-
-    def get_specs_list(self, include=[]):
-        ''' Returns list of all member's descriptions (ONLY specs part).
-
-            Returns:
-                pd.DataFrame: shape=(len(members), len(<member description>)).
-                    Rows are abilities, columns - their properties.
-                    Labels columns names start with 'label_'.
-        '''
-
-        # get all descriptions
-        descriptions = [m.get_specs(include) for m in self.members]
-
-        return pd.DataFrame(descriptions, columns=descriptions[0].index,
-                            index=None)
-
-    def get_labels_list(self):
-        ''' Returns list of all member's descriptions (ONLY specs part).
-
-            Returns:
-                pd.DataFrame: shape=(len(members), len(<member description>)).
-                    Rows are abilities, columns - their properties.
-                    Labels columns names start with 'label_'.
-        '''
-
-        # get all descriptions
-        descriptions = [m.get_labels() for m in self.members]
-
-        return pd.DataFrame(descriptions, columns=descriptions[0].index)
-
-    def get_texts(self):
-        ''' Returns:
-                pd.DataFrame: texts of abilities in DataFrame.
-        '''
-
-        # get members ids
-        members_ids = [m.id for m in self.members]
-        # get all texts
-        all_texts = session.query(AbilityTextsModel).all()
-        # find texts for members by ids
-        members_texts = [row for row in all_texts
-                         if any(map(lambda x: row.ID == x, members_ids))]
-
-        # create DataFrame from chosen rows
-        texts = pd.DataFrame([m.__dict__ for m in members_texts])
-        texts = texts.drop(['_sa_instance_state'], axis=1)
-
-        return texts
-
-    def get_summary(self):
-        ''' Sums up all labels of members (they are binary decoded).
-
-            Returns:
-                pd.Series:
-        '''
-
-        labels_list = self.get_labels_list()
-        summary = labels_list.sum(axis=0)
-        del summary['name']
-
-        return summary
+        return labels_summary
