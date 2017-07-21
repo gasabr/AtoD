@@ -8,6 +8,6 @@ from atod import Hero
 
 
 if __name__ == '__main__':
-    axe = Hero(1)
-    d = axe.abilities[1].get_description(['specs'])
-    print(d['name'])
+    axe = Hero(2)
+    a = [a.get_description(['texts']) for a in axe.abilities]
+    print(a)

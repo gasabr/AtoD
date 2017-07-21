@@ -37,6 +37,8 @@ class Hero(Member):
             id_ (int): hero's id in the game, API responses store the same
             lvl (int): desired level of the hero
             patch (str): same as version of the game
+            name (str) : hero's name
+            in_game_name(str): in-game hero's name (used in game console)
 
         Raises:
             see Member._valid_arg_types() for info.
@@ -55,7 +57,10 @@ class Hero(Member):
             specs = query.filter(self.model.HeroID == id_,
                                  self.model.patch == patch).first()
 
-        super().__init__(specs.HeroID)
+        if specs is None:
+            raise ValueError('No hero with id {}'.format(id_))
+
+        super().__init__(specs.HeroID, lvl, patch)
 
         self.name = specs.name
         self.in_game_name = specs.in_game_name

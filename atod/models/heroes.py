@@ -15,11 +15,7 @@ class Heroes(Group):
         ''' Creates Heroes object from list of ids. '''
         members_ = list()
         for id_ in ids:
-            try:
-                members_.append(cls.member_type(id_, patch=patch))
-            # XXX: can not create abilities for hero with HeroID == 16
-            except ValueError as e:
-                print(e)
+            members_.append(cls.member_type(id_, patch=patch))
 
         return cls(members_)
 
@@ -31,15 +27,11 @@ class Heroes(Group):
 
         members_ = list()
         for id_ in ids:
-            try:
-                members_.append(cls.member_type(id_, patch=patch))
-            # XXX: can not create abilities for hero with HeroID == 16
-            except ValueError as e:
-                print(e)
+            members_.append(cls.member_type(id_, patch=patch))
 
         return cls(members_)
 
-    def get_summary(self, include):
+    def get_description(include):
         ''' Sums up heroes descriptions in included categories.
 
         Notes:

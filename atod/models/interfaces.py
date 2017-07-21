@@ -62,6 +62,10 @@ class Group:
             assert type(m), self.member_type
             self.members.append(m)
 
+    def __iter__(self):
+        for m in self.members:
+            yield m
+
     def add(self, member):
         assert type(member), self.member_type
         self.members.append(member)

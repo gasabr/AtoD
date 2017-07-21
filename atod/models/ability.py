@@ -37,12 +37,12 @@ class Ability(Member):
         if lvl < 0 or lvl > 10:
             raise ValueError('Level should be in range [0, 10]')
 
-        # check if user has set up model attribute
+        # check if model attrubute is set up
         if self.model is None:
             class_name = self.__class__.__name__
             raise ValueError('Please set up model for {}', format(class_name))
 
-        # search row in model where id equal to id_
+        # get information from the database if patch is not specified
         if patch == '':
             current_patch = meta_info.patch
             res = session.query(self.model).filter(
@@ -57,7 +57,7 @@ class Ability(Member):
             raise ValueError('There is no ability with id {}'.format(id_))
 
         # init super class
-        super().__init__(res.ID)
+        super().__init__(res.ID, lvl, patch)
         self.name = res.name
         self.lvl = lvl
 
@@ -89,13 +89,15 @@ class Ability(Member):
             * labels
             * specs
             * texts
+            * name
+            * id
 
         Args:
             include: list of fields which should be included in description.
 
         Returns:
             pd.DataFrame: description with requested fields.
-            
+
         '''
 
         descriptions = list()
@@ -107,10 +109,14 @@ class Ability(Member):
                 descriptions.append(self._get_specs())
             elif field == 'texts':
                 descriptions.append(self._get_texts())
+            elif field == 'name':
+                descriptions.append(pd.Series([self.name]))
+            elif field == 'id':
+                descriptions.append(pd.Series([self.id]))
             else:
                 print('{} is not one of possible descriptions.'.format(field))
 
-        # merge specs with labels
+        # merge all descriptions
         series = pd.concat(descriptions, axis=0)
 
         return series
@@ -123,8 +129,6 @@ class Ability(Member):
         labels = pd.Series({'label_' + k: v for k, v in bin_labels.items()
                             if k != 'name' and k != 'HeroID'
                             and k != 'patch' and k != 'index'})
-        labels['id'] = self.id
-        labels['name'] = self.name
 
         return labels
 
@@ -172,7 +176,7 @@ class Ability(Member):
 
             Returns:
                 pd.Series: containing id, description, lore, name, notes and
-                    others fields. Will be completely empty, if this ability 
+                    others fields. Will be completely empty, if this ability
                     is not represented in texts table.
         '''
 
