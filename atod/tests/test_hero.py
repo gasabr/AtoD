@@ -27,6 +27,8 @@ class TestHero(unittest.TestCase):
         self.assertRaises(TypeError, self.sf_1.get_description)
         # test if `include` does not contain any of possible fields
         self.assertRaises(ValueError, self.sf_1.get_description, ['asd'])
+        # empty include list
+        self.assertRaises(ValueError, self.sf_1.get_description, [])
         # test if one of the `include`d is possible and one is not
         self.assertEqual((1,),
                          self.sf_1.get_description(['name', 'asd']).shape)
