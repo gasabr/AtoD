@@ -10,8 +10,6 @@ BASE_FOLDER = path.dirname(path.abspath(__file__))
 DATA_FOLDER = path.join(BASE_FOLDER, 'data/')
 TESTS_DATA_FOLDER = path.join(BASE_FOLDER, 'tests/tests_data/')
 
-NPC_PATH = '/Users/gasabr/Library/Application Support/Steam/steamapps/common/dota 2 beta/game/dota/scripts'
-
 # from game files with data
 ABILITIES_CHANGES_FILE  = path.join(DATA_FOLDER, 'abilities_changes.json')
 CONVERTER_FILE  = path.join(DATA_FOLDER, 'in_game_converter.json')

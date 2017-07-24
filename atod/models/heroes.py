@@ -20,6 +20,15 @@ class Heroes(Group):
         return cls(members_)
 
     @classmethod
+    def from_names(cls, names: list, patch=''):
+        ''' Creates Heroes object from list of names. '''
+        members_ = list()
+        for name in names:
+            members_.append(Hero.from_name(name, patch=patch))
+
+        return cls(members_)
+
+    @classmethod
     def all(cls, patch=''):
         ''' Creates Heroes object with all heroes in the game.'''
         member_model = cls.member_type.model

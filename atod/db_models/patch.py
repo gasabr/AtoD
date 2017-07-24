@@ -10,7 +10,9 @@ class PatchModel(Base):
     name    = Column(name='name', type_=String)
     created = Column(name='created', type_=DateTime)
 
-    __table__ = Table('patches', Base.metadata, pk, name, created)
+    __table__ = Table('patches', Base.metadata, 
+                      pk, name, created,
+                      extend_existing=True)
 
     def __init__(self, name):
         self.name = name

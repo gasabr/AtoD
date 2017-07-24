@@ -70,7 +70,11 @@ class Hero(Member):
 
         self.lvl = lvl
         self.specs = specs.__dict__
-        self.abilities = Abilities.from_hero_id(self.id)
+        try:
+            self.abilities = Abilities.from_hero_id(self.id, patch)
+        except ValueError:
+            print('Known bug: hero with id '
+                  '{} does not have abilities in db.'.format(self.id))
 
     @classmethod
     def from_name(cls, name, lvl=1, patch=''):
@@ -83,7 +87,14 @@ class Hero(Member):
 
         Raises:
             ValueError: if `name` is not in heroes.name column
+            TypeError : if `name` is not str
+            Also can raise same as __init__() for the same reasons.
         '''
+
+        # valid name, everything else will be checked in init function
+        if not isinstance(name, str):
+            raise TypeError('Name should be `str`,'
+                            'got {} instead'.format(type(name)))
 
         query = session.query(HeroModel.HeroID)
         try:
