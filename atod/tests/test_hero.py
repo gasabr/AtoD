@@ -14,13 +14,21 @@ class TestHero(unittest.TestCase):
 
     def test_init(self):
         ''' Tests different ways to create hero. '''
+        # default init function takes id (int), lvl (int), patch(str)
+        # there are examples of wrong usage
         self.assertRaises(TypeError, Hero, 'Earthshaker')
         self.assertRaises(TypeError, Hero, 11, 1.0)
         self.assertRaises(TypeError, Hero, 11, 5, 706)
 
-        # test creation of the Hero from name
-        # misspeled name
+    def test_from_name(self):
+        # create hero from valid name
+        Hero.from_name('Underlord')
+
+        # test creation of the Hero from misspelled name
         self.assertRaises(ValueError, Hero.from_name, 'Antimage')
+
+        # call with non-string, just in case
+        self.assertRaises(TypeError, Hero.from_name, 4)
 
     def test_get_description(self):
         # call with empty include argument
@@ -34,8 +42,8 @@ class TestHero(unittest.TestCase):
                          self.sf_1.get_description(['name', 'asd']).shape)
 
     def test_patches(self):
-        ''' Tests that hero reads only data from needed patch. 
-        
+        ''' Tests that hero reads only data from needed patch.
+
         If there are some patches in table, Hero should contain only one set
         of abilities assigned with the right patch.
         '''
