@@ -1,11 +1,13 @@
 ''' This file serves db_content.py  '''
 import json
+from sqlalchemy.orm import sessionmaker, scoped_session
 
 # this are for parse_skill_name()
-from atod.db import session
+from atod.db import engine
 from atod.db_models.hero import HeroModel
 from atod.utils import dictionary
 
+session = scoped_session(sessionmaker(bind=engine))
 
 # FIXME: write heroes_base_info table to fix note of parse_skill_name().
 
@@ -17,7 +19,7 @@ def heroes_to_rows(heroes_dict, schema):
         so this function parses file to get the needed attributes.
 
         Args:
-            heroes_dict (dict)  : parsed to dict npc_heroes.txt 
+            heroes_dict (dict)  : parsed to dict npc_heroes.txt
             schema (list of str): fields what should be extracted from file
 
         Yields:
@@ -145,15 +147,15 @@ def get_types(abilities):
 
 def ability_to_row(description, schema):
     ''' Transforms ability description to database row.
-     
+
         This function produce descriptions for all levels of ability from
-        its description. 
-    
+        its description.
+
         Args:
             description (dict): mapping property of ability to its values
             schema (list of strings): fields that should be extracted from
                 the description
-            
+
         Yields:
             dict: mapping of properties to its values on some level. Level is
                 added to result (as 'lvl' key).
@@ -194,17 +196,17 @@ def ability_to_row(description, schema):
 
 def parse_skill_name(skill):
     ''' Splits skill name from game to hero name and skill name.
-    
+
         In-game files store skills names as <hero>_<skill>, this function
         parses this representation to the names of the hero and of the skill.
-        
+
         Notes:
-            For this function to work heroes table for current version should 
+            For this function to work heroes table for current version should
             be created.
-        
+
         Args:
             skill (str): skills names from in-game files
-            
+
         Returns:
             parsed (hero, skill_name):
     '''
@@ -221,14 +223,14 @@ def parse_skill_name(skill):
 
 def binarize_labels(labels, schema):
     ''' Binarize abilities labels.
-    
+
         Creates a dictionary which maps schema to labels, fills unmarked
         labels with 0.
-    
+
         Args:
             labels (iterable): numbers of marked labels
             schema (iterable): keys in result dictionary
-            
+
         Returns:
             binary (dict): mapping of schema to labels
     '''

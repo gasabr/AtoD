@@ -1,9 +1,12 @@
 import pandas as pd
+from sqlalchemy.orm import sessionmaker, scoped_session
 
 from atod import Hero
-from atod.db import session
+from atod.db import engine
 from atod.db_models.hero import HeroModel
 from atod.models.interfaces import Group
+
+session = scoped_session(sessionmaker(bind=engine))
 
 
 class Heroes(Group):

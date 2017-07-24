@@ -1,7 +1,10 @@
 import unittest
+from sqlalchemy.orm import sessionmaker, scoped_session
 
-from atod.db import session
+from atod.db import engine
 from atod.db_models.hero import HeroModel
+
+session = scoped_session(sessionmaker(bind=engine))
 
 
 class MyTestCase(unittest.TestCase):

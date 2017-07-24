@@ -1,10 +1,13 @@
 import pandas as pd
+from sqlalchemy.orm import sessionmaker, scoped_session
 
 from atod import Ability
-from atod.db import session
+from atod.db import engine
 from atod.db_models.ability import AbilityModel
 from atod.db_models.ability_texts import AbilityTextsModel
 from atod.models.interfaces import Group
+
+session = scoped_session(sessionmaker(bind=engine))
 
 
 class Abilities(Group):

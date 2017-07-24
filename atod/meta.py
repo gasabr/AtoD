@@ -1,5 +1,10 @@
-from atod.db import session, create_tables
+from sqlalchemy.orm import sessionmaker, scoped_session
+
+from atod.db import engine, create_tables
 from atod.db_models.patch import PatchModel
+
+session = scoped_session(sessionmaker(bind=engine))
+
 
 class Meta(object):
     ''' Class stores meta information about versions. '''

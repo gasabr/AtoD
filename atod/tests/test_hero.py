@@ -50,6 +50,11 @@ class TestHero(unittest.TestCase):
 
         self.assertEqual(len(self.sf_1.abilities), 6)
 
+    def test_primary_attribute(self):
+        self.assertEqual(self.sf_1.primary_attribute, 'agility')
+        self.assertEqual(Hero(1).primary_attribute, 'agility')
+        self.assertEqual(Hero(2).primary_attribute, 'strength')
+
     def test_camel2python(self):
         test_data = {'PrimaryAttribute': 'primary_attribute',}
 
