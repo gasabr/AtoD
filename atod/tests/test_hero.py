@@ -24,6 +24,9 @@ class TestHero(unittest.TestCase):
         # create hero from valid name
         Hero.from_name('Underlord')
 
+        # creation from the in_game_name should be valid too
+        Hero.from_name('antimage')
+
         # test creation of the Hero from misspelled name
         self.assertRaises(ValueError, Hero.from_name, 'Antimage')
 
@@ -49,6 +52,11 @@ class TestHero(unittest.TestCase):
         '''
 
         self.assertEqual(len(self.sf_1.abilities), 6)
+
+    def test_primary_attribute(self):
+        self.assertEqual(self.sf_1.primary_attribute, 'agility')
+        self.assertEqual(Hero(1).primary_attribute, 'agility')
+        self.assertEqual(Hero(2).primary_attribute, 'strength')
 
     def test_camel2python(self):
         test_data = {'PrimaryAttribute': 'primary_attribute',}

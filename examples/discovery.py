@@ -5,9 +5,13 @@
 '''
 
 from atod import Hero
+from atod.utils.pick import get_recommendations
 
 
 if __name__ == '__main__':
-    axe = Hero(2)
-    a = [a.get_description(['texts']) for a in axe.abilities]
-    print(a)
+    request = {
+        'ban': ['bane', 'slark', 'lina', 'meepo'],
+        'pick': ['elder_titan', 'alchemist'],
+        'against': ['axe', 'phoenix']}
+
+    a = get_recommendations(**request)

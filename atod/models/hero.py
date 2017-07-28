@@ -1,11 +1,13 @@
 import re
-
 import pandas as pd
 from sqlalchemy import inspect
+from sqlalchemy.orm import scoped_session, sessionmaker
 
 from atod import Member, meta_info, Abilities
-from atod.db import session
+from atod.db import engine
 from atod.db_models.hero import HeroModel
+
+session = scoped_session(sessionmaker(bind=engine))
 
 
 class Hero(Member):
@@ -98,7 +100,13 @@ class Hero(Member):
 
         query = session.query(HeroModel.HeroID)
         try:
-            hero_id = query.filter(cls.model.name == name).first()[0]
+            hero_id_ = query.filter(cls.model.name == name).first()
+            # try to search hero for in_game_name if the name aws not found
+            if hero_id_ is None:
+                hero_id_ = query.filter(cls.model.in_game_name == name).first()
+            
+            hero_id = hero_id_[0] 
+
             return cls(hero_id, lvl, patch)
 
         except TypeError:
@@ -120,6 +128,9 @@ class Hero(Member):
 
         '''
 
+        if not isinstance(include, list):
+            raise TypeError('`include` should be list.')
+
         description = list()
 
         for field in include:
@@ -140,12 +151,23 @@ class Hero(Member):
 
         if len(description) == 0:
             raise ValueError('include argument should contain at least'
-                             'one of the ["name", "id", "laning",'
+                             'one of the ["name", "id", "laning", '
                              '"roles", "type", "attributes"]')
 
         return pd.concat(description)
 
     # properties
+    @property
+    def primary_attribute(self):
+        ''' Returns primary attribute as string in lower case. '''
+        primaries = session.query(HeroModel.AttributePrimary)
+        hero_primary = primaries.filter(HeroModel.HeroID == self.id).first()[0]
+
+        prefix = 'DOTA_ATTRIBUTE_'
+        hero_primary = hero_primary[len(prefix):].lower()
+
+        return hero_primary
+
     @property
     def str(self):
         return int(self.specs['AttributeBaseStrength'] + \

@@ -7,7 +7,7 @@ def read(fname):
 
 setup(
     name = "AtoD",
-    version = "0.0.2",
+    version = "0.0.5",
     author = "Abroskin Gleb",
     author_email = "abroskingleb@gmail.com",
     description = ("Easy access to DotA2 internal data."),

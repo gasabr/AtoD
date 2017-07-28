@@ -10,5 +10,3 @@ engine = create_engine('sqlite:///' + settings.DB_PATH)
 
 Base = declarative_base()
 Session = sessionmaker(bind=engine)
-
-session = Session()
