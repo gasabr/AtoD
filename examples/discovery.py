@@ -15,3 +15,4 @@ if __name__ == '__main__':
         'against': ['axe', 'phoenix']}
 
     a = get_recommendations(**request)
+    print(a)

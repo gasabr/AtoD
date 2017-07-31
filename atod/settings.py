@@ -13,6 +13,7 @@ TESTS_DATA_FOLDER = path.join(BASE_FOLDER, 'tests/tests_data/')
 # from game files with data
 ABILITIES_CHANGES_FILE  = path.join(DATA_FOLDER, 'abilities_changes.json')
 CONVERTER_FILE  = path.join(DATA_FOLDER, 'in_game_converter.json')
+MATCHES_FILE = path.join(DATA_FOLDER, 'matches.json')
 
 # ============================================================================
 # DataBase settings

@@ -1,0 +1,14 @@
+SELECT
+matches.match_id,
+((player_matches.player_slot < 128) = matches.radiant_win) win,
+player_matches.hero_id,
+player_matches.account_id,
+match_patch.patch
+FROM matches
+JOIN match_patch using(match_id)
+JOIN player_matches using(match_id)
+JOIN heroes on heroes.id = player_matches.hero_id
+LEFT JOIN notable_players ON notable_players.account_id = player_matches.account_id AND notable_players.locked_until = (SELECT MAX(locked_until) FROM notable_players)
+LEFT JOIN teams using(team_id)
+WHERE TRUE
+ORDER BY matches.match_id DESC NULLS LAST 
