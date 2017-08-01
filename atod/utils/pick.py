@@ -157,22 +157,22 @@ def _get_recommendation(pick, against=[], ban=[]):
         better it is as a pick.
 
     Args:
-        pick (list)   : already picked heroes
-        againts (list): heroes against which pick is playing
-        ban (list)    : heroes that cannot be used
+        pick (atod.Heroes)   : already picked heroes
+        againts (atod.Heroes): heroes against which pick is playing
+        ban (atod.Heroes)    : heroes that cannot be used
 
     Returns:
-        str: name of the best hero to pick given allies, banned heroes and
+        atod.Hero: name of the best hero to pick given allies, banned heroes and
             opponents.
     '''
 
     best_connection = -100
-    next_pick = 0
+    best_hero_id = 0
 
     # transform lists of names to the lists of ids
-    pick_ids = list(Heroes.from_names(pick).get_ids())
-    ban_ids  = list(Heroes.from_names(ban).get_ids())
-    against_ids = list(Heroes.from_names(against).get_ids())
+    pick_ids = list(pick.get_ids())
+    ban_ids  = list(ban.get_ids())
+    against_ids = list(against.get_ids())
 
     winrates, loserates = _get_win_lose_rates(settings.MATCHES_FILE)
 
@@ -190,11 +190,11 @@ def _get_recommendation(pick, against=[], ban=[]):
                 total_connection -= loserates.loc[next_hero_id][enemy]
 
             if total_connection > best_connection:
-                best_hero = next_hero_id
+                best_hero_id = next_hero_id
                 best_connection = total_connection
 
-    best_hero_name = Hero(best_hero.item()).name
-    return best_hero_name
+    best_hero = Hero(best_hero_id.item())
+    return best_hero
 
 
 def get_recommendations(pick, against=[], ban=[]):
@@ -208,11 +208,20 @@ def get_recommendations(pick, against=[], ban=[]):
 
     Returns:
         (list): heroes that will fit the best for the next pick for `pick`.
-    '''
-    recommendations = []
-    while (len(recommendations) < 5):
-        a = _get_recommendation(pick, against, ban)
-        recommendations.append(a)
-        ban.append(a)
 
-    return recommendations
+    '''
+
+    # create Heroes objects for arguments
+    pick_heroes = Heroes.from_names(pick)
+    ban_heroes = Heroes.from_names(ban)
+    against_heroes = Heroes.from_names(against)
+
+    recommendations = list()
+    while (len(recommendations) < 5):
+        a = _get_recommendation(pick_heroes, against_heroes, ban_heroes)
+        recommendations.append(a)
+        # add hero to ban to get the next best hero
+        ban_heroes.add(a)
+
+    recommendations_names = [hero.in_game_name for hero in recommendations]
+    return recommendations_names
