@@ -7,5 +7,6 @@ AtoD.egg-info/
 dist/
 build/
 .idea/*
+*.swp
 examples/discovery.ipynb
 examples/discovery.py
