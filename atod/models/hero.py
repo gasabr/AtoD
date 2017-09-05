@@ -1,3 +1,4 @@
+import sys
 import re
 import pandas as pd
 from sqlalchemy import inspect
@@ -32,17 +33,15 @@ class Hero(Member):
     base_damage = 21
     base_armor = -1
 
-    def __init__(self, id_: int, lvl=1, patch=''):
+    def __init__(self, id_, lvl=1, patch=''):
         ''' Initializes Hero by default with level one from the last patch.
 
         Args:
             id_ (int): hero's id in the game, API responses store the same
             lvl (int): desired level of the hero
-            patch (str): same as version of the game
-            name (str) : hero's name
-            in_game_name(str): in-game hero's name (used in game console)
+            patch (str): version of the game
 
-        Raises:
+       Raises:
             see Member._valid_arg_types() for info.
         '''
 
@@ -75,8 +74,8 @@ class Hero(Member):
         try:
             self.abilities = Abilities.from_hero_id(self.id, patch)
         except ValueError:
-            print('Known bug: hero with id '
-                  '{} does not have abilities in db.'.format(self.id))
+            sys.stderr.write('\nKnown bug: hero with id '
+                  '{} does not have abilities in db.\n'.format(self.id))
 
     @classmethod
     def from_name(cls, name, lvl=1, patch=''):
@@ -90,7 +89,7 @@ class Hero(Member):
         Raises:
             ValueError: if `name` is not in heroes.name column
             TypeError : if `name` is not str
-            Also can raise same as __init__() for the same reasons.
+            Also can raise same as __init__().
         '''
 
         # valid name, everything else will be checked in init function
@@ -147,7 +146,8 @@ class Hero(Member):
             elif field == 'attributes':
                 description.append(self._get_attributes())
             else:
-                print('{} is not one of possible descriptions.'.format(field))
+                raise ValueError('{}'.format(field)
+                       + ' is invalid value in `include` parameter.')
 
         if len(description) == 0:
             raise ValueError('include argument should contain at least'
@@ -207,12 +207,13 @@ class Hero(Member):
         return '<Hero {name}, lvl={lvl}>'.format(name=self.name, lvl=self.lvl)
 
     def _get_laning(self):
-        ''' Returns:
-                pd.Series: laning info of this hero.
+        ''' 
+        Returns:
+            pd.Series: laning info of this hero.
 
-            Notes:
-                The latest heroes does not have this field, so Series filled
-                with zeroes would be returned.
+        Notes:
+            The latest heroes does not have this field, so Series filled
+            with zeroes would be returned.
         '''
         laning_info = dict()
         multi_index_keys = list()
@@ -231,12 +232,13 @@ class Hero(Member):
         return laning_info
 
     def _get_role(self):
-        ''' Returns:
-                pd.Series: role levels of this hero.
+        ''' 
+        Returns:
+            pd.Series: role levels of this hero.
 
-            Notes:
-                The latest heroes does not have this field, so Series filled
-                with zeroes would be returned.
+        Notes:
+            The latest heroes does not have this field, so Series filled
+            with zeroes would be returned.
         '''
 
         # map string roles stored in string to levels stored also in string

@@ -40,9 +40,10 @@ class TestHero(unittest.TestCase):
         self.assertRaises(ValueError, self.sf_1.get_description, ['asd'])
         # empty include list
         self.assertRaises(ValueError, self.sf_1.get_description, [])
-        # test if one of the `include`d is possible and one is not
-        self.assertEqual((1,),
-                         self.sf_1.get_description(['name', 'asd']).shape)
+        # test if one of the `include`d parameters is valid and another is not
+        self.assertRaises(
+                ValueError, 
+                self.sf_1.get_description, ['name', 'asd'])
 
     def test_patches(self):
         ''' Tests that hero reads only data from needed patch.

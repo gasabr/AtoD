@@ -44,7 +44,7 @@ class Heroes(Group):
         return cls(members_)
 
     def get_description(self, include):
-        ''' Sums up heroes descriptions in included categories.
+        ''' Sums up heroes descriptions in `include`d categories.
 
         Notes:
             'name' and 'id' will be dropped because where is no reason to
@@ -70,8 +70,9 @@ class Heroes(Group):
         return summary
 
     def get_names(self):
-        ''' Returns:
-                list: names of members.
+        ''' 
+        Returns:
+            list: names of members.
         '''
         return [m.name for m in self.members]
 
@@ -101,3 +102,4 @@ class Heroes(Group):
             return pd.Series(bin_ids)
         else:
             return pd.Series(name2id)
+

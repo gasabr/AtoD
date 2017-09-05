@@ -43,7 +43,7 @@ class Match(object):
 
         Description consist of 3 parts: radiant description, dire description
         and result. Complete length of description vector is 2n + 1, where
-        n is a lenght of side description (depends on choosen parameters).
+        n is a length of side description (depends on choosen parameters).
 
         Args:
             include (list): the same with Hero.get_description().
@@ -76,3 +76,4 @@ class Match(object):
         description = pd.Series(variables, index=index)
 
         return description
+

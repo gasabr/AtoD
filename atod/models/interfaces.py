@@ -95,3 +95,4 @@ class Group:
         info += ''.join([str(m) + ', ' for m in self.members])
         info = info + ']>'
         return info
+

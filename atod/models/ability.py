@@ -1,3 +1,5 @@
+import sys
+
 import pandas as pd
 from sqlalchemy.orm import sessionmaker, scoped_session
 
@@ -65,10 +67,17 @@ class Ability(Member):
         self.lvl = lvl
 
     def _extract_properties(self, response):
-        ''' Extracts properties from session response.
+        ''' Removes unneded keys from the dictionary.
 
-            Args:
-                response (instance of the `model`): row in db
+        Session returns some meta data: hero's name, ID and state of the
+        request this function removes such fields from result dictionary.
+
+        Args:
+            response (instance of the `model`): row in db
+
+        Returns:
+            dict: with removed key-value pairs where key is one of the:
+                'ID', 'HeroID', 'name'.
         '''
 
         bin_labels = response.__dict__.copy()
@@ -117,7 +126,8 @@ class Ability(Member):
             elif field == 'id':
                 descriptions.append(pd.Series([self.id]))
             else:
-                print('{} is not one of possible descriptions.'.format(field))
+                raise ValueError('{}'.format(field)
+                       + ' is invalid value in `include` parameter.')
 
         # merge all descriptions
         series = pd.concat(descriptions, axis=0)
