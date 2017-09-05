@@ -74,3 +74,11 @@ class TestHeroes(unittest.TestCase):
         # amount of 1s should be equal to amount of heroes in the object
         self.assertEqual(len(list(filter(lambda x: x==1, bin_ids))),
                          len(heroes))
+
+    def test_description(self):
+        names = ['Sniper', 'Lina', 'Dazzle']
+        heroes = Heroes.from_names(names)
+
+        description = heroes.get_description(['role'])
+
+        self.assertEqual((9,), description.shape)

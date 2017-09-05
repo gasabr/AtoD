@@ -43,7 +43,7 @@ class Heroes(Group):
 
         return cls(members_)
 
-    def get_description(include):
+    def get_description(self, include):
         ''' Sums up heroes descriptions in included categories.
 
         Notes:
