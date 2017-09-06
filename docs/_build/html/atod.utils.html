@@ -1,0 +1,392 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>atod.utils package &#8212; atod 0.0.8 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.8',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-atod.utils">
+<span id="atod-utils-package"></span><h1>atod.utils package<a class="headerlink" href="#module-atod.utils" title="Permalink to this headline">¶</a></h1>
+<p>There are some helpers-modules.</p>
+<p>They are not related to actual tasks – presenting data, but help to get
+it, parse, organise, update in varity of ways.</p>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-atod.utils.abilities">
+<span id="atod-utils-abilities-module"></span><h2>atod.utils.abilities module<a class="headerlink" href="#module-atod.utils.abilities" title="Permalink to this headline">¶</a></h2>
+<p>This script cleans npc_abilities.json file by:
+- removing skill name from description
+- replacing lists and with their avg value
+- merging rare properties to popular</p>
+<dl class="function">
+<dt id="atod.utils.abilities.get_cleaned_abilities">
+<code class="descclassname">atod.utils.abilities.</code><code class="descname">get_cleaned_abilities</code><span class="sig-paren">(</span><em>npc_abilities=None</em>, <em>lists_to_mean=False</em><span class="sig-paren">)</span><a class="headerlink" href="#atod.utils.abilities.get_cleaned_abilities" title="Permalink to this definition">¶</a></dt>
+<dd><p>Controls cleaning process.</p>
+<p>Function calls other functions to change skills dictionary.
+<cite>lists_to_mean</cite> is needed to simplify analysis.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>npc_abilities (dict): parsed npc_abilities.txt file
+lists_to_mean (bool): transform or not lists to mean</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="atod.utils.abilities.is_number">
+<code class="descclassname">atod.utils.abilities.</code><code class="descname">is_number</code><span class="sig-paren">(</span><em>num</em><span class="sig-paren">)</span><a class="headerlink" href="#atod.utils.abilities.is_number" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-atod.utils.dictionary">
+<span id="atod-utils-dictionary-module"></span><h2>atod.utils.dictionary module<a class="headerlink" href="#module-atod.utils.dictionary" title="Permalink to this headline">¶</a></h2>
+<p>Set of functions on dict needed for different parts of the program.</p>
+<dl class="function">
+<dt id="atod.utils.dictionary.all_keys">
+<code class="descclassname">atod.utils.dictionary.</code><code class="descname">all_keys</code><span class="sig-paren">(</span><em>dict_</em>, <em>exclude=[]</em>, <em>include_dict_keys=True</em><span class="sig-paren">)</span><a class="headerlink" href="#atod.utils.dictionary.all_keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds list of all the keys in given dict recursively.</p>
+<dl class="docutils">
+<dt>Notes:</dt>
+<dd>To get all different keys use: set(all_keys(your_dict))</dd>
+<dt>Yields:</dt>
+<dd>key: single key from the dictionary.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="atod.utils.dictionary.collect_kv">
+<code class="descclassname">atod.utils.dictionary.</code><code class="descname">collect_kv</code><span class="sig-paren">(</span><em>dict_</em>, <em>exclude=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#atod.utils.dictionary.collect_kv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds all pairs key-value in all dictionaries inside given.</p>
+<p>On the next step make_flat_dict will transform result of this
+function to the flat dict.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><a href="#id1"><span class="problematic" id="id2">dict_</span></a> (dict): to search for pairs
+exclude (list): except for this keys</dd>
+<dt>Returns:</dt>
+<dd>kv_pairs (list):</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="atod.utils.dictionary.count_keys">
+<code class="descclassname">atod.utils.dictionary.</code><code class="descname">count_keys</code><span class="sig-paren">(</span><em>dictionary</em><span class="sig-paren">)</span><a class="headerlink" href="#atod.utils.dictionary.count_keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Counts times when keys occur in a dictionary.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>dictionary (dict): dictionary to count</dd>
+<dt>Returns:</dt>
+<dd>key2occur (dict): key mapped to occurrences</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="atod.utils.dictionary.extract_effects">
+<code class="descclassname">atod.utils.dictionary.</code><code class="descname">extract_effects</code><span class="sig-paren">(</span><em>effects</em><span class="sig-paren">)</span><a class="headerlink" href="#atod.utils.dictionary.extract_effects" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds all the words in keys of given dictionary.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="atod.utils.dictionary.find_all_values">
+<code class="descclassname">atod.utils.dictionary.</code><code class="descname">find_all_values</code><span class="sig-paren">(</span><em>input_dict</em><span class="sig-paren">)</span><a class="headerlink" href="#atod.utils.dictionary.find_all_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds all possible values of categorical variables.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>input_dict (dict) : dict to search</dd>
+<dt>Returns:</dt>
+<dd>values (dict) : {key: [value1, value2,…], }</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="atod.utils.dictionary.find_keys">
+<code class="descclassname">atod.utils.dictionary.</code><code class="descname">find_keys</code><span class="sig-paren">(</span><em>dict_</em>, <em>keywords=[]</em>, <em>mode='any'</em><span class="sig-paren">)</span><a class="headerlink" href="#atod.utils.dictionary.find_keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns all the hero abilities.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first"><a href="#id3"><span class="problematic" id="id4">dict_</span></a> (dict): dictionary to search keywords in
+keywords (list): words to be found in skills
+mode (str): ‘all’ or ‘any’ defines which keywords</p>
+<blockquote class="last">
+<div>should be found in key for him to added to result</div></blockquote>
+</dd>
+<dt>Returns:</dt>
+<dd><a href="#id5"><span class="problematic" id="id6">abilities_</span></a> (list): list of Ability</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="atod.utils.dictionary.find_keys_any">
+<code class="descclassname">atod.utils.dictionary.</code><code class="descname">find_keys_any</code><span class="sig-paren">(</span><em>dict_</em>, <em>keywords=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#atod.utils.dictionary.find_keys_any" title="Permalink to this definition">¶</a></dt>
+<dd><p>Searches for properties which contain any of keywords.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><a href="#id7"><span class="problematic" id="id8">dict_</span></a> (dict): dict to search into
+keywords (iterable of strings): words which should be found</dd>
+<dt>Returns:</dt>
+<dd>properties (list of tuples): tuple example (‘property’, 1)</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="atod.utils.dictionary.get_str_keys">
+<code class="descclassname">atod.utils.dictionary.</code><code class="descname">get_str_keys</code><span class="sig-paren">(</span><em>dict_</em><span class="sig-paren">)</span><a class="headerlink" href="#atod.utils.dictionary.get_str_keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns:
+keys which contain only alphabet chars</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="atod.utils.dictionary.get_types">
+<code class="descclassname">atod.utils.dictionary.</code><code class="descname">get_types</code><span class="sig-paren">(</span><em>dict_</em><span class="sig-paren">)</span><a class="headerlink" href="#atod.utils.dictionary.get_types" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines types of values in dictionary.</p>
+<p>If the value is a list, set or tuple, all the types would be 
+added. Dictionary would be added as dict, not types of values.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><a href="#id9"><span class="problematic" id="id10">dict_</span></a> (dict): dictionary to define types</dd>
+<dt>Returns:</dt>
+<dd>types (dict): keys to list of values types</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="atod.utils.dictionary.make_flat_dict">
+<code class="descclassname">atod.utils.dictionary.</code><code class="descname">make_flat_dict</code><span class="sig-paren">(</span><em>dict_</em>, <em>exclude=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#atod.utils.dictionary.make_flat_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Turns dictionary with nested dictionaries into a flat one.</p>
+<p>Flat means that all nested key-value pairs are stored on the top level.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><a href="#id11"><span class="problematic" id="id12">dict_</span></a> (dict) : to make flat
+exclude (list): this keys would be skipped over</dd>
+<dt>Returns:</dt>
+<dd>flat (dict) : described in collect_kv()</dd>
+<dt>Examples:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:{</span><span class="s1">&#39;c&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">}}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">make_flat_dict</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="go">{&#39;a&#39;:1, &#39;c&#39;:2}</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-atod.utils.extract_picks">
+<span id="atod-utils-extract-picks-module"></span><h2>atod.utils.extract_picks module<a class="headerlink" href="#module-atod.utils.extract_picks" title="Permalink to this headline">¶</a></h2>
+<p>Extracts picks from the huge matches dump.</p>
+<dl class="function">
+<dt id="atod.utils.extract_picks.main">
+<code class="descclassname">atod.utils.extract_picks.</code><code class="descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#atod.utils.extract_picks.main" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-atod.utils.json2rows">
+<span id="atod-utils-json2rows-module"></span><h2>atod.utils.json2rows module<a class="headerlink" href="#module-atod.utils.json2rows" title="Permalink to this headline">¶</a></h2>
+<p>This file serves db_content.py</p>
+<dl class="function">
+<dt id="atod.utils.json2rows.ability_to_row">
+<code class="descclassname">atod.utils.json2rows.</code><code class="descname">ability_to_row</code><span class="sig-paren">(</span><em>description</em>, <em>schema</em><span class="sig-paren">)</span><a class="headerlink" href="#atod.utils.json2rows.ability_to_row" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transforms ability description to database row.</p>
+<p>This function produce descriptions for all levels of ability from
+its description.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">description (dict): mapping property of ability to its values
+schema (list of strings): fields that should be extracted from</p>
+<blockquote class="last">
+<div>the description</div></blockquote>
+</dd>
+<dt>Yields:</dt>
+<dd><dl class="first last docutils">
+<dt>dict: mapping of properties to its values on some level. Level is</dt>
+<dd>added to result (as ‘lvl’ key).</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="atod.utils.json2rows.binarize_labels">
+<code class="descclassname">atod.utils.json2rows.</code><code class="descname">binarize_labels</code><span class="sig-paren">(</span><em>labels</em>, <em>schema</em><span class="sig-paren">)</span><a class="headerlink" href="#atod.utils.json2rows.binarize_labels" title="Permalink to this definition">¶</a></dt>
+<dd><p>Binarize abilities labels.</p>
+<p>Creates a dictionary which maps schema to labels, fills unmarked
+labels with 0.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>labels (iterable): numbers of marked labels
+schema (iterable): keys in result dictionary</dd>
+<dt>Returns:</dt>
+<dd>binary (dict): mapping of schema to labels</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="atod.utils.json2rows.get_types">
+<code class="descclassname">atod.utils.json2rows.</code><code class="descname">get_types</code><span class="sig-paren">(</span><em>abilities</em><span class="sig-paren">)</span><a class="headerlink" href="#atod.utils.json2rows.get_types" title="Permalink to this definition">¶</a></dt>
+<dd><p>Maps AbilitySpecial to type of this field.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>abilities (dict) - DOTAAbilities from items.json or npc_abilities</dd>
+<dt>Returns:</dt>
+<dd>fields_types (dict) - mapping of field to its type</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="atod.utils.json2rows.heroes_to_rows">
+<code class="descclassname">atod.utils.json2rows.</code><code class="descname">heroes_to_rows</code><span class="sig-paren">(</span><em>heroes_dict</em>, <em>schema</em><span class="sig-paren">)</span><a class="headerlink" href="#atod.utils.json2rows.heroes_to_rows" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets the data from json files according to given db scheme.</p>
+<p>Idea: json file contents a lot of information that I don’t need in db,
+so this function parses file to get the needed attributes.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>heroes_dict (dict)  : parsed to dict npc_heroes.txt
+schema (list of str): fields what should be extracted from file</dd>
+<dt>Yields:</dt>
+<dd>dict: where schema elements are keys</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="atod.utils.json2rows.items_file_to_rows">
+<code class="descclassname">atod.utils.json2rows.</code><code class="descname">items_file_to_rows</code><span class="sig-paren">(</span><em>filename</em>, <em>scheme</em><span class="sig-paren">)</span><a class="headerlink" href="#atod.utils.json2rows.items_file_to_rows" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get rows for items table.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="atod.utils.json2rows.parse_skill_name">
+<code class="descclassname">atod.utils.json2rows.</code><code class="descname">parse_skill_name</code><span class="sig-paren">(</span><em>skill</em><span class="sig-paren">)</span><a class="headerlink" href="#atod.utils.json2rows.parse_skill_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Splits skill name from game to hero name and skill name.</p>
+<p>In-game files store skills names as &lt;hero&gt;_&lt;skill&gt;, this function
+parses this representation to the names of the hero and of the skill.</p>
+<dl class="docutils">
+<dt>Notes:</dt>
+<dd>For this function to work heroes table for current version should
+be created.</dd>
+<dt>Args:</dt>
+<dd>skill (str): skills names from in-game files</dd>
+<dt>Returns:</dt>
+<dd>parsed (hero, skill_name):</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-atod.utils.pick">
+<span id="atod-utils-pick-module"></span><h2>atod.utils.pick module<a class="headerlink" href="#module-atod.utils.pick" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="atod.utils.pick.get_recommendations">
+<code class="descclassname">atod.utils.pick.</code><code class="descname">get_recommendations</code><span class="sig-paren">(</span><em>pick</em>, <em>against=[]</em>, <em>ban=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#atod.utils.pick.get_recommendations" title="Permalink to this definition">¶</a></dt>
+<dd><p>Chooses 5 best heroes to add to the <cite>pick</cite>.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">pick (list): heroes to which next one should be recommended
+against (list) (optional, default=[]): list of heroes against which</p>
+<blockquote>
+<div><cite>pick</cite> heroes are going to play</div></blockquote>
+<p class="last">ban (list) (optional, default=[]): banned heroes.</p>
+</dd>
+<dt>Returns:</dt>
+<dd>(list): heroes that will fit the best for the next pick for <cite>pick</cite>.</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="atod-utils-txt2json-module">
+<h2>atod.utils.txt2json module<a class="headerlink" href="#atod-utils-txt2json-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="atod-utils-update-module">
+<h2>atod.utils.update module<a class="headerlink" href="#atod-utils-update-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="atod-utils-winrate-matrix-module">
+<h2>atod.utils.winrate_matrix module<a class="headerlink" href="#atod-utils-winrate-matrix-module" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">atod</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, @gasabr.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/atod.utils.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

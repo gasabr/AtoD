@@ -1,6 +1,8 @@
 import json
 
-from atod.db import schemas, session
+from sqlalchemy.orm import sessionmaker, scoped_session
+
+from atod.db import engine
 from atod import settings
 # db models
 from atod.db_models.hero import HeroModel
@@ -9,6 +11,8 @@ from atod.db_models.ability_specs import  AbilitySpecsModel
 from atod.db_models.ability_texts import AbilityTextsModel
 # utils
 from atod.utils import txt2json, json2rows, abilities
+
+session = scoped_session(sessionmaker(bind=engine))
 
 
 def add_heroes(npc_heroes: str, patch: str):

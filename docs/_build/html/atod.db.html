@@ -1,0 +1,191 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>atod.db package &#8212; atod 0.0.8 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.8',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-atod.db">
+<span id="atod-db-package"></span><h1>atod.db package<a class="headerlink" href="#module-atod.db" title="Permalink to this headline">¶</a></h1>
+<p>This modulde contains tools for any DB-related tasks.</p>
+<p>If you want to use <cite>session</cite>, please, use scoped version, it’s needed to
+ensure thread-safety (or, it’s also possible, I’m using SQLAlchemy not
+entirely right).</p>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="atod-db-content-module">
+<h2>atod.db.content module<a class="headerlink" href="#atod-db-content-module" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-atod.db.create_tables">
+<span id="atod-db-create-tables-module"></span><h2>atod.db.create_tables module<a class="headerlink" href="#module-atod.db.create_tables" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="atod.db.create_tables.create_tables">
+<code class="descclassname">atod.db.create_tables.</code><code class="descname">create_tables</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#atod.db.create_tables.create_tables" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-atod.db.schemas">
+<span id="atod-db-schemas-module"></span><h2>atod.db.schemas module<a class="headerlink" href="#module-atod.db.schemas" title="Permalink to this headline">¶</a></h2>
+<p>There are a lot of variables in descriptions of every subject in the
+game, so db schemas are pretty complex to write in static form.
+This file provides interface to all schemas through function calls.</p>
+<dl class="function">
+<dt id="atod.db.schemas.get_abilities_schema">
+<code class="descclassname">atod.db.schemas.</code><code class="descname">get_abilities_schema</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#atod.db.schemas.get_abilities_schema" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="atod.db.schemas.get_abilities_specs_columns">
+<code class="descclassname">atod.db.schemas.</code><code class="descname">get_abilities_specs_columns</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#atod.db.schemas.get_abilities_specs_columns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns names of columns in abilties_specs table.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="atod.db.schemas.get_abilities_specs_schema">
+<code class="descclassname">atod.db.schemas.</code><code class="descname">get_abilities_specs_schema</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#atod.db.schemas.get_abilities_specs_schema" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates schema of abilities table.</p>
+<dl class="docutils">
+<dt>Raises:</dt>
+<dd><dl class="first last docutils">
+<dt>ValueError: if key contain 2 or more different types and</dt>
+<dd>they are not float and int.</dd>
+</dl>
+</dd>
+<dt>Returns:</dt>
+<dd><dl class="first last docutils">
+<dt>scheme (dict): keys - all properties in cleaned abilities,</dt>
+<dd>items - python</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="atod.db.schemas.get_heroes_columns">
+<code class="descclassname">atod.db.schemas.</code><code class="descname">get_heroes_columns</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#atod.db.schemas.get_heroes_columns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns list of columns names for heroes table.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="atod.db.schemas.get_heroes_schema">
+<code class="descclassname">atod.db.schemas.</code><code class="descname">get_heroes_schema</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#atod.db.schemas.get_heroes_schema" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads heroes schema form db_schemas and returns types mapped to sql.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd><dl class="first last docutils">
+<dt>heroes_schema (dict): mapping of column name to its SQLAlchemy</dt>
+<dd>type</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="data">
+<dt id="atod.db.schemas.heroes_schema">
+<code class="descclassname">atod.db.schemas.</code><code class="descname">heroes_schema</code><em class="property"> = {'Rolelevels': &lt;class 'sqlalchemy.sql.sqltypes.String'&gt;, 'SurvivalRating': &lt;class 'sqlalchemy.sql.sqltypes.Integer'&gt;, 'name': &lt;class 'sqlalchemy.sql.sqltypes.String'&gt;, 'ProvidesBabysit': &lt;class 'sqlalchemy.sql.sqltypes.Integer'&gt;, 'HeroType': &lt;class 'sqlalchemy.sql.sqltypes.String'&gt;, 'MovementSpeed': &lt;class 'sqlalchemy.sql.sqltypes.Integer'&gt;, 'AttackRate': &lt;class 'sqlalchemy.sql.sqltypes.Float'&gt;, 'Role': &lt;class 'sqlalchemy.sql.sqltypes.String'&gt;, 'RequiresFarm': &lt;class 'sqlalchemy.sql.sqltypes.Integer'&gt;, 'MovementTurnRate': &lt;class 'sqlalchemy.sql.sqltypes.Float'&gt;, 'aliases': &lt;class 'sqlalchemy.sql.sqltypes.String'&gt;, 'AttackRange': &lt;class 'sqlalchemy.sql.sqltypes.Integer'&gt;, 'AttributePrimary': &lt;class 'sqlalchemy.sql.sqltypes.String'&gt;, 'AttributeAgilityGain': &lt;class 'sqlalchemy.sql.sqltypes.Float'&gt;, 'AttackAnimationPoint': &lt;class 'sqlalchemy.sql.sqltypes.Float'&gt;, 'ProvidesSetup': &lt;class 'sqlalchemy.sql.sqltypes.Integer'&gt;, 'AttributeBaseIntelligence': &lt;class 'sqlalchemy.sql.sqltypes.Integer'&gt;, 'AttackCapabilities': &lt;class 'sqlalchemy.sql.sqltypes.String'&gt;, 'SoloDesire': &lt;class 'sqlalchemy.sql.sqltypes.Integer'&gt;, 'AttackDamageMin': &lt;class 'sqlalchemy.sql.sqltypes.Integer'&gt;, 'AttributeBaseAgility': &lt;class 'sqlalchemy.sql.sqltypes.Integer'&gt;, 'RequiresSetup': &lt;class 'sqlalchemy.sql.sqltypes.Integer'&gt;, 'in_game_name': &lt;class 'sqlalchemy.sql.sqltypes.String'&gt;, 'AttackDamageMax': &lt;class 'sqlalchemy.sql.sqltypes.Integer'&gt;, 'AttributeStrengthGain': &lt;class 'sqlalchemy.sql.sqltypes.Float'&gt;, 'RequiresBabysit': &lt;class 'sqlalchemy.sql.sqltypes.Integer'&gt;, 'AttributeIntelligenceGain': &lt;class 'sqlalchemy.sql.sqltypes.Float'&gt;, 'AttackAcquisitionRange': &lt;class 'sqlalchemy.sql.sqltypes.Integer'&gt;, 'AttributeBaseStrength': &lt;class 'sqlalchemy.sql.sqltypes.Integer'&gt;, 'ArmorPhysical': &lt;class 'sqlalchemy.sql.sqltypes.Float'&gt;, 'Team': &lt;class 'sqlalchemy.sql.sqltypes.String'&gt;}</em><a class="headerlink" href="#atod.db.schemas.heroes_schema" title="Permalink to this definition">¶</a></dt>
+<dd><p>Description of how get_&lt;table name&gt;_schema functions works and why.</p>
+<p>In the source files FIELD_INTEGER and etc are used, schemas in
+order to be json serializable are described with the same strings. All
+get_&lt;table name&gt;_schema functions are doing the same job:
+* open db_schemas file
+* read needed dictionary
+* map strings to SQLAlchemy types
+* return results</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-atod.db.setup">
+<span id="atod-db-setup-module"></span><h2>atod.db.setup module<a class="headerlink" href="#module-atod.db.setup" title="Permalink to this headline">¶</a></h2>
+<p>Setting up database.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">atod</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, @gasabr.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/atod.db.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

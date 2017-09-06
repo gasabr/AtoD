@@ -1,0 +1,524 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>atod.models package &#8212; atod 0.0.8 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.0.8',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-atod.models">
+<span id="atod-models-package"></span><h1>atod.models package<a class="headerlink" href="#module-atod.models" title="Permalink to this headline">¶</a></h1>
+<p>There are actual classes which are used for data access.</p>
+<dl class="docutils">
+<dt>interfaces.py – provides abstraction on how class representing single</dt>
+<dd>substance or group should look like. I planned to make not only 
+abilities and heroes, but much more, so this would define common
+way to work with all the classes.</dd>
+</dl>
+<p>everything else – just models.</p>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-atod.models.abilities">
+<span id="atod-models-abilities-module"></span><h2>atod.models.abilities module<a class="headerlink" href="#module-atod.models.abilities" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="atod.models.abilities.Abilities">
+<em class="property">class </em><code class="descclassname">atod.models.abilities.</code><code class="descname">Abilities</code><span class="sig-paren">(</span><em>i_members=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#atod.models.abilities.Abilities" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#atod.models.interfaces.Group" title="atod.models.interfaces.Group"><code class="xref py py-class docutils literal"><span class="pre">atod.models.interfaces.Group</span></code></a></p>
+<p>Any amount of abilities as one substance.</p>
+<dl class="classmethod">
+<dt id="atod.models.abilities.Abilities.all">
+<em class="property">classmethod </em><code class="descname">all</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#atod.models.abilities.Abilities.all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates Abilities object with all heroes’ abilities in the game.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="atod.models.abilities.Abilities.from_hero_id">
+<em class="property">classmethod </em><code class="descname">from_hero_id</code><span class="sig-paren">(</span><em>hero_id</em>, <em>patch=''</em><span class="sig-paren">)</span><a class="headerlink" href="#atod.models.abilities.Abilities.from_hero_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds to members all abilities of the hero with <cite>hero_id</cite>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="atod.models.abilities.Abilities.get_description">
+<code class="descname">get_description</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#atod.models.abilities.Abilities.get_description" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns sum of abilities labels.</p>
+<p>Function takes all the descriptions of abilities (by labels) and sums
+them up field by field.</p>
+<dl class="docutils">
+<dt>Results:</dt>
+<dd><dl class="first last docutils">
+<dt>pd.Series: where value in every labels is sum between all the</dt>
+<dd>abilities in object.</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="atod.models.abilities.Abilities.member_type">
+<code class="descname">member_type</code><a class="headerlink" href="#atod.models.abilities.Abilities.member_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Ability</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-atod.models.ability">
+<span id="atod-models-ability-module"></span><h2>atod.models.ability module<a class="headerlink" href="#module-atod.models.ability" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="atod.models.ability.Ability">
+<em class="property">class </em><code class="descclassname">atod.models.ability.</code><code class="descname">Ability</code><span class="sig-paren">(</span><em>id_</em>, <em>lvl=0</em>, <em>patch=''</em><span class="sig-paren">)</span><a class="headerlink" href="#atod.models.ability.Ability" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#atod.models.interfaces.Member" title="atod.models.interfaces.Member"><code class="xref py py-class docutils literal"><span class="pre">atod.models.interfaces.Member</span></code></a></p>
+<p>Representation of Ability data.</p>
+<dl class="docutils">
+<dt>Attributes:</dt>
+<dd>name (str): name of ability
+lvl (int) : level of ability</dd>
+</dl>
+<dl class="method">
+<dt id="atod.models.ability.Ability.get_description">
+<code class="descname">get_description</code><span class="sig-paren">(</span><em>include: list</em><span class="sig-paren">)</span><a class="headerlink" href="#atod.models.ability.Ability.get_description" title="Permalink to this definition">¶</a></dt>
+<dd><p>Combines specs and labels in one description.</p>
+<dl class="docutils">
+<dt>Possible values in <cite>include</cite> list:</dt>
+<dd><ul class="first last simple">
+<li>labels</li>
+<li>specs</li>
+<li>texts</li>
+<li>name</li>
+<li>id</li>
+</ul>
+</dd>
+<dt>Args:</dt>
+<dd>include: list of fields which should be included in description.</dd>
+<dt>Returns:</dt>
+<dd>pd.DataFrame: description with requested fields.</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="atod.models.ability.Ability.model">
+<code class="descname">model</code><a class="headerlink" href="#atod.models.ability.Ability.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">AbilityModel</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-atod.models.hero">
+<span id="atod-models-hero-module"></span><h2>atod.models.hero module<a class="headerlink" href="#module-atod.models.hero" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="atod.models.hero.Hero">
+<em class="property">class </em><code class="descclassname">atod.models.hero.</code><code class="descname">Hero</code><span class="sig-paren">(</span><em>id_</em>, <em>lvl=1</em>, <em>patch=''</em><span class="sig-paren">)</span><a class="headerlink" href="#atod.models.hero.Hero" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#atod.models.interfaces.Member" title="atod.models.interfaces.Member"><code class="xref py py-class docutils literal"><span class="pre">atod.models.interfaces.Member</span></code></a></p>
+<p>Representation of single Hero.</p>
+<dl class="docutils">
+<dt>Attributes:</dt>
+<dd>name (str)           : name of the hero
+in_game_name (str)   : name that is used for hero inside the game
+lvl (int)            : current hero lvl
+specs (dict)         : raw db row as dictionary
+abilities (Abilities): representation of hero’s abilities</dd>
+</dl>
+<dl class="attribute">
+<dt id="atod.models.hero.Hero.agi">
+<code class="descname">agi</code><a class="headerlink" href="#atod.models.hero.Hero.agi" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="atod.models.hero.Hero.armor">
+<code class="descname">armor</code><a class="headerlink" href="#atod.models.hero.Hero.armor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="atod.models.hero.Hero.base_armor">
+<code class="descname">base_armor</code><em class="property"> = -1</em><a class="headerlink" href="#atod.models.hero.Hero.base_armor" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="atod.models.hero.Hero.base_damage">
+<code class="descname">base_damage</code><em class="property"> = 21</em><a class="headerlink" href="#atod.models.hero.Hero.base_damage" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="atod.models.hero.Hero.base_health">
+<code class="descname">base_health</code><em class="property"> = 200</em><a class="headerlink" href="#atod.models.hero.Hero.base_health" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="atod.models.hero.Hero.base_health_regen">
+<code class="descname">base_health_regen</code><em class="property"> = 0.25</em><a class="headerlink" href="#atod.models.hero.Hero.base_health_regen" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="atod.models.hero.Hero.base_mana">
+<code class="descname">base_mana</code><em class="property"> = 50</em><a class="headerlink" href="#atod.models.hero.Hero.base_mana" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="atod.models.hero.Hero.base_mana_regen">
+<code class="descname">base_mana_regen</code><em class="property"> = 0.01</em><a class="headerlink" href="#atod.models.hero.Hero.base_mana_regen" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="atod.models.hero.Hero.from_name">
+<em class="property">classmethod </em><code class="descname">from_name</code><span class="sig-paren">(</span><em>name</em>, <em>lvl=1</em>, <em>patch=''</em><span class="sig-paren">)</span><a class="headerlink" href="#atod.models.hero.Hero.from_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts name to id with and calls init.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>name (str) : hero’s is game name in the game
+lvl (int)  : desired level of the hero
+patch (str): same as version of the game</dd>
+<dt>Raises:</dt>
+<dd>ValueError: if <cite>name</cite> is not in heroes.name column
+TypeError : if <cite>name</cite> is not str
+Also can raise same as __init__().</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="atod.models.hero.Hero.get_description">
+<code class="descname">get_description</code><span class="sig-paren">(</span><em>include: list</em><span class="sig-paren">)</span><a class="headerlink" href="#atod.models.hero.Hero.get_description" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs hero description.</p>
+<p>Possible include values:
+* ‘name’
+* ‘id’
+* ‘laning’
+* ‘role’
+* ‘type’
+* ‘attributes’</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>include (list, default=[]): tells how the hero should be described.</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="atod.models.hero.Hero.health">
+<code class="descname">health</code><a class="headerlink" href="#atod.models.hero.Hero.health" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="atod.models.hero.Hero.health_regen">
+<code class="descname">health_regen</code><a class="headerlink" href="#atod.models.hero.Hero.health_regen" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="atod.models.hero.Hero.int">
+<code class="descname">int</code><a class="headerlink" href="#atod.models.hero.Hero.int" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="atod.models.hero.Hero.mana">
+<code class="descname">mana</code><a class="headerlink" href="#atod.models.hero.Hero.mana" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="atod.models.hero.Hero.mana_regen">
+<code class="descname">mana_regen</code><a class="headerlink" href="#atod.models.hero.Hero.mana_regen" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="atod.models.hero.Hero.model">
+<code class="descname">model</code><a class="headerlink" href="#atod.models.hero.Hero.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">HeroModel</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="atod.models.hero.Hero.primary_attribute">
+<code class="descname">primary_attribute</code><a class="headerlink" href="#atod.models.hero.Hero.primary_attribute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns primary attribute as string in lower case.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="atod.models.hero.Hero.str">
+<code class="descname">str</code><a class="headerlink" href="#atod.models.hero.Hero.str" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="atod.models.hero.camel2python">
+<code class="descclassname">atod.models.hero.</code><code class="descname">camel2python</code><span class="sig-paren">(</span><em>inp</em><span class="sig-paren">)</span><a class="headerlink" href="#atod.models.hero.camel2python" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts camel style string to lower case with unders.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>inp (string): string to be converted</dd>
+<dt>Returns:</dt>
+<dd>string: result</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-atod.models.heroes">
+<span id="atod-models-heroes-module"></span><h2>atod.models.heroes module<a class="headerlink" href="#module-atod.models.heroes" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="atod.models.heroes.Heroes">
+<em class="property">class </em><code class="descclassname">atod.models.heroes.</code><code class="descname">Heroes</code><span class="sig-paren">(</span><em>i_members=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#atod.models.heroes.Heroes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#atod.models.interfaces.Group" title="atod.models.interfaces.Group"><code class="xref py py-class docutils literal"><span class="pre">atod.models.interfaces.Group</span></code></a></p>
+<dl class="classmethod">
+<dt id="atod.models.heroes.Heroes.all">
+<em class="property">classmethod </em><code class="descname">all</code><span class="sig-paren">(</span><em>patch=''</em><span class="sig-paren">)</span><a class="headerlink" href="#atod.models.heroes.Heroes.all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates Heroes object with all heroes in the game.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="atod.models.heroes.Heroes.from_ids">
+<em class="property">classmethod </em><code class="descname">from_ids</code><span class="sig-paren">(</span><em>ids: list</em>, <em>patch=''</em><span class="sig-paren">)</span><a class="headerlink" href="#atod.models.heroes.Heroes.from_ids" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates Heroes object from list of ids.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="atod.models.heroes.Heroes.from_names">
+<em class="property">classmethod </em><code class="descname">from_names</code><span class="sig-paren">(</span><em>names: list</em>, <em>patch=''</em><span class="sig-paren">)</span><a class="headerlink" href="#atod.models.heroes.Heroes.from_names" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates Heroes object from list of names.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="atod.models.heroes.Heroes.get_description">
+<code class="descname">get_description</code><span class="sig-paren">(</span><em>include</em><span class="sig-paren">)</span><a class="headerlink" href="#atod.models.heroes.Heroes.get_description" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sums up heroes descriptions in <a href="#id1"><span class="problematic" id="id2">`</span></a>include`d categories.</p>
+<dl class="docutils">
+<dt>Notes:</dt>
+<dd>‘name’ and ‘id’ will be dropped because where is no reason to
+add together string and hero id.</dd>
+<dt>Returns:</dt>
+<dd>pd.Series: sum of desired attributes for all members (heroes).</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="atod.models.heroes.Heroes.get_ids">
+<code class="descname">get_ids</code><span class="sig-paren">(</span><em>binarised=False</em><span class="sig-paren">)</span><a class="headerlink" href="#atod.models.heroes.Heroes.get_ids" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns heroes ids.</p>
+<p>Can be useful, when you have a team and instead of getting id for all
+heroes you use this.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><dl class="first last docutils">
+<dt>binarised (bool, default=False): if bin the function will return</dt>
+<dd>binarised vector of heroes ids, so you don’t need to know how
+many heroes are in the game.</dd>
+</dl>
+</dd>
+<dt>Returns:</dt>
+<dd><dl class="first last docutils">
+<dt>pd.Series: shape=(, len(self.members)) by default, if binary version</dt>
+<dd>was requested shape=(, # heroes in the game).</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="atod.models.heroes.Heroes.get_names">
+<code class="descname">get_names</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#atod.models.heroes.Heroes.get_names" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Returns:</dt>
+<dd>list: names of members.</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="atod.models.heroes.Heroes.member_type">
+<code class="descname">member_type</code><a class="headerlink" href="#atod.models.heroes.Heroes.member_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal"><span class="pre">Hero</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-atod.models.interfaces">
+<span id="atod-models-interfaces-module"></span><h2>atod.models.interfaces module<a class="headerlink" href="#module-atod.models.interfaces" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="atod.models.interfaces.Group">
+<em class="property">class </em><code class="descclassname">atod.models.interfaces.</code><code class="descname">Group</code><span class="sig-paren">(</span><em>i_members=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#atod.models.interfaces.Group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Represents abstract set of members.</p>
+<dl class="docutils">
+<dt>Attributes:</dt>
+<dd>member_type (class): the type of member
+members (list)     : list of objects of class <cite>member_type</cite></dd>
+</dl>
+<dl class="method">
+<dt id="atod.models.interfaces.Group.add">
+<code class="descname">add</code><span class="sig-paren">(</span><em>member</em><span class="sig-paren">)</span><a class="headerlink" href="#atod.models.interfaces.Group.add" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="atod.models.interfaces.Group.all">
+<em class="property">classmethod </em><code class="descname">all</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#atod.models.interfaces.Group.all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates object with all possible members.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="atod.models.interfaces.Group.get_list">
+<code class="descname">get_list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#atod.models.interfaces.Group.get_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>Combines all members in one data structure.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="atod.models.interfaces.Group.get_summary">
+<code class="descname">get_summary</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#atod.models.interfaces.Group.get_summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds properties of all the members and returns result.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="atod.models.interfaces.Group.member_type">
+<code class="descname">member_type</code><a class="headerlink" href="#atod.models.interfaces.Group.member_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#atod.models.interfaces.Member" title="atod.models.interfaces.Member"><code class="xref py py-class docutils literal"><span class="pre">Member</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="atod.models.interfaces.Member">
+<em class="property">class </em><code class="descclassname">atod.models.interfaces.</code><code class="descname">Member</code><span class="sig-paren">(</span><em>id_</em>, <em>lvl</em>, <em>patch</em><span class="sig-paren">)</span><a class="headerlink" href="#atod.models.interfaces.Member" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>The parent class for all the single elements.</p>
+<dl class="docutils">
+<dt>Attributes:</dt>
+<dd><dl class="first docutils">
+<dt>model (sqlalchemy.ext.declarative.api.DeclarativeMeta):</dt>
+<dd>SQlAlchemy based model which represents table in the db.</dd>
+</dl>
+<p class="last">id (int)   : unique identifier among other members.
+lvl (int)  : level of a member
+patch (str): patch for which data should be provided</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="atod.models.interfaces.Member.get_description">
+<code class="descname">get_description</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#atod.models.interfaces.Member.get_description" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns description of an object as a pd.Series.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="atod.models.interfaces.Member.model">
+<code class="descname">model</code><em class="property"> = None</em><a class="headerlink" href="#atod.models.interfaces.Member.model" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-atod.models.match">
+<span id="atod-models-match-module"></span><h2>atod.models.match module<a class="headerlink" href="#module-atod.models.match" title="Permalink to this headline">¶</a></h2>
+<p>Class to get match description.</p>
+<dl class="class">
+<dt id="atod.models.match.Match">
+<em class="property">class </em><code class="descclassname">atod.models.match.</code><code class="descname">Match</code><span class="sig-paren">(</span><em>match_id: int</em><span class="sig-paren">)</span><a class="headerlink" href="#atod.models.match.Match" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<p>Representation of the single match.</p>
+<dl class="docutils">
+<dt>Attributes:</dt>
+<dd>id (int)        : id of the match
+radiant (Heroes): Heroes in radiant team
+dire    (Heroes): Heroes in dire team</dd>
+</dl>
+<dl class="method">
+<dt id="atod.models.match.Match.get_description">
+<code class="descname">get_description</code><span class="sig-paren">(</span><em>include</em><span class="sig-paren">)</span><a class="headerlink" href="#atod.models.match.Match.get_description" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns description of certain match.</p>
+<p>Description consist of 3 parts: radiant description, dire description
+and result. Complete length of description vector is 2n + 1, where
+n is a length of side description (depends on choosen parameters).</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>include (list): the same with Hero.get_description().</dd>
+<dt>Returns:</dt>
+<dd>pd.Series</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">atod</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, @gasabr.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/atod.models.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
