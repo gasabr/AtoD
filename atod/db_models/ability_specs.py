@@ -2,9 +2,10 @@ from sqlalchemy import Table, Column
 
 from atod.db.setup import Base
 from atod.db.schemas import get_abilities_specs_schema
+from atod.db_models.common_table import CommonTable
 
 
-class AbilitySpecsModel(Base):
+class AbilitySpecsModel(Base, CommonTable):
 
     _cols = [Column(**col) for col in get_abilities_specs_schema()]
 

@@ -1,9 +1,10 @@
 from sqlalchemy import Table, Column, Integer, String
 
 from atod.db.setup import Base
+from atod.db_models.common_table import CommonTable
 
 
-class AbilityTextsModel(Base):
+class AbilityTextsModel(Base, CommonTable):
 
     ID          = Column(name='ID', type_=Integer, primary_key=True,
                          autoincrement=False)

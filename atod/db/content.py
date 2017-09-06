@@ -11,6 +11,7 @@ from atod.db_models.ability_specs import  AbilitySpecsModel
 from atod.db_models.ability_texts import AbilityTextsModel
 # utils
 from atod.utils import txt2json, json2rows, abilities
+from . import schemas
 
 session = scoped_session(sessionmaker(bind=engine))
 
@@ -182,7 +183,7 @@ def get_abilities_texts(dota_english: str):
 
     texts_file    = dota_english
     # parse texts file and take only texts from it
-    parsed_texts  = txt2json.to_json(texts_file)['lang']['Tokens']
+    parsed_texts  = txt2json.to_json(texts_file)['dota']
     # group texts by ability
     grouped_texts = group_abilities_texts(parsed_texts)
 

@@ -2,9 +2,10 @@ from sqlalchemy import Table, Column
 
 from atod.db import Base
 from atod.db.schemas import get_heroes_schema
+from atod.db_models.common_table import CommonTable
 
 
-class HeroModel(Base):
+class HeroModel(Base, CommonTable):
 
     heroes = (Column(**col) for col in get_heroes_schema())
 

@@ -1,13 +1,19 @@
 ''' Provides function for manually updating database. '''
 import os
 
-from atod.db import content, session
-from atod.db_models import PatchModel
+from sqlalchemy.orm import sessionmaker, scoped_session
 
+from atod.db import content, engine
+from atod.db_models import PatchModel
+from atod.db_models.ability import AbilityModel
+from atod.db_models.ability_specs import AbilitySpecsModel
+from atod.db_models.ability_texts import AbilityTextsModel
+from atod.db_models.hero import HeroModel
+
+session = scoped_session(sessionmaker(bind=engine))
 
 # files needed to create new version
-_game_files = ['npc_abilities.txt', 'npc_heroes.txt', 'npc_units.txt',
-              'dota_english.txt']
+_game_files = ['npc_abilities.txt', 'npc_heroes.txt', 'dota_english.txt']
 _config_files = ['in_game_converter.json', 'labeled_abilities.json']
 
 _version_files = _game_files + _config_files
@@ -48,10 +54,36 @@ def add_patch(name: str, folder: str):
 
     # fill tables
     content.add_heroes(npc_heroes=os.path.join(folder, 'npc_heroes.txt'),
-                        patch=name)
+                       patch=name)
     content.add_abilities(os.path.join(folder, 'labeled_abilities.json'),
                           patch=name)
     content.add_abilities_specs(os.path.join(folder, 'npc_abilities.txt'),
                                 patch=name)
     content.add_abilities_texts(os.path.join(folder, 'dota_english.txt'),
                                 patch=name)
+
+
+def delete_patch(name: str):
+    ''' Deletes all the records in all tables marked with this patch. 
+    
+    Args:
+        name: patch name
+
+    Raises:
+        ValueError: if patch with `name` does not exists.
+    '''
+
+    # check if patch with such name exists
+    patch = session.query(PatchModel).filter_by(name=name).first()
+    if patch is None:
+        raise ValueError('Patch with the name {} does not exists'.format(name))
+
+    # remove all the records in all tables
+    AbilityModel.delete(patch=name)
+    AbilitySpecsModel.delete(patch=name)
+    AbilityTextsModel.delete(patch=name)
+    HeroModel.delete(patch=name)
+
+    # finally delete patch model
+    PatchModel.delete(name=name)
+
