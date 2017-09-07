@@ -1,4 +1,10 @@
 import pandas as pd
+from sqlalchemy.orm import sessionmaker, scoped_session
+
+from atod.db_models import PatchModel
+from atod.db import engine
+
+session = scoped_session(sessionmaker(bind=engine))
 
 
 class Member:
@@ -16,6 +22,9 @@ class Member:
 
     def __init__(self, id_, lvl, patch):
         ''' Only initialise necessary attributes for any member. '''
+        self._valid_arg_types(id_, lvl, patch)
+        self._valid_patch(patch)
+
         self.id = id_
         self.lvl = lvl
         self.patch = patch
@@ -38,6 +47,32 @@ class Member:
             raise TypeError('`lvl` argument should be type int.')
         if not isinstance(patch, str):
             raise TypeError('`patch` argument should be type str.')
+
+    def _valid_patch(self, patch):
+        ''' Validates patch name for further usage. 
+
+        Args:
+            patch(str): name of the patch
+        
+        Raises:
+            ValueError: if there is no record in `patches` table with name
+                equal to `patch` argument
+        '''
+        # if the patch value is set to default
+        if patch == '':
+            # there should be at least one patch
+            query = session.query(PatchModel).all()
+            if query[0] is None:
+                # TODO: check if it is the most appropriate exception
+                raise ValueError('There are no patches at all in the table,'
+                                 'please, add some')
+
+        else:
+            query = session.query(PatchModel).filter(PatchModel.name == patch)
+            response = query.first()
+
+            if response is None:
+               raise ValueError('There is no patch with name: {}'.format(patch))
 
 
 class Group:

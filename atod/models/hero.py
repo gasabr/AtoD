@@ -46,7 +46,7 @@ class Hero(Member):
         '''
 
         # raise an exception if types are incorrect
-        self._valid_arg_types(id_, lvl, patch)
+        super().__init__(id_, lvl, patch)
 
         query = session.query(self.model)
 
@@ -60,8 +60,6 @@ class Hero(Member):
 
         if specs is None:
             raise ValueError('No hero with id {}'.format(id_))
-
-        super().__init__(specs.HeroID, lvl, patch)
 
         self.name = specs.name
         self.in_game_name = specs.in_game_name
@@ -99,6 +97,7 @@ class Hero(Member):
 
         query = session.query(HeroModel.HeroID)
         try:
+            # TODO: add search in alliases
             hero_id_ = query.filter(cls.model.name == name).first()
             # try to search hero for in_game_name if the name aws not found
             if hero_id_ is None:

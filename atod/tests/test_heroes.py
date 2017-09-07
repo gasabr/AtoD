@@ -25,7 +25,7 @@ class TestHeroes(unittest.TestCase):
         self.assertRaises(TypeError, Heroes.from_ids, ['1', 54])
 
         # call with specific patch, fine too
-        Heroes.from_ids([15, 25, 89], patch='706')
+        Heroes.from_ids([15, 25, 89], patch='706f')
 
 
     def test_init_with_names(self):
@@ -45,7 +45,7 @@ class TestHeroes(unittest.TestCase):
         self.assertRaises(TypeError, Heroes.from_ids, ['Shadow Fiend', 54])
 
         # call with specific patch, fine too
-        Heroes.from_names(['Axe', 'Underlord', 'Bane'], patch='706')
+        Heroes.from_names(['Axe', 'Underlord', 'Bane'], patch='706f')
 
 
     def test_iter(self):

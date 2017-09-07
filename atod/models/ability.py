@@ -37,7 +37,7 @@ class Ability(Member):
             ValueError: if there is no Ability with such ID
         '''
 
-        self._valid_arg_types(id_, lvl, patch)
+        super().__init__(id_, lvl, patch)
 
         if lvl < 0 or lvl > 10:
             raise ValueError('Level should be in range [0, 10]')
@@ -61,8 +61,6 @@ class Ability(Member):
         if res is None:
             raise ValueError('There is no ability with id {}'.format(id_))
 
-        # init super class
-        super().__init__(res.ID, lvl, patch)
         self.name = res.name
         self.lvl = lvl
 
