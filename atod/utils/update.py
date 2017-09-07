@@ -3,6 +3,7 @@ import os
 
 from sqlalchemy.orm import sessionmaker, scoped_session
 
+from atod.meta import meta_info
 from atod.db import content, engine
 from atod.db_models import PatchModel
 from atod.db_models.ability import AbilityModel
@@ -51,6 +52,7 @@ def add_patch(name: str, folder: str):
         patch = PatchModel(name)
         session.add(patch)
         session.commit()
+        meta_info.set_patch(name)
 
     # fill tables
     content.add_heroes(npc_heroes=os.path.join(folder, 'npc_heroes.txt'),

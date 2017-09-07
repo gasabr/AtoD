@@ -6,6 +6,8 @@ from atod.db_models.common_table import CommonTable
 
 class AbilityTextsModel(Base, CommonTable):
 
+    # FIXME: the way to get schema should be the same for all tables
+
     ID          = Column(name='ID', type_=Integer, primary_key=True,
                          autoincrement=False)
     name        = Column(name='name', type_=String)
@@ -13,9 +15,10 @@ class AbilityTextsModel(Base, CommonTable):
     description = Column(name='description', type_=String)
     notes       = Column(name='notes', type_=String)
     other       = Column(name='other', type_=String, nullable=True)
+    patch       = Column(name='patch', type_=String)
 
     __table__ = Table('abilities_texts', Base.metadata,
-                      ID, name, lore, description, notes, other)
+                      ID, name, lore, description, notes, other, patch)
 
     def __init__(self, attrs):
         self.attrs = set()

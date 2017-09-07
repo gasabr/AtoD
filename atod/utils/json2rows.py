@@ -29,15 +29,15 @@ def heroes_to_rows(heroes_dict, schema):
     data = heroes_dict['DOTAHeroes']
 
     for in_game_name, description in data.items():
-
-        if in_game_name == 'Version' or 'hero_base' in in_game_name\
-                or not 'url' in description:
+        # TODO: check if this needed in the new file format
+        if in_game_name == 'Version' or 'hero_base' in in_game_name \
+                or 'workshop_guide_name' not in description:
             continue
 
         tmp = dict()
         tmp['in_game_name'] = in_game_name.split('npc_dota_hero_')[1]
-        tmp['name'] = description['url'].replace('_', ' ')
-        del description['url']
+        tmp['name'] = description['workshop_guide_name']
+        del description['workshop_guide_name']
 
         # add name aliases
         try:

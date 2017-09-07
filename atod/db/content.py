@@ -183,7 +183,7 @@ def get_abilities_texts(dota_english: str):
 
     texts_file    = dota_english
     # parse texts file and take only texts from it
-    parsed_texts  = txt2json.to_json(texts_file)['dota']
+    parsed_texts  = txt2json.to_json(texts_file)['lang']['Tokens']
     # group texts by ability
     grouped_texts = group_abilities_texts(parsed_texts)
 

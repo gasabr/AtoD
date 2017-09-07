@@ -16,7 +16,12 @@ class Meta(object):
         query = session.query(PatchModel.name).order_by(
                     PatchModel.created).first()
 
-        self._patch_name = query[0]
+        if query is not None:
+            self._patch_name = query[0]
+        else:
+            print('There is no data in the db, please add at least one patch.\n'
+                  'see `atod.utils.update.add_patch()` on how to make it ')
+            self._patch_name = ''
 
     @property
     def patch(self):
