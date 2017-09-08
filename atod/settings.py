@@ -1,7 +1,14 @@
 from os import path
 
+from YamJam import yamjam
+
 # add function which will search for data versions
 CURRENT_VERSION = '706'
+
+# this is just the way to access secret files in public projects
+# fill free to replace the right part with your API key or
+# learn how to use YamJam here: http://yamjam.readthedocs.io/en/v0.1.7/
+DOTA_API_KEY = yamjam()['AtoD']['DOTA2_API_KEY']
 
 # ============================================================================
 # Folders, files, paths

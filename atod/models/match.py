@@ -3,9 +3,9 @@ import dota2api
 import pandas as pd
 from YamJam import yamjam
 
-from atod import Hero, Heroes
+from atod import Hero, Heroes, settings
 
-api = dota2api.Initialise(yamjam()['AtoD']['DOTA2_API_KEY'])
+api = dota2api.Initialise(settings.DOTA_API_KEY)
 
 
 class Match(object):
@@ -24,8 +24,17 @@ class Match(object):
                 match_id: Dota match ID
         '''
 
-        self.id = match_id
+        if not isinstance(match_id, int):
+            raise TypeError('`match_id` must have type int.')
+        else:
+            self.id = match_id
+
         response = api.get_match_details(match_id=match_id)
+
+        if response['game_mode'] != 2:
+            raise NotImplementedError('Sorry, Match currently'
+                    + ' does not support {}'.format(response['game_mode_name'])
+                    + ' game mode.')
 
         self.radiant = Heroes()
         self.dire = Heroes()
@@ -54,8 +63,8 @@ class Match(object):
         '''
 
         # get descriptions of sides
-        radiant_description = self.radiant.get_summary(include)
-        dire_description    = self.dire.get_summary(include)
+        radiant_description = self.radiant.get_description(include)
+        dire_description    = self.dire.get_description(include)
 
         len_desc = radiant_description.shape[0]
 

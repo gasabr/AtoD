@@ -118,7 +118,7 @@ class Group:
 
         return data
 
-    def get_summary(self):
+    def get_description(self):
         ''' Adds properties of all the members and returns result. '''
         pass
 
