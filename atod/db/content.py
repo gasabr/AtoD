@@ -3,7 +3,7 @@ import json
 from sqlalchemy.orm import sessionmaker, scoped_session
 
 from atod.db import engine
-from atod import settings
+from atod import files
 # db models
 from atod.db_models.hero import HeroModel
 from atod.db_models.ability import AbilityModel
@@ -55,7 +55,7 @@ def add_abilities_specs(npc_abilties: str, patch: str):
 
     schema = schemas.get_abilities_specs_columns()
 
-    with open(settings.CONVERTER_FILE, 'r') as fp:
+    with open(files.CONVERTER_FILE, 'r') as fp:
         converter = json.load(fp)
 
     for skill, description in clean.items():
@@ -88,7 +88,7 @@ def add_abilities(labels: str, patch: str):
     with open(labels, 'r') as fp:
         skills = json.load(fp)
 
-    with open(settings.CONVERTER_FILE, 'r') as fp:
+    with open(files.CONVERTER_FILE, 'r') as fp:
         converter = json.load(fp)
 
     for skill, description in skills.items():

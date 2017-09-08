@@ -2,14 +2,14 @@ import json
 import unittest
 from os.path import join
 
-from atod import settings
+from atod import files
 from atod.utils import dictionary
 
 class TestDictionary(unittest.TestCase):
     ''' Tests for functions from dictionary module. '''
 
     def setUp(self):
-        self.data_folder = join(settings.TESTS_DATA_FOLDER, 'dictionary/')
+        self.data_folder = join(files.TESTS_DATA_FOLDER, 'dictionary/')
 
     def test_make_flat_dict(self):
         filename = join(self.data_folder, 'make_flat_dict.json')

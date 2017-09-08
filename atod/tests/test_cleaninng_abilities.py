@@ -2,7 +2,7 @@ import json
 import os
 import unittest
 
-from atod import settings
+from atod import files
 from atod.utils.abilities import (_average_ability_properties, _remove_word,
                                   _merge_similar)
 
@@ -10,7 +10,7 @@ from atod.utils.abilities import (_average_ability_properties, _remove_word,
 class TestCleaningAbilities(unittest.TestCase):
 
     def setUp(self):
-        self.data_folder = os.path.join(settings.TESTS_DATA_FOLDER,
+        self.data_folder = os.path.join(files.TESTS_DATA_FOLDER,
                                         'cleaning/')
 
     def test_average_properties(self):
@@ -36,7 +36,7 @@ class TestCleaningAbilities(unittest.TestCase):
         with open(file, 'r') as fp:
             test_data = json.load(fp)
 
-        with open(settings.ABILITIES_CHANGES_FILE, 'r') as fp:
+        with open(files.ABILITIES_CHANGES_FILE, 'r') as fp:
             changes = json.load(fp)
 
         for case in test_data:

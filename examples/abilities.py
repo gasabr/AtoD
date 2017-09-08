@@ -3,7 +3,7 @@
 import json
 import pandas
 
-from atod import settings
+from atod import files
 from atod.utils.dictionary import make_flat_dict
 
 
@@ -85,10 +85,10 @@ def create_which_ability(abilities):
 
 
 def add_labels():
-    with open(settings.TMP_ABILITIES, 'r') as fp:
+    with open(files.TMP_ABILITIES, 'r') as fp:
         labeled = json.load(fp)
 
-    with open(settings.ABILITIES_LISTS_FILE, 'r') as fp:
+    with open(files.ABILITIES_LISTS_FILE, 'r') as fp:
         clean = json.load(fp)
 
     for ability, description in clean.items():
@@ -97,5 +97,5 @@ def add_labels():
         else:
             clean[ability]['labels'] = []
 
-    with open(settings.ABILITIES_LISTS_LABELED_FILE, 'w+') as fp:
+    with open(files.ABILITIES_LISTS_LABELED_FILE, 'w+') as fp:
         json.dump(clean, fp, indent=2)

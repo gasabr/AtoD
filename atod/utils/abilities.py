@@ -8,7 +8,7 @@ import json
 import logging
 import re
 
-from atod import settings
+from atod import files
 from atod.utils.dictionary import all_keys, make_flat_dict
 
 logging.basicConfig(level=logging.WARNING)
@@ -27,7 +27,7 @@ def _find_skills(raw_abilities):
             skills (dict): heroes abilities in `raw_abilities`
     '''
     # load converter to get heroes names
-    with open(settings.CONVERTER_FILE, 'r') as fp:
+    with open(files.CONVERTER_FILE, 'r') as fp:
         converter = json.load(fp)
 
     heroes_names = [c for c in converter.keys()
@@ -115,7 +115,7 @@ def _change_properties(skills):
     '''
 
     skills_ = skills.copy()
-    with open(settings.ABILITIES_CHANGES_FILE, 'r') as fp:
+    with open(files.ABILITIES_CHANGES_FILE, 'r') as fp:
         changes = json.load(fp)
 
     for skill in list(skills):

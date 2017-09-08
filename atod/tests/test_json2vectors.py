@@ -1,9 +1,9 @@
 import unittest
 from os import path
 
-from atod import settings
+from atod import files
 
-EXAMPLES_FOLDER = path.join(settings.TESTS_DATA_FOLDER, 'json2vectors/')
+EXAMPLES_FOLDER = path.join(files.TESTS_DATA_FOLDER, 'json2vectors/')
 
 
 class TestJson2Vectors(unittest.TestCase):

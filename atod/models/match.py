@@ -1,11 +1,9 @@
 ''' Class to get match description. '''
 import dota2api
 import pandas as pd
-from YamJam import yamjam
 
-from atod import Hero, Heroes, settings
-
-api = dota2api.Initialise(settings.DOTA_API_KEY)
+from atod import Hero, Heroes, files
+from atod.utils.dota_api import api
 
 
 class Match(object):
@@ -20,8 +18,8 @@ class Match(object):
     def __init__(self, match_id: int):
         ''' Calls the API and creates a match representation from result.
 
-            Args:
-                match_id: Dota match ID
+        Args:
+            match_id: Dota match ID
         '''
 
         if not isinstance(match_id, int):

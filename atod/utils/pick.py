@@ -6,7 +6,7 @@ import numpy as np
 import pandas as pd
 from itertools import combinations, product
 
-from atod import Hero, Heroes, settings
+from atod import Hero, Heroes, files
 
 # number of heroes in the game
 _n_heroes = 115
@@ -124,8 +124,8 @@ def _get_win_lose_rates(matches_file):
     '''
 
     # TODO: search for files in the same directory with the matches_file
-    winrates_file = os.path.join(settings.DATA_FOLDER, 'winrates.csv')
-    loserates_file = os.path.join(settings.DATA_FOLDER, 'loserates.csv')
+    winrates_file = os.path.join(files.DATA_FOLDER, 'winrates.csv')
+    loserates_file = os.path.join(files.DATA_FOLDER, 'loserates.csv')
 
     # try to load files, if unsuccesful - create them from `matches_file`
     try:
@@ -174,7 +174,7 @@ def _get_recommendation(pick, against=[], ban=[]):
     ban_ids  = list(ban.get_ids())
     against_ids = list(against.get_ids())
 
-    winrates, loserates = _get_win_lose_rates(settings.MATCHES_FILE)
+    winrates, loserates = _get_win_lose_rates(files.MATCHES_FILE)
 
     for next_hero_id in winrates.index.tolist():
         # if this hero is not in the opening

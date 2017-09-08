@@ -2,14 +2,14 @@ import json
 import os
 import unittest
 
-from atod import settings
+from atod import files
 from atod.utils.json2rows import ability_to_row
 
 
 class TestUtilsDB(unittest.TestCase):
 
     def setUp(self):
-        self.data_folder = os.path.join(settings.TESTS_DATA_FOLDER, 'db/')
+        self.data_folder = os.path.join(files.TESTS_DATA_FOLDER, 'db/')
 
     def test_abilities_to_rows(self):
         filename = os.path.join(self.data_folder, 'to_rows.json')
