@@ -29,7 +29,8 @@ class Match(object):
 
         response = api.get_match_details(match_id=match_id)
 
-        if response['game_mode'] != 2:
+        # TODO: check supported modes, rewrote this
+        if response['game_mode'] != 2 and response['game_mode'] != 16:
             raise NotImplementedError('Sorry, Match currently'
                     + ' does not support {}'.format(response['game_mode_name'])
                     + ' game mode.')
