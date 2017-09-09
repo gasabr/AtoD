@@ -33,6 +33,10 @@ class Hero(Member):
     base_damage = 21
     base_armor = -1
 
+    _possible_description_options = [
+            'name', 'id', 'role', 'type', 'attributes', 'laning'
+            ]
+
     def __init__(self, id_, lvl=1, patch=''):
         ''' Initializes Hero by default with level one from the last patch.
 
@@ -102,8 +106,8 @@ class Hero(Member):
             # try to search hero for in_game_name if the name aws not found
             if hero_id_ is None:
                 hero_id_ = query.filter(cls.model.in_game_name == name).first()
-            
-            hero_id = hero_id_[0] 
+
+            hero_id = hero_id_[0]
 
             return cls(hero_id, lvl, patch)
 
@@ -129,31 +133,77 @@ class Hero(Member):
         if not isinstance(include, list):
             raise TypeError('`include` should be list.')
 
-        description = list()
+        self._valid_description_items(include)
+
+        description = pd.Series()
 
         for field in include:
+            # find requested description
             if field == 'name':
-                description.append(pd.Series({'name': self.name}))
+                part = pd.Series({'name': self.name})
             elif field == 'id':
-                description.append(pd.Series({'id': self.id}))
+                part = pd.Series({'id': self.id})
             elif field == 'laning':
-                description.append(self._get_laning())
+                part = self.get_laning()
             elif field == 'role':
-                description.append(self._get_role())
+                part = self.get_role()
             elif field == 'type':
-                description.append(self._get_type())
+                part = self.get_type()
             elif field == 'attributes':
-                description.append(self._get_attributes())
+                part = self.get_attributes()
+
+            if field != 'name' and field != 'id':
+                index_arrays = [
+                        [field] * len(part),
+                        list(map(lambda x: camel2python(x), all_values[field]))
+                        ]
+
+                index_tuples = list(zip(*index_arrays))
+                index = pd.MultiIndex.from_tuples(
+                            index_tuples,
+                            names=['category', 'var']
+                            )
+
+                part_series = pd.Series(
+                        [int(s) for s in part.values], 
+                        index=index)
+
+                if description.empty:
+                    description = part_series
+                else:
+                    description = description.append(part_series)
             else:
-                raise ValueError('{}'.format(field)
-                       + ' is invalid value in `include` parameter.')
+                #  part_series = pd.Series({field: getattr(field, self)})
+                description[field] = getattr(self, field)
+
+            #  description = pd.concat([description, part_series])
 
         if len(description) == 0:
             raise ValueError('include argument should contain at least'
                              'one of the ["name", "id", "laning", '
-                             '"roles", "type", "attributes"]')
+                             '"role", "type", "attributes"]')
 
-        return pd.concat(description)
+        return description
+
+    def _valid_description_items(self, items):
+        ''' Validates that all the requested categories can be gotten.
+
+        Args:
+            items (list): list of strings equal to `include` arg in
+                get_description()
+
+        Raises:
+            ValueError: if option in `items` is invalid
+            TypeError: if option is not string
+        '''
+        for item in items:
+            if not isinstance(item, str):
+                raise TypeError('Values in `include` parameter should be'
+                        'of the type str')
+            if item not in self._possible_description_options:
+                raise ValueError('{}'.format(item)
+                       + ' is invalid value in `include` parameter.')
+
 
     # properties
     @property
@@ -205,8 +255,8 @@ class Hero(Member):
     def __str__(self):
         return '<Hero {name}, lvl={lvl}>'.format(name=self.name, lvl=self.lvl)
 
-    def _get_laning(self):
-        ''' 
+    def get_laning(self):
+        '''
         Returns:
             pd.Series: laning info of this hero.
 
@@ -217,21 +267,17 @@ class Hero(Member):
         laning_info = dict()
         multi_index_keys = list()
 
-        for key in laning_keys:
-            multi_index_keys.append(camel2python(key))
-            laning_info[camel2python(key)] = self.specs[key]
+        for key in all_values['laning']:
+            styled_key = camel2python(key)
+            multi_index_keys.append(styled_key)
+            laning_info[styled_key] = self.specs[key]
 
-        multi_index = [['laning'] * len(laning_keys),
-                        multi_index_keys]
-
-        laning_info = pd.Series(laning_info, index=multi_index)
-
-        print(type(laning_info.index))
+        laning_info = pd.Series(laning_info)
 
         return laning_info
 
-    def _get_role(self):
-        ''' 
+    def get_role(self):
+        '''
         Returns:
             pd.Series: role levels of this hero.
 
@@ -247,18 +293,19 @@ class Hero(Member):
         roles = dict()
         for role, lvl in zip(self.specs['Role'].split(','),
                              self.specs['Rolelevels'].split(',')):
-            key = 'role_' + role.lower()
+            key = role.lower()
             value = int(lvl)
 
             roles[key] = value
 
-        roles = pd.Series(roles,
-                          index=map(lambda x: 'role_' + x.lower(), all_roles))
+        roles = pd.Series(
+                roles,
+                index=list(map(lambda x: x.lower(), all_values['role'])))
         roles = roles.fillna(0)
 
         return roles
 
-    def _get_type(self):
+    def get_type(self):
         ''' Returns:
                 pd.Series: binary encoded type of this hero.
 
@@ -269,9 +316,9 @@ class Hero(Member):
 
         types = dict()
         type_prefix = 'dota_bot_'
-        for type_ in all_heroes_types:
+        for type_ in all_values['type']:
             # change in game format to more readable
-            clean_type = 'type_' + type_[len(type_prefix):].lower()
+            clean_type = type_[len(type_prefix):].lower()
             # if hero belongs to that type
             if self.specs['HeroType'] is not None \
                         and type_ in self.specs['HeroType']:
@@ -296,51 +343,39 @@ class Hero(Member):
 
         return encoded
 
-    def _get_attributes(self):
+    def get_attributes(self):
         ''' Returns only attributes which are not encoded. '''
-        attributes = {camel2python(k): self.specs[k] for k in attributes_list}
+        attributes = {camel2python(k): self.specs[k]
+                      for k in all_values['attributes']}
         attributes = pd.Series(attributes).fillna(value=0)
 
         return attributes
 
 
 mapper = inspect(HeroModel)
-attributes_list = [
-    'ArmorPhysical',
-    'AttackAcquisitionRange',
-    'AttackAnimationPoint',
-    'AttackDamageMax',
-    'AttackDamageMin',
-    'AttackRange',
-    'AttackRate',
-    'AttributeAgilityGain',
-    'AttributeBaseAgility',
-    'AttributeBaseIntelligence',
-    'AttributeBaseStrength',
-    'AttributeIntelligenceGain',
-    'AttributeStrengthGain',
-    'MovementSpeed',
-    'MovementTurnRate',
- ]
 primaries = {
     'DOTA_ATTRIBUTE_AGILITY', 'DOTA_ATTRIBUTE_STRENGTH',
     'DOTA_ATTRIBUTE_INTELLECT',
 }
-laning_keys = [
-    'RequiresFarm',
-    'RequiresSetup',
-    'RequiresBabysit',
-    'ProvidesSetup',
-    'SoloDesire',
-    'SurvivalRating',
-    'ProvidesBabysit'
-]
-all_roles = ['Disabler', 'Nuker', 'Escape', 'Durable', 'Initiator', 'Pusher',
-         'Support', 'Jungler', 'Carry']
-all_heroes_types = ['DOTA_BOT_PUSH_SUPPORT', 'DOTA_BOT_STUN_SUPPORT',
-                    'DOTA_BOT_SEMI_CARRY', 'DOTA_BOT_HARD_CARRY',
-                    'DOTA_BOT_NUKER', 'DOTA_BOT_TANK',
-                    'DOTA_BOT_PURE_SUPPORT', 'DOTA_BOT_GANKER']
+
+all_values = {
+        'role': ['Disabler', 'Nuker', 'Escape', 'Durable', 'Initiator', 'Pusher',
+                 'Support', 'Jungler', 'Carry'],
+        'type': ['DOTA_BOT_PUSH_SUPPORT', 'DOTA_BOT_STUN_SUPPORT',
+                 'DOTA_BOT_SEMI_CARRY', 'DOTA_BOT_HARD_CARRY',
+                 'DOTA_BOT_NUKER', 'DOTA_BOT_TANK',
+                 'DOTA_BOT_PURE_SUPPORT', 'DOTA_BOT_GANKER'],
+        'laning': ['RequiresFarm', 'RequiresSetup', 'RequiresBabysit',
+                   'ProvidesSetup', 'SoloDesire', 'SurvivalRating',
+                   'ProvidesBabysit'],
+        'attributes': ['ArmorPhysical', 'AttackAcquisitionRange',
+                       'AttackAnimationPoint', 'AttackDamageMax',
+                       'AttackDamageMin', 'AttackRange', 'AttackRate',
+                       'AttributeAgilityGain', 'AttributeBaseAgility',
+                       'AttributeBaseIntelligence', 'AttributeBaseStrength',
+                       'AttributeIntelligenceGain', 'AttributeStrengthGain',
+                       'MovementSpeed', 'MovementTurnRate',]
+}
 
 
 def camel2python(inp):
@@ -352,6 +387,9 @@ def camel2python(inp):
         Returns:
             string: result
     '''
+    type_prefix = 'DOTA_BOT'
+    if inp.startswith(type_prefix):
+        return inp.lower()[len(type_prefix) + 1:]
 
     # split string into pieces started with capital letter
     words = re.findall(r'[A-Z][a-z]+', inp)

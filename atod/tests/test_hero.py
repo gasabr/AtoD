@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 import unittest
 
+import pandas as pd
+
 from atod.models.hero import camel2python
 from atod import Hero
 
@@ -44,6 +46,24 @@ class TestHero(unittest.TestCase):
         self.assertRaises(
                 ValueError, 
                 self.sf_1.get_description, ['name', 'asd'])
+
+        self.assertIsInstance(
+                self.sf_1.get_description(['role', 'laning']),
+                pd.Series
+                )
+
+    def test_get_laning_out_type(self):
+        self.assertIsInstance(self.sf_1.get_laning(), pd.Series)
+
+    def test_get_role_out_type(self):
+        self.assertIsInstance(self.sf_1.get_role(), pd.Series)
+
+    def test_get_type_out_type(self):
+        self.assertIsInstance(self.sf_1.get_type(), pd.Series)
+
+    def test_get_attributes_out_type(self):
+        self.assertIsInstance(self.sf_1.get_attributes(), pd.Series)
+    # TODO: test that all the getters have consistent length of output
 
     def test_patches(self):
         ''' Tests that hero reads only data from needed patch.
