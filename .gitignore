@@ -8,5 +8,6 @@ dist/
 build/
 .idea/*
 *.swp
+*.pyc
 examples/discovery.ipynb
 examples/discovery.py
