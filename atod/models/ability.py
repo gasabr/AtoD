@@ -128,10 +128,10 @@ class Ability(Member):
                 # create MultiIndexed part of description
                 index_list   = [[field] * part.shape[0], list(part.index)]
                 index_tuples = list(zip(*index_list))
-                print(index_tuples)
-                index = pd.MultiIndex.from_tuples(index_tuples, 
-                                                  names=['category', 'vars'])
-                part_series = pd.Series(part.values, index=index)
+
+                part_series = pd.Series(
+                        {a: part[a[1]] for a in index_tuples},
+                        )
 
                 if description.empty:
                     description = part_series

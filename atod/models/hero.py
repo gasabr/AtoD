@@ -159,14 +159,8 @@ class Hero(Member):
                         ]
 
                 index_tuples = list(zip(*index_arrays))
-                index = pd.MultiIndex.from_tuples(
-                            index_tuples,
-                            names=['category', 'var']
-                            )
 
-                part_series = pd.Series(
-                        [int(s) for s in part.values], 
-                        index=index)
+                part_series = pd.Series({a: part[a[1]] for a in index_tuples})
 
                 if description.empty:
                     description = part_series
