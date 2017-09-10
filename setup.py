@@ -7,7 +7,7 @@ def read(fname):
 
 setup(
     name = "AtoD",
-    version = "0.1.0",
+    version = "0.1.2",
     author = "Abroskin Gleb",
     author_email = "abroskingleb@gmail.com",
     description = ("Easy access to DotA2 internal data."),
@@ -26,10 +26,8 @@ setup(
     install_requires=[
         "dota2api",
         "pandas",
-        "sklearn",
         "SQLAlchemy",
         "yamjam",
-        "scipy",
     ],
     include_package_data=True,
 )

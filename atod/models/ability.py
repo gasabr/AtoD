@@ -96,7 +96,6 @@ class Ability(Member):
         ''' Combines specs and labels in one description.
 
         Possible values in `include` list:
-            * labels
             * specs
             * texts
             * name
@@ -113,9 +112,7 @@ class Ability(Member):
         descriptions = list()
 
         for field in include:
-            if field == 'labels':
-                descriptions.append(self._get_labels())
-            elif field == 'specs':
+            if field == 'specs':
                 descriptions.append(self._get_specs())
             elif field == 'texts':
                 descriptions.append(self._get_texts())

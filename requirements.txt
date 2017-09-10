@@ -2,4 +2,3 @@ YamJam
 dota2api
 sqlalchemy
 pandas
-scipy
