@@ -109,25 +109,39 @@ class Ability(Member):
 
         '''
 
-        descriptions = list()
+        description = pd.Series()
 
         for field in include:
             if field == 'specs':
-                descriptions.append(self._get_specs())
+                part = self.get_specs()
             elif field == 'texts':
-                descriptions.append(self._get_texts())
+                part = self.get_texts()
             elif field == 'name':
-                descriptions.append(pd.Series([self.name]))
+                part = pd.Series([self.name])
             elif field == 'id':
-                descriptions.append(pd.Series([self.id]))
+                part = pd.Series([self.id])
             else:
                 raise ValueError('{}'.format(field)
                        + ' is invalid value in `include` parameter.')
 
-        # merge all descriptions
-        series = pd.concat(descriptions, axis=0)
+            if field != 'name' and field != 'id':
+                # create MultiIndexed part of description
+                index_list   = [[field] * part.shape[0], list(part.index)]
+                index_tuples = list(zip(*index_list))
+                print(index_tuples)
+                index = pd.MultiIndex.from_tuples(index_tuples, 
+                                                  names=['category', 'vars'])
+                part_series = pd.Series(part.values, index=index)
 
-        return series
+                if description.empty:
+                    description = part_series
+                else:
+                    description = description.append(part_series)
+
+            else:
+                description[field] = getattr(self, field)
+
+        return description
 
     def _get_labels(self):
         ''' Returns labels of ability. '''
@@ -140,7 +154,7 @@ class Ability(Member):
 
         return labels
 
-    def _get_specs(self):
+    def get_specs(self):
         ''' Returns specs of this ability.
 
         Results:
@@ -179,7 +193,7 @@ class Ability(Member):
 
         return specs
 
-    def _get_texts(self):
+    def get_texts(self):
         ''' Gets all the records in abilities_texts table for this ability.
 
             Returns:
@@ -198,3 +212,4 @@ class Ability(Member):
             result = result.drop(['_sa_instance_state'])
 
             return result
+

@@ -20000,5 +20000,16 @@
       26
     ],
     "AbilityBehavior": "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
-  }
+    },
+    "sand_king_caustic_finale": {
+        "ID": 5104,
+    },
+    "sand_king_epicenter": {
+        "ID": 5105,
+    },
+    "sand_king_burrowstrike": {
+        "ID": 5102,
+    },"sand_king_sand_storm": {
+        "ID": 5103,
+    }
 }

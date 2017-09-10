@@ -32,6 +32,8 @@ def _find_skills(raw_abilities):
 
     heroes_names = [c for c in converter.keys()
                     if re.findall(r'[a-zA-Z|\_]+', c)]
+    heroes_names += 'sandking'
+
     stop_words = ['special_bonus', 'hidden', 'empty', 'scepter',
                   'stop', 'self', 'cancel', 'throw', 'return', 'release',
                   'brake', 'end']
@@ -61,7 +63,11 @@ def _find_skills(raw_abilities):
 
     skills = {}
     for ability in skills_list:
-        skills[ability] = raw_abilities['DOTAAbilities'][ability]
+        if 'sandking' in ability:
+            sk_ability = ability.replace('sandking', 'sand_king')
+            skills[sk_ability] = raw_abilities['DOTAAbilities'][ability]
+        else:
+            skills[ability] = raw_abilities['DOTAAbilities'][ability]
 
     return skills
 

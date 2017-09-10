@@ -173,10 +173,7 @@ class Hero(Member):
                 else:
                     description = description.append(part_series)
             else:
-                #  part_series = pd.Series({field: getattr(field, self)})
                 description[field] = getattr(self, field)
-
-            #  description = pd.concat([description, part_series])
 
         if len(description) == 0:
             raise ValueError('include argument should contain at least'

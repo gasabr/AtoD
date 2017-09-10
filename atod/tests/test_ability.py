@@ -19,6 +19,20 @@ class TestAbility(unittest.TestCase):
                 pd.Series
                 )
 
+    def test_get_texts_output_type(self):
+        t = Ability(5024)
+        self.assertIsInstance(
+                t.get_texts(),
+                pd.Series
+                )
+
+    def test_get_specs_output_type(self):
+        t = Ability(5024)
+        self.assertIsInstance(
+                t.get_specs(),
+                pd.Series
+                )
+
 
 if __name__ == '__main__':
     unittest.main()

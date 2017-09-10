@@ -40,22 +40,3 @@ class Abilities(Group):
 
         return cls(members_)
 
-    def get_description(self):
-        ''' Returns sum of abilities labels. 
-        
-        Function takes all the descriptions of abilities (by labels) and sums
-        them up field by field.
-
-        Results:
-            pd.Series: where value in every labels is sum between all the
-                abilities in object.
-        '''
-        # add all labels to one DataFrame
-        labels = pd.DataFrame([m.get_description(['labels'])
-                               for m in self.members])
-
-        # sum columns in the DataFrame
-        labels_summary = pd.Series([sum(labels[c])
-                                    for c in labels.columns])
-
-        return labels_summary
